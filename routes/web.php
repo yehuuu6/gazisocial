@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\HomePage;
 use App\Livewire\Pages\Auth\Login;
 use App\Livewire\Pages\Auth\Register;
+use App\Livewire\Pages\Posts\ShowPost;
 
 Route::get('/', HomePage::class)->name('home');
 
@@ -12,3 +13,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', Register::class)->name('register');
     Route::get('/login', Login::class)->name('login');
 });
+
+// Post routes
+
+Route::get('/posts/{post:slug}', ShowPost::class)->name('post.show');
