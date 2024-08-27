@@ -1,0 +1,65 @@
+<form wire:submit="register" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg">
+    @csrf
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="mb-4 flex gap-4">
+        <div>
+            <label class="block text-gray-700 text-sm font-normal mb-2" for="name">
+                Ad Soyad
+            </label>
+            <input
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name" type="text" name="name" value="{{ old('name') }}" required wire:model="name">
+        </div>
+        <div>
+            <label for="username" class="block text-gray-700 text-sm font-normal mb-2">
+                Kullanıcı Adı
+            </label>
+            <input
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" name="username" value="{{ old('username') }}" required
+                wire:model="username">
+        </div>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-normal mb-2" for="email">
+            E-posta
+        </label>
+        <input placeholder="ornek@gazi.edu.tr"
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email" type="email" name="email" value="{{ old('email') }}" required wire:model="email">
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
+            Şifre
+        </label>
+        <input
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password" type="password" name="password" required wire:model="password">
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
+            Şifreyi Onayla
+        </label>
+        <input
+            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password_confirmation" type="password" name="password_confirmation" required
+            wire:model="password_confirmation">
+    </div>
+
+
+    <div class="flex items-center justify-between flex-col gap-3">
+        <button wire:loading.class="animate-pulse"
+            class="bg-primary opacity-90 hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            type="submit">
+            Kayıt Ol
+        </button>
+    </div>
+</form>

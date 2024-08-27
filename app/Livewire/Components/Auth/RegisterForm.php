@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Livewire\Components\Auth;
+
+use Livewire\Component;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+class RegisterForm extends Component
+{
+    public $name;
+    public $username;
+    public $email;
+    public $password;
+    public $password_confirmation;
+
+    public function register()
+    {
+
+        $attributes = $this->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $attributes['avatar'] = 'https://ui-avatars.com/api/?name=' . $attributes['name'] . '&color=7F9CF5&background=random';
+
+        // Get email domain
+        $emailDomain = explode('@', $attributes['email'])[1];
+
+        // Check if email domain is gazi.edu.tr
+        if ($emailDomain === 'gazi.edu.tr') {
+            $attributes['is_gazi'] = true;
+        }
+
+        $user = User::create($attributes);
+
+        Auth::login($user);
+
+        session()->flash('status', 'Başarıyla kayıt oldunuz. E-posta adresinizi onaylamak için e-posta kutunuzu kontrol edin.');
+
+        return $this->redirect('/', navigate: true);
+    }
+
+    public function render()
+    {
+        return view('livewire.components.auth.register-form');
+    }
+}

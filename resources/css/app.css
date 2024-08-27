@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    body *{
+        @apply scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-gray-200;
+    }
+    .navbar{
+        @apply flex justify-between items-center p-4 bg-primary text-white w-full;
+    }
+}
