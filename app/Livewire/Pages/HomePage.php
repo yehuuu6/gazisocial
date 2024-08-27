@@ -4,7 +4,6 @@ namespace App\Livewire\Pages;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 class HomePage extends Component
@@ -20,7 +19,7 @@ class HomePage extends Component
     public function render()
     {
         return view('livewire.pages.home-page', [
-            'posts' => PostResource::collection(Post::with('user')->latest()->simplePaginate(10))
+            'posts' => Post::with('user')->latest()->simplePaginate(10)
         ]);
     }
 }
