@@ -7,8 +7,8 @@
         <div class="absolute overflow-y-auto h-full w-full">
             <livewire:components.post.details :$post />
             <x-seperator />
-            <h3 class="p-4 text-xl font-bold">Yorumlar</h3>
-            <ul wire:loading class="pb-5  w-full">
+            <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
+            <ul wire:loading class="pb-5 w-full">
                 @for ($i = 0; $i < 10; $i++)
                     <x-posts.placeholder />
                 @endfor
@@ -24,6 +24,15 @@
         </div>
     </div>
     <div>
-        {{ $comments->links(data: ['scrollTo' => false]) }}
+        {{ $comments->links() }}
     </div>
 </div>
+@script
+    <script>
+        Livewire.on('scroll-to-header', function() {
+            document.getElementById('comment-header').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+@endscript
