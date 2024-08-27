@@ -3,10 +3,7 @@
         <img src="{{ asset('gazi-logo.png') }}" alt="logo" class="w-14 h-14">
         <x-link href="/" class="text-xl font-bold hover:no-underline">Gazi Social</x-link>
     </div>
-    <div class="flex-1 flex gap-2 relative">
-        <input type="text" class="p-2 w-full text-black rounded-full border border-gray-300 focus:outline-none"
-            placeholder="Bir konu ara..." wire:model.live="search">
-    </div>
+    <livewire:components.search-bar />
     </ul>
     <ul class="flex flex-1 space-x-4 items-center justify-end font-medium">
         @guest
