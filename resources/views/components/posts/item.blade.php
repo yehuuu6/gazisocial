@@ -15,7 +15,7 @@
             <x-link title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
                 <img class="h-8 w-8 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
-            <x-link href="/post/{{ $slug }}"
+            <x-link href="/posts/{{ $slug }}"
                 class="text-lg font-medium text-blue-800">{{ $post->title }}</x-link>
         </div>
         <span class="text-gray-500">{{ $time }}</span>
