@@ -20,4 +20,21 @@
                 Yapın</x-link>
         </p>
     </div>
+    <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
+        <li>
+            <x-link href="/" class="text-gray-700">Terms</x-link>
+        </li>
+        <li>
+            <x-link href="/" class="text-gray-700">Privacy</x-link>
+        </li>
+        <li>
+            <x-link href="/" class="text-gray-700">Cookies</x-link>
+        </li>
+        <li>
+            <x-link href="/" class="text-gray-700">Help</x-link>
+        </li>
+        <li>
+            <x-link href="/" class="text-gray-700">© 2024 Gazi Social</x-link>
+        </li>
+    </ul>
 </div>
