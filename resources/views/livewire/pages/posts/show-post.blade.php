@@ -1,4 +1,4 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
+<div class="bg-white relative shadow-md rounded-xl flex flex-col overflow-hidden">
     <x-header-title>
         Konu Detayları
     </x-header-title>
@@ -23,9 +23,8 @@
             </ul>
         </div>
     </div>
-    <div>
-        {{ $comments->links() }}
-    </div>
+    {{ $comments->links() }}
+    <livewire:components.post.create-comment />
 </div>
 @script
     <script>
