@@ -6,7 +6,8 @@
     <div class="w-full max-w-md">
         <div class="bg-white border border-gray-200 p-6 mb-4 rounded-lg">
             <p class="text-gray-600 text-sm text-center">
-                Onaylı hesap sahibi olmak için <strong>@gazi.edu.tr</strong> uzantılı bir e-posta adresi
+                Onaylı hesap sahibi olmak için <strong class="text-gray-700">@gazi.edu.tr</strong> uzantılı bir e-posta
+                adresi
                 kullanılmalıdır.<br>
                 <a href="https://gazi.edu.tr/view/announcement/303951/e-posta-talep-sistemi"
                     class="text-blue-600 hover:underline" target="_blank">Daha fazla bilgi almak için tıklayın.</a>

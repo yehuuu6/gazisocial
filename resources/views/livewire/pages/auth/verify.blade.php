@@ -35,4 +35,12 @@
             </p>
         </div>
     </div>
+    <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
+        <li>
+            <button wire:click="logout" class="text-gray-700">Çıkış Yap</button>
+        </li>
+        <li>
+            <x-link href="/" class="text-gray-700">© 2024 Gazi Social</x-link>
+        </li>
+    </ul>
 </div>
