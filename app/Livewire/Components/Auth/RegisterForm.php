@@ -41,7 +41,7 @@ class RegisterForm extends Component
 
         event(new Registered($user));
 
-        return $this->redirect('/', navigate: true);
+        return $this->redirect('/email/verify', navigate: true);
     }
 
     public function render()
