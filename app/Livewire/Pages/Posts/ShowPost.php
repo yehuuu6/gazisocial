@@ -14,7 +14,7 @@ class ShowPost extends Component
 
     public Post $post;
 
-    public function updatingPage($page)
+    public function updatingPage()
     {
         $this->dispatch('scroll-to-header');
     }
@@ -25,7 +25,9 @@ class ShowPost extends Component
 
     public function render()
     {
+        $title = $this->post->title . ' - ' . config('app.name');
         $comments = $this->post->comments()->with('user')->latest()->simplePaginate(10);
-        return view('livewire.pages.posts.show-post', compact('comments'));
+        return view('livewire.pages.posts.show-post', compact('comments'))
+        ->title($title);
     }
 }
