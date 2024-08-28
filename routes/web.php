@@ -23,7 +23,7 @@ Route::post('/email/verification-notification', [Verify::class, 'sendVerifyMail'
 
 // Auth routes END
 
-Route::get('/', HomePage::class)->name('home')->middleware(['auth', 'verified']);
+Route::get('/', HomePage::class)->name('home');
 
 // Post routes START
 
