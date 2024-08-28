@@ -4,7 +4,9 @@ namespace App\Livewire\Pages\Auth;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+#[Title('Kayıt Ol')]
 class Register extends Component
 {
     #[Layout('layout.auth')]
