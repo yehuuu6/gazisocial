@@ -34,7 +34,8 @@
         </label>
         <input placeholder="ornek@gazi.edu.tr"
             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email" type="email" name="email" value="{{ old('email') }}" required wire:model="email">
+            id="email" type="email" name="email" value="{{ old('email') }}" wire:model="email"
+            autocomplete="mail" required>
     </div>
     <div class="mb-4">
         <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
