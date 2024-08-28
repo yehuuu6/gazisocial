@@ -5,6 +5,7 @@ namespace App\Livewire\Components\Auth;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterForm extends Component
 {
@@ -38,7 +39,7 @@ class RegisterForm extends Component
 
         Auth::login($user);
 
-        session()->flash('status', 'Başarıyla kayıt oldunuz. E-posta adresinizi onaylamak için e-posta kutunuzu kontrol edin.');
+        event(new Registered($user));
 
         return $this->redirect('/', navigate: true);
     }
