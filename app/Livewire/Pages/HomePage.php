@@ -11,6 +11,11 @@ class HomePage extends Component
 
     use WithPagination;
 
+    public function updatingPage()
+    {
+        $this->dispatch('scroll-to-top');
+    }
+
     public function paginationSimpleView()
     {
         return 'livewire.pagination.simple';
