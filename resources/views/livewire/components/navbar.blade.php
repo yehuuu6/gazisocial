@@ -12,7 +12,7 @@
                     class="w-12 h-12 rounded-full">
                 <div class="flex flex-col gap-0 text-right">
                     <h4 class="text-sm font-bold">Misafir</h4>
-                    <x-link href="/login" class="text-sm font-normal">Giriş Yap</x-link>
+                    <a href="/login" class="text-sm font-normal hover:underline">Giriş Yap</a>
                 </div>
             </div>
         @endguest
@@ -21,8 +21,9 @@
                 <img src="{{ Auth::user()->avatar }}" alt="avatar" class="w-12 h-12 rounded-full">
                 <div class="flex flex-col gap-0 text-right">
                     <h4 class="text-sm font-bold">{{ Auth::user()->name }}</h4>
-                    <form id="logout" wire:submit="destroy">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
+                        @method('DELETE')
                         <button type="submit" class="text-sm font-normal hover:text-red-500">Çıkış Yap</button>
                     </form>
                 </div>

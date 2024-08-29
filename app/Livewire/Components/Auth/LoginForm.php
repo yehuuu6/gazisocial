@@ -12,6 +12,12 @@ class LoginForm extends Component
     public $email;
     public $password;
 
+    public function logout(){
+        Auth::logout();
+
+        return redirect(route('home'));
+    }
+
     public function login()
     {
         $attributes = $this->validate([
@@ -27,7 +33,7 @@ class LoginForm extends Component
 
         request()->session()->regenerate();
 
-        return $this->redirect('/', navigate: true);
+        return redirect(route('home'));
     }
 
     public function render()

@@ -37,10 +37,14 @@
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
         <li>
-            <button wire:click="logout" class="text-gray-700">Çıkış Yap</button>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-gray-700 hover:underline">Çıkış Yap</button>
+            </form>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">© 2024 Gazi Social</x-link>
+            <a href="/" class="text-gray-700 hover:underline">© 2024 Gazi Social</a>
         </li>
     </ul>
 </div>

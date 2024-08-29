@@ -1,35 +1,36 @@
 <div class="flex items-center flex-col mt-6">
     <div class="flex items-center justify-center flex-col gap-5">
-        <a href="/" wire:navigate><img src="{{ asset('gazi-logo.png') }}" alt="" class="w-14 h-14"></a>
+        <a href="/"><img src="{{ asset('gazi-logo.png') }}" alt="" class="w-14 h-14"></a>
         <h3 class="text-center mb-5 text-2xl font-light">Gazi Social'a Giriş Yap</h3>
     </div>
     <livewire:components.auth.login-form />
     <div class="text-center">
         <p class="text-gray-600 text-sm">Hesabınız yok mu?
-            <x-link href="/register" class="inline-block align-baseline font-normal text-sm text-blue-600">Kayıt
-                Olun</x-link>
+            <a href="/register"
+                class="inline-block align-baseline font-normal text-sm text-blue-600 hover:underline">Kayıt
+                Olun</a>
         </p>
         <p class="text-gray-600 text-sm mt-2">Şifrenizi mi unuttunuz?
-            <x-link href="/forgot-password"
-                class="inline-block align-baseline font-normal text-sm text-blue-600">Şifremi
-                Sıfırla</x-link>
+            <a href="/forgot-password"
+                class="inline-block align-baseline font-normal text-sm text-blue-600 hover:underline">Şifremi
+                Sıfırla</a>
         </p>
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
         <li>
-            <x-link href="/" class="text-gray-700">Terms</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Terms</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Privacy</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Privacy</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Cookies</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Cookies</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Help</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Help</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">© 2024 Gazi Social</x-link>
+            <a href="/" class="text-gray-700 hover:underline">© 2024 Gazi Social</a>
         </li>
     </ul>
 </div>

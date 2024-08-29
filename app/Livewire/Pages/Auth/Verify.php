@@ -22,15 +22,10 @@ class Verify extends Component
         $this->returnHomeIfVerified();
     }
 
-    public function logout(){
-        Auth::logout();
-        return $this->redirect('/login', navigate: true);
-    }
-
     public function verifyUser(EmailVerificationRequest $request){
         $request->fulfill();
 
-        return redirect()->route('home');
+        return redirect(route('home'));
     }
 
     public function sendVerifyMail(Request $request)
@@ -45,7 +40,7 @@ class Verify extends Component
         $this->user = Auth::user();
         // If user is verified, redirect to home page
         if ($this->user->hasVerifiedEmail()) {
-            return redirect()->route('home');
+            return redirect(route('home'));
         }
     }
 

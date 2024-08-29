@@ -1,6 +1,6 @@
 <div class="flex items-center flex-col mt-6">
     <div class="flex items-center justify-center flex-col gap-5">
-        <a href="/" wire:navigate><img src="{{ asset('gazi-logo.png') }}" class="w-14 h-14"></a>
+        <a href="/"><img src="{{ asset('gazi-logo.png') }}" class="w-14 h-14"></a>
         <h3 class="text-center mb-6 text-2xl font-light">Gazi Social'a Katıl</h3>
     </div>
     <div class="w-full max-w-md">
@@ -17,25 +17,26 @@
     </div>
     <div class="text-center">
         <p class="text-gray-600 text-sm">Zaten bir hesabınız var mı?
-            <x-link href="/login" class="inline-block align-baseline font-normal text-sm text-blue-600">Giriş
-                Yapın</x-link>
+            <a href="/login"
+                class="inline-block align-baseline font-normal text-sm text-blue-600 hover:underline">Giriş
+                Yapın</a>
         </p>
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
         <li>
-            <x-link href="/" class="text-gray-700">Terms</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Terms</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Privacy</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Privacy</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Cookies</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Cookies</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">Help</x-link>
+            <a href="/" class="text-gray-700 hover:underline">Help</a>
         </li>
         <li>
-            <x-link href="/" class="text-gray-700">© 2024 Gazi Social</x-link>
+            <a href="/" class="text-gray-700 hover:underline">© 2024 Gazi Social</a>
         </li>
     </ul>
 </div>
