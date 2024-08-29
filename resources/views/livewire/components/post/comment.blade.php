@@ -11,7 +11,7 @@
             <p class="text-sm text-gray-500">
                 {{ $time }}</p>
         </div>
-        <p class="text-gray-600">{{ $comment->content }}</p>
+        <p class="text-gray-600 break-words">{{ $comment->content }}</p>
         <div class="post-icon flex">
             <x-icons.comment />
             <x-icons.heart />
