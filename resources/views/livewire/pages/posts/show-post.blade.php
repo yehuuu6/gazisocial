@@ -1,11 +1,11 @@
-<div class="bg-white relative shadow-md rounded-xl flex flex-col overflow-hidden">
+<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
     <x-header-title>
         Konu Detayları
     </x-header-title>
     <x-seperator />
     <div class="relative h-full">
         <div class="absolute overflow-y-auto h-full w-full">
-            <livewire:components.post.details :$post />
+            <livewire:components.post.details :$post :key="$post->id" />
             <x-seperator />
             <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
             <ul wire:loading class="pb-5 w-full">
@@ -24,11 +24,10 @@
         </div>
     </div>
     {{ $comments->links() }}
-    <livewire:components.post.create-comment />
 </div>
 @script
     <script>
-        Livewire.on('scroll-to-header', function() {
+        $wire.on('scroll-to-header', function() {
             document.getElementById('comment-header').scrollIntoView({
                 behavior: 'smooth'
             });
