@@ -16,16 +16,8 @@
         @apply w-4 h-4;
     }
 
-    .user-activity {
-        @apply border-b border-gray-300 bg-gray-50;
-    }
-
     .bottom-header{
         @apply flex justify-between items-center p-4 bg-primary text-white;
-    }
-
-    .user-activity:last-child {
-        @apply border-b-0;
     }
 
 }
