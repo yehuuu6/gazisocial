@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals;
 
 use LivewireUI\Modal\ModalComponent;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,9 @@ use Livewire\Attributes\Validate;
 
 class CommentModal extends ModalComponent
 {
+
+    use LivewireAlert;
+
     public Post $post;
 
     #[Validate('required|min:1|max:500|string')]
@@ -31,7 +35,11 @@ class CommentModal extends ModalComponent
 
         $this->content = '';
 
-        session()->flash('message', 'Yorumunuz başarıyla eklendi.'); // Doesn't work WHY?
+        $this->alert('success', 'Comment created.', [
+            'customClass' => [
+                'title' => 'bg-blue-500', // This class does work but other stlyes won't work.
+            ]
+        ]);
 
         $this->closeModal();
         $this->dispatch('comment-created');
