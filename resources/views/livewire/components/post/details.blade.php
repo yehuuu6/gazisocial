@@ -15,7 +15,17 @@
             {{ $post->content }}
         </article>
         <div class="post-icon flex">
-            <x-icons.comment />
+            @auth
+                <button
+                    wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post->id }} }})">
+                    <x-icons.comment />
+                </button>
+            @endauth
+            @guest
+                <a href="{{ route('login') }}">
+                    <x-icons.comment />
+                </a>
+            @endguest
             <x-icons.heart />
             <x-icons.share />
         </div>
