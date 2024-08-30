@@ -6,9 +6,9 @@
                 <x-link href="/u/{{ $post->user->username }}" class="font-medium">
                     {{ $post->user->name }}
                 </x-link>
-                <p class="text-sm text-gray-500">{{ $username }}</p>
+                <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
             </div>
-            <p class="text-sm text-gray-500">{{ $time }}</p>
+            <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
         </div>
         <h1 class="font-medium text-gray-900 text-2xl">{{ $post->title }}</h1>
         <article class="text-gray-600" wire:loading.class="animate-pulse">

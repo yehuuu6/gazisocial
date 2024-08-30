@@ -1,4 +1,4 @@
-<div class="flex items-center flex-col mt-6">
+<div class="flex items-center flex-col mt-6 p-6">
     <div class="flex items-center justify-center flex-col gap-5">
         <a href="/"><img src="{{ asset('gazi-logo.png') }}" class="w-14 h-14"></a>
         <h3 class="text-center mb-6 text-2xl font-light">Gazi Social'a Katıl</h3>
@@ -24,13 +24,7 @@
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
         <li>
-            <a href="/" class="text-gray-700 hover:underline">Terms</a>
-        </li>
-        <li>
-            <a href="/" class="text-gray-700 hover:underline">Privacy</a>
-        </li>
-        <li>
-            <a href="/" class="text-gray-700 hover:underline">Cookies</a>
+            <a href="/" class="text-gray-700 hover:underline">Terms & Privacy</a>
         </li>
         <li>
             <a href="/" class="text-gray-700 hover:underline">Help</a>

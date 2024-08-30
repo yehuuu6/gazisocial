@@ -1,4 +1,4 @@
-<div class="flex items-center flex-col mt-6">
+<div class="flex items-center flex-col mt-6 p-6">
     <div class="flex items-center justify-center flex-col gap-5">
         <a href="/"><img src="{{ asset('gazi-logo.png') }}" alt="" class="w-14 h-14"></a>
         <h3 class="text-center mb-5 text-2xl font-light">Gazi Social'a Giriş Yap</h3>

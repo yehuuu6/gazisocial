@@ -6,10 +6,10 @@
                 <x-link href="/u/{{ $comment->user->username }}" class="font-medium">
                     {{ $comment->user->name }}
                 </x-link>
-                <p class="text-sm text-gray-500">{{ $username }}</p>
+                <p class="text-sm text-gray-500">{{ '@' . $comment->user->username }}</p>
             </div>
             <p class="text-sm text-gray-500">
-                {{ $time }}</p>
+                {{ $comment->created_at->diffForHumans() }}
         </div>
         <p class="text-gray-600 break-words">{{ $comment->content }}</p>
         <div class="post-icon flex">
