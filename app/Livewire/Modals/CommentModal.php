@@ -16,7 +16,10 @@ class CommentModal extends ModalComponent
 
     public Post $post;
 
-    #[Validate('required|min:1|max:500|string')]
+    #[Validate('required', message: 'Yorum içeriği boş olamaz.')]
+    #[Validate('min:3', message: 'Yorum içeriği en az 3 karakter olmalıdır.')]
+    #[Validate('max:1000', message: 'Yorum içeriği en fazla 1000 karakter olabilir.')]
+    #[Validate('string', message: 'Yorum içeriği metin olmalıdır.')]
     public string $content;
 
     public function createComment()
@@ -35,11 +38,7 @@ class CommentModal extends ModalComponent
 
         $this->content = '';
 
-        $this->alert('success', 'Comment created.', [
-            'customClass' => [
-                'title' => 'bg-blue-500', // This class does work but other stlyes won't work.
-            ]
-        ]);
+        $this->alert('success', 'Yorum eklendi.');
 
         $this->closeModal();
         $this->dispatch('comment-created');
