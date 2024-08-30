@@ -9,10 +9,14 @@ use Livewire\Attributes\Title;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 #[Title('E-posta Adresinizi Doğrulayın')]
 class Verify extends Component
 {
+
+    use LivewireAlert;
+
     #[Layout('layout.auth')]
 
     protected User $user;
@@ -32,7 +36,9 @@ class Verify extends Component
     {
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('status', 'verification-link-sent');
+        $this->alert('success', 'Doğrulama e-postası gönderildi.');
+
+        return back();
     }
 
     protected function returnHomeIfVerified()
