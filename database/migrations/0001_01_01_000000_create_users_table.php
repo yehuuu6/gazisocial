@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username')->unique();
+            $table->text('bio')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('is_gazi')->default(false);
             $table->string('email')->unique();
