@@ -57,9 +57,10 @@
 
 
     <div class="flex items-center justify-between flex-col gap-3">
-        <button wire:loading.class="animate-pulse"
-            class="bg-primary opacity-90 hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+        <button
+            class="bg-primary flex items-center justify-center gap-1 opacity-90 h-[40px] hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             type="submit">
+            <x-icons.spinner wire:loading class="size-7" />
             Kayıt Ol
         </button>
     </div>
