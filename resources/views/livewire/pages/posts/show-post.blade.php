@@ -4,7 +4,7 @@
     </x-header-title>
     <x-seperator />
     <div class="relative h-full">
-        <div class="absolute overflow-y-auto h-full w-full">
+        <div class="absolute overflow-y-auto overflow-x-hidden h-full w-full">
             <livewire:components.post.details :$post :key="$post->id" />
             <x-seperator />
             <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
