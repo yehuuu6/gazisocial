@@ -12,12 +12,12 @@
             </ul>
         </div>
     @endif
-    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="500"
-        placeholder="Düşüncelerinizi paylaşın..." rows="4" class="w-full outline-none resize-none py-4 px-6"></textarea>
+    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="1000"
+        placeholder="Düşüncelerinizi paylaşın..." rows="8" class="w-full outline-none resize-none py-4 px-6"></textarea>
     <x-seperator />
     <div class="bg-gray-50 p-6 flex items-center justify-between">
         <span id="character-counter" class="text-sm text-gray-500">
-            0/500 karakter
+            0/1000 karakter
         </span>
         <div class="flex items-center gap-2 flex-row-reverse">
             <button type="submit"
@@ -36,11 +36,11 @@
             const commentArea = document.getElementById('comment-area');
             const commentLength = commentArea.value.length;
             const commentLengthElement = document.querySelector('#character-counter');
-            commentLengthElement.textContent = `${commentLength}/500 karakter`;
-            if (commentLength >= 500) {
+            commentLengthElement.textContent = `${commentLength}/1000 karakter`;
+            if (commentLength >= 1000) {
                 commentLengthElement.classList.add('text-red-500');
                 commentLengthElement.classList.remove('text-yellow-500', 'text-gray-500');
-            } else if (commentLength >= 400) {
+            } else if (commentLength >= 750) {
                 commentLengthElement.classList.add('text-yellow-500');
                 commentLengthElement.classList.remove('text-red-500', 'text-gray-500');
             } else {
