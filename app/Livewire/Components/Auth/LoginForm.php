@@ -15,7 +15,7 @@ class LoginForm extends Component
     public function logout(){
         Auth::logout();
 
-        return redirect(route('home'));
+        return redirect(route('login'));
     }
 
     public function login()
