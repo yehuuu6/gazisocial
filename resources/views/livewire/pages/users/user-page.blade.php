@@ -18,10 +18,10 @@
                             <div class="space-x-1">
                                 <span class="text-gray-500 text-sm">{{ '@' . $user->username }}</span>
                                 <span
-                                    class="py-2 px-4 bg-red-700 text-white font-medium rounded-full text-xs">Yönetici</span>
+                                    class="py-1 px-2 bg-red-700 text-white font-medium rounded-full text-xs">Yönetici</span>
                                 @if ($user->is_gazi)
                                     <span
-                                        class="py-2 px-4 bg-blue-700 text-white font-medium rounded-full text-xs">Gazili</span>
+                                        class="py-1 px-2 bg-blue-700 text-white font-medium rounded-full text-xs">Gazili</span>
                                 @endif
                             </div>
                         </div>
