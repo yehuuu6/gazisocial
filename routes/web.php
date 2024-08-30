@@ -7,6 +7,7 @@ use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\Verify;
 use App\Livewire\Pages\Posts\ShowPost;
 use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Users\UserPage;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -33,3 +34,9 @@ Route::get('/', HomePage::class)->name('home');
 Route::get('/posts/{post:slug}', ShowPost::class)->name('post.show');
 
 // Post Routes END
+
+// User routes START
+
+Route::get('/u/{user:username}', UserPage::class)->name('user.show');
+
+// User routes END
