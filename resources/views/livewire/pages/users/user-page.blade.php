@@ -1,3 +1,7 @@
+@php
+    $bio = $user->bio ?? 'Herhangi bir bilgi verilmemiş.';
+@endphp
+
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
     <x-header-title>
         Kullanıcı Profili
@@ -23,7 +27,7 @@
                         </div>
                         <x-icons.settings />
                     </div>
-                    <p class="text-gray-500">{{ $user->bio }}</p>
+                    <p class="text-gray-500">{{ $bio }}</p>
                     <div class="flex gap-3 items-center">
                         <div class="flex gap-1 items-center">
                             <x-icons.calender />
