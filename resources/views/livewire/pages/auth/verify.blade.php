@@ -1,7 +1,7 @@
 <div class="flex items-center flex-col mt-6 p-6">
     <div class="flex items-center justify-center flex-col gap-5">
         <a href="/"><img src="{{ asset('gazi-logo.png') }}" alt="" class="w-14 h-14"></a>
-        <h3 class="text-center mb-5 text-2xl font-light">Gazi Social'a Giriş Yap</h3>
+        <h3 class="text-center mb-5 text-2xl font-light">Gazi Social E-posta Doğrulama</h3>
     </div>
     <div class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
         <div class="flex flex-col gap-2 text-center">
