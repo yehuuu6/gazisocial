@@ -19,7 +19,7 @@
     ];
 @endphp
 
-<body class="antialiased h-screen flex flex-col bg-gray-50 overflow-hidden">
+<body class="antialiased h-screen flex flex-col bg-gray-100 overflow-hidden">
     <livewire:components.navbar />
     <main class="flex-1">
         <div class="h-full grid grid-cols-[320px_1fr] gap-6 p-6">
