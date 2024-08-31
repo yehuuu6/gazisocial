@@ -29,9 +29,11 @@
                 <ul class="flex flex-col gap-1 p-4">
                     @foreach ($categories as $category)
                         <li>
-                            <a class="flex items-center text-lg gap-2 hover:bg-[#E5E7EB]/50 px-2 py-1 rounded-md font-normal"
-                                href="/categories/{{ $category->slug }}"
-                                wire:navigate><x-icons.folder />{{ $category->name }}</a>
+                            <x-link
+                                class="flex items-center text-lg hover:no-underline gap-2 hover:bg-[#E5E7EB]/50 px-2 py-1 rounded-md font-normal"
+                                href="/categories/{{ $category->slug }}">
+                                <x-icons.folder size="20" />{{ $category->name }}
+                            </x-link>
                         </li>
                     @endforeach
                 </ul>
