@@ -4,7 +4,7 @@
     </x-header-title>
     <x-seperator />
     <x-scrollable-wrapper class="h-full">
-        <livewire:components.post.details :$post :key="$post->id" />
+        <livewire:components.post.details :$post />
         <x-seperator />
         <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
         <ul wire:loading class="pb-5 w-full">
