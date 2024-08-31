@@ -1,59 +1,61 @@
-@php
-    $bio = $user->bio ?? 'Herhangi bir bilgi verilmemiş.';
-@endphp
-
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
     <x-header-title>
         Kullanıcı Profili
     </x-header-title>
     <x-seperator />
-    <div class="relative h-full">
-        <div class="absolute overflow-y-auto overflow-x-hidden h-full w-full">
-            <div class="flex gap-3 p-4">
-                <img class="rounded-full size-14" src="{{ asset($user->avatar) }}" alt="profile picture">
-                <div class="flex flex-col gap-3 flex-1">
-                    <div class="flex items-center justify-between">
-                        <div class="flex gap-2 items-end">
-                            <h1 class="text-xl font-bold">{{ $user->name }}</h1>
-                            <div class="space-x-1">
-                                <span class="text-gray-500 text-sm">{{ '@' . $user->username }}</span>
-                                <span
-                                    class="py-1 px-2 bg-red-700 text-white font-medium rounded-full text-xs">Yönetici</span>
-                                @if ($user->is_gazi)
-                                    <span
-                                        class="py-1 px-2 bg-blue-700 text-white font-medium rounded-full text-xs">Gazili</span>
-                                @endif
-                            </div>
-                        </div>
-                        <x-icons.settings />
-                    </div>
-                    <p class="text-gray-500">{{ $bio }}</p>
-                    <div class="flex gap-3 items-center">
-                        <div class="flex gap-1 items-center">
-                            <x-icons.calender />
-                            <span class="text-gray-500">{{ $user->created_at->translatedFormat('F Y') }}
-                                tarihinden beri</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <x-icons.trophy /><span class="text-gray-500">Seviye 10</span>
-                        </div>
-
-                        <div class="flex items-center gap-1">
-                            <x-icons.post />
-                            <span class="text-gray-500">{{ $user->posts->count() }} Gönderi</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <x-icons.comment-count />
-                            <span class="text-gray-500">{{ $user->comments->count() }} Yorum</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <x-seperator />
-            <h3 id="comment-header" class="p-4 text-xl font-bold">Son Aktiviteler</h3>
-            <ul wire:loading.remove class="flex flex-1 flex-col gap-1 pb-5">
-                <li class="p-4 text-gray-500">Henüz aktivite yok!</li>
-            </ul>
-        </div>
+    <livewire:components.user.details :$user />
+    <div class="flex">
+        <button wire:click='$dispatch("showUserPosts")' id="user-posts"
+            class="active-profile-tab flex-1 py-2 text-center font-medium border-b-2">Gönderiler</button>
+        <button wire:click='$dispatch("showUserComments")' id="user-comments"
+            class="flex-1 py-2 text-center font-medium border-b-2">Yorumlar</button>
+        <button wire:click='$dispatch("showUserLikes")' id="user-likes"
+            class="flex-1 py-2 text-center font-medium border-b-2">Beğeniler</button>
     </div>
+    <x-seperator />
+    <livewire:pages.users.user-sub-page :$user />
 </div>
+
+@script
+    <script>
+        let userPosts = document.getElementById('user-posts');
+        let userComments = document.getElementById('user-comments');
+        let userLikes = document.getElementById('user-likes');
+
+        function removeActiveClass() {
+            userPosts.classList.remove('active-profile-tab');
+            userComments.classList.remove('active-profile-tab');
+            userLikes.classList.remove('active-profile-tab');
+        }
+
+        function removeProfileTabClass() {
+            userPosts.classList.remove('profile-tab');
+            userComments.classList.remove('profile-tab');
+            userLikes.classList.remove('profile-tab');
+        }
+
+        Livewire.on('showUserPosts', () => {
+            removeActiveClass();
+            removeProfileTabClass();
+            userPosts.classList.add('active-profile-tab');
+            userComments.classList.add('profile-tab');
+            userLikes.classList.add('profile-tab');
+        });
+
+        Livewire.on('showUserComments', () => {
+            removeActiveClass();
+            removeProfileTabClass();
+            userComments.classList.add('active-profile-tab');
+            userPosts.classList.add('profile-tab');
+            userLikes.classList.add('profile-tab');
+        });
+
+        Livewire.on('showUserLikes', () => {
+            removeActiveClass();
+            removeProfileTabClass();
+            userLikes.classList.add('active-profile-tab');
+            userPosts.classList.add('profile-tab');
+            userComments.classList.add('profile-tab');
+        });
+    </script>
+@endscript
