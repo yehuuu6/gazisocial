@@ -22,7 +22,6 @@
 @script
     <script>
         $wire.on('scroll-to-top', function() {
-            console.log('scroll-to-top');
             const postIndexer = document.getElementById('post-index');
             postIndexer.scroll({
                 top: 0,
