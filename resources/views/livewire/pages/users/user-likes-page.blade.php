@@ -6,9 +6,7 @@
     </div>
     <x-scrollable-wrapper class="flex-grow">
         <div wire:loading.remove>
-            <li>
-                <p class="text-gray-500">Henüz hiç like yok.</p>
-            </li>
+            <h3 class="text-center text-lg text-gray-600 mt-5">Burada gösterilecek bir şey yok.</h3>
         </div>
     </x-scrollable-wrapper>
 </div>

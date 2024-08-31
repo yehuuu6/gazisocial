@@ -5,13 +5,11 @@
         </div>
     </div>
     <x-scrollable-wrapper class="flex-grow">
-        <div wire:loading.remove class="divide-y">
+        <div wire:loading.remove class="p-5 flex flex-col gap-5 items-center justify-center">
             @forelse ($comments as $comment)
-                <livewire:components.user.user-comment :$comment :key="$comment->id" />
+                <livewire:components.user.user-comment :$comment wire:key="comment-{{ $comment->id }}" />
             @empty
-                <li>
-                    <p class="text-gray-500">Henüz hiç yorum yapmamış.</p>
-                </li>
+                <h3 class="text-center text-lg text-gray-600">Burada gösterilecek bir şey yok.</h3>
             @endforelse
         </div>
     </x-scrollable-wrapper>
