@@ -42,7 +42,7 @@ class UserSubPage extends Component
         switch ($this->currentView) {
             case 'user-posts':
                 return view('livewire.pages.users.user-posts-page', [
-                    'posts' => $this->user->posts()->latest()->simplePaginate(10),
+                    'posts' => $this->user->posts()->with('user')->latest()->simplePaginate(10),
                 ]);
             case 'user-comments':
                 return view('livewire.pages.users.user-comments-page', [
@@ -54,7 +54,7 @@ class UserSubPage extends Component
                 ]);
             default:
                 return view('livewire.pages.users.user-posts-page', [
-                    'posts' => $this->user->posts()->latest()->simplePaginate(10),
+                    'posts' => $this->user->posts()->with('user')->latest()->simplePaginate(10),
                 ]);
         }
     }
