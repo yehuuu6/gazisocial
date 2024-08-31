@@ -24,11 +24,13 @@
                 Kaydınızı tamamlamak için lütfen e-posta adresinizi doğrulayın. Bu, sizi ve Gazi Social topluluğunu
                 güvende tutmamıza yardımcı olur. <br>
                 <strong class="text-gray-700">Eğer e-postayı almadıysanız,</strong>
-            <form wire:submit="sendVerifyMail" class="d-inline">@csrf<button
+            <form wire:submit="sendVerifyMail" class="d-inline">
+                @csrf
+                <button wire:loading.class="bg-gray-300 cursor-not-allowed" wire:loading.class.remove = "bg-primary"
                     class="bg-primary mt-3 h-[40px] flex items-center gap-1 justify-center opacity-90 hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                     type="submit">
-                    <x-icons.spinner wire:loading class="size-7" />
-                    Yeniden Gönder
+                    <x-icons.spinner wire:loading size="32" color="#479fff" />
+                    <span wire:loading.remove>Yeniden Gönder</span>
                 </button>
             </form>
             </p>

@@ -1,7 +1,6 @@
-<svg class="size-6" stroke="currentColor" fill="gray" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em"
+<svg class="size-5" stroke="currentColor" fill="gray" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em"
     xmlns="http://www.w3.org/2000/svg">
-    <path fill="none" d="M0 0h24v24H0z"></path>
-    <path d="M17 19.22H5V7h7V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7h-2v7.22z"></path>
-    <path d="M19 2h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V7h3V5h-3V2zM7 9h8v2H7zM7 12v2h8v-2h-3zM7 15h8v2H7z">
+    <path
+        d="M448 348.106V80c0-26.51-21.49-48-48-48H48C21.49 32 0 53.49 0 80v351.988c0 26.51 21.49 48 48 48h268.118a48 48 0 0 0 33.941-14.059l83.882-83.882A48 48 0 0 0 448 348.106zm-128 80v-76.118h76.118L320 428.106zM400 80v223.988H296c-13.255 0-24 10.745-24 24v104H48V80h352z">
     </path>
 </svg>

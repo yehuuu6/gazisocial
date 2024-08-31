@@ -10,6 +10,7 @@
             </div>
             <p class="text-sm text-gray-500">
                 {{ $comment->created_at->diffForHumans() }}
+            </p>
         </div>
         <p class="text-gray-600 break-words">{{ $comment->content }}</p>
         <div class="post-icon flex">

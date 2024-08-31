@@ -57,11 +57,11 @@
 
 
     <div class="flex items-center justify-between flex-col gap-3">
-        <button
+        <button wire:loading.class="bg-gray-300 cursor-not-allowed" wire:loading.class.remove="bg-primary"
             class="bg-primary flex items-center justify-center gap-1 opacity-90 h-[40px] hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             type="submit">
-            <x-icons.spinner wire:loading class="size-7" />
-            Kayıt Ol
+            <x-icons.spinner wire:loading size="32" color="#479fff" />
+            <span wire:loading.remove>Kayıt Ol</span>
         </button>
     </div>
 </form>
