@@ -20,7 +20,8 @@
             <div class="flex gap-2 justify-center items-center flex-row-reverse">
                 <img src="{{ Auth::user()->avatar }}" alt="avatar" class="w-12 h-12 rounded-full">
                 <div class="flex flex-col gap-0 text-right">
-                    <h4 class="text-sm font-bold">{{ Auth::user()->name }}</h4>
+                    <x-link href="/u/{{ Auth::user()->username }}"
+                        class="text-sm font-medium">{{ Auth::user()->name }}</x-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         @method('DELETE')
