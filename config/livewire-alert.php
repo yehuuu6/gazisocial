@@ -11,6 +11,7 @@ return [
         'toast' => true,
         'text' => null,
         'animation' => false,
+        'iconColor' => 'white',
         'showCancelButton' => false,
         'showConfirmButton' => false,
         'position' =>  'bottom-end',
