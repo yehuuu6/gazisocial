@@ -7,6 +7,7 @@ use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\Verify;
 use App\Livewire\Pages\Posts\ShowPost;
 use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Posts\CreatePost;
 use App\Livewire\Pages\Users\UserPage;
 
 // Auth routes START
@@ -31,6 +32,7 @@ Route::get('/', HomePage::class)->name('home');
 
 // Post routes START
 
+Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
 Route::get('/posts/{post:slug}', ShowPost::class)->name('post.show');
 
 // Post Routes END
