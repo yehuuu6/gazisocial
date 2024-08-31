@@ -10,10 +10,10 @@ return [
         'timer' => 3000,
         'toast' => true,
         'text' => null,
+        'animation' => false,
         'showCancelButton' => false,
         'showConfirmButton' => false,
         'position' =>  'bottom-end',
-        'iconColor' => 'white',
         'didOpen' => '(toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
