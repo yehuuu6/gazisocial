@@ -16,11 +16,6 @@ class HomePage extends Component
         $this->dispatch('scroll-to-top');
     }
 
-    public function paginationSimpleView()
-    {
-        return 'livewire.pagination.simple';
-    }
-
     public function render()
     {
         return view('livewire.pages.home-page', [
