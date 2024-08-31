@@ -9,6 +9,7 @@ use Livewire\Attributes\Title;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Role;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 #[Title('E-posta Adresinizi Doğrulayın')]
@@ -27,7 +28,14 @@ class Verify extends Component
     }
 
     public function verifyUser(EmailVerificationRequest $request){
+
         $request->fulfill();
+        $this->user = Auth::user();
+        // if user has @gazi.edu.tr email, assign gazili role
+        if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
+            $role = Role::find(1); // Gazili
+            $this->user->roles()->attach($role);
+        }
 
         return redirect(route('home'));
     }

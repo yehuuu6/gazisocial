@@ -27,14 +27,6 @@ class RegisterForm extends Component
 
         $attributes['avatar'] = 'https://ui-avatars.com/api/?name=' . $attributes['name'] . '&color=7F9CF5&background=random';
 
-        // Get email domain
-        $emailDomain = explode('@', $attributes['email'])[1];
-
-        // Check if email domain is gazi.edu.tr
-        if ($emailDomain === 'gazi.edu.tr') {
-            $attributes['is_gazi'] = true;
-        }
-
         $user = User::create($attributes);
 
         Auth::login($user);

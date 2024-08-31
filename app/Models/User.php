@@ -22,9 +22,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar',
         'bio',
         'email',
-        'is_gazi',
         'password',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');
+    }
 
     public function posts()
     {
