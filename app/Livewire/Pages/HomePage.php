@@ -19,7 +19,7 @@ class HomePage extends Component
     public function render()
     {
         return view('livewire.pages.home-page', [
-            'posts' => Post::with('user')->latest()->simplePaginate(10)
+            'posts' => Post::with('user', 'comments')->latest()->simplePaginate(10)
         ]);
     }
 }
