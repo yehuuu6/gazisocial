@@ -47,7 +47,7 @@
             <div class="flex gap-1 items-center">
                 <x-icons.calender color="#4b5563" size="28" />
                 <span class="text-gray-600">{{ $user->created_at->translatedFormat('F Y') }}
-                    tarihinden beri</span>
+                    tarihinde katıldı</span>
             </div>
         </div>
     </div>
