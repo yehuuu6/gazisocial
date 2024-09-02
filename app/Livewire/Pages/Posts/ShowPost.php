@@ -25,10 +25,16 @@ class ShowPost extends Component
     }
 
     #[On('comment-created')]
-    public function refreshPage(){
+    public function resetAndScroll(){
         $this->resetPage();
         $this->dispatch('scroll-to-header');
     }
+
+    #[On('comment-deleted')]
+    public function refreshPage(){
+        $this->resetPage();
+    }
+
 
     public function render()
     {
