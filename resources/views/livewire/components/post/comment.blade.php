@@ -7,10 +7,18 @@
                     {{ $comment->user->name }}
                 </x-link>
                 <p class="text-sm text-gray-500">{{ '@' . $comment->user->username }}</p>
+                <span class="text-gray-500 text-xs">&#x2022;</span>
+                <p class="text-sm text-gray-500">{{ $comment->created_at->shortAbsoluteDiffForHumans() }}</p>
             </div>
-            <p class="text-sm text-gray-500">
-                {{ $comment->created_at->diffForHumans() }}
-            </p>
+            @auth
+                @can('delete', $comment)
+                    <button
+                        wire:click="$dispatch('openModal', { component: 'modals.delete-comment-modal', arguments: { commentId: {{ $comment->id }} }})"
+                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                        <x-icons.trash color="#ff6969" size="14" />
+                    </button>
+                @endcan
+            @endauth
         </div>
         <p class="text-gray-600 break-all">{{ $comment->content }}</p>
         <div class="post-icon flex">
