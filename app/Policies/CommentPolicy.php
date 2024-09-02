@@ -11,7 +11,7 @@ class CommentPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user): bool
     {
         // If the user is not logged in, return false
         if (!$user) {
@@ -28,7 +28,7 @@ class CommentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Comment $comment): bool
+    public function delete(?User $user, Comment $comment): bool
     {
         return $user->id === $comment->user->id;
     }
