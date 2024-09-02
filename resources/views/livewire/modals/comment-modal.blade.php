@@ -1,4 +1,4 @@
-<form id="add-comment-modal" wire:submit.prevent="createComment" class="rounded-lg shadow-md">
+<form id="add-comment-modal" wire:submit="createComment" class="rounded-lg shadow-md">
     @csrf
     <h3 class="text-xl py-4 px-6 text-gray-700 font-medium">Yorum Yap</h3>
     <x-seperator />
@@ -21,11 +21,11 @@
         </span>
         <div class="flex items-center gap-2 flex-row-reverse">
             <button type="submit"
-                class="font-medium px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                class="font-medium px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
                 Gönder
             </button>
             <button wire:click="$dispatch('closeModal')" type="button"
-                class="px-4 py-2 font-medium text-sm text-red-500 rounded-md hover:bg-red-100">
+                class="px-4 py-2 font-medium text-sm text-red-500 rounded hover:bg-red-100">
                 İptal
             </button>
         </div>
