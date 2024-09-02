@@ -11,8 +11,17 @@
     </div>
     <p class="ml-2 mt-2 text-gray-500">{{ Str::limit($post->content, 300, '...') }}</p>
     <div class="post-icon flex ml-2 mt-3">
-        <x-icons.comment />
-        <x-icons.heart />
-        <x-icons.share />
+        <div class="flex gap-1 items-center">
+            <x-icons.comment color="#4b5563" />
+            <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+        </div>
+        <div class="flex gap-1 items-center">
+            <x-icons.heart color="#4b5563" />
+            <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+        </div>
+        <div class="flex gap-1 items-center">
+            <x-icons.share color="#4b5563" />
+            <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+        </div>
     </div>
 </div>
