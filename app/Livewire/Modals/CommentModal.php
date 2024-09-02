@@ -6,6 +6,7 @@ use LivewireUI\Modal\ModalComponent;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 
@@ -25,8 +26,11 @@ class CommentModal extends ModalComponent
     public function createComment()
     {
 
-        if (!Auth::check()) {
-            return redirect(route('login'));
+        $response = Gate::inspect('create', Comment::class);
+
+        if (!$response->allowed()) {
+            $this->alert('error', 'Yorum yapmak e-posta onaylı bir hesap gerektirir.');
+            return;
         }
 
         $validated = $this->validate();
