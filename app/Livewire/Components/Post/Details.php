@@ -4,11 +4,19 @@ namespace App\Livewire\Components\Post;
 
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Details extends Component
 {
 
     public Post $post;
+
+    #[On('comment-created')]
+    #[On('comment-deleted')]
+    public function refreshPage()
+    {
+        $this->post->refresh();
+    }
 
     public function render()
     {
