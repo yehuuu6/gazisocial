@@ -5,7 +5,7 @@
                 {{ $comment->post->title }}
             </x-link>
             <span class="ml-1 text-gray-600">
-                adlı konuya yorum yaptı.
+                adlı konuya {{ $comment->created_at->locale('tr')->diffForHumans() }} yorum yaptı.
             </span>
         </div>
         <p class="text-sm text-gray-500">
