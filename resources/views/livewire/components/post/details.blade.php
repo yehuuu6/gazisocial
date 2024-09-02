@@ -16,18 +16,34 @@
         </article>
         <div class="post-icon flex">
             @auth
-                <button
-                    wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post->id }} }})">
-                    <x-icons.comment />
-                </button>
+                <div class="flex gap-0 items-center">
+                    <button class="hover:bg-blue-200 p-2 rounded-full"
+                        wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post }} }})">
+                        <x-icons.comment color="#4b5563" />
+                    </button>
+                    <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+                </div>
             @endauth
             @guest
-                <a href="{{ route('login') }}">
-                    <x-icons.comment />
-                </a>
+                <div class="flex gap-0 items-center">
+                    <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                        <x-icons.comment color="#4b5563" />
+                    </a>
+                    <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+                </div>
             @endguest
-            <x-icons.heart />
-            <x-icons.share />
+            <div class="flex gap-0 items-center">
+                <button class="hover:bg-blue-200 rounded-full p-2">
+                    <x-icons.heart color="#4b5563" />
+                </button>
+                <p class="text-gray-600 font-light">5.351</p>
+            </div>
+            <div class="flex gap-0 items-center">
+                <button class="hover:bg-blue-200 rounded-full p-2">
+                    <x-icons.share color="#4b5563" />
+                </button>
+                <p class="text-gray-600 font-light">392</p>
+            </div>
         </div>
     </div>
 </div>
