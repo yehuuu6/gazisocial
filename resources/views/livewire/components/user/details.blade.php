@@ -24,29 +24,29 @@
                     @endforelse
                 </div>
             </div>
-            <x-icons.settings color="#4b5563" size="30" />
+            <x-icons.settings color="#4b5563" size="25" />
         </div>
         <p class="text-gray-600">{{ $bio }}</p>
         <div class="flex gap-3 items-center">
             <div class="flex gap-1 items-center">
-                <x-icons.graduate color="#4b5563" size="28" />
-                <span class="text-gray-600">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
+                <x-icons.graduate color="#4b5563" size="25" />
+                <span class="text-gray-600 text-sm">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
             </div>
             <div class="flex items-center gap-1">
-                <x-icons.trophy color="#4b5563" size="30" /><span class="text-gray-600">Seviye 10</span>
+                <x-icons.trophy color="#4b5563" size="25" /><span class="text-sm text-gray-600">Seviye 10</span>
             </div>
 
             <div class="flex items-center gap-1">
-                <x-icons.post color="#4b5563" size="25" />
-                <span class="text-gray-600">{{ $user->posts->count() }} Gönderi</span>
+                <x-icons.post color="#4b5563" size="21" />
+                <span class="text-gray-600 text-sm">{{ $user->posts->count() }} Gönderi</span>
             </div>
             <div class="flex items-center gap-1">
-                <x-icons.comment-count color="#4b5563" size="26" />
-                <span class="text-gray-600">{{ $user->comments->count() }} Yorum</span>
+                <x-icons.comment-count color="#4b5563" size="23" />
+                <span class="text-gray-600 text-sm">{{ $user->comments->count() }} Yorum</span>
             </div>
             <div class="flex gap-1 items-center">
-                <x-icons.calender color="#4b5563" size="28" />
-                <span class="text-gray-600">{{ $user->created_at->translatedFormat('F Y') }}
+                <x-icons.calender color="#4b5563" size="25" />
+                <span class="text-gray-600 text-sm">{{ $user->created_at->translatedFormat('F Y') }}
                     tarihinde katıldı</span>
             </div>
         </div>
