@@ -22,7 +22,7 @@
                     $borderClass =
                         $selectedOption && $selectedOption == $option->id ? 'border-blue-500' : 'border-gray-300';
                 @endphp
-                <div
+                <div wire:key="option-{{ $option->id }}"
                     class="flex justify-between items-center transition-all duration-500 py-2 gap-1 px-3 bg-gray-50 rounded-md border-2 {{ $borderClass }}">
                     <div class="flex flex-col flex-grow pb-1 px-1">
                         <div class="flex items-center">
@@ -30,7 +30,8 @@
                                 <input type="radio" id="{{ $option->id }}" name="option"
                                     value="{{ $option->id }}" wire:click="selectOption({{ $option }})"
                                     {{ $selectedOption == $option->id ? 'checked' : '' }} class="size-4">
-                                <label for="{{ $option->id }}" class="ml-2 flex-1 flex items-center justify-between">
+                                <label for="{{ $option->id }}"
+                                    class="ml-2 cursor-pointer flex-1 flex items-center justify-between">
                                     <span class="text-gray-700">{{ $option->option }}</span>
                                     <span class="text-gray-500">{{ $percentage }}%</span>
                                 </label>

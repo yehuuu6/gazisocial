@@ -28,7 +28,6 @@
             <div class="flex items-center gap-2">
                 @php
                     $colors = ['bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-indigo-500', 'bg-purple-500'];
-
                 @endphp
                 @foreach ($post->polls as $poll)
                     @php
@@ -36,7 +35,8 @@
                         $randomColor = $colors[array_rand($colors)];
                         $colors = array_diff($colors, [$randomColor]);
                     @endphp
-                    <button class="{{ $randomColor }} text-white py-1 px-2 text-xs font-medium rounded-full"
+                    <button wire:key='poll-{{ $poll->id }}'
+                        class="{{ $randomColor }} text-white py-1 px-2 text-xs font-medium rounded-full"
                         wire:click="$dispatch('openModal', { component: 'modals.show-poll-modal', arguments: { poll: {{ $poll }} }})">
                         {{ $poll->question }}
                     </button>
