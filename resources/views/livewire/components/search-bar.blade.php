@@ -7,7 +7,8 @@
 @endphp
 
 <div class="flex-1 flex relative">
-    <input type="text" class="p-2 w-full text-black {{ $borderClass }} border border-gray-300 focus:outline-none"
+    <input id="search-bar" type="text"
+        class="p-2 w-full text-black {{ $borderClass }} border border-gray-300 focus:outline-none"
         placeholder="Bir konu ara..." wire:model.live="search">
 
     <ul class="absolute w-full divide-y bg-white rounded-b-lg shadow-lg z-10 top-[2.65rem]">

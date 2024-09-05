@@ -40,7 +40,7 @@
                 <x-seperator />
                 <x-users.user-activities />
                 <div class="flex bg-white border-t border-gray-300">
-                    <input type="text" wire:model='message' placeholder="Mesajınızı yazın..."
+                    <input id="message" type="text" wire:model='message' placeholder="Mesajınızı yazın..."
                         class="w-full outline-none px-4" />
                     <button wire:click="sendMessage"
                         class="px-4 py-2 bg-blue-500 text-white font-medium hover:bg-blue-600">Gönder</button>
