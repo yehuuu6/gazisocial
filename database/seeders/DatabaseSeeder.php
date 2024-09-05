@@ -26,5 +26,19 @@ class DatabaseSeeder extends Seeder
         ->has(Comment::factory(33)->recycle($users))
         ->recycle($users)
         ->create();
+
+        // Create a user with custom attributes
+        $user = User::create([
+            'name' => 'Eren Aydın',
+            'username' => 'yehuuu6',
+            'avatar' => 'https://ui-avatars.com/api/?name=eren aydin&background=random',
+            'email' => 'eren.aydin@gazi.edu.tr',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        // Add gazi social role to the user
+        $user->roles()->attach($owner);
+        $user->roles()->attach($gazili);
     }
 }
