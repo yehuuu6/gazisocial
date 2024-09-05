@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         ->create();
 
         // Create a user with custom attributes
-        $user = User::create([
+        $user1 = User::create([
             'name' => 'Eren Aydın',
             'username' => 'yehuuu6',
             'avatar' => 'https://ui-avatars.com/api/?name=eren aydin&background=random',
@@ -38,7 +38,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Add gazi social role to the user
-        $user->roles()->attach($owner);
-        $user->roles()->attach($gazili);
+        $user1->roles()->attach($owner);
+        $user1->roles()->attach($gazili);
+
+        $user2 = User::create([
+            'name' => 'Ahmet Kandaz',
+            'username' => 'KaNEX',
+            'avatar' => 'https://ui-avatars.com/api/?name=ahmet kandaz&background=random',
+            'email' => 'kanex@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        $user3 = User::create([
+            'name' => 'Melek Güleç',
+            'username' => 'melekisnothere',
+            'avatar' => 'https://ui-avatars.com/api/?name=melek gulec&background=random',
+            'email' => 'melek.gulec@gazi.edu.tr',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        $user3->roles()->attach($gazili);
     }
 }
