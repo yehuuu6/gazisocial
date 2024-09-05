@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>{{ $title ?? 'Gazi Social' }}</title>
+    <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
 </head>
 
 @php
