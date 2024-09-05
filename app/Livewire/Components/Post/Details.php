@@ -11,6 +11,11 @@ class Details extends Component
 
     public Post $post;
 
+    public function mount(Post $post)
+    {
+        $this->post = $post->loadCount('comments');
+    }
+
     #[On('comment-created')]
     #[On('comment-deleted')]
     public function refreshPage()

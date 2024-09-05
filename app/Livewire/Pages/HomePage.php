@@ -8,7 +8,6 @@ use App\Models\Post;
 
 class HomePage extends Component
 {
-
     use WithPagination;
 
     public function updatingPage()
@@ -18,8 +17,15 @@ class HomePage extends Component
 
     public function render()
     {
+        $posts = Post::query()
+            ->select('id', 'user_id', 'title', 'slug', 'content', 'created_at')
+            ->with('user:id,name,avatar,username')
+            ->withCount('comments')
+            ->latest('created_at')
+            ->paginate(10);
+
         return view('livewire.pages.home-page', [
-            'posts' => Post::with('user', 'comments')->latest()->simplePaginate(10)
+            'posts' => $posts
         ]);
     }
 }

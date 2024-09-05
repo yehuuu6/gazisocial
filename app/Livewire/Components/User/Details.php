@@ -7,8 +7,12 @@ use Livewire\Component;
 
 class Details extends Component
 {
-
     public User $user;
+
+    public function mount(User $user)
+    {
+        $this->user = $user->loadCount('comments');
+    }
 
     public function render()
     {
