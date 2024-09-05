@@ -22,8 +22,8 @@
 <body class="antialiased h-screen flex flex-col bg-gray-100 overflow-hidden">
     <livewire:components.navbar />
     <main class="flex-1">
-        <div class="h-full grid grid-cols-[320px_1fr] gap-6 p-6">
-            <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
+        <div class="h-full flex-1 grid grid-cols-1 md:grid-cols-[320px_1fr] gap-6 p-6">
+            <div class="bg-white shadow-md rounded-xl hidden flex-col overflow-hidden md:flex">
                 <h3 class="text-xl font-bold p-4">Kategoriler</h3>
                 <x-seperator />
                 <ul class="flex flex-col gap-1 p-4">
@@ -49,9 +49,9 @@
             {{ $slot }}
         </div>
     </main>
-    <footer class="bg-gray-800 text-white p-4 font-medium flex justify-between items-center">
-        <h4>Copyright all rights reserved.</h4>
-        <h4>© 2024 Gazi Social</h4>
+    <footer class="bg-gray-800 text-white p-2 md:p-4 font-medium flex justify-between items-center">
+        <h4 class="text-sm md:text-base">Copyright all rights reserved.</h4>
+        <h4 class="text-sm md:text-base">© 2024 Gazi Social</h4>
     </footer>
     @livewire('wire-elements-modal')
 </body>

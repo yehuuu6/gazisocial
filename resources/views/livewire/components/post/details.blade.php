@@ -50,7 +50,7 @@
                         wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post }} }})">
                         <x-icons.comment color="#4b5563" />
                     </button>
-                    <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+                    <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
                 </div>
             @endauth
             @guest
@@ -58,7 +58,7 @@
                     <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
                         <x-icons.comment color="#4b5563" />
                     </a>
-                    <p class="text-gray-600 font-light">{{ $post->comments->count() }}</p>
+                    <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
                 </div>
             @endguest
             <div class="flex gap-0 items-center">

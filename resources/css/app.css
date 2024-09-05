@@ -7,7 +7,7 @@
         @apply scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-gray-200;
     }
     .navbar {
-        @apply flex justify-between items-center p-4 bg-primary text-white w-full;
+        @apply flex justify-between items-center p-2 md:p-4 bg-primary text-white w-full;
     }
     .post-icon {
         @apply gap-5;
@@ -25,7 +25,7 @@
     }
 
     .bottom-header {
-        @apply flex justify-between items-center p-4 bg-primary text-white;
+        @apply flex justify-between items-center p-3 bg-primary text-white md:p-4;
     }
 }
 

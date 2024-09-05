@@ -42,7 +42,7 @@
             </div>
             <div class="flex items-center gap-1">
                 <x-icons.comment-count color="#4b5563" size="23" />
-                <span class="text-gray-600 text-sm">{{ $user->comments->count() }} Yorum</span>
+                <span class="text-gray-600 text-sm">{{ $user->comments_count }} Yorum</span>
             </div>
             <div class="flex gap-1 items-center">
                 <x-icons.calender color="#4b5563" size="25" />

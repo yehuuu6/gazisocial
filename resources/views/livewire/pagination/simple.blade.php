@@ -16,7 +16,7 @@
             </span>
 
             <div>
-                <p class="text-sm text-white font-semibold">
+                <p class="text-xs md:text-sm text-white font-semibold">
                     {{ $paginator->currentPage() }}. Sayfa
                 </p>
             </div>

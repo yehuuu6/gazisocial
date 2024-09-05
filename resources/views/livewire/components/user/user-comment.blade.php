@@ -8,9 +8,9 @@
                 adlı konuya {{ $comment->created_at->locale('tr')->diffForHumans() }} yorum yaptı.
             </span>
         </div>
-        <p class="text-sm text-gray-500">
-            {{ $comment->created_at->locale('tr')->diffForHumans() }}
-        </p>
+        <button wire:click='deleteComment({{ $comment }})' class="text-sm text-red-300 font-mono hover:text-red-600">
+            Yorumu Sil
+        </button>
     </div>
     <p class="text-gray-600 break-all">{{ $comment->content }}</p>
 </li>

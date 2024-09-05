@@ -1,7 +1,8 @@
 <div class="navbar">
     <div class="flex-1 flex items-center justify-start gap-2">
-        <img src="{{ asset('gazi-logo.png') }}" alt="logo" class="w-14 h-14">
-        <x-link href="/" class="text-xl font-bold hover:no-underline">Gazi Social</x-link>
+        <img src="{{ asset('gazi-logo.png') }}" alt="logo" class="size-10 md:size-14">
+        <x-link href="/" class="text-lg md:text-xl font-bold hover:no-underline">Gazi
+            Social</x-link>
     </div>
     <livewire:components.search-bar />
     </ul>
@@ -18,17 +19,17 @@
         @endguest
         @auth
             <x-link href="/posts/create"
-                class="px-3 py-2 bg-blue-400 text-sm text-white rounded-full focus:outline-none hover:no-underline">Konu
+                class="hidden px-3 py-2 md:inline-block bg-blue-400 text-sm text-white rounded-full focus:outline-none hover:no-underline">Konu
                 Oluştur</x-link>
             <div class="flex gap-2 justify-center items-center flex-row-reverse">
-                <img src="{{ Auth::user()->avatar }}" alt="avatar" class="w-12 h-12 rounded-full">
-                <div class="flex flex-col gap-0 text-right">
+                <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-10 md:size-14 rounded-full">
+                <div class="flex flex-col text-right">
                     <x-link href="/u/{{ Auth::user()->username }}"
-                        class="text-sm font-medium">{{ Auth::user()->name }}</x-link>
+                        class="text-xs md:text-sm font-medium">{{ Auth::user()->name }}</x-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-sm font-normal hover:text-red-500">Çıkış Yap</button>
+                        <button type="submit" class="text-xs md:text-sm font-normal hover:text-red-500">Çıkış Yap</button>
                     </form>
                 </div>
             </div>
