@@ -7,13 +7,42 @@
                     {{ $post->user->name }}
                 </x-link>
                 <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
+                <span class="text-gray-500 text-xs">&#x2022;</span>
+                <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
             </div>
-            <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+            @auth
+                @can('delete', $post)
+                    <button
+                        wire:click="$dispatch('openModal', { component: 'modals.delete-post-modal', arguments: { postId: {{ $post->id }} }})"
+                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                        <x-icons.trash color="#ff6969" size="14" />
+                    </button>
+                @endcan
+            @endauth
         </div>
         <h1 class="font-medium text-gray-900 text-2xl">{{ $post->title }}</h1>
-        <article class="text-gray-600" wire:loading.class="animate-pulse">
+        <article class="text-gray-600 break-all" wire:loading.class="animate-pulse">
             {{ $post->content }}
         </article>
+        @if ($post->polls->count() > 0)
+            <div class="flex items-center gap-2">
+                @php
+                    $colors = ['bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-indigo-500', 'bg-purple-500'];
+
+                @endphp
+                @foreach ($post->polls as $poll)
+                    @php
+                        // If color is already used, get another color
+                        $randomColor = $colors[array_rand($colors)];
+                        $colors = array_diff($colors, [$randomColor]);
+                    @endphp
+                    <button class="{{ $randomColor }} text-white py-1 px-2 text-xs font-medium rounded-full"
+                        wire:click="$dispatch('openModal', { component: 'modals.show-poll-modal', arguments: { poll: {{ $poll }} }})">
+                        {{ $poll->question }}
+                    </button>
+                @endforeach
+            </div>
+        @endif
         <div class="post-icon flex">
             @auth
                 <div class="flex gap-0 items-center">
