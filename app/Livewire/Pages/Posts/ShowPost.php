@@ -7,11 +7,12 @@ use App\Models\Post;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Livewire\Attributes\On;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ShowPost extends Component
 {
 
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination, WithoutUrlPagination, LivewireAlert;
 
     public Post $post;
 
@@ -40,6 +41,12 @@ class ShowPost extends Component
     {
         $title = $this->post->title . ' - ' . config('app.name');
         $comments = $this->post->comments()->with('user')->latest()->simplePaginate(10);
+
+        // Check if any session flash data exists
+        if (session()->has('post-created')) {
+            $this->alert('success', session('post-created'));
+        }
+
         return view('livewire.pages.posts.show-post', compact('comments'))
         ->title($title);
     }
