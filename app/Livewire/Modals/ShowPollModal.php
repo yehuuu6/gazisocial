@@ -49,6 +49,8 @@ class ShowPollModal extends ModalComponent
 
         if ($existingVote) {
 
+            $existingVote->load('user');
+
             $response = Gate::inspect('update', $existingVote);
 
             if (!$response->allowed()) {
