@@ -17,6 +17,9 @@
             </div>
         @endguest
         @auth
+            <x-link href="/posts/create"
+                class="px-3 py-2 bg-blue-400 text-sm text-white rounded-full focus:outline-none hover:no-underline">Konu
+                Oluştur</x-link>
             <div class="flex gap-2 justify-center items-center flex-row-reverse">
                 <img src="{{ Auth::user()->avatar }}" alt="avatar" class="w-12 h-12 rounded-full">
                 <div class="flex flex-col gap-0 text-right">
