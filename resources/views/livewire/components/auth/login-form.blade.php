@@ -1,4 +1,4 @@
-<form wire:submit="login" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
+<form wire:submit="login" class="bg-gray-100 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
     @csrf
     @if ($errors->any())
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5" role="alert">
