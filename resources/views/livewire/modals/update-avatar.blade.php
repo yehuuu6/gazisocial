@@ -1,20 +1,27 @@
-<form wire:submit="updateAvatar" class="rounded-lg shadow-md">
+@php
+
+    $url = Auth::user()->avatar;
+
+    $previewText = 'Dosya seçilmedi.';
+
+    if ($avatar) {
+        $url = $avatar->temporaryUrl();
+        $previewText = $avatar->getClientOriginalName();
+    }
+@endphp
+
+<form wire:submit="save" class="rounded-lg shadow-md" enctype="multipart/form-data">
     @csrf
     <h3 class="text-xl py-4 px-6 text-gray-700 font-medium">Profil fotoğrafınızı güncelleyin</h3>
     <x-seperator />
-    <div class="px-6 py-4">
-        <img id="imagePreview" class="mb-4 w-32 h-32 object-cover rounded-full" src="{{ Auth::user()->avatar }}"
-            alt="Image Preview">
-        <input type="file" id="imageInput"
-            class="block w-full text-sm text-gray-500
-            file:mr-4 file:py-2 file:px-4
-            file:rounded-full file:border-0
-            file:text-sm file:font-semibold
-            file:bg-violet-50 file:text-violet-700
-            hover:file:bg-violet-100
-            outline-none
-        "
-            accept="image/*">
+    <div class="px-6 py-4 flex flex-col items-center justify-center">
+        <img id="imagePreview" class="mb-4 size-32 object-cover rounded-full" src="{{ $url }}" alt="Image Preview">
+        <label
+            class="hover:bg-violet-100 mb-2 py-2 px-4 rounded-full border-0 text-sm 
+            font-semibold bg-violet-50 text-violet-700 cursor-pointer"
+            for="imageInput">Dosya Seç</label>
+        <input wire:model="avatar" type="file" id="imageInput" class="hidden" accept="image/*">
+        <span id="imageName" class="text-gray-500 font-normal">{{ $previewText }}</span>
     </div>
     <x-seperator />
     <div class="bg-gray-50 p-6 gap-2 flex items-center justify-end">
@@ -27,18 +34,3 @@
             Kaydet
         </button>
 </form>
-@script
-    <script>
-        document.getElementById('imageInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById('imagePreview');
-                    img.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-@endscript

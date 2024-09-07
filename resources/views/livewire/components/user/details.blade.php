@@ -7,8 +7,19 @@
         'green' => 'bg-green-700',
     ];
 @endphp
-<div class="flex gap-3 p-4">
-    <img class="rounded-full size-14" src="{{ asset($user->avatar) }}" alt="profile picture">
+<div class="flex items-center gap-3 p-4">
+    <div class="relative flex items-center group justify-center rounded-full overflow-hidden">
+        @auth
+            @if (Auth::user()->id === $user->id)
+                <div title="Profil resmini değiştir"
+                    wire:click="$dispatch('openModal', { component: 'modals.update-avatar' })"
+                    class="absolute size-full hidden group-hover:grid place-items-center bg-black bg-opacity-50 cursor-pointer">
+                    <x-icons.image size='30' color='#f2f2f2' />
+                </div>
+            @endif
+        @endauth
+        <img src="{{ $user->avatar }}" alt="profil resmi" class="object-cover size-24">
+    </div>
     <div class="flex flex-col gap-3 flex-1">
         <div class="flex items-center justify-between">
             <div class="flex gap-1 items-end">
@@ -20,7 +31,7 @@
                             class="py-1 px-2 {{ $colorVariants[$role->color] }} text-white font-medium rounded capitalize text-xs">{{ $role->name }}</span>
                     @empty
                         <span
-                            class="py-1 px-2 bg-gray-700 text-white font-medium rounded-full capitalize text-xs">Üye</span>
+                            class="py-1 px-2 bg-orange-500 text-white font-medium rounded capitalize text-xs">Üye</span>
                     @endforelse
                 </div>
             </div>
