@@ -7,14 +7,12 @@
                     {{ $post->user->name }}
                 </x-link>
                 <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
-                <span class="text-gray-500 text-xs">&#x2022;</span>
+                <span class="inline-block text-gray-500 text-xs">•</span>
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
             </div>
             @auth
                 @can('delete', $post)
-                    <button
-                        wire:click="$dispatch('openModal', { component: 'modals.delete-post-modal', arguments: { postId: {{ $post->id }} }})"
-                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                    <button wire:click="deletePost" class="text-sm opacity-60 hover:opacity-100" title="Sil">
                         <x-icons.trash color="#ff6969" size="14" />
                     </button>
                 @endcan
