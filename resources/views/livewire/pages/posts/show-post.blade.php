@@ -17,7 +17,7 @@
                 <li class="p-4 text-gray-500">Henüz yorum yapılmamış, ilk yorumu siz yapın!</li>
             @endif
             @foreach ($comments as $comment)
-                <livewire:components.post.comment :$comment :key="$comment->id" />
+                <livewire:components.post.comment :$comment postAuthor="{{ $post->user->id }}" :key="$comment->id" />
             @endforeach
         </ul>
     </x-scrollable-wrapper>
