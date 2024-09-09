@@ -103,7 +103,7 @@ class CreatePost extends Component
 
         Activity::create([
             'user_id' => Auth::id(),
-            'content' => 'Konu oluşturdu!',
+            'content' => 'Yeni bir konu oluşturdu!',
             'link' => route('post.show', $post->slug)
         ]);
 
