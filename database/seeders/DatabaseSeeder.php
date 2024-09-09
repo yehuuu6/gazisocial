@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(10)->create()->each(function ($user) {
             Activity::create([
                 'user_id' => $user->id,
-                'content' => 'Kayıt oldu!',
+                'content' => "Gazi Social'a katıldı!",
             ]);
         });
 
-        $tags = Tag::factory(10)->create();  // Creates 10 random tags
+        $tags = Tag::factory(10)->create();
 
         $posts = Post::factory(50)
             ->has(Comment::factory(33)->recycle($users))
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
                 // Create activity for each post
                 Activity::create([
                     'user_id' => $post->user_id,
-                    'content' => 'Konu oluşturdu!',
+                    'content' => 'Yeni bir konu oluşturdu!',
                     'link' => route('post.show', $post->slug),
                 ]);
             });
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
 
         Activity::create([
             'user_id' => $user1->id,
-            'content' => 'Kayıt oldu!',
+            'content' => "Gazi Social'a katıldı!",
         ]);
 
         // Add gazi social role to the user
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
 
         Activity::create([
             'user_id' => $user2->id,
-            'content' => 'Kayıt oldu!',
+            'content' => "Gazi Social'a katıldı!",
         ]);
 
         $user3 = User::create([
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
 
         Activity::create([
             'user_id' => $user3->id,
-            'content' => 'Kayıt oldu!',
+            'content' => "Gazi Social'a katıldı!",
         ]);
 
         $user3->roles()->attach($admin);

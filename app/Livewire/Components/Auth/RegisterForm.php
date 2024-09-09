@@ -36,7 +36,7 @@ class RegisterForm extends Component
 
         Activity::create([
             'user_id' => $user->id,
-            'content' => 'Kayıt oldu!',
+            'content' => "Gazi Social'a katıldı!",
         ]);
 
         return redirect(route(('verification.notice')));
