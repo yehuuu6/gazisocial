@@ -20,6 +20,11 @@ class Details extends Component
         $this->post = $post->loadCount('comments');
     }
 
+    public function placeholder()
+    {
+        return view('components.posts.big-placeholder');
+    }
+
     public function deletePost()
     {
 
@@ -32,7 +37,9 @@ class Details extends Component
 
         $this->post->delete();
 
-        $this->flash('success', 'Konu silindi.', redirect: route('user.show', $this->post->user));
+        session()->flash('post-deleted', 'Konu başarıyla silindi.');
+
+        $this->redirect(route('user.show', $this->post->user), navigate: true);
     }
 
     #[On('comment-created')]
