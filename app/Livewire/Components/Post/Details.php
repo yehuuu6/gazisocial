@@ -28,8 +28,8 @@ class Details extends Component
             'blue' => 'bg-blue-500',
             'red' => 'bg-red-700',
             'green' => 'bg-green-700',
-            'yellow' => 'bg-yellow-700',
-            'indigo' => 'bg-indigo-700',
+            'yellow' => 'bg-yellow-500',
+            'indigo' => 'bg-indigo-500',
             'purple' => 'bg-purple-700',
         ];
 
