@@ -1,5 +1,5 @@
 <div class="navbar">
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-2">
         <x-link href='/'
             class="flex-1 flex items-center justify-start gap-2 mr-12 hover:no-underline hover:opacity-85"
             title="Ana Sayfa">
