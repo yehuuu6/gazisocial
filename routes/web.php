@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\HomePage;
 use App\Livewire\Pages\Auth\Login;
-use App\Livewire\Pages\Auth\Register;
 use App\Livewire\Pages\Auth\Verify;
+use App\Livewire\Pages\Auth\Register;
+use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\Posts\ShowPost;
-use App\Livewire\Components\Auth\LoginForm;
-use App\Livewire\Pages\Posts\CreatePost;
 use App\Livewire\Pages\Users\UserPage;
+use App\Livewire\Pages\Posts\CreatePost;
+use App\Livewire\Pages\Posts\SearchPost;
+use App\Livewire\Pages\Users\SearchUser;
+use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Faculty\ListFaculties;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -34,11 +37,19 @@ Route::get('/', HomePage::class)->name('home');
 
 Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
 Route::get('/posts/{post:slug}', ShowPost::class)->name('post.show');
+Route::get('/posts/search/{query}', SearchPost::class)->name('post.search');
 
 // Post Routes END
 
 // User routes START
 
 Route::get('/u/{user:username}', UserPage::class)->name('user.show');
+Route::get('/u/search/{query}', SearchUser::class)->name('user.search');
 
 // User routes END
+
+// Faculties routes START
+
+Route::get('/faculties', ListFaculties::class)->name('faculties');
+
+// Faculties routes END
