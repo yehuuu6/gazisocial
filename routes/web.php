@@ -11,6 +11,7 @@ use App\Livewire\Pages\Posts\CreatePost;
 use App\Livewire\Pages\Posts\SearchPost;
 use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Categories\ShowPosts;
 use App\Livewire\Pages\Faculty\ListFaculties;
 
 // Auth routes START
@@ -53,3 +54,9 @@ Route::get('/u/search/{query}', SearchUser::class)->name('user.search');
 Route::get('/faculties', ListFaculties::class)->name('faculties');
 
 // Faculties routes END
+
+// Categories routes START
+
+Route::get('/categories/{tag:name}', ShowPosts::class)->name('category.show');
+
+// Categories routes END
