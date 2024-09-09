@@ -11,11 +11,22 @@
             class="hidden px-4 py-2 transition-all duration-200 md:inline-block bg-blue-200 bg-opacity-20 font-bold border-transparent text-sm text-blue-50 rounded-full hover:no-underline hover:bg-blue-500 hover:bg-opaity-100">
             Yeni Konu Oluştur
         </x-link>
-        @can('join', App\Models\Faculty::class)
+        @auth
             <x-link href="/faculties"
-                class="px-4 py-2 transition-all duration-200 bg-transparent text-sm text-white font-medium rounded-full hover:no-underline hover:bg-blue-200 hover:bg-opacity-30">Fakülteye
-                Katıl</x-link>
-        @endcan
+                class="px-4 py-2 transition-all duration-200 bg-transparent text-sm text-white font-medium rounded-full hover:no-underline hover:bg-blue-200 hover:bg-opacity-30">
+                Fakülteye Katıl
+            </x-link>
+        @endauth
+        @guest
+            <x-link href="/faculties"
+                class="px-4 py-2 transition-all duration-200 bg-transparent text-sm text-white font-medium rounded-full hover:no-underline hover:bg-blue-200 hover:bg-opacity-30">
+                Fakülteleri Gör
+            </x-link>
+        @endguest
+        <x-link href="/news"
+            class="px-4 py-2 transition-all duration-200 bg-transparent text-sm text-white font-medium rounded-full hover:no-underline hover:bg-blue-200 hover:bg-opacity-30">
+            Haberler
+        </x-link>
     </div>
     <ul class="flex flex-1 space-x-4 items-center justify-end font-medium">
 
