@@ -13,6 +13,11 @@ class SearchPost extends Component
 
     public $query = '';
 
+    public function updatingPage()
+    {
+        $this->dispatch('scroll-to-top');
+    }
+
     public function render()
     {
         return view('livewire.pages.posts.search-post', [
