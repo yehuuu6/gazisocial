@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Models\Activity;
 
 class RegisterForm extends Component
 {
@@ -32,6 +33,11 @@ class RegisterForm extends Component
         Auth::login($user);
 
         event(new Registered($user));
+
+        Activity::create([
+            'user_id' => $user->id,
+            'content' => 'Kayıt oldu!',
+        ]);
 
         return redirect(route(('verification.notice')));
     }
