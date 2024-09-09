@@ -4,11 +4,29 @@ namespace App\Livewire\Components\User;
 
 use Livewire\Component;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class UserComment extends Component
 {
 
+    use LivewireAlert;
+
     public Comment $comment;
+
+    public function deleteComment()
+    {
+        $response = Gate::inspect('delete', $this->comment);
+
+        if ($response->allowed()) {
+            $this->comment->delete();
+            $this->alert('success', 'Yorum başarıyla silindi.');
+            $this->dispatch('userCommentDeleted');
+            $this->dispatch('showUserComments');
+        } else {
+            $this->alert('error', 'Bu işlemi yapmaya yetkiniz yok.');
+        }
+    }
 
     public function render()
     {
