@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Posts;
 
+use App\Models\Activity;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Poll;
@@ -99,6 +100,12 @@ class CreatePost extends Component
         }
 
         session()->flash('post-created', 'Konu başarıyla oluşturuldu.');
+
+        Activity::create([
+            'user_id' => Auth::id(),
+            'content' => 'Konu oluşturdu!',
+            'link' => route('post.show', $post->slug)
+        ]);
 
         return $this->redirect(route('post.show', $post->slug), navigate: true);
     }
