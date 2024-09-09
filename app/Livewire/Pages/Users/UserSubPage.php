@@ -42,30 +42,29 @@ class UserSubPage extends Component
         switch ($this->currentView) {
             case 'user-posts':
                 return view('livewire.pages.users.user-posts-page', [
-                    'posts' => $this->user
-                    ->posts()
-                    ->select('id', 'title', 'slug', 'created_at', 'content')
-                    ->latest('created_at')
-                    ->simplePaginate(10),
+                    'posts' => $this->user->posts()
+                        ->select('id', 'title', 'slug', 'created_at', 'content')
+                        ->latest('created_at')
+                        ->simplePaginate(10),
                 ]);
             case 'user-comments':
                 return view('livewire.pages.users.user-comments-page', [
-                    'comments' => $this->user
-                    ->comments()
-                    ->select('id', 'content', 'created_at', 'post_id')
-                    ->latest('created_at')
-                    ->simplePaginate(10),
+                    'comments' => $this->user->comments()
+                        ->select('id', 'user_id', 'content', 'created_at', 'post_id')
+                        ->with('user:id')
+                        ->latest('created_at')
+                        ->simplePaginate(10),
                 ]);
             case 'user-likes':
                 return view('livewire.pages.users.user-likes-page', [
                     'likes' => [],
                 ]);
             default:
-            return view('livewire.pages.users.user-posts-page', [
-                'posts' => $this->user->posts()
-                    ->select('id', 'title', 'slug', 'created_at', 'content')
-                    ->latest('created_at')
-                    ->simplePaginate(10),
+                return view('livewire.pages.users.user-posts-page', [
+                    'posts' => $this->user->posts()
+                        ->select('id', 'title', 'slug', 'created_at', 'content')
+                        ->latest('created_at')
+                        ->simplePaginate(10),
                 ]);
         }
     }

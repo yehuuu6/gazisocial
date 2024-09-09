@@ -8,9 +8,13 @@
                 adlı konuya {{ $comment->created_at->locale('tr')->diffForHumans() }} yorum yaptı.
             </span>
         </div>
-        <button wire:click='deleteComment({{ $comment }})' class="text-sm text-red-300 font-mono hover:text-red-600">
-            Yorumu Sil
-        </button>
+        @auth
+            @can('delete', $comment)
+                <button wire:click='deleteComment' class="text-sm text-red-300 font-mono hover:text-red-600">
+                    Yorumu Sil
+                </button>
+            @endcan
+        @endauth
     </div>
     <p class="text-gray-600 break-all">{{ $comment->content }}</p>
 </li>

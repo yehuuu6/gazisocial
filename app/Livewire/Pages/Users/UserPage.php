@@ -3,15 +3,29 @@
 namespace App\Livewire\Pages\Users;
 
 use App\Models\User;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class UserPage extends Component
 {
 
+    use LivewireAlert;
+
     public User $user;
+
+    #[On('userCommentDeleted')]
+    public function refreshPage()
+    {
+        $this->user->refresh();
+    }
 
     public function render()
     {
+        if (session()->has('post-deleted')) {
+            $this->alert('success', session('post-deleted'));
+        }
+
         return view('livewire.pages.users.user-page')->title($this->user->name . ' - ' . config('app.name'));
     }
 }
