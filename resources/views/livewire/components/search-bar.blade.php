@@ -1,21 +1,28 @@
-@php
-    $borderClass = 'rounded-full';
-    // If posts has more than 1 post, add border-b
-    if (count($posts) >= 1) {
-        $borderClass = 'rounded-t-xl';
-    }
-@endphp
-
-<div class="hidden flex-1 md:flex relative">
-    <input id="search-bar" type="text"
-        class="p-2 w-full text-black {{ $borderClass }} border border-gray-300 focus:outline-none"
-        placeholder="Bir konu ara..." wire:model.live="search">
+<div class="flex w-1/3 relative">
+    <input id="search-bar" type="text" autocomplete="off"
+        class="p-2 w-full text-black rounded rounded-tr-none rounded-br-none border border-gray-300 outline-none"
+        placeholder='{{ $placeholder }}' wire:model.live="search">
+    <x-link href="{{ $targetUrl . $search }}"
+        class="p-2 bg-blue-500 grid place-items-center rounded rounded-tl-none rounded-bl-none">
+        <x-icons.search color='white' size='24' />
+    </x-link>
 
     <ul class="absolute w-full divide-y bg-white rounded-b-lg shadow-lg z-10 top-[2.65rem]">
-        @foreach ($posts as $post)
-            <li wire:key="{{ $post->id }}">
-                <x-posts.search-item :title="$post->title" :avatar="$post->user->avatar" />
+        @forelse ($results as $result)
+            <li wire:key="{{ $result->id }}">
+                @if ($currentRoute === 'user.show' || $currentRoute === 'user.search')
+                    <x-users.search-item :user="$result" />
+                @else
+                    <x-posts.search-item :title="$result->title" :avatar="$result->user->avatar" />
+                @endif
             </li>
-        @endforeach
+        @empty
+            @if ($search)
+                <li>
+                    <span class="block p-2 hover:bg-gray-100 transition-all duration-200">Sonuç
+                        bulunamadı.</span>
+                </li>
+            @endif
+        @endforelse
     </ul>
 </div>
