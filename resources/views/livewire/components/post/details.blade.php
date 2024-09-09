@@ -8,7 +8,7 @@
                 </x-link>
                 <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
                 <span class="inline-block text-gray-500 text-xs">•</span>
-                <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
                 <div class="ml-2">
                     @foreach ($post->tags as $tag)
                         <span
