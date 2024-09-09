@@ -23,7 +23,7 @@
                     <input wire:model="optionInputs.{{ $loop->index }}.option" type="text"
                         id="option-{{ $loop->index }}" name="option-{{ $loop->index }}"
                         class="block w-full bg-gray-100 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Yanıt" autocomplete="off" />
+                        placeholder="Yanıt {{ $loop->index + 1 }}" autocomplete="off" />
                     <button wire:click.prevent="removeOption({{ $loop->index }})" type="button" class="p-2">
                         <x-icons.trash color='#ff6969' size='14' />
                     </button>
@@ -34,11 +34,11 @@
     <x-seperator />
     <div class="bg-gray-50 p-4 gap-2 flex items-center justify-end">
         <button wire:click="$dispatch('closeModal')" type="button"
-            class="px-4 py-2 font-medium text-sm text-red-500 rounded-md hover:bg-red-100">
+            class="px-4 py-2 font-medium outline-none text-sm text-red-500 rounded-md hover:bg-red-100">
             Vazgeç
         </button>
         <button type="submit"
-            class="px-4 py-2 font-medium text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+            class="px-4 py-2 font-medium outline-none text-sm rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
             Ekle
         </button>
     </div>
