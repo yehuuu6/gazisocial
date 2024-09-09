@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Role;
 use App\Models\Tag;
+use App\Models\Activity;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +22,12 @@ class DatabaseSeeder extends Seeder
         $admin = Role::create(['name' => 'yönetici', 'color' => 'red', 'level' => 1]);
         $owner = Role::create(['name' => 'gazi social', 'color' => 'blue', 'level' => 2]);
 
-        $users = User::factory(10)->create();
+        $users = User::factory(10)->create()->each(function ($user) {
+            Activity::create([
+                'user_id' => $user->id,
+                'content' => 'Kayıt oldu!',
+            ]);
+        });
 
         $tags = Tag::factory(10)->create();  // Creates 10 random tags
 
@@ -34,16 +40,28 @@ class DatabaseSeeder extends Seeder
                 $post->tags()->attach(
                     $tags->random(rand(1, 5))->pluck('id')->toArray()
                 );
+
+                // Create activity for each post
+                Activity::create([
+                    'user_id' => $post->user_id,
+                    'content' => 'Konu oluşturdu!',
+                    'link' => route('post.show', $post->slug),
+                ]);
             });
 
         // Create a user with custom attributes
         $user1 = User::create([
             'name' => 'Eren Aydın',
             'username' => 'yehuuu6',
-            'avatar' => 'https://ui-avatars.com/api/?name=eren aydin&background=random',
+            'avatar' => 'https://ui-avatars.com/api/?name=Eren%20Aydın&background=random',
             'email' => 'eren.aydin@gazi.edu.tr',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
+        ]);
+
+        Activity::create([
+            'user_id' => $user1->id,
+            'content' => 'Kayıt oldu!',
         ]);
 
         // Add gazi social role to the user
@@ -53,19 +71,29 @@ class DatabaseSeeder extends Seeder
         $user2 = User::create([
             'name' => 'Ahmet Kandaz',
             'username' => 'KaNEX',
-            'avatar' => 'https://ui-avatars.com/api/?name=ahmet kandaz&background=random',
+            'avatar' => 'https://ui-avatars.com/api/?name=Ahmet%20Kandaz&background=random',
             'email' => 'kanex@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
         ]);
 
+        Activity::create([
+            'user_id' => $user2->id,
+            'content' => 'Kayıt oldu!',
+        ]);
+
         $user3 = User::create([
             'name' => 'Melek Güleç',
             'username' => 'melekisnothere',
-            'avatar' => 'https://ui-avatars.com/api/?name=melek gulec&background=random',
+            'avatar' => 'https://ui-avatars.com/api/?name=Melek%20Güleç&background=random',
             'email' => 'melek.gulec@gazi.edu.tr',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
+        ]);
+
+        Activity::create([
+            'user_id' => $user3->id,
+            'content' => 'Kayıt oldu!',
         ]);
 
         $user3->roles()->attach($admin);
