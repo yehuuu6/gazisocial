@@ -19,12 +19,44 @@ class UpdateAvatar extends ModalComponent
 
     protected User $user;
 
-    public function save()
+    public function removeAvatar()
     {
+
+        // Retrieve the current user
+        $this->user = Auth::user();
+        $oldAvatar = $this->user->avatar;
+
+        // Delete the old avatar if it exists and is not the default
+        if ($oldAvatar && Storage::exists($oldAvatar)) {
+            Storage::delete($oldAvatar);
+        } else {
+            $this->alert('error', 'Fotoğrafınız zaten kaldırılmış!');
+            return;
+        }
+
+        // Update the user's avatar in the database
+        $this->user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($this->user->name) . '&background=random';
+        $this->user->save();
+
+        // Alert success message
+        $this->alert('success', 'Fotoğrafınız kaldırıldı!');
+
+        // Refresh the user instance
+        $this->user->refresh();
+
+        // Dispatch the modal close event
+        $this->dispatch('closeModal');
+    }
+
+    public function updateAvatar()
+    {
+
+        // Validate the image
+
         $messages = [
-            'avatar.required' => 'Bir avatar yüklemelisiniz!',
-            'avatar.image' => 'Avatar resim dosyası olmalıdır.',
-            'avatar.max' => 'Avatar en fazla 1 MB boyutunda olabilir.',
+            'avatar.required' => 'Fotoğraf alanı boş bırakılamaz.',
+            'avatar.image' => 'Yüklenen dosya bir resim olmalıdır.',
+            'avatar.max' => 'Fotoğrafın boyutu 1MB\'ı geçemez.',
         ];
 
         try {
@@ -32,34 +64,33 @@ class UpdateAvatar extends ModalComponent
                 'avatar' => 'required|image|max:1024',
             ], $messages);
         } catch (ValidationException $e) {
-            $errors = $e->validator->errors()->all();
-            $errorMessage = implode('<br>', $errors);
-            $this->alert('error', $errorMessage);
+            $this->alert('error', $e->getMessage());
             return;
         }
 
-        // Kullanıcının mevcut avatarını al
+        // Retrieve the current user
         $this->user = Auth::user();
         $oldAvatar = $this->user->avatar;
 
-        // Yeni avatarı depola ve dosya adını al
-        $avatarPath = $this->avatar->store('avatars');
+        // Store the new avatar and get its path
+        $avatarPath = '/' . $this->avatar->store('avatars');
 
-        // Eğer eski bir avatar varsa ve varsayılan avatar değilse sil
-        if ($oldAvatar && Storage::exists(ltrim($oldAvatar, '/'))) {
-            Storage::delete(ltrim($oldAvatar, '/'));
+        // Delete the old avatar if it exists and is not the default
+        if ($oldAvatar && Storage::exists($oldAvatar)) {
+            Storage::delete($oldAvatar);
         }
 
-        // Kullanıcının avatarını veritabanında güncelle
-        $this->user->avatar = "/" . $avatarPath;
+        // Update the user's avatar in the database
+        $this->user->avatar = $avatarPath;
         $this->user->save();
 
+        // Alert success message
         $this->alert('success', 'Fotoğrafınız güncellendi!');
 
-        // Refresh Auth::user
-
+        // Refresh the user instance
         $this->user->refresh();
 
+        // Dispatch the modal close event
         $this->dispatch('closeModal');
     }
 
