@@ -8,6 +8,11 @@ use Livewire\Component;
 class Categories extends Component
 {
 
+    public function placeholder()
+    {
+        return view('components.category-placeholder');
+    }
+
     public function render()
     {
         return view('livewire.components.categories', [
