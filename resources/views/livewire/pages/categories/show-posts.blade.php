@@ -1,7 +1,7 @@
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
 
     <x-header-title>
-        <span class="capitalize">"{{ $tag->name }}"</span> Kategorisi için Sonuçlar
+        <span class="capitalize">{{ $tag->name }}</span>
     </x-header-title>
 
     <x-seperator />
