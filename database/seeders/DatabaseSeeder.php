@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Role;
+use App\Models\Tag;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,10 +23,18 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(10)->create();
 
+        $tags = Tag::factory(10)->create();  // Creates 10 random tags
+
         $posts = Post::factory(50)
-        ->has(Comment::factory(33)->recycle($users))
-        ->recycle($users)
-        ->create();
+            ->has(Comment::factory(33)->recycle($users))
+            ->recycle($users)
+            ->create()
+            ->each(function ($post) use ($tags) {
+                // Randomly assign between 1 and 5 tags to each post
+                $post->tags()->attach(
+                    $tags->random(rand(1, 5))->pluck('id')->toArray()
+                );
+            });
 
         // Create a user with custom attributes
         $user1 = User::create([
@@ -59,6 +68,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
+        $user3->roles()->attach($admin);
         $user3->roles()->attach($gazili);
     }
 }

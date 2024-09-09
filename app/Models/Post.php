@@ -15,6 +15,11 @@ class Post extends Model
         'slug',
     ];
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function polls()
     {
         return $this->hasMany(Poll::class);

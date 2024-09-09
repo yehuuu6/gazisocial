@@ -9,6 +9,12 @@
                 <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
                 <span class="inline-block text-gray-500 text-xs">•</span>
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                <div class="ml-2">
+                    @foreach ($post->tags as $tag)
+                        <span
+                            class="py-1 px-2 {{ $this->getRandomColorForTag() }} text-white font-medium rounded-full capitalize text-xs">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
             </div>
             @auth
                 @can('delete', $post)
