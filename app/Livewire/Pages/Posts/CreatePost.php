@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use Illuminate\Validation\ValidationException;
 
 class CreatePost extends Component
 {
@@ -44,17 +45,38 @@ class CreatePost extends Component
         $response = Gate::inspect('create', Post::class);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Konu oluşturmak e-posta onaylı bir hesap gerektirir.');
+            $this->alert('error', 'Konu açmak e-posta onaylı bir hesap gerektirir.');
             return;
         }
 
-        $validated = $this->validate([
-            'title' => 'required|min:6',
-            'content' => 'required|min:10',
-        ]);
+        $messages = [
+            'title.required' => 'Konu başlığı zorunludur.',
+            'title.min' => 'Konu başlığı en az :min karakter olmalıdır.',
+            'title.max' => 'Konu başlığı en fazla :max karakter olabilir.',
+            'content.required' => 'Konu içeriği zorunludur.',
+            'content.min' => 'Konu içeriği en az :min karakter olmalıdır.',
+            'content.max' => 'Konu içeriği en fazla :max karakter olabilir.'
+        ];
 
-        $slug = Str::slug($validated['title']);
-        $validated['slug'] = $slug;
+        try {
+            $this->validate([
+                'title' => 'bail|required|min:6|max:100'
+            ], $messages);
+            $this->validate([
+                'content' => 'bail|required|min:10|max:5000'
+            ], $messages);
+        } catch (ValidationException $e) {
+            $errors = $e->validator->errors()->all();
+            $errorMessage = implode('<br>', $errors);
+            $this->alert('error', $errorMessage);
+            return;
+        }
+
+        $validated = [
+            'title' => $this->title,
+            'content' => $this->content,
+            'slug' => Str::slug($this->title)
+        ];
 
         // Create and save the post first
         $post = Post::make($validated);
@@ -83,6 +105,6 @@ class CreatePost extends Component
 
     public function render()
     {
-        return view('livewire.pages.posts.create-post')->title('Yeni Konu Oluştur - ' . config('app.name'));
+        return view('livewire.pages.posts.create-post')->title('Yeni konu oluştur - ' . config('app.name'));
     }
 }
