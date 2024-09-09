@@ -17,11 +17,11 @@
             <div class="bg-white shadow-md rounded-xl hidden flex-col overflow-hidden md:flex">
                 <h3 class="text-xl font-bold p-4">Kategoriler</h3>
                 <x-seperator />
-                <livewire:components.categories />
+                <livewire:components.categories lazy />
                 <x-seperator />
                 <h3 class="text-xl font-bold p-4">Aktiviteler</h3>
                 <x-seperator />
-                <x-users.user-activities />
+                <livewire:components.user-activities lazy />
             </div>
             {{ $slot }}
         </div>
