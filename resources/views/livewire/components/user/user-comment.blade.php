@@ -16,5 +16,5 @@
             @endcan
         @endauth
     </div>
-    <p class="text-gray-600 break-all">{{ $comment->content }}</p>
+    <p class="text-gray-600 break-all line-clamp-2">{{ $comment->content }}</p>
 </li>

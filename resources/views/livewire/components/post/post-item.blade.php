@@ -9,7 +9,7 @@
         </div>
         <span class="text-gray-500 text-xs md:text-sm">{{ $post->created_at->diffForHumans() }}</span>
     </div>
-    <p class="ml-2 mt-2 text-gray-500 break-all text-sm md:text-base">{{ Str::limit($post->content, 150, '...') }}</p>
+    <p class="ml-2 mt-2 text-gray-500 break-all text-sm md:text-base line-clamp-1">{{ $post->content }}</p>
     <div class="post-icon flex ml-2 mt-3">
         <div class="flex gap-1 items-center">
             <x-icons.comment color="#4b5563" />
