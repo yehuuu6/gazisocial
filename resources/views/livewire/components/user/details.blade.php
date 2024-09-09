@@ -14,7 +14,9 @@
                 <div title="Profil resmini değiştir"
                     wire:click="$dispatch('openModal', { component: 'modals.update-avatar' })"
                     class="absolute size-full hidden group-hover:grid place-items-center bg-black bg-opacity-50 cursor-pointer">
-                    <x-icons.image size='30' color='#f2f2f2' />
+                    <div id="update-avatar-item">
+                        <x-icons.image size='30' color='#f2f2f2' />
+                    </div>
                 </div>
             @endif
         @endauth
@@ -28,21 +30,27 @@
                     <span class="text-gray-600 text-sm">{{ '@' . $user->username }}</span>
                     @forelse ($user->roles as $role)
                         <span
-                            class="py-1 px-2 {{ $colorVariants[$role->color] }} text-white font-medium rounded capitalize text-xs">{{ $role->name }}</span>
+                            class="py-1 px-2 {{ $colorVariants[$role->color] }} text-white font-medium rounded-full capitalize text-xs">{{ $role->name }}</span>
                     @empty
                         <span
-                            class="py-1 px-2 bg-orange-500 text-white font-medium rounded capitalize text-xs">Üye</span>
+                            class="py-1 px-2 bg-orange-500 text-white font-medium rounded-full capitalize text-xs">Üye</span>
                     @endforelse
                 </div>
             </div>
-            <x-icons.settings color="#4b5563" size="25" />
+            @auth
+                @if (Auth::user()->id === $user->id)
+                    <x-icons.settings color="#4b5563" size="25" />
+                @endif
+            @endauth
         </div>
         <p class="text-gray-600">{{ $bio }}</p>
         <div class="flex gap-3 items-center">
-            <div class="flex gap-1 items-center">
-                <x-icons.graduate color="#4b5563" size="25" />
-                <span class="text-gray-600 text-sm">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
-            </div>
+            @can('join', [App\Models\Faculty::class, $user])
+                <div class="flex gap-1 items-center">
+                    <x-icons.graduate color="#4b5563" size="25" />
+                    <span class="text-gray-600 text-sm">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
+                </div>
+            @endcan
             <div class="flex items-center gap-1">
                 <x-icons.trophy color="#4b5563" size="25" /><span class="text-sm text-gray-600">Seviye 10</span>
             </div>
@@ -63,3 +71,15 @@
         </div>
     </div>
 </div>
+
+@script
+    <script>
+        const avatar = document.querySelector('#update-avatar-item');
+        Livewire.on('openModal', () => {
+            avatar.classList.add('animate-bounce');
+        });
+        Livewire.on('closeModal', () => {
+            avatar.classList.remove('animate-bounce');
+        });
+    </script>
+@endscript
