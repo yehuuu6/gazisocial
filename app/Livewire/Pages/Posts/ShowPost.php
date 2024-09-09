@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Pages\Posts;
 
-use Livewire\Component;
 use App\Models\Post;
+use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
-use Livewire\Attributes\On;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ShowPost extends Component
@@ -26,16 +26,17 @@ class ShowPost extends Component
     }
 
     #[On('comment-created')]
-    public function resetAndScroll(){
+    public function resetAndScroll()
+    {
         $this->resetPage();
         $this->dispatch('scroll-to-header');
     }
 
     #[On('comment-deleted')]
-    public function refreshPage(){
+    public function refreshPage()
+    {
         $this->resetPage();
     }
-
 
     public function render()
     {
@@ -48,6 +49,6 @@ class ShowPost extends Component
         }
 
         return view('livewire.pages.posts.show-post', compact('comments'))
-        ->title($title);
+            ->title($title);
     }
 }
