@@ -14,7 +14,7 @@
                     <p class="text-sm text-gray-500">{{ '@' . $comment->user->username }}</p>
                 @endif
                 <span class="inline-block text-gray-500 text-xs">•</span>
-                <p class="text-sm text-gray-500">{{ $comment->created_at->shortAbsoluteDiffForHumans() }}</p>
+                <p class="text-sm text-gray-500">{{ $comment->created_at->locale('tr')->diffForHumans() }}</p>
             </div>
             @auth
                 @can('delete', $comment)
