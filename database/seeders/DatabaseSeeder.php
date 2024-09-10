@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        $tags = Tag::factory(10)->create();
+        $tags = Tag::factory(30)->create();
 
         $posts = Post::factory(50)
             ->has(Comment::factory(33)->recycle($users))
