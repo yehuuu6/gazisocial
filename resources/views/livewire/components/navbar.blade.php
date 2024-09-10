@@ -1,11 +1,10 @@
 <div class="navbar">
     <div class="flex items-center gap-2">
         <x-link href='/'
-            class="flex-1 flex items-center justify-start gap-2 mr-12 hover:no-underline hover:opacity-85"
+            class="flex-1 flex items-center justify-start gap-3 mr-12 hover:no-underline hover:opacity-85"
             title="Ana Sayfa">
             <img src="{{ asset('gazi-logo.png') }}" alt="logo" class="size-10 md:size-14 object-cover">
-            <span class="text-lg md:text-xl font-bold">Gazi
-                Social</span>
+            <span class="text-lg md:text-xl font-bold">Gazi Social</span>
         </x-link>
         <x-link href="/posts/create"
             class="hidden px-4 py-2 transition-all duration-200 md:inline-block bg-blue-200 bg-opacity-20 font-bold border-transparent text-sm text-blue-50 rounded-full hover:no-underline hover:bg-blue-500 hover:bg-opaity-100">
