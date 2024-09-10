@@ -16,6 +16,24 @@
                     <textarea wire:model="content" id="content" name="content" rows="5"
                         class="bg-gray-100 resize-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
+                <div class="space-y-2">
+                    <label for="tags" class="block text-sm font-medium text-gray-700">Etiketler</label>
+                    <div id="tags" class="flex flex-wrap gap-2">
+                        @foreach ($tags as $tag)
+                            <button wire:click="toggleTag('{{ $tag->id }}')" type="button"
+                                class="px-3 py-1 flex items-center gap-1 rounded-full shadow-sm focus:outline-none sm:text-sm
+                                {{ in_array($tag->id, $selectedTags) ? 'bg-indigo-500 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700' }}">
+                                @if (in_array($tag->id, $selectedTags))
+                                    <x-icons.minus color='white' size='14' />
+                                @else
+                                    <x-icons.plus color='#6366f1' size='14' />
+                                @endif
+
+                                {{ $tag->name }}
+                            </button>
+                        @endforeach
+                    </div>
+                </div>
                 <h3 class="text-sm block font-medium text-gray-700">Anketler</h3>
 
                 <div class="flex gap-5">
@@ -54,7 +72,7 @@
                     </button>
                     <button type="submit" wire:loading.class='animate-pulse'
                         class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 outline-none">
-                        Oluştur
+                        Yayınla
                     </button>
                 </div>
             </div>

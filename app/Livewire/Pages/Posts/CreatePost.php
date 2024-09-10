@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Posts;
 
 use App\Models\Activity;
+use App\Models\Tag;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Poll;
@@ -22,11 +23,21 @@ class CreatePost extends Component
     public $title;
     public $content;
     public $createdPolls = [];
+    public $selectedTags = [];
 
     public function removePoll($index)
     {
         unset($this->createdPolls[$index]);
         $this->createdPolls = array_values($this->createdPolls);
+    }
+
+    public function toggleTag(string $tagId)
+    {
+        if (($key = array_search($tagId, $this->selectedTags)) !== false) {
+            unset($this->selectedTags[$key]);
+        } else {
+            $this->selectedTags[] = $tagId;
+        }
     }
 
     #[On('pollCreated')]
@@ -84,6 +95,9 @@ class CreatePost extends Component
         $post->user()->associate(Auth::user());
         $post->save();
 
+        // Attach tags to the post
+        $post->tags()->attach($this->selectedTags);
+
         // Create poll options
         if (count($this->createdPolls) > 0) {
             foreach ($this->createdPolls as $poll) {
@@ -112,6 +126,8 @@ class CreatePost extends Component
 
     public function render()
     {
-        return view('livewire.pages.posts.create-post')->title('Yeni konu oluştur - ' . config('app.name'));
+        return view('livewire.pages.posts.create-post', [
+            'tags' => Tag::all()
+        ])->title('Yeni konu oluştur - ' . config('app.name'));
     }
 }
