@@ -11,8 +11,9 @@
                 <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
                 <div class="ml-2">
                     @foreach ($post->tags as $tag)
-                        <span
-                            class="py-1 px-2 {{ $this->getRandomColorForTag() }} text-white font-medium rounded-full capitalize text-xs">{{ $tag->name }}</span>
+                        <a href="{{ route('category.show', $tag->name) }}" wire:navigate
+                            wire:key="tag-{{ $tag->id }}"
+                            class="py-1 px-2 {{ $this->getRandomColorForTag() }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </div>
