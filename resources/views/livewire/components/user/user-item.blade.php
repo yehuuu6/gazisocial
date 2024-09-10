@@ -9,5 +9,5 @@
             <span class="text-gray-500 text-xs md:text-sm">{{ '@' . $user->username }}</span>
         </div>
     </div>
-    <p class="ml-2 mt-2 text-gray-500 break-all text-sm md:text-base">{{ $bio }}</p>
+    <p class="ml-2 mt-2 text-gray-500 break-all text-sm md:text-base line-clamp-1">{{ $bio }}</p>
 </div>
