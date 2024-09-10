@@ -15,11 +15,9 @@
     <main class="flex-1">
         <div class="h-full flex-1 grid grid-cols-1 md:grid-cols-[320px_1fr] gap-6 p-6">
             <div class="bg-white shadow-md rounded-xl hidden flex-col overflow-hidden md:flex">
-                <h3 class="text-xl font-bold p-4">Kategoriler</h3>
+                <h3 class="text-xl font-bold p-4">Kategoriler ve Aktiviteler</h3>
                 <x-seperator />
                 <livewire:components.categories lazy />
-                <x-seperator />
-                <h3 class="text-xl font-bold p-4">Aktiviteler</h3>
                 <x-seperator />
                 <livewire:components.user-activities lazy />
             </div>
