@@ -33,7 +33,7 @@ class SearchBar extends Component
 
     private function setPlaceholderAndTargetUrl()
     {
-        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search') {
+        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit') {
             $this->placeholder = 'Bir kullanıcı ara...';
             $this->targetUrl = '/u/search/';
         } else {
@@ -48,7 +48,7 @@ class SearchBar extends Component
             return [];
         }
 
-        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search') {
+        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit') {
             return $this->getUserSearchResults();
         } else {
             return $this->getPostSearchResults();

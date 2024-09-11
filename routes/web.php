@@ -13,6 +13,7 @@ use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
 use App\Livewire\Pages\Categories\ShowPosts;
 use App\Livewire\Pages\Faculty\ListFaculties;
+use App\Livewire\Pages\Users\EditUser;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -46,6 +47,7 @@ Route::get('/posts/search/{query}', SearchPost::class)->name('post.search');
 
 Route::get('/u/{user:username}', UserPage::class)->name('user.show');
 Route::get('/u/search/{query}', SearchUser::class)->name('user.search');
+Route::get('/u/{user:username}/edit', EditUser::class)->name('user.edit')->middleware('auth');
 
 // User routes END
 
