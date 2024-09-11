@@ -54,7 +54,7 @@ class UpdateAvatar extends ModalComponent
         // Validate the image
 
         $messages = [
-            'avatar.required' => 'Fotoğraf alanı boş bırakılamaz.',
+            'avatar.required' => 'Geçerli bir dosya yükleyin.',
             'avatar.image' => 'Yüklenen dosya bir resim olmalıdır.',
             'avatar.max' => 'Fotoğrafın boyutu 1MB\'ı geçemez.',
         ];
