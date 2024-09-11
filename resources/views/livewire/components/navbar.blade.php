@@ -7,7 +7,7 @@
             <span class="text-lg md:text-xl font-bold">Gazi Social</span>
         </x-link>
         <x-link href="/posts/create"
-            class="hidden px-4 py-2 transition-all duration-200 md:inline-block bg-blue-200 bg-opacity-20 font-bold border-transparent text-sm text-blue-50 rounded-full hover:no-underline hover:bg-blue-500 hover:bg-opaity-100">
+            class="hidden px-4 py-2 transition-all duration-200 md:inline-block bg-blue-200 bg-opacity-20 font-medium border-transparent text-sm text-blue-50 rounded-full hover:no-underline hover:bg-blue-500 hover:bg-opaity-100">
             Yeni Konu Oluştur
         </x-link>
         @auth
