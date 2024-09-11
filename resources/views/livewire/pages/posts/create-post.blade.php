@@ -20,7 +20,9 @@
                     <label for="tags" class="block font-medium text-gray-700">Etiketler</label>
                     <div id="tags" class="flex flex-wrap gap-2">
                         @foreach ($tags as $tag)
-                            <button wire:click="toggleTag('{{ $tag->id }}')" type="button"
+                            <button wire:click="toggleTag('{{ $tag->id }}')" type="button" wire:target="toggleTag"
+                                wire:key="tag-toggler-{{ $tag->id }}" wire:loading.attr="disabled"
+                                wire:loading.class="animate-pulse"
                                 class="px-3 py-1 flex items-center gap-1 rounded-full shadow-sm focus:outline-none sm:text-sm
                                 {{ in_array($tag->id, $selectedTags) ? 'bg-indigo-500 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700' }}">
                                 @if (in_array($tag->id, $selectedTags))
@@ -75,7 +77,8 @@
                 class="px-6 py-2 border border-green-500 outline-none bg-transparent text-green-500 font-medium hover:bg-green-500 hover:text-white rounded outline:none">
                 Anket Ekle
             </button>
-            <button type="submit" wire:loading.class='animate-pulse'
+            <button type="submit" wire:loading.class='animate-pulse' wire:loading.attr='disabled'
+                wire:target='createPost'
                 class="px-6 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600 outline-none">
                 Yayınla
             </button>
