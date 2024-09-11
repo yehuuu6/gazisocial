@@ -10,7 +10,7 @@
     <ul class="absolute w-full divide-y bg-white rounded-b-lg shadow-lg z-10 top-[2.65rem]">
         @forelse ($results as $result)
             <li wire:key="{{ $result->id }}">
-                @if ($currentRoute === 'user.show' || $currentRoute === 'user.search')
+                @if ($currentRoute === 'user.show' || $currentRoute === 'user.search' || $currentRoute === 'user.edit')
                     <x-users.search-item :user="$result" />
                 @else
                     <x-posts.search-item :title="$result->title" :avatar="$result->user->avatar" />
