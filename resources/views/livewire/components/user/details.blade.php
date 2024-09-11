@@ -39,7 +39,10 @@
             </div>
             @auth
                 @if (Auth::user()->id === $user->id)
-                    <x-icons.settings color="#4b5563" size="25" />
+                    <x-link href="{{ route('user.edit', $user->username) }}" title="Profili Düzenle"
+                        class="transition-transform duration-100 hover:no-underline hover:-translate-y-1">
+                        <x-icons.settings color="#4b5563" size="25" />
+                    </x-link>
                 @endif
             @endauth
         </div>
