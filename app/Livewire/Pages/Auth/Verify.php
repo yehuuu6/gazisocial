@@ -27,7 +27,8 @@ class Verify extends Component
         $this->returnHomeIfVerified();
     }
 
-    public function verifyUser(EmailVerificationRequest $request){
+    public function verifyUser(EmailVerificationRequest $request)
+    {
 
         $request->fulfill();
         $this->user = Auth::user();
