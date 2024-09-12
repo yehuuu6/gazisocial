@@ -23,6 +23,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'bio',
         'email',
         'password',
+        'is_private',
+        'badge_visibility',
     ];
 
     public function roles()
