@@ -13,14 +13,13 @@
                         <div class="flex flex-col gap-5 py-4">
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="name" class="block font-medium text-gray-700">İsim</label>
-                                <input wire:model="name" type="text" id="name" name="name"
-                                    value="{{ Auth::user()->name }}" autocomplete="off"
+                                <input wire:model="name" type="text" id="name" name="name" autocomplete="off"
                                     class="block w-full bg-gray-50 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="username" class="block font-medium text-gray-700">Kullanıcı Adı</label>
                                 <input wire:model="username" type="text" id="username" name="username"
-                                    value="{{ Auth::user()->username }}" autocomplete="off"
+                                    autocomplete="off"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
@@ -39,8 +38,8 @@
                                     @endif
                                 </label>
                                 <input wire:model="email" type="email" id="email" name="email"
-                                    value="{{ Auth::user()->email }}" autocomplete="email"
-                                    class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                                    value="{{ Auth::user()->email }}" autocomplete="email" readonly
+                                    class="bg-gray-50 text-gray-500 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="bio" class="block font-medium text-gray-700">Biyografi</label>
@@ -50,7 +49,8 @@
                         </div>
                         <x-seperator />
                         <div class="flex justify-end bg-gray-50 p-6">
-                            <button type="submit"
+                            <button type="submit" wire:loading.attr="disabled" wire:target="updateProfileInfo"
+                                wire:loading.class="animate-pulse"
                                 class="px-6 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600">
                                 Değişiklikleri Uygula
                             </button>
@@ -66,26 +66,28 @@
                                 <label for="current_password" class="block font-medium text-gray-700">Mevcut
                                     Şifre</label>
                                 <input wire:model="current_password" type="password" id="current_password"
-                                    name="current_password"
+                                    placeholder="********" name="current_password"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="new_password" class="block font-medium text-gray-700">Yeni
                                     Şifre</label>
                                 <input wire:model="new_password" type="password" id="new_password" name="new_password"
+                                    placeholder="********"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="password_confirmation" class="block font-medium text-gray-700">Şifre
                                     Onayı</label>
                                 <input wire:model="password_confirmation" type="password" id="password_confirmation"
-                                    name="password_confirmation"
+                                    name="password_confirmation" placeholder="********"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                         </div>
                         <x-seperator />
                         <div class="flex justify-end bg-gray-50 p-6">
-                            <button type="submit"
+                            <button type="submit" wire:loading.attr="disabled" wire:target="updatePassword"
+                                wire:loading.class="animate-pulse"
                                 class="px-6 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600">
                                 Şifreyi Güncelle
                             </button>
@@ -102,7 +104,8 @@
                             <div class="flex flex-col gap-2">
                                 <label for="profile-visibility"
                                     class="block font-medium text-gray-700">Görünürlük</label>
-                                <select wire:model="profileVisibility" id="profile-visibility" name="profile-visibility"
+                                <select wire:model="profileVisibility" id="profile-visibility"
+                                    name="profile-visibility"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                                     <option value="public">Herkese Açık</option>
                                     <option value="private">Gizli</option>
@@ -113,10 +116,12 @@
                                 <select wire:model="badgeVisibility" id="badge-visibility" name="badge-visibility"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                                     <option value="default">Varsayılan</option>
+                                    <option value="partial">Kısmi</option>
                                     <option value="hidden">Gizli</option>
                                 </select>
                             </div>
-                            <button type="submit"
+                            <button type="submit" wire:loading.attr="disabled" wire:target="updatePrivacyInfo"
+                                wire:loading.class="animate-pulse"
                                 class="px-4 py-2 mt-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600">
                                 Tercihlerimi Kaydet
                             </button>
@@ -132,7 +137,8 @@
                                 Hesabınızı silmek geri döndürülemez bir işlemdir ve tüm verileriniz kalıcı olarak
                                 silinecektir.
                             </span>
-                            <button type="submit"
+                            <button type="submit" wire:loading.attr="disabled"
+                                wire:target="deleteAccountPermanently" wire:loading.class="animate-pulse"
                                 class="px-4 py-2 mt-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600"
                                 wire:click="confirmDeleteAccount">
                                 Hesabı Sil
