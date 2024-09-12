@@ -49,23 +49,20 @@
             </div>
         @endif
         <div class="post-icon flex">
-            @auth
-                <div class="flex gap-0 items-center">
+            <div class="flex gap-0 items-center">
+                @auth
                     <button class="hover:bg-blue-200 p-2 rounded-full"
                         wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post }} }})">
                         <x-icons.comment color="#4b5563" />
                     </button>
-                    <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
-                </div>
-            @endauth
-            @guest
-                <div class="flex gap-0 items-center">
+                @endauth
+                @guest
                     <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
                         <x-icons.comment color="#4b5563" />
                     </a>
-                    <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
-                </div>
-            @endguest
+                @endguest
+                <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
+            </div>
             <div class="flex gap-0 items-center">
                 <button class="hover:bg-blue-200 rounded-full p-2">
                     <x-icons.heart color="#4b5563" />
