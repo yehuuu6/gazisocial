@@ -20,7 +20,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = str(fake()->sentence)->beforeLast('.')->title();
-        $slug = Str::slug($title);
+        $slug = Str::slug($title) . '-' . $this->faker->unique()->randomNumber(5);
         return [
             'user_id' => User::factory(),
             'title' => $title,

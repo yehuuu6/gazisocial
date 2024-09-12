@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 // Create activity for each post
                 Activity::create([
                     'user_id' => $post->user_id,
+                    'post_id' => $post->id,
                     'content' => 'Yeni bir konu oluşturdu!',
                     'link' => route('post.show', $post->slug),
                 ]);
