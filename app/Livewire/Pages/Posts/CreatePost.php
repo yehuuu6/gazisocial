@@ -77,6 +77,11 @@ class CreatePost extends Component
             $this->validate([
                 'content' => 'bail|required|min:10|max:5000'
             ], $messages);
+
+            if (count($this->selectedTags) < 1) {
+                $this->alert('error', 'En az bir etiket seçmelisiniz.');
+                return;
+            }
         } catch (ValidationException $e) {
             $errors = $e->validator->errors()->all();
             $errorMessage = implode('<br>', $errors);
@@ -87,7 +92,7 @@ class CreatePost extends Component
         $validated = [
             'title' => $this->title,
             'content' => $this->content,
-            'slug' => Str::slug($this->title)
+            'slug' => Str::slug($this->title) . '-' . rand(10000, 99999)
         ];
 
         // Create and save the post first
@@ -115,11 +120,14 @@ class CreatePost extends Component
 
         session()->flash('post-created', 'Konu başarıyla oluşturuldu.');
 
-        Activity::create([
+        $activity = Activity::create([
             'user_id' => Auth::id(),
             'content' => 'Yeni bir konu oluşturdu!',
             'link' => route('post.show', $post->slug)
         ]);
+
+        $activity->post()->associate($post);
+        $activity->save();
 
         return $this->redirect(route('post.show', $post->slug), navigate: true);
     }

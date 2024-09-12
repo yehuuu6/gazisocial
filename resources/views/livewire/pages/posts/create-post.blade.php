@@ -8,16 +8,17 @@
             <div class="flex flex-col gap-5 py-4">
                 <div class="flex flex-col gap-2 px-4">
                     <label for="title" class="block font-medium text-gray-700">Başlık</label>
-                    <input wire:model="title" type="text" id="title" name="title"
+                    <input wire:model="title" type="text" id="title" name="title" maxlength="100" minlength="6"
+                        required
                         class="block w-full bg-gray-50 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                 </div>
                 <div class="flex flex-col gap-2 px-4">
                     <label for="content" class="block font-medium text-gray-700">İçerik</label>
-                    <textarea wire:model="content" id="content" name="content" rows="5"
+                    <textarea wire:model="content" id="content" name="content" rows="5" maxlength="5000" minlength="10" required
                         class="bg-gray-50 resize-none block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 </div>
                 <div class="flex flex-col gap-2 px-4">
-                    <label for="tags" class="block font-medium text-gray-700">Etiketler</label>
+                    <h3 class="cursor-default block font-medium text-gray-700">Etiketler</h3>
                     <div id="tags" class="flex flex-wrap gap-2">
                         @foreach ($tags as $tag)
                             <button wire:click="toggleTag('{{ $tag->id }}')" type="button" wire:target="toggleTag"
@@ -37,8 +38,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 px-4">
-                    <h3 class="text-sm block font-medium text-gray-700">Anketler</h3>
-
+                    <h3 class="cursor-default block font-medium text-gray-700">Anketler</h3>
                     <div class="flex gap-5">
                         @foreach ($createdPolls as $poll)
                             <div class="flex flex-col flex-grow gap-1 rounded-md border border-gray-300 bg-gray-100">

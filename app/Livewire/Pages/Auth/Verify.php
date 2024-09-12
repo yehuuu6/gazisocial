@@ -45,7 +45,7 @@ class Verify extends Component
     {
         $request->user()->sendEmailVerificationNotification();
 
-        $this->alert('success', 'Doğrulama e-postası gönderildi.');
+        $this->alert('info', 'Doğrulama e-postası gönderildi.');
 
         return back();
     }
