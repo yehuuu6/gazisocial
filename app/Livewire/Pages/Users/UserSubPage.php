@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Users;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -15,6 +16,15 @@ class UserSubPage extends Component
 
     public $currentView;
     public User $user;
+
+    public function isPrivateProfile(): bool
+    {
+        if ($this->user->is_private) {
+            return true;
+        }
+
+        return false;
+    }
 
     #[On('showUserPosts')]
     public function showUserPosts()
@@ -39,6 +49,11 @@ class UserSubPage extends Component
 
     public function render()
     {
+
+        if ($this->isPrivateProfile() && Gate::denies('view', $this->user)) {
+            return view('livewire.components.user-private-profile');
+        }
+
         switch ($this->currentView) {
             case 'user-posts':
                 return view('livewire.pages.users.user-posts-page', [
