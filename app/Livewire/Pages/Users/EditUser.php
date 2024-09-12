@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Users;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
 
@@ -20,8 +21,8 @@ class EditUser extends Component
     public $bio;
 
     // Update Password
-    public $currentPassword;
-    public $newPassword;
+    public $current_password;
+    public $new_password;
 
     // Update Account Privacy Settings
     public $profileVisibility;
@@ -34,15 +35,87 @@ class EditUser extends Component
         $this->name = $user->name;
         $this->username = $user->username;
         $this->bio = $user->bio;
+
         $this->profileVisibility = $user->is_private ? 'private' : 'public';
         $this->badgeVisibility = $user->badge_visibility;
 
         $this->authorize('view', $this->user);
     }
 
-    public function updateProfileInfo() {}
+    public function updateProfileInfo()
+    {
+        $this->authorize('update', $this->user);
 
-    public function updatePassword() {}
+        $messages = [
+            'name.required' => 'Ad alanı boş bırakılamaz.',
+            'name.string' => 'Ad alanı metin tipinde olmalıdır.',
+            'name.max' => 'Ad alanı en fazla :max karakter olabilir.',
+            'username.required' => 'Kullanıcı adı alanı boş bırakılamaz.',
+            'username.string' => 'Kullanıcı adı alanı metin tipinde olmalıdır.',
+            'username.max' => 'Kullanıcı adı alanı en fazla :max karakter olabilir.',
+            'username.unique' => 'Bu kullanıcı adı zaten alınmış.',
+            'bio.max' => 'Biyografi en fazla :max karakter olabilir.',
+        ];
+
+        try {
+            $this->validate([
+                'name' => 'required|string|max:30',
+                'username' => 'required|string|max:30|unique:users,username,' . $this->user->id,
+                'bio' => 'max:255',
+            ], $messages);
+        } catch (ValidationException $e) {
+            $this->alert('error', $e->getMessage());
+            return;
+        }
+
+        $result = $this->user->update([
+            'name' => $this->name,
+            'username' => $this->username,
+            'bio' => $this->bio,
+        ]);
+
+        if ($result) {
+            $this->alert('success', 'Profil bilgileriniz başarıyla güncellendi.');
+        } else {
+            $this->alert('error', 'Profil bilgileriniz güncellenirken bir hata oluştu.');
+        }
+    }
+
+    public function updatePassword()
+    {
+        $this->authorize('update', $this->user);
+
+        $messages = [
+            'current_password.required' => 'Mevcut şifrenizi girmelisiniz.',
+            'new_password.required' => 'Yeni şifrenizi girmelisiniz.',
+            'new_password.min' => 'Yeni şifreniz en az 8 karakter olmalıdır.',
+        ];
+
+        try {
+            $this->validate([
+                'current_password' => 'required',
+                'new_password' => 'required|min:8',
+            ], $messages);
+        } catch (ValidationException $e) {
+            $this->alert('error', $e->getMessage());
+            return;
+        }
+
+        if (!Hash::check($this->current_password, $this->user->password)) {
+            $this->alert('error', 'Mevcut şifrenizi yanlış girdiniz.');
+            return;
+        }
+
+        $result = $this->user->update([
+            'password' => Hash::make($this->new_password),
+        ]);
+
+        if ($result) {
+            $this->alert('success', 'Şifreniz başarıyla güncellendi.');
+        } else {
+            $this->alert('error', 'Şifreniz güncellenirken bir hata oluştu.');
+        }
+    }
 
     public function updatePrivacyInfo()
     {
