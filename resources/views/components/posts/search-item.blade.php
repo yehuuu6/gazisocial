@@ -1,14 +1,9 @@
-@props(['title', 'avatar'])
-
-@php
-
-    $slug = Str::slug($title);
-@endphp
+@props(['post'])
 
 <div class="flex flex-col">
-    <x-link href="/posts/{{ $slug }}"
+    <x-link href="/posts/{{ $post->slug }}"
         class="flex gap-2 items-center p-5 hover:bg-gray-100 hover:no-underline"><img class="h-8 w-8 rounded-full"
-            src="{{ $avatar }}" alt="avatar">
-        <h3 class="text-sm font-medium text-blue-800">{{ $title }}</h3>
+            src="{{ $post->user->avatar }}" alt="avatar">
+        <h3 class="text-sm font-medium text-blue-800">{{ $post->title }}</h3>
     </x-link>
 </div>
