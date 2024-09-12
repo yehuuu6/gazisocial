@@ -14,12 +14,13 @@
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="name" class="block font-medium text-gray-700">İsim</label>
                                 <input wire:model="name" type="text" id="name" name="name" autocomplete="off"
+                                    required maxlength="30"
                                     class="block w-full bg-gray-50 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="username" class="block font-medium text-gray-700">Kullanıcı Adı</label>
                                 <input wire:model="username" type="text" id="username" name="username"
-                                    autocomplete="off"
+                                    autocomplete="off" required maxlength="30"
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
@@ -38,12 +39,13 @@
                                     @endif
                                 </label>
                                 <input wire:model="email" type="email" id="email" name="email"
-                                    value="{{ Auth::user()->email }}" autocomplete="email" readonly
+                                    value="{{ Auth::user()->email }}" readonly
                                     class="bg-gray-50 text-gray-500 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="bio" class="block font-medium text-gray-700">Biyografi</label>
                                 <textarea wire:model="bio" id="bio" name="bio" rows="5" placeholder="Herhangi bir bilgi verilmemiş."
+                                    maxlength="255"
                                     class="bg-gray-50 resize-none block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">{{ Auth::user()->bio }}</textarea>
                             </div>
                         </div>
@@ -66,21 +68,21 @@
                                 <label for="current_password" class="block font-medium text-gray-700">Mevcut
                                     Şifre</label>
                                 <input wire:model="current_password" type="password" id="current_password"
-                                    placeholder="********" name="current_password"
+                                    placeholder="********" name="current_password" required
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="new_password" class="block font-medium text-gray-700">Yeni
                                     Şifre</label>
                                 <input wire:model="new_password" type="password" id="new_password" name="new_password"
-                                    placeholder="********"
+                                    placeholder="********" required
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
                                 <label for="password_confirmation" class="block font-medium text-gray-700">Şifre
                                     Onayı</label>
                                 <input wire:model="password_confirmation" type="password" id="password_confirmation"
-                                    name="password_confirmation" placeholder="********"
+                                    name="password_confirmation" placeholder="********" required
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                         </div>
