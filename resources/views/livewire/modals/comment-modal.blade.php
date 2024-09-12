@@ -1,4 +1,4 @@
-<form id="add-comment-modal" wire:submit="createComment" class="rounded-lg shadow-md">
+<form id="add-comment-modal" wire:submit="createComment" class="rounded-lg shadow-md" enctype="multipart/form-data">
     @csrf
     <h3 class="text-xl py-4 px-6 text-gray-700 font-medium">Yorum Yap</h3>
     <x-seperator />
@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="1000"
+    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="1000" required
         placeholder="Düşüncelerinizi paylaşın..." rows="8" class="w-full outline-none resize-none py-4 px-6"></textarea>
     <x-seperator />
     <div class="bg-gray-50 p-6 flex items-center justify-between">
