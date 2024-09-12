@@ -1,5 +1,9 @@
 @php
-    $bio = $user->bio ?? 'Herhangi bir bilgi verilmemiş.';
+    if ($user->bio === null || empty($user->bio)) {
+        $bio = 'Herhangi bir bilgi verilmemiş.';
+    } else {
+        $bio = $user->bio;
+    }
     // Color variants
     $colorVariants = [
         'blue' => 'bg-blue-700',
