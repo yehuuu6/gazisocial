@@ -13,7 +13,7 @@
                 @if ($currentRoute === 'user.show' || $currentRoute === 'user.search' || $currentRoute === 'user.edit')
                     <x-users.search-item :user="$result" />
                 @else
-                    <x-posts.search-item :title="$result->title" :avatar="$result->user->avatar" />
+                    <x-posts.search-item :post="$result" />
                 @endif
             </li>
         @empty
