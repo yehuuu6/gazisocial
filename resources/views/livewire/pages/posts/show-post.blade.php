@@ -21,7 +21,7 @@
             @endforeach
         </ul>
     </x-scrollable-wrapper>
-    {{ $comments->links() }}
+    {{ $comments->links('livewire.pagination.simple') }}
 </div>
 @script
     <script>
