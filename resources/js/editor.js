@@ -22,7 +22,7 @@ window.setupEditor = function (content) {
                 ],
                 editorProps: {
                     attributes: {
-                        class: "prose min-h-[512px] prose-sm max-w-none px-3 py-2 focus:outline-indigo-500",
+                        class: "prose prose-base sm:prose-sm md:prose-base lg:prose-lg max-w-none min-h-[312px] px-3 py-2 focus:outline-indigo-500",
                     },
                 },
                 content: content,
