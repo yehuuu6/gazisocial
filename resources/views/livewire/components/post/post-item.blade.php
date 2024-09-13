@@ -4,7 +4,7 @@
             <x-link title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
                 <img class="size-7 md:size-8 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
-            <x-link href="/posts/{{ $post->slug }}"
+            <x-link href="{{ $post->showRoute() }}"
                 class="text-base md:text-lg font-medium text-blue-800">{{ $post->title }}</x-link>
         </div>
         <span class="text-gray-500 text-xs md:text-sm">{{ $post->created_at->diffForHumans() }}</span>
