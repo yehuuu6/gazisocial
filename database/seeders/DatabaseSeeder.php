@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $tags = Tag::factory(30)->create();
 
         $posts = Post::factory(50)
+            ->withFixture()
             ->has(Comment::factory(33)->recycle($users))
             ->recycle($users)
             ->create()
