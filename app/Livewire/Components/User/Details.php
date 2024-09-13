@@ -12,6 +12,7 @@ class Details extends Component
     public function mount(User $user)
     {
         $this->user = $user->loadCount('comments');
+        $this->user = $user->loadCount('posts');
     }
 
     public function render()
