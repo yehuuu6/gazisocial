@@ -26,7 +26,8 @@
             @endauth
         </div>
         <h1 class="font-medium text-gray-900 text-2xl bg-gray-100 px-4 py-3 rounded-2xl">{{ $post->title }}</h1>
-        <article class="prose prose-sm sm:prose md:prose-lg lg:prose-2xl p-4 pl-0" wire:loading.class="animate-pulse">
+        <article class="prose prose-base sm:prose-sm md:prose-lg lg:prose-xl max-w-none"
+            wire:loading.class="animate-pulse">
             {!! $post->html !!}
         </article>
         @if ($post->polls->count() > 0)
