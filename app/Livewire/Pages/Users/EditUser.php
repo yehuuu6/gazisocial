@@ -22,7 +22,8 @@ class EditUser extends Component
 
     // Update Password
     public $current_password;
-    public $new_password;
+    public $password;
+    public $password_confirmation;
 
     // Update Account Privacy Settings
     public $profileVisibility;
@@ -87,14 +88,15 @@ class EditUser extends Component
 
         $messages = [
             'current_password.required' => 'Mevcut şifrenizi girmelisiniz.',
-            'new_password.required' => 'Yeni şifrenizi girmelisiniz.',
-            'new_password.min' => 'Yeni şifreniz en az 8 karakter olmalıdır.',
+            'password.required' => 'Yeni şifrenizi girmelisiniz.',
+            'password.min' => 'Yeni şifreniz en az 8 karakter olmalıdır.',
+            'password.confirmed' => 'Şifreler uyuşmuyor.',
         ];
 
         try {
             $this->validate([
                 'current_password' => 'required',
-                'new_password' => 'required|min:8',
+                'password' => 'required|min:8|confirmed',
             ], $messages);
         } catch (ValidationException $e) {
             $this->alert('error', $e->getMessage());
@@ -107,7 +109,7 @@ class EditUser extends Component
         }
 
         $result = $this->user->update([
-            'password' => Hash::make($this->new_password),
+            'password' => Hash::make($this->password),
         ]);
 
         if ($result) {
@@ -115,6 +117,8 @@ class EditUser extends Component
         } else {
             $this->alert('error', 'Şifreniz güncellenirken bir hata oluştu.');
         }
+
+        $this->reset();
     }
 
     public function updatePrivacyInfo()
