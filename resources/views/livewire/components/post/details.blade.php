@@ -1,5 +1,5 @@
-<div class="flex gap-3 p-5">
-    <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="w-8 h-8 rounded-full">
+<div class="flex gap-4 p-5">
+    <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="size-12 rounded-full">
     <div class="w-full flex flex-col gap-4">
         <div class="flex justify-between items-center">
             <div class="flex gap-1 items-baseline">
@@ -25,9 +25,9 @@
                 @endcan
             @endauth
         </div>
-        <h1 class="font-medium text-gray-900 text-2xl">{{ $post->title }}</h1>
-        <article class="text-gray-600 break-all" wire:loading.class="animate-pulse">
-            {{ $post->content }}
+        <h1 class="font-medium text-gray-900 text-2xl bg-gray-100 px-4 py-3 rounded-2xl">{{ $post->title }}</h1>
+        <article class="prose prose-sm sm:prose md:prose-lg lg:prose-2xl p-4 pl-0" wire:loading.class="animate-pulse">
+            {!! $post->html !!}
         </article>
         @if ($post->polls->count() > 0)
             <div class="flex items-center gap-2">
