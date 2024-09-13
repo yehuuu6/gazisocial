@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-white"">
+<body class="bg-white font-inter">
     {{ $slot }}
 </body>
 @livewire('wire-elements-modal')
