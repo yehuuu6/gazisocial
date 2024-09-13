@@ -1,6 +1,11 @@
-@props(['size' => '6', 'color' => 'gray'])
-<svg width="{{ $size }}" height="{{ $size }}" fill="{{ $color }}" viewBox="0 0 16 16">
-    <path
-        d="M13.5 1a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM11 2.5a2.5 2.5 0 11.603 1.628l-6.718 3.12a2.499 2.499 0 010 1.504l6.718 3.12a2.5 2.5 0 11-.488.876l-6.718-3.12a2.5 2.5 0 110-3.256l6.718-3.12A2.5 2.5 0 0111 2.5zm-8.5 4a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm11 5.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z">
-    </path>
+@props(['size' => 24, 'color' => 'gray'])
+
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24"
+    fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="lucide lucide-share-2">
+    <circle cx="18" cy="5" r="3" />
+    <circle cx="6" cy="12" r="3" />
+    <circle cx="18" cy="19" r="3" />
+    <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+    <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
 </svg>

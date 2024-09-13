@@ -1,7 +1,7 @@
-@props(['size' => '6', 'color' => 'gray'])
-<svg width="{{ $size }}" height="{{ $size }}" stroke="currentColor" fill="{{ $color }}"
-    stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+@props(['size' => '6', 'color' => '#131313'])
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24"
+    fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="lucide lucide-folder-open">
     <path
-        d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z">
-    </path>
+        d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" />
 </svg>

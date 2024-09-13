@@ -1,8 +1,11 @@
 @props(['size' => '6', 'color' => 'gray'])
-<svg width="{{ $size }}" height="{{ $size }}" stroke="currentColor" fill="{{ $color }}"
-    stroke-width="0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path fill="none" d="M0 0h24v24H0z"></path>
-    <path
-        d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z">
-    </path>
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24"
+    fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="lucide lucide-calendar-clock">
+    <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" />
+    <path d="M16 2v4" />
+    <path d="M8 2v4" />
+    <path d="M3 10h5" />
+    <path d="M17.5 17.5 16 16.3V14" />
+    <circle cx="16" cy="16" r="6" />
 </svg>

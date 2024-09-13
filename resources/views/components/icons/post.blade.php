@@ -1,7 +1,11 @@
 @props(['size' => '6', 'color' => 'gray'])
-<svg width="{{ $size }}" height="{{ $size }}" stroke="currentColor" fill="{{ $color }}"
-    stroke-width="0" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24"
+    fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="lucide lucide-scroll-text">
+    <path d="M15 12h-5" />
+    <path d="M15 8h-5" />
+    <path d="M19 17V5a2 2 0 0 0-2-2H4" />
     <path
-        d="M448 348.106V80c0-26.51-21.49-48-48-48H48C21.49 32 0 53.49 0 80v351.988c0 26.51 21.49 48 48 48h268.118a48 48 0 0 0 33.941-14.059l83.882-83.882A48 48 0 0 0 448 348.106zm-128 80v-76.118h76.118L320 428.106zM400 80v223.988H296c-13.255 0-24 10.745-24 24v104H48V80h352z">
-    </path>
+        d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
 </svg>
