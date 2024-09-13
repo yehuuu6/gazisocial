@@ -19,13 +19,10 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = str(fake()->sentence)->beforeLast('.')->title();
-        $slug = Str::slug($title) . '-' . $this->faker->unique()->randomNumber(5);
         return [
             'user_id' => User::factory(),
-            'title' => $title,
+            'title' => str(fake()->sentence)->beforeLast('.')->title(),
             'content' => $this->faker->realText($this->faker->numberBetween(100, 3000)),
-            'slug' => $slug,
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
     }

@@ -18,7 +18,7 @@ class HomePage extends Component
     public function render()
     {
         $posts = Post::query()
-            ->select('id', 'user_id', 'title', 'slug', 'content', 'created_at')
+            ->select('id', 'user_id', 'title', 'content', 'created_at')
             ->with('user:id,name,avatar,username')
             ->withCount('comments')
             ->latest('created_at')

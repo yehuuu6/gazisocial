@@ -4,7 +4,9 @@ namespace App\Livewire\Pages\Posts;
 
 use App\Models\Post;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\Attributes\On;
+use Illuminate\Http\Request;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -16,13 +18,16 @@ class ShowPost extends Component
 
     public Post $post;
 
+    public function mount(Request $request)
+    {
+        if (!Str::endsWith($this->post->showRoute(), $request->path())) {
+            return redirect()->to($this->post->showRoute($request->query()), status: 301);
+        }
+    }
+
     public function updatingPage()
     {
         $this->dispatch('scroll-to-header');
-    }
-    public function paginationSimpleView()
-    {
-        return 'livewire.pagination.simple';
     }
 
     #[On('comment-created')]

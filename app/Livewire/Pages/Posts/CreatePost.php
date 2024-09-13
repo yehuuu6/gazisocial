@@ -123,13 +123,13 @@ class CreatePost extends Component
         $activity = Activity::create([
             'user_id' => Auth::id(),
             'content' => 'Yeni bir konu oluşturdu!',
-            'link' => route('post.show', $post->slug)
+            'link' => $post->showRoute()
         ]);
 
         $activity->post()->associate($post);
         $activity->save();
 
-        return $this->redirect(route('post.show', $post->slug), navigate: true);
+        return $this->redirect($post->showRoute(), navigate: true);
     }
 
     public function render()

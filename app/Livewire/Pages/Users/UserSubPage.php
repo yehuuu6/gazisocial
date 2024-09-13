@@ -77,7 +77,7 @@ class UserSubPage extends Component
             default:
                 return view('livewire.pages.users.user-posts-page', [
                     'posts' => $this->user->posts()
-                        ->select('id', 'title', 'slug', 'created_at', 'content')
+                        ->select('id', 'title', 'created_at', 'content')
                         ->latest('created_at')
                         ->simplePaginate(10),
                 ]);
