@@ -92,7 +92,6 @@ class CreatePost extends Component
         $validated = [
             'title' => $this->title,
             'content' => $this->content,
-            'slug' => Str::slug($this->title) . '-' . rand(10000, 99999)
         ];
 
         // Create and save the post first
