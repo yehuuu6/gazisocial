@@ -11,6 +11,11 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected static function booted()
+    {
+        static::saving(fn(self $post) => $post->fill(['html' => str($post->content)->markdown()]));
+    }
+
     protected $fillable = [
         'title',
         'content',
@@ -44,10 +49,5 @@ class Post extends Model
     public function showRoute(array $parameters = [])
     {
         return route('post.show', [$this, Str::slug($this->title), ...$parameters]);
-    }
-
-    public function html(): Attribute
-    {
-        return Attribute::get(fn() => str($this->content)->markdown());
     }
 }
