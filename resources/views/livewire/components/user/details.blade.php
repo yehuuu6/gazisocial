@@ -54,24 +54,24 @@
         <div class="flex gap-3 items-center">
             @can('join', [App\Models\Faculty::class, $user])
                 <div class="flex gap-1 items-center">
-                    <x-icons.graduate color="#4b5563" size="25" />
+                    <x-icons.graduate color="#4b5563" size="24" />
                     <span class="text-gray-600 text-sm">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
                 </div>
             @endcan
             <div class="flex items-center gap-1">
-                <x-icons.trophy color="#4b5563" size="25" /><span class="text-sm text-gray-600">Seviye 10</span>
+                <x-icons.trophy color="#4b5563" size="24" /><span class="text-sm text-gray-600">Seviye 10</span>
             </div>
 
             <div class="flex items-center gap-1">
-                <x-icons.post color="#4b5563" size="21" />
-                <span class="text-gray-600 text-sm">{{ $user->posts->count() }} Gönderi</span>
+                <x-icons.post color="#4b5563" size="24" />
+                <span class="text-gray-600 text-sm">{{ $user->posts_count }} Gönderi</span>
             </div>
             <div class="flex items-center gap-1">
-                <x-icons.comment-count color="#4b5563" size="23" />
+                <x-icons.comment color="#4b5563" size="24" />
                 <span class="text-gray-600 text-sm">{{ $user->comments_count }} Yorum</span>
             </div>
             <div class="flex gap-1 items-center">
-                <x-icons.calender color="#4b5563" size="25" />
+                <x-icons.calender color="#4b5563" size="24" />
                 <span class="text-gray-600 text-sm">{{ $user->created_at->translatedFormat('F Y') }}
                     tarihinde katıldı</span>
             </div>
