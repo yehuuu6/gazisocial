@@ -13,6 +13,9 @@ export default {
       ],
     theme: {
         extend: {
+            fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+            },
             animation: {
                 wiggle: 'wiggle 1s ease-in-out infinite',
                 showUp: 'showUp 0.5s ease-in-out',
@@ -39,5 +42,6 @@ export default {
     },
     plugins: [
         require("tailwind-scrollbar"),
+        require("@tailwindcss/typography"),
     ],
 };
