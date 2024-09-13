@@ -1,7 +1,7 @@
 <li class="w-full border border-gray-200 rounded-lg flex flex-col gap-2 p-5 justify-center">
     <div class="bg-gray-100 flex items-center justify-between rounded-full text-sm px-3 py-1">
         <div>
-            <x-link href="/posts/{{ Str::slug($comment->post->title) }}" class=" text-blue-500">
+            <x-link href="{{ $comment->post->showRoute() }}" class=" text-blue-500">
                 {{ $comment->post->title }}
             </x-link>
             <span class="ml-1 text-gray-600">
