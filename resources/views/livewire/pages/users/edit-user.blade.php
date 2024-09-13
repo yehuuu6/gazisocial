@@ -38,8 +38,8 @@
                                             adresinizi onaylayın</a>
                                     @endif
                                 </label>
-                                <input wire:model="email" type="email" id="email" name="email"
-                                    value="{{ Auth::user()->email }}" readonly
+                                <input type="email" id="email" name="email" value="{{ Auth::user()->email }}"
+                                    readonly
                                     class="bg-gray-50 text-gray-500 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
@@ -72,9 +72,9 @@
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">
-                                <label for="new_password" class="block font-medium text-gray-700">Yeni
+                                <label for="password" class="block font-medium text-gray-700">Yeni
                                     Şifre</label>
-                                <input wire:model="new_password" type="password" id="new_password" name="new_password"
+                                <input wire:model="password" type="password" id="password" name="password"
                                     placeholder="********" required
                                     class="bg-gray-50 block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                             </div>
