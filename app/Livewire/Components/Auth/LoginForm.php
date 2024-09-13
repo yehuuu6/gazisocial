@@ -19,6 +19,8 @@ class LoginForm extends Component
     {
         Auth::logout();
 
+        session()->flash('loggedOut', 'Hesabınızdan çıkış yaptınız.');
+
         return redirect(route('login'));
     }
 
@@ -50,15 +52,18 @@ class LoginForm extends Component
             return;
         }
 
-        $this->alert('success', 'Başarıyla giriş yaptınız.');
-
         request()->session()->regenerate();
 
-        return redirect(route('home'));
+        $this->flash('success', 'Başarıyla giriş yaptınız.', redirect: route('home'));
     }
 
     public function render()
     {
+
+        if (session()->has('loggedOut')) {
+            $this->alert('info', session('loggedOut'));
+        }
+
         return view('livewire.components.auth.login-form');
     }
 }

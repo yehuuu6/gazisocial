@@ -69,8 +69,6 @@ class RegisterForm extends Component
 
         Auth::login($user);
 
-        $this->alert('success', 'Başarıyla kayıt oldunuz.');
-
         event(new Registered($user));
 
         Activity::create([
@@ -78,7 +76,7 @@ class RegisterForm extends Component
             'content' => "Gazi Social'a katıldı!",
         ]);
 
-        return redirect(route(('verification.notice')));
+        $this->flash('success', 'Başarıyla kayıt oldunuz.', redirect: route('verification.notice'));
     }
 
     public function render()
