@@ -14,8 +14,10 @@
                 </div>
                 <div class="flex flex-col gap-2 px-4">
                     <label for="content" class="block font-medium text-gray-700">İçerik</label>
-                    <textarea wire:model="content" id="content" name="content" rows="5" maxlength="5000" minlength="10" required
-                        class="bg-gray-50 resize-none block w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    <x-editor wire:model.live="content"></x-editor>
+                    <textarea wire:model="content" id="content" name="content" rows="22" maxlength="5000" minlength="10" required
+                        spellcheck="false"
+                        class="bg-gray-50 block resize-none w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 </div>
                 <div class="flex flex-col gap-2 px-4">
                     <h3 class="cursor-default block font-medium text-gray-700">Etiketler</h3>
