@@ -25,8 +25,9 @@
                 @endcan
             @endauth
         </div>
-        <h1 class="font-medium text-gray-900 text-2xl bg-gray-100 px-4 py-3 rounded-2xl">{{ $post->title }}</h1>
-        <article class="prose prose-base sm:prose-sm md:prose-lg lg:prose-xl max-w-none"
+        <h1 class="font-medium text-gray-900 sm:text-lg md:text-2xl lg:text-3xl bg-gray-100 px-4 py-3 rounded-2xl">
+            {{ $post->title }}</h1>
+        <article class="prose prose-base sm:prose-sm md:prose-base lg:prose-lg max-w-none"
             wire:loading.class="animate-pulse">
             {!! $post->html !!}
         </article>
