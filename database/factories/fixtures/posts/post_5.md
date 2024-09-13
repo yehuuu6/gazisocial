@@ -1,6 +1,6 @@
-### 5. Plan: Hafta Sonu Piknik Organizasyonu
+# Hafta Sonu Piknik Organizasyonu
 
-# Piknik İçin Gazi'den Kaçıyoruz!
+## Piknik İçin Gazi'den Kaçıyoruz!
 
 Merhaba Gazi'li dostlar! Hafta sonu güzel havayı değerlendirelim dedik ve **piknik** yapmaya karar verdik. Yer olarak düşündüğümüz:
 

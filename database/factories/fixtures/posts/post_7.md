@@ -1,6 +1,6 @@
-### 7. İtiraf: Derse Gitmemek İçin Ürettiğim Bahaneler
+# Derse Gitmemek İçin Ürettiğim Bahaneler
 
-# Derse Gitmek Zorunda Mıyız?
+## Derse Gitmek Zorunda Mıyız?
 
 Arkadaşlar, bazen sabahları gerçekten kalkamıyorum ve derse gitmemek için aklımdan geçen bahaneler komikleşiyor. İşte birkaç tanesi:
 

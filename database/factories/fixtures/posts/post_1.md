@@ -1,6 +1,6 @@
-### 1. İtiraf: Sınav Haftasında Çalışmak İçin İlginç Bir Yöntem
+# Sınav Haftasında Çalışmak İçin İlginç Bir Yöntem
 
-# Sınav Stresi mi? Kendi Kendime Konuşarak Çalışıyorum
+## Sınav Stresi mi? Kendi Kendime Konuşarak Çalışıyorum
 
 Bazen sınav haftasında motivasyonum sıfıra iniyor ve _dikkatimi toplamak_ gerçekten zor oluyor. Geçenlerde bir şey fark ettim:
 

@@ -1,6 +1,6 @@
-### 9. Haber: Üniversitede Yeni Bölüm Açılıyor
+# Üniversitede Yeni Bölüm Açılıyor
 
-# Gazi'de Yapay Zeka Bölümü Açıldı!
+## Gazi'de Yapay Zeka Bölümü Açıldı!
 
 Arkadaşlar, Gazi Üniversitesi **Yapay Zeka Mühendisliği** bölümünü açıyor! 2025-2026 akademik yılı itibariyle öğrenci almaya başlayacak.
 

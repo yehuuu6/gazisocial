@@ -1,6 +1,6 @@
-### 20. Plan: Hafta Sonu Trekking
+# Hafta Sonu Trekking
 
-# Trek
+## Trek
 
 king İçin Yola Çıkıyoruz!
 

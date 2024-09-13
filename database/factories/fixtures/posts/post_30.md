@@ -1,6 +1,6 @@
-### 30. Etkinlik: Gazi Müzik Atölyesi
+# Gazi Müzik Atölyesi
 
-# Müzik Öğrenmek İsteyenler Buraya!
+## Müzik Öğrenmek İsteyenler Buraya!
 
 Müzikle ilgilenen arkadaşlar, **Gazi Müzik Atölyesi** olarak yeni dönem kayıtlarını başlattık. Gitar, piyano ve davul gibi enstrümanlar öğrenmek isteyenler atölyemize katılabilir.
 

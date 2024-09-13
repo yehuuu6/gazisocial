@@ -1,6 +1,6 @@
-### 3. Tartışma: Final Notları Açıklandı
+# Final Notları Açıklandı
 
-# Final Notları Adil mi?
+## Final Notları Adil mi?
 
 Dersin adını vermeyeceğim ama bazı hocaların final sınavları çok **zorlayıcı** oldu. Özellikle online dersler sonrası sınav formatlarının böyle olması sizce adil mi?
 

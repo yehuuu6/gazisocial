@@ -1,6 +1,6 @@
-### 2. Soru: Yeni Açılan Yemekhane Nasıl?
+# Yeni Açılan Yemekhane Nasıl?
 
-# Yemekhanede Kalite Yükseldi mi?
+## Yemekhanede Kalite Yükseldi mi?
 
 Arkadaşlar, Gazi Üniversitesi'nin yeni açılan yemekhane binasına gittiniz mi? Kalabalık oluyor mu?
 

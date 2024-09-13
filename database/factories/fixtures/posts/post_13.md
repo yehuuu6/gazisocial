@@ -1,6 +1,6 @@
-### 13. Tartışma: KYK Yurtlarında Temizlik Sorunu
+# KYK Yurtlarında Temizlik Sorunu
 
-# KYK Yurtları Hijyen Sorunları
+## KYK Yurtları Hijyen Sorunları
 
 KYK yurdunda kalanlar, temizlik konusunda büyük sıkıntılar yaşadığımızı düşünüyor musunuz?
 

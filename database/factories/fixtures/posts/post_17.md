@@ -1,6 +1,6 @@
-### 17. Tartışma: Kantin Fiyatları Artıyor
+# Kantin Fiyatları Artıyor
 
-# Kantin Fiyatlarındaki Artış Sizce Normal mi?
+## Kantin Fiyatlarındaki Artış Sizce Normal mi?
 
 Son zamanlarda kantinde fiyatlar ciddi anlamda arttı. Bir tost ve çayın fiyatı bile artık **yüksek** geliyor. Sizce bu fiyatlar normal mi, yoksa daha uygun olmalı mı?
 

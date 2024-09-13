@@ -1,6 +1,6 @@
-### 15. Plan: Yarıyıl Tatili İçin Öneriler
+# Yarıyıl Tatili İçin Öneriler
 
-# Yarıyıl Tatilinde Nereye Gitmeli?
+## Yarıyıl Tatilinde Nereye Gitmeli?
 
 Yarıyıl tatili yaklaşıyor. Yurtdışına çıkmayı düşünen var mı? Şu an aklımdaki seçenekler:
 

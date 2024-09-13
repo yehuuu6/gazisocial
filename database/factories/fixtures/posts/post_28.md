@@ -1,6 +1,6 @@
-### 28. Tartışma: Kampüs İçinde Otomobil Kullanımı
+# Kampüs İçinde Otomobil Kullanımı
 
-# Kampüste Araç Kullanmak Yasaklanmalı mı?
+## Kampüste Araç Kullanmak Yasaklanmalı mı?
 
 Son zamanlarda kampüs içinde araç kullananların sayısı arttı ve bu durum hem yaya hem de bisiklet sürücülerini tehlikeye atıyor. Sizce kampüs içinde araç kullanımı tamamen yasaklanmalı mı?
 

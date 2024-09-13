@@ -1,6 +1,6 @@
-### 11. Soru: Erasmus İçin Hangi Ülke?
+# Erasmus İçin Hangi Ülke?
 
-# Erasmus İçin En İyi Tercih Nedir?
+## Erasmus İçin En İyi Tercih Nedir?
 
 Merhaba arkadaşlar, Erasmus başvurularım yaklaşıyor ve kararsız kaldım. Sizce hangi ülkeler Erasmus için en uygun?
 

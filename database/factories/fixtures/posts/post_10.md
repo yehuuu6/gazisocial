@@ -1,6 +1,6 @@
-### 10. Etkinlik: Film Gecesi
+# Film Gecesi
 
-# Gazi'de Açık Hava Sineması
+## Gazi'de Açık Hava Sineması
 
 Bu hafta sonu **açık hava sineması** etkinliğimiz var! Film şu:
 

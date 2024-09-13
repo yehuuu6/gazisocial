@@ -1,6 +1,6 @@
-### 24. Etkinlik: Gazi Spor Şenliği
+# Gazi Spor Şenliği
 
-# Gazi Spor Şenliği Geliyor!
+## Gazi Spor Şenliği Geliyor!
 
 Merhaba arkadaşlar! Gazi Üniversitesi'nin her yıl düzenlediği **spor şenliği** bu yıl da start veriyor. Farklı branşlarda turnuvalar olacak:
 

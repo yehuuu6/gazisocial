@@ -1,6 +1,6 @@
-### 6. Soru: KYK Yurdunda İnternet Hızı
+# KYK Yurdunda İnternet Hızı
 
-# KYK Yurdunda İnternet Sorunu
+## KYK Yurdunda İnternet Sorunu
 
 Merhaba arkadaşlar, KYK yurdunda kalanlar bilir, internet hızları bazen **dayanılmaz** derecede yavaş oluyor. Bu konuda siz de sıkıntı yaşıyor musunuz?
 

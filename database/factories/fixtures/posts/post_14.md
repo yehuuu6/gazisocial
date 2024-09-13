@@ -1,6 +1,6 @@
-### 14. Etkinlik: Gazi Müzik Festivali
+# Gazi Müzik Festivali
 
-# Gazi Müzik Festivali Başlıyor!
+## Gazi Müzik Festivali Başlıyor!
 
 Gazi Üniversitesi'nde bu yıl büyük bir **müzik festivali** düzenleniyor. Birbirinden ünlü sanatçılar sahne alacak. İşte program:
 

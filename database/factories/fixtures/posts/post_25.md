@@ -1,6 +1,6 @@
-### 25. Plan: Kütüphane Maratonu
+# Kütüphane Maratonu
 
-# Kütüphanede Sabahlamak
+## Kütüphanede Sabahlamak
 
 Sınav dönemi geldi çattı ve bu hafta birkaç geceyi kütüphanede geçirmeyi düşünüyorum.
 

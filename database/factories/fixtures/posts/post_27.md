@@ -1,6 +1,6 @@
-### 27. İtiraf: Proje Yetiştirme Stresi
+# Proje Yetiştirme Stresi
 
-# Proje Yetişmeyecek!
+## Proje Yetişmeyecek!
 
 Arkadaşlar, projeyi yetiştirememekten korkuyorum. Son dakikaya kadar bekledim ve şimdi de büyük bir stres altındayım.
 

@@ -1,6 +1,6 @@
-### 4. Etkinlik: Kitap Okuma Günleri
+# Kitap Okuma Günleri
 
-# Kitap Okuma Etkinliği Başlıyor!
+## Kitap Okuma Etkinliği Başlıyor!
 
 Herkese merhaba! Üniversite bünyesinde **kitap okuma etkinliği** başlatıyoruz. Her hafta bir kitap belirleyip, sonrasında tartışma grupları oluşturacağız.
 
