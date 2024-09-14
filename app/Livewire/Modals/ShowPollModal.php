@@ -71,11 +71,11 @@ class ShowPollModal extends ModalComponent
         } else {
             $msg = 'Başarıyla oy verdiniz!';
             // If the user is voting for the first time, create a new vote
-            $vote = PollVote::make();
-            $vote->poll()->associate($this->poll);
-            $vote->user()->associate(Auth::user());
-            $vote->option()->associate($option);
-            $vote->save();
+            PollVote::create([
+                'poll_id' => $this->poll->id,
+                'poll_option_id' => $option->id,
+                'user_id' => Auth::id(),
+            ]);
         }
 
         // Anketi tazele
