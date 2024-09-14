@@ -1,5 +1,6 @@
+@props(['class' => '', 'editorClass' => 'bg-gray-50'])
 <div x-data="{ content: @entangle($attributes->wire('model')), ...setupEditor() }" x-init="() => init($refs.editor)" wire:ignore {{ $attributes->whereDoesntStartWith('wire:model') }}
-    class="border border-gray-200 rounded-md">
+    class="border border-gray-200 rounded-md {{ $class }}">
     <template x-if="isLoaded()">
         <menu class="bg-gray-100 flex divide-x border-b">
             <li class="flex item-center justify-center">
@@ -73,30 +74,30 @@
                 </button>
             </li>
             <li>
-                <button x-on:click="toggleHeading({ level: 2 })" type="button" title="Başlık 1"
+                <button x-on:click="toggleHeading({ level: 3 })" type="button" title="Başlık 1"
                     :class="{
-                        'bg-blue-500 text-white': isActive('heading', { level: 2 }, updatedAt),
-                        'hover:bg-gray-200': !isActive('heading', { level: 2 }, updatedAt)
+                        'bg-blue-500 text-white': isActive('heading', { level: 3 }, updatedAt),
+                        'hover:bg-gray-200': !isActive('heading', { level: 3 }, updatedAt)
                     }"
                     class="px-4 py-3">
                     <x-icons.editor.heading-1 size='18' />
                 </button>
             </li>
             <li>
-                <button x-on:click="toggleHeading({ level: 3 })" type="button" title="Başlık 2"
+                <button x-on:click="toggleHeading({ level: 4 })" type="button" title="Başlık 2"
                     :class="{
-                        'bg-blue-500 text-white': isActive('heading', { level: 3 }, updatedAt),
-                        'hover:bg-gray-200': !isActive('heading', { level: 3 }, updatedAt)
+                        'bg-blue-500 text-white': isActive('heading', { level: 4 }, updatedAt),
+                        'hover:bg-gray-200': !isActive('heading', { level: 4 }, updatedAt)
                     }"
                     class="px-4 py-3">
                     <x-icons.editor.heading-2 size='18' />
                 </button>
             </li>
             <li>
-                <button x-on:click="toggleHeading({ level: 4 })" type="button" title="Başlık 3"
+                <button x-on:click="toggleHeading({ level: 5 })" type="button" title="Başlık 3"
                     :class="{
-                        'bg-blue-500 text-white': isActive('heading', { level: 4 }, updatedAt),
-                        'hover:bg-gray-200': !isActive('heading', { level: 4 }, updatedAt)
+                        'bg-blue-500 text-white': isActive('heading', { level: 5 }, updatedAt),
+                        'hover:bg-gray-200': !isActive('heading', { level: 5 }, updatedAt)
                     }"
                     class="px-4 py-3">
                     <x-icons.editor.heading-3 size='18' />
@@ -104,7 +105,7 @@
             </li>
         </menu>
     </template>
-    <div class="bg-gray-50" x-ref="editor">
+    <div class="{{ $editorClass }}" x-ref="editor">
 
     </div>
 </div>
