@@ -94,10 +94,10 @@ class CreatePost extends Component
             'content' => $this->content,
         ];
 
-        // Create and save the post first
-        $post = Post::make($validated);
-        $post->user()->associate(Auth::user());
-        $post->save();
+        $post = Post::create([
+            ...$validated,
+            'user_id' => Auth::id(),
+        ]);
 
         // Attach tags to the post
         $post->tags()->attach($this->selectedTags);
@@ -105,14 +105,16 @@ class CreatePost extends Component
         // Create poll options
         if (count($this->createdPolls) > 0) {
             foreach ($this->createdPolls as $poll) {
-                $pollModel = Poll::make(['question' => $poll['question']]);
-                $pollModel->post()->associate($post);
-                $pollModel->save();
+                $pollModel = Poll::create([
+                    'post_id' => $post->id,
+                    'question' => $poll['question']
+                ]);
 
                 foreach ($poll['options'] as $option) {
-                    $optionModel = PollOption::make(['option' => $option]);
-                    $optionModel->poll()->associate($pollModel);
-                    $optionModel->save();
+                    PollOption::create([
+                        'poll_id' => $pollModel->id,
+                        'option' => $option
+                    ]);
                 }
             }
         }
@@ -121,12 +123,10 @@ class CreatePost extends Component
 
         $activity = Activity::create([
             'user_id' => Auth::id(),
+            'post_id' => $post->id,
             'content' => 'Yeni bir konu oluşturdu!',
             'link' => $post->showRoute()
         ]);
-
-        $activity->post()->associate($post);
-        $activity->save();
 
         return $this->redirect($post->showRoute(), navigate: true);
     }
