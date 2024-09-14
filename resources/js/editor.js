@@ -14,7 +14,7 @@ window.setupEditor = function (content) {
                 extensions: [
                     StarterKit.configure({
                         heading: {
-                            levels: [2, 3, 4],
+                            levels: [3, 4, 5],
                         },
                     }),
                     Link,
