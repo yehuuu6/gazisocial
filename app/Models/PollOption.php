@@ -10,6 +10,7 @@ class PollOption extends Model
     use HasFactory;
 
     protected $fillable = [
+        'poll_id',
         'option',
     ];
 

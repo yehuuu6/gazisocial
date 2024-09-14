@@ -10,6 +10,7 @@ class Poll extends Model
     use HasFactory;
 
     protected $fillable = [
+        'post_id',
         'question',
     ];
 
@@ -27,5 +28,4 @@ class Poll extends Model
     {
         return $this->hasMany(PollVote::class);
     }
-
 }

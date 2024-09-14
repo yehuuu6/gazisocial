@@ -13,8 +13,10 @@ class Post extends Model
     use HasFactory, ConvertsMarkdownToHtml;
 
     protected $fillable = [
+        'user_id',
         'title',
         'content',
+        'html',
     ];
 
     public function tags()
