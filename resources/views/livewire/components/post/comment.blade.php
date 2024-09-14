@@ -24,7 +24,9 @@
                 @endcan
             @endauth
         </div>
-        <p class="text-gray-600 break-all">{{ $comment->content }}</p>
+        <article class="prose prose-sm sm:prose-sm md:prose-sm lg:prose-base max-w-none">
+            {!! $comment->html !!}
+        </article>
         <div class="post-icon flex">
             <x-icons.comment />
             <x-icons.heart />
