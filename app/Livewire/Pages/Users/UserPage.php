@@ -14,12 +14,6 @@ class UserPage extends Component
 
     public User $user;
 
-    #[On('userCommentDeleted')]
-    public function refreshPage()
-    {
-        $this->user->refresh();
-    }
-
     public function render()
     {
         if (session()->has('post-deleted')) {
