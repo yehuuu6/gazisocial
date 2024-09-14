@@ -4,15 +4,29 @@ namespace App\Livewire\Components\User;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Details extends Component
 {
     public User $user;
 
-    public function mount(User $user)
+    public function loadCounts()
     {
-        $this->user = $user->loadCount('comments');
-        $this->user = $user->loadCount('posts');
+        $this->user->loadCount('comments');
+        $this->user->loadCount('posts');
+    }
+
+    public function mount()
+    {
+        $this->loadCounts();
+    }
+
+    #[On('userCommentDeleted')]
+    #[On('userPostDeleted')]
+    public function refreshPage()
+    {
+        $this->user->refresh();
+        $this->loadCounts();
     }
 
     public function render()
