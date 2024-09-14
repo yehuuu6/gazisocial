@@ -38,15 +38,15 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
+Route::get('/posts/search/{query?}', SearchPost::class)->name('post.search');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('post.show');
-Route::get('/posts/search/{query}', SearchPost::class)->name('post.search');
 
 // Post Routes END
 
 // User routes START
 
+Route::get('/u/search/{query?}', SearchUser::class)->name('user.search');
 Route::get('/u/{user:username}', UserPage::class)->name('user.show');
-Route::get('/u/search/{query}', SearchUser::class)->name('user.search');
 Route::get('/u/{user:username}/edit', EditUser::class)->name('user.edit')->middleware('auth');
 
 // User routes END
