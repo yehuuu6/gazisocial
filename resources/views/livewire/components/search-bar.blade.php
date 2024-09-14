@@ -1,11 +1,10 @@
-<div class="flex w-1/3 relative">
-    <input id="search-bar" type="text" autocomplete="off"
+<form wire:submit="goToSearchRoute" class="flex w-1/3 relative" enctype="multipart/form-data">
+    <input type="text" autocomplete="off"
         class="p-2 w-full text-black rounded rounded-tr-none rounded-br-none border border-gray-300 outline-none"
-        placeholder='{{ $placeholder }}' wire:model.live="search">
-    <x-link href="{{ $targetUrl . $search }}"
-        class="p-2 bg-blue-500 grid place-items-center rounded rounded-tl-none rounded-bl-none">
+        placeholder='{{ $placeholder }}' wire:model.live="search" required>
+    <button type="submit" class="p-2 bg-blue-500 grid place-items-center rounded rounded-tl-none rounded-bl-none">
         <x-icons.search color='white' size='24' />
-    </x-link>
+    </button>
 
     <ul class="absolute w-full divide-y bg-white rounded-b-lg shadow-lg z-10 top-[2.65rem]">
         @forelse ($results as $result)
@@ -25,4 +24,4 @@
             @endif
         @endforelse
     </ul>
-</div>
+</form>
