@@ -64,6 +64,11 @@ class SearchBar extends Component
             ->get();
     }
 
+    public function goToSearchRoute()
+    {
+        return redirect()->to($this->targetUrl . $this->search);
+    }
+
     private function getPostSearchResults()
     {
         return Post::with(['user'])
