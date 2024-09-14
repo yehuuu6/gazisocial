@@ -72,7 +72,7 @@
             </div>
             <div class="flex gap-1 items-center">
                 <x-icons.calender color="#4b5563" size="24" />
-                <span class="text-gray-600 text-sm">{{ $user->created_at->translatedFormat('F Y') }}
+                <span class="text-gray-600 text-sm">{{ $user->created_at->locale('tr')->translatedFormat('F Y') }}
                     tarihinde katıldı</span>
             </div>
         </div>
