@@ -12,13 +12,19 @@
             </ul>
         </div>
     @endif
-    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="1000" required
-        placeholder="Düşüncelerinizi paylaşın..." rows="8" class="w-full outline-none resize-none py-4 px-6"></textarea>
+    <x-scrollable-wrapper class="min-h-[250px]">
+        <x-editor class="px-6 py-2" editorClass="bg-white" wire:model="content"></x-editor>
+    </x-scrollable-wrapper>
     <x-seperator />
     <div class="bg-gray-50 p-6 flex items-center justify-between">
-        <span id="character-counter" class="text-sm text-gray-500">
-            0/1000 karakter
-        </span>
+        <p :class="{
+            'text-red-500': $wire.content.length >= 1000,
+            'text-yellow-500': $wire.content.length >= 750 && $wire.content.length < 1000,
+            'text-gray-500': $wire.content.length < 750
+        }"
+            class="text-sm">
+            <span x-text="$wire.content.length">0</span>/1000 karakter
+        </p>
         <div class="flex items-center gap-2 flex-row-reverse">
             <button type="submit"
                 class="font-medium px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
@@ -30,23 +36,3 @@
             </button>
         </div>
 </form>
-@script
-    <script>
-        document.getElementById('comment-area').addEventListener('input', function() {
-            const commentArea = document.getElementById('comment-area');
-            const commentLength = commentArea.value.length;
-            const commentLengthElement = document.querySelector('#character-counter');
-            commentLengthElement.textContent = `${commentLength}/1000 karakter`;
-            if (commentLength >= 1000) {
-                commentLengthElement.classList.add('text-red-500');
-                commentLengthElement.classList.remove('text-yellow-500', 'text-gray-500');
-            } else if (commentLength >= 750) {
-                commentLengthElement.classList.add('text-yellow-500');
-                commentLengthElement.classList.remove('text-red-500', 'text-gray-500');
-            } else {
-                commentLengthElement.classList.add('text-gray-500');
-                commentLengthElement.classList.remove('text-red-500', 'text-yellow-500');
-            }
-        });
-    </script>
-@endscript

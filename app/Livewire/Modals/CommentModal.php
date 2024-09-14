@@ -21,7 +21,7 @@ class CommentModal extends ModalComponent
     #[Validate('min:3', message: 'Yorum içeriği en az 3 karakter olmalıdır.')]
     #[Validate('max:1000', message: 'Yorum içeriği en fazla 1000 karakter olabilir.')]
     #[Validate('string', message: 'Yorum içeriği metin olmalıdır.')]
-    public string $content;
+    public string $content = '';
 
     public function createComment()
     {
@@ -35,10 +35,11 @@ class CommentModal extends ModalComponent
 
         $validated = $this->validate();
 
-        $comment = Comment::make($validated);
-        $comment->user()->associate(Auth::user());
-        $comment->post()->associate($this->post);
-        $comment->save();
+        Comment::create([
+            ...$validated,
+            'user_id' => Auth::id(),
+            'post_id' => $this->post->id,
+        ]);
 
         $this->content = '';
 
