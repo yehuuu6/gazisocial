@@ -5,13 +5,22 @@ namespace App\Livewire\Pages\Posts;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class SearchPost extends Component
 {
 
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
     public $query = '';
+
+    public function mount($query = '')
+    {
+        $this->query = $query;
+
+        // If query is empty, redirect to home page
+        if (empty($this->query)) return redirect()->to(route('home'));
+    }
 
     public function updatingPage()
     {
@@ -22,6 +31,7 @@ class SearchPost extends Component
     {
         return view('livewire.pages.posts.search-post', [
             'posts' => Post::with(['user'])
+                ->with('tags')
                 ->withCount('comments')
                 ->where('title', 'like', '%' . $this->query . '%')
                 ->orWhere('content', 'like', '%' . $this->query . '%')

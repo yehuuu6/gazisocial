@@ -20,6 +20,7 @@ class HomePage extends Component
         $posts = Post::query()
             ->select('id', 'user_id', 'title', 'content', 'created_at')
             ->with('user:id,name,avatar,username')
+            ->with('tags:id,name')
             ->withCount('comments')
             ->latest('created_at')
             ->paginate(10);
