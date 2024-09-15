@@ -10,13 +10,13 @@
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
 </head>
 
-<body class="antialiased h-screen flex flex-col bg-gray-100 overflow-hidden font-inter">
+<body class="antialiased h-dvh w-full flex flex-col bg-gray-100 overflow-hidden font-inter">
     <livewire:components.navbar />
     <main class="flex-1">
         <div
             class="h-full flex-1 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[320px_1fr] lg:grid-cols-[365px_1fr] gap-6 p-3 md:p-6">
             <div class="bg-white shadow-md rounded-xl hidden flex-col overflow-hidden md:flex">
-                <h3 class="text-xl font-bold p-4">Kategoriler ve Aktiviteler</h3>
+                <h3 class="text-xl flex items-center justify-between font-bold p-4">Kategoriler ve Aktiviteler</h3>
                 <x-seperator />
                 <livewire:components.categories lazy />
                 <x-seperator />
