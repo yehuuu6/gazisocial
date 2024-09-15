@@ -1,4 +1,4 @@
-<x-scrollable-wrapper class="h-1/2">
+<x-scrollable-wrapper class="h-1/2 hidden sm:inline-block">
     @foreach ($tags as $tag)
         <div wire:key="tag-{{ $tag->id }}" class="m-2">
             <x-link
