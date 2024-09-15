@@ -1,4 +1,4 @@
-<form wire:submit="goToSearchRoute" class="flex w-1/3 relative" enctype="multipart/form-data">
+<form wire:submit="goToSearchRoute" class="flex w-1/2 sm:w-1/3 relative m-2.5 mr-0 sm:m-0" enctype="multipart/form-data">
     <input type="text" autocomplete="off"
         class="p-2 w-full text-black rounded rounded-tr-none rounded-br-none border border-gray-300 outline-none"
         placeholder='{{ $placeholder }}' wire:model.live="search" required>

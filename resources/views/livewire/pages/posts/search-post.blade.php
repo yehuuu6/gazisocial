@@ -1,7 +1,7 @@
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
 
     <x-header-title>
-        "{{ $query }}" için Arama Sonuçları
+        "{{ $query }}" için arama sonuçları
     </x-header-title>
 
     <x-seperator />

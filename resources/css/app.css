@@ -9,7 +9,7 @@
         @apply scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-gray-200;
     }
     .navbar {
-        @apply flex justify-between items-center p-2 md:p-4 bg-primary text-white w-full;
+        @apply flex gap-2 md:gap-0 flex-col md:flex-row justify-between md:items-center p-2 md:p-4 bg-primary text-white w-full;
     }
     .post-icon {
         @apply gap-5;

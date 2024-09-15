@@ -1,15 +1,19 @@
-<div class="flex gap-4 p-5">
-    <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="size-12 rounded-full">
-    <div class="w-full flex flex-col gap-4">
+<div class="flex gap-2 p-3 sm:gap-4 sm:p-5">
+    <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="size-10 sm:size-12 rounded-full">
+    <div class="w-full flex gap-2 flex-col sm:gap-4">
         <div class="flex justify-between items-center">
-            <div class="flex gap-1 items-baseline">
-                <x-link href="/u/{{ $post->user->username }}" class="font-medium">
-                    {{ $post->user->name }}
-                </x-link>
-                <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
-                <span class="inline-block text-gray-500 text-xs">•</span>
-                <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
-                <div class="ml-2">
+            <div class="flex gap-1 flex-col-reverse sm:flex-row items-baseline">
+                <div class="flex flex-col sm:flex-row gap-1">
+                    <x-link href="/u/{{ $post->user->username }}" class="font-medium">
+                        {{ $post->user->name }}
+                    </x-link>
+                    <div class="flex items-center gap-1">
+                        <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
+                        <span class="inline-block text-gray-500 text-xs">•</span>
+                        <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
+                    </div>
+                </div>
+                <div class="sm:ml-2">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('category.show', $tag->name) }}" wire:navigate
                             wire:key="tag-{{ $tag->id }}"
@@ -26,10 +30,9 @@
             @endauth
         </div>
         <h1
-            class="font-bold text-gray-900 text-xl sm:text-xl md:text-2xl lg:text-3xl bg-gray-100 px-4 py-3 rounded-2xl">
+            class="font-bold text-gray-900 text-2xl sm:text-2xl lg:text-3xl bg-gray-100 px-3 py-2 self-start sm:px-4 sm:py-3 rounded-2xl">
             {{ $post->title }}</h1>
-        <article class="prose prose-base sm:prose-sm md:prose-base lg:prose-lg max-w-none"
-            wire:loading.class="animate-pulse">
+        <article class="prose prose-sm sm:prose-base lg:prose-lg max-w-none" wire:loading.class="animate-pulse">
             {!! $post->html !!}
         </article>
         @if ($post->polls->count() > 0)
