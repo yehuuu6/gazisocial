@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             ->each(function ($post) use ($tags) {
                 // Randomly assign between 1 and 5 tags to each post
                 $post->tags()->attach(
-                    $tags->random(rand(1, 5))->pluck('id')->toArray()
+                    $tags->random(rand(1, 4))->pluck('id')->toArray()
                 );
 
                 // Create activity for each post
