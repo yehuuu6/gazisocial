@@ -36,6 +36,11 @@ class CreatePost extends Component
         if (($key = array_search($tagId, $this->selectedTags)) !== false) {
             unset($this->selectedTags[$key]);
         } else {
+            // Set max tag count to 5
+            if (count($this->selectedTags) >= 4) {
+                $this->alert('error', 'En fazla 4 etiket seçebilirsiniz.');
+                return;
+            }
             $this->selectedTags[] = $tagId;
         }
     }
