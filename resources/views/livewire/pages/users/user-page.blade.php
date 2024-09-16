@@ -1,8 +1,4 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
-    <x-header-title>
-        Kullanıcı Profili
-    </x-header-title>
-    <x-seperator />
+<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
     <livewire:components.user.details :$user />
     <div class="flex">
         <button wire:click='$dispatch("showUserPosts")' id="user-posts"

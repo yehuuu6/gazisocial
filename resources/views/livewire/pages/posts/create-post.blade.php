@@ -1,10 +1,6 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
-    <x-header-title>
-        Konu Oluştur
-    </x-header-title>
-    <x-seperator />
+<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
     <form wire:submit="createPost" enctype="multipart/form-data" class="flex flex-col h-full">
-        <x-scrollable-wrapper class="flex-grow">
+        <div class="flex-grow">
             <div class="flex flex-col gap-5 py-4">
                 <div class="flex flex-col gap-2 px-4">
                     <label for="title" class="block font-medium text-gray-700">Başlık</label>
@@ -69,7 +65,7 @@
                 </div>
 
             </div>
-        </x-scrollable-wrapper>
+        </div>
         <x-seperator />
         <div class="flex justify-end bg-gray-50 p-6 gap-4">
             <button type="button" wire:click="$dispatch('openModal', { component: 'modals.create-poll-modal' })"

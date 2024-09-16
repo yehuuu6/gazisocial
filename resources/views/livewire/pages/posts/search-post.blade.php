@@ -1,11 +1,6 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
+<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
 
-    <x-header-title>
-        "{{ $query }}" için arama sonuçları
-    </x-header-title>
-
-    <x-seperator />
-    <x-scrollable-wrapper class="h-full" id="post-index">
+    <div id="post-index">
         <ul wire:loading class="divide-y flex flex-1 flex-col gap-1 pb-5 w-full">
             @for ($i = 0; $i < 10; $i++)
                 <x-posts.placeholder />
@@ -20,7 +15,7 @@
                 </li>
             @endforelse
         </ul>
-    </x-scrollable-wrapper>
+    </div>
     {{ $posts->links('livewire.pagination.simple') }}
 </div>
 @script
