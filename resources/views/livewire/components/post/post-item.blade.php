@@ -1,39 +1,34 @@
-<div class="flex flex-col gap-2 p-2 sm:p-4">
-    <div class="flex gap-2 items-center">
-        <x-link title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
-            <img class="size-7 sm:size-14 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
-        </x-link>
-        <div class="flex flex-col">
-            <div class="flex items-center justify-center gap-2">
-                <x-link href="{{ $post->showRoute() }}"
-                    class="item-center text-base sm:text-lg lg:text-xl font-medium text-blue-700">
-                    {{ $post->title }}
-                </x-link>
-                <div class="flex item-center gap-2">
+<tr>
+    <td class="p-4 text-left">
+        <div class="flex items-center gap-2">
+            <x-link class="hidden md:block" title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
+                <img class="size-8 md:size-10 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
+            </x-link>
+            <div class="flex flex-col gap-2 md:gap-1">
+                <div class="flex flex-wrap item-center gap-2">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('category.show', $tag->name) }}" wire:navigate
                             wire:key="tag-{{ $tag->id }}"
                             class="py-0.5 px-1.5 md:py-1 md:px-2 {{ $this->getRandomColorForTag() }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>
+                <x-link href="{{ $post->showRoute() }}"
+                    class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
+                    {{ $post->title }}
+                </x-link>
             </div>
-            <span class="text-gray-500 text-xs md:text-sm lg:text-base">
-                {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı.
-            </span>
         </div>
-    </div>
-    <div class="post-icon flex ml-2">
-        <div class="flex gap-1 items-center">
-            <x-icons.comment color="#4b5563" />
-            <p class="text-gray-600 font-light text-xs sm:text-sm">{{ $post->comments_count }}</p>
-        </div>
-        <div class="flex gap-1 items-center">
-            <x-icons.heart color="#4b5563" />
-            <p class="text-gray-600 font-light text-xs sm:text-sm">{{ $post->comments_count }}</p>
-        </div>
-        <div class="flex gap-1 items-center">
-            <x-icons.share color="#4b5563" />
-            <p class="text-gray-600 font-light text-xs sm:text-sm">{{ $post->comments_count }}</p>
-        </div>
-    </div>
-</div>
+    </td>
+    <td class="p-4 text-center text-xs md:text-sm font-semibold text-gray-400">
+        {{ number_format($post->comments_count) }}
+    </td>
+    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+        {{ number_format(rand(0, 5000)) }}
+    </td>
+    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+        {{ $post->created_at->locale('tr')->diffForHumans() }}
+    </td>
+    <td class="p-4 md:hidden text-center text-xs md:text-sm text-gray-400">
+        {{ $post->created_at->locale('tr')->shortAbsoluteDiffForHumans() }}
+    </td>
+</tr>

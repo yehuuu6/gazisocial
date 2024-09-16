@@ -8,15 +8,12 @@ use Livewire\Component;
 class Categories extends Component
 {
 
-    public function placeholder()
-    {
-        return view('components.category-placeholder');
-    }
+    public string $query = '';
 
     public function render()
     {
         return view('livewire.components.categories', [
-            'tags' => Tag::all()
+            'tags' => Tag::where('name', 'like', '%' . $this->query . '%')->get()
         ]);
     }
 }

@@ -15,7 +15,7 @@ class SearchBar extends Component
     public $targetUrl;
     public $placeholder;
 
-    public function mount()
+    public function skipMount()
     {
         $this->currentRoute = Route::currentRouteName();
         $this->setPlaceholderAndTargetUrl();
@@ -31,9 +31,14 @@ class SearchBar extends Component
         ]);
     }
 
+    public function isUserRoute(): bool
+    {
+        return $this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit';
+    }
+
     private function setPlaceholderAndTargetUrl()
     {
-        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit') {
+        if ($this->isUserRoute()) {
             $this->placeholder = 'Bir kullanıcı ara...';
             $this->targetUrl = '/u/search/';
         } else {
@@ -44,11 +49,12 @@ class SearchBar extends Component
 
     private function getSearchResults()
     {
+
         if (strlen($this->search) < 2) {
             return [];
         }
 
-        if ($this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit') {
+        if ($this->isUserRoute()) {
             return $this->getUserSearchResults();
         } else {
             return $this->getPostSearchResults();

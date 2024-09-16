@@ -15,18 +15,21 @@ class HomePage extends Component
         $this->dispatch('scroll-to-top');
     }
 
-    public function render()
+    public function fetchPosts()
     {
-        $posts = Post::query()
+        return Post::query()
             ->select('id', 'user_id', 'title', 'content', 'created_at')
             ->with('user:id,name,avatar,username')
             ->with('tags:id,name')
             ->withCount('comments')
             ->latest('created_at')
             ->paginate(10);
+    }
 
+    public function render()
+    {
         return view('livewire.pages.home-page', [
-            'posts' => $posts
+            'posts' => $this->fetchPosts(),
         ]);
     }
 }

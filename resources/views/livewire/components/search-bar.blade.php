@@ -1,27 +1,32 @@
-<form wire:submit="goToSearchRoute" class="flex w-2/3 md:w-1/3 relative m-2.5 mr-0 sm:m-0" enctype="multipart/form-data">
-    <input type="text" autocomplete="off"
-        class="p-2 w-full text-black rounded rounded-tr-none rounded-br-none border border-gray-300 outline-none"
-        placeholder='{{ $placeholder }}' wire:model.live="search" required>
-    <button type="submit" class="p-2 bg-blue-500 grid place-items-center rounded rounded-tl-none rounded-bl-none">
-        <x-icons.search color='white' size='24' />
-    </button>
+<div x-show="open" @click.away="open = false" x-transition.duration.250ms
+    class="absolute top-10 right-0 flex flex-col gap-0.5 mt-1 shadow-md border border-gray-200 w-[350px] md:w-[375px] lg:w-[400px] bg-white rounded-lg overflow-hidden">
 
-    <ul class="absolute w-full divide-y bg-white rounded-b-lg shadow-lg z-10 top-[2.65rem]">
+    <form wire:submit="goToSearchRoute" enctype="multipart/form-data"
+        class="flex m-2 items-center overflow-hidden border shadow rounded-md border-gray-300">
+        <input wire:model.live="search" type="text" spellcheck="false" required
+            class="px-4 py-2 text-sm flex-grow text-gray-700 focus:outline-none focus:border-blue-400"
+            placeholder="{{ $placeholder }}" />
+        <button type="submit" class="p-2 bg-primary text-sm text-white hover:bg-opacity-90">
+            Ara
+        </button>
+    </form>
+
+    <div class="max-h-[200px] md:max-h-[225px] lg:max-h-[250px] overflow-y-auto">
         @forelse ($results as $result)
-            <li wire:key="{{ $result->id }}">
-                @if ($currentRoute === 'user.show' || $currentRoute === 'user.search' || $currentRoute === 'user.edit')
+            <div wire:key="{{ $result->id }}">
+                @if ($this->isUserRoute($result))
                     <x-users.search-item :user="$result" />
                 @else
                     <x-posts.search-item :post="$result" />
                 @endif
-            </li>
+            </div>
         @empty
             @if ($search)
-                <li>
+                <div>
                     <span class="block p-2 hover:bg-gray-100 transition-all duration-200">Sonuç
                         bulunamadı.</span>
-                </li>
+                </div>
             @endif
         @endforelse
-    </ul>
-</form>
+    </div>
+</div>
