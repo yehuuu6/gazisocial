@@ -12,7 +12,7 @@
                     <x-icons.chevron-down size="12" color="black" />
                 </template>
             </button>
-            <livewire:components.categories lazy />
+            <livewire:components.categories />
         </div>
         <div class="flex items-center gap 1">
             <x-link href="/posts/latest"
@@ -24,11 +24,11 @@
                 Popüler
             </x-link>
             <div class="relative md:hidden flex items-center justify-center" x-data="{ open: false }">
-                <button title="Konu Ara" @click="open = !open"
+                <button title="Arama Yap" @click="open = !open"
                     class="p-2 text-opacity-90 rounded-full hover:bg-white hover:no-underline">
                     <x-icons.search size="20" color="rgb(11,62,117)" />
                 </button>
-                <livewire:components.search-bar lazy />
+                <livewire:components.search-bar />
             </div>
         </div>
     </div>
@@ -42,11 +42,11 @@
             Fakülteye Katıl
         </x-link>
         <div class="relative flex items-center justify-center" x-data="{ open: false }">
-            <button title="Konu Ara" @click="open = !open"
+            <button title="Arama Yap" @click="open = !open"
                 class="p-2 text-opacity-90 rounded-full hover:bg-white hover:no-underline">
                 <x-icons.search size="20" color="rgb(11,62,117)" />
             </button>
-            <livewire:components.search-bar lazy />
+            <livewire:components.search-bar />
         </div>
     </div>
 </header>
