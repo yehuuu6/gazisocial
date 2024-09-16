@@ -12,7 +12,7 @@
             <x-icons.menu size='30' color='black' />
         </button>
         <div x-cloak x-show='open' @click.away="open = false" x-transition.duration.250ms
-            class="absolute bg-white w-full rounded-b-lg shadow-md top-14 p-2 flex md:hidden flex-col gap-2">
+            class="absolute bg-white w-full rounded-b-lg shadow-md top-14 p-2 bg-opacity-95 flex md:hidden flex-col gap-2">
             <x-link href="/posts/create"
                 class="py-2 px-3 text-primary text-sm font-medium rounded hover:bg-gray-100 hover:no-underline">
                 Yeni Konu Oluştur
