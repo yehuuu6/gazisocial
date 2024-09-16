@@ -15,10 +15,17 @@ class SearchBar extends Component
     public $targetUrl;
     public $placeholder;
 
-    public function skipMount()
+    public function mount()
     {
-        $this->currentRoute = Route::currentRouteName();
+        $this->setCurrentRoute();
         $this->setPlaceholderAndTargetUrl();
+    }
+
+    private function setCurrentRoute()
+    {
+        if (Route::currentRouteName() === 'livewire.update') return;
+
+        $this->currentRoute = Route::currentRouteName();
     }
 
     public function render()
@@ -72,7 +79,7 @@ class SearchBar extends Component
 
     public function goToSearchRoute()
     {
-        return redirect()->to($this->targetUrl . $this->search);
+        return $this->redirect($this->targetUrl . $this->search, navigate: true);
     }
 
     private function getPostSearchResults()
