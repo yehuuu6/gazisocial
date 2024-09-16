@@ -23,6 +23,13 @@
                 class="py-2 px-3 text-gray-700 text-sm font-medium text-opacity-80 rounded-t-md hover:text-opacity-100 hover:no-underline">
                 Popüler
             </x-link>
+            <div class="relative md:hidden flex items-center justify-center" x-data="{ open: false }">
+                <button title="Konu Ara" @click="open = !open"
+                    class="p-2 text-opacity-90 rounded-full hover:bg-white hover:no-underline">
+                    <x-icons.search size="20" color="rgb(11,62,117)" />
+                </button>
+                <livewire:components.search-bar lazy />
+            </div>
         </div>
     </div>
     <div class="hidden md:flex items-center gap-2">
