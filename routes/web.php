@@ -38,6 +38,7 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
+Route::get('/posts/{order?}', HomePage::class)->name('post.index');
 Route::get('/posts/search/{query?}', SearchPost::class)->name('post.search');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('post.show');
 
