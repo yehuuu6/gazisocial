@@ -1,10 +1,18 @@
+@php
+    // Get category name from gazisocial.test/categories/{category}
+    if (Request::is('categories/*')) {
+        $text = explode('/', Request::path())[1];
+    } else {
+        $text = 'Kategoriler';
+    }
+@endphp
 <header
     class="mx-[3%] md:mx-[6%] lg:mx-[12%] flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between md:items-center mt-4 md:mt-8">
     <div class="flex justify-between md:justify-start items-center gap-0.5">
         <div class="relative" x-data="{ open: false }">
             <button title="Kategoriler" @click="open = !open"
-                class="py-2 flex items-center gap-2 px-3 text-gray-700 text-sm border font-medium border-gray-200 shadow bg-white rounded-md">
-                Kategoriler
+                class="py-2 capitalize flex items-center gap-2 px-3 text-gray-700 text-sm border font-medium border-gray-200 shadow bg-white rounded-md">
+                {{ $text }}
                 <template x-if="open">
                     <x-icons.chevron-up size="12" color="black" />
                 </template>
@@ -16,11 +24,11 @@
         </div>
         <div class="flex items-center gap 1">
             <x-link href="/posts/latest"
-                class="py-2 px-3 ml-3 text-gray-700 text-sm font-medium text-opacity-80 rounded-t-md hover:text-opacity-100 hover:no-underline">
+                class="py-2 px-3 ml-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 En Yeni
             </x-link>
             <x-link href="/posts/popular"
-                class="py-2 px-3 text-gray-700 text-sm font-medium text-opacity-80 rounded-t-md hover:text-opacity-100 hover:no-underline">
+                class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 Popüler
             </x-link>
             <div class="relative md:hidden flex items-center justify-center" x-data="{ open: false }">
