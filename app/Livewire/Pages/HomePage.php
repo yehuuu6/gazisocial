@@ -10,6 +10,21 @@ class HomePage extends Component
 {
     use WithPagination;
 
+    public string $order = 'latest';
+
+    public function getOrderType(): string
+    {
+        $orderDefinitions = [
+            '' => 'created_at',
+            'latest' => 'created_at',
+            'popular' => 'comments_count',
+        ];
+
+        if (!array_key_exists($this->order, $orderDefinitions)) abort(404);
+
+        return $orderDefinitions[$this->order];
+    }
+
     public function updatingPage()
     {
         $this->dispatch('scroll-to-top');
@@ -22,7 +37,7 @@ class HomePage extends Component
             ->with('user:id,name,avatar,username')
             ->with('tags:id,name')
             ->withCount('comments')
-            ->latest('created_at')
+            ->latest($this->getOrderType())
             ->paginate(10);
     }
 
