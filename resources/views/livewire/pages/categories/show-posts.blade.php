@@ -1,30 +1,40 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden">
-
-    <x-header-title>
-        <span class="capitalize">{{ $tag->name }}</span>
-    </x-header-title>
-
-    <x-seperator />
-    <x-scrollable-wrapper class="h-full" id="post-index">
-        <ul wire:loading class="divide-y flex flex-1 flex-col gap-1 pb-5 w-full">
-            @for ($i = 0; $i < 10; $i++)
-                <x-posts.placeholder />
-            @endfor
-        </ul>
-        <ul wire:loading.remove class="divide-y flex flex-1 flex-col gap-1 pb-5">
+<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
+    <div wire:loading>
+        <x-posts.placeholder />
+    </div>
+    <table wire:loading.remove class="w-full">
+        <thead id ="post-index">
+            <tr class="border-b border-b-gray-200 text-xs text-gray-400">
+                <th class="p-4 font-normal text-left" width="70%">
+                    KONU
+                </th>
+                <th class="p-4 font-normal text-center" width="10%">
+                    YANITLAR
+                </th>
+                <th class="hidden md:table-cell p-4 font-normal text-center" width="10%">
+                    BEĞENİLER
+                </th>
+                <th class="p-4 font-normal text-center" width="10%">
+                    AKTİVİTE
+                </th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
             @foreach ($posts as $post)
                 <livewire:components.post.post-item :$post :key="$post->id" />
             @endforeach
-        </ul>
-    </x-scrollable-wrapper>
+        </tbody>
+    </table>
     {{ $posts->links('livewire.pagination.simple') }}
 </div>
 @script
     <script>
         $wire.on('scroll-to-top', function() {
             const postIndexer = document.getElementById('post-index');
-            postIndexer.scroll({
-                top: 0,
+            const offset = 75;
+            const topPosition = postIndexer.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({
+                top: topPosition,
                 behavior: 'smooth'
             });
         });

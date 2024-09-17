@@ -10,7 +10,7 @@
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
 </head>
 
-<body class="antialiased w-full bg-gray-100 font-inter overflow-x-hidden">
+<body class="antialiased w-full min-h-dvh bg-gray-100 font-inter overflow-x-hidden">
     <livewire:components.navbar />
     <x-header />
     <main class="mx-[3%] md:mx-[6%] lg:mx-[12%] mt-4 md:mt-8">
