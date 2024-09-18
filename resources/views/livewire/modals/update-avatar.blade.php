@@ -31,7 +31,7 @@
             <span wire:loading.remove wire:target=avatar>Dosya Seç</span>
             <span wire:loading wire:target=avatar>Yükleniyor...</span>
         </label>
-        <input wire:model="avatar" type="file" id="imageInput" class="hidden" accept="image/*">
+        <input wire:model="avatar" type="file" id="imageInput" hidden required accept="image/*">
         <span id="imageName" class="text-gray-500 text-sm md:text-base font-normal">{{ $previewText }}</span>
     </div>
     <x-seperator />

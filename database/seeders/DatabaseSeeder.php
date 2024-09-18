@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Role;
 use App\Models\Tag;
 use App\Models\Activity;
+use App\Models\Like;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -100,5 +101,34 @@ class DatabaseSeeder extends Seeder
 
         $user3->roles()->attach($admin);
         $user3->roles()->attach($gazili);
+
+        $users[] = $user1;
+        $users[] = $user2;
+        $users[] = $user3;
+
+        // Create Likes for each user
+
+        foreach ($users as $user) {
+            // Generate a random number of likes for posts between 0 and 50
+            $postLikesCount = rand(0, 50);
+            $posts->random($postLikesCount)->each(function ($post) use ($user) {
+                Like::create([
+                    'user_id' => $user->id,
+                    'likeable_id' => $post->id,
+                    'likeable_type' => $post->getMorphClass(),
+                ]);
+            });
+
+            // Generate a random number of likes for comments between 0 and 100
+            $commentLikesCount = rand(0, 100);
+            $comments = Comment::all();
+            $comments->random($commentLikesCount)->each(function ($comment) use ($user) {
+                Like::create([
+                    'user_id' => $user->id,
+                    'likeable_id' => $comment->id,
+                    'likeable_type' => $comment->getMorphClass(),
+                ]);
+            });
+        }
     }
 }

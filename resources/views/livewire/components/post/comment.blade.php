@@ -24,12 +24,22 @@
                 @endcan
             @endauth
         </div>
-        <article class="prose prose-sm sm:prose-sm md:prose-sm lg:prose-base max-w-none">
-            {!! $comment->html !!}
-        </article>
-        <div class="post-icon flex">
-            <x-icons.comment />
-            <x-icons.heart />
+        <p class="text-gray-600 break-all">
+            {{ $comment->content }}
+        </p>
+        <div class="post-icon flex gap-1">
+            <div class="flex gap-0 items-center">
+                <button class="hover:bg-blue-200 rounded-full p-2">
+                    <x-icons.comment color="#4b5563" />
+                </button>
+                <p class="text-gray-600 font-light">0</p>
+            </div>
+            <div class="flex gap-0 items-center">
+                <button class="hover:bg-blue-200 rounded-full p-2">
+                    <x-icons.heart color="#4b5563" />
+                </button>
+                <p class="text-gray-600 font-light">{{ $comment->likes_count }}</p>
+            </div>
         </div>
     </div>
 </li>

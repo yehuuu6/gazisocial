@@ -18,7 +18,6 @@ class ShowPosts extends Component
             'posts' => $this->tag->posts()
                 ->with('user')
                 ->with('tags')
-                ->withCount('comments')
                 ->latest('created_at')
                 ->simplePaginate(10)
         ]);

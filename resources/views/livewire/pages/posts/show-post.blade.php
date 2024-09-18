@@ -1,3 +1,6 @@
+@section('canonical')
+    <link rel="canonical" href="{{ $post->showRoute() }}">
+@endsection
 <div>
     <x-page-title>{{ $post->title }}</x-page-title>
     <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">

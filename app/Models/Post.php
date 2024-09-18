@@ -19,9 +19,19 @@ class Post extends Model
         'html',
     ];
 
+    protected $withCount = [
+        'likes',
+        'comments',
+    ];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
     }
 
     public function polls()

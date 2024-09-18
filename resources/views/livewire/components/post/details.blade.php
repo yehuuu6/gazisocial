@@ -71,7 +71,7 @@
                 <button class="hover:bg-blue-200 rounded-full p-2">
                     <x-icons.heart color="#4b5563" />
                 </button>
-                <p class="text-gray-600 font-light">5.351</p>
+                <p class="text-gray-600 font-light">{{ $post->likes_count }}</p>
             </div>
             <div class="flex gap-0 items-center">
                 <button class="hover:bg-blue-200 rounded-full p-2">

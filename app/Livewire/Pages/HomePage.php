@@ -33,10 +33,8 @@ class HomePage extends Component
     public function fetchPosts()
     {
         return Post::query()
-            ->select('id', 'user_id', 'title', 'content', 'created_at')
-            ->with('user:id,name,avatar,username')
-            ->with('tags:id,name')
-            ->withCount('comments')
+            ->with('user')
+            ->with('tags')
             ->latest($this->getOrderType())
             ->paginate(10);
     }

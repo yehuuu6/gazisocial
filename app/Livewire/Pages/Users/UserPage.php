@@ -5,7 +5,6 @@ namespace App\Livewire\Pages\Users;
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\Attributes\On;
 
 class UserPage extends Component
 {

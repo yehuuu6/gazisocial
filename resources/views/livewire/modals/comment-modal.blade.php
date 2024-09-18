@@ -12,9 +12,8 @@
             </ul>
         </div>
     @endif
-    <x-scrollable-wrapper class="min-h-[250px]">
-        <x-editor class="px-6 py-2" editorClass="bg-white" wire:model="content"></x-editor>
-    </x-scrollable-wrapper>
+    <textarea wire:model='content' id="comment-area" spellcheck="false" maxlength="1000"
+        placeholder="Düşüncelerinizi paylaşın..." rows="8" class="w-full outline-none resize-none py-4 px-6"></textarea>
     <x-seperator />
     <div class="bg-gray-50 p-6 flex items-center justify-between">
         <p :class="{
@@ -26,7 +25,8 @@
             <span x-text="$wire.content.length">0</span>/1000 karakter
         </p>
         <div class="flex items-center gap-2 flex-row-reverse">
-            <button type="submit"
+            <button type="submit" wire:loading.attr="disabled" wire:target="createComment"
+                wire:loading.class='animate-pulse'
                 class="font-medium px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
                 Gönder
             </button>

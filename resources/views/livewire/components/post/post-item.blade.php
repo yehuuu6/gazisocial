@@ -23,7 +23,7 @@
         {{ number_format($post->comments_count) }}
     </td>
     <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
-        {{ number_format(rand(0, 5000)) }}
+        {{ number_format($post->likes_count) }}
     </td>
     <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
         {{ $post->created_at->locale('tr')->diffForHumans() }}

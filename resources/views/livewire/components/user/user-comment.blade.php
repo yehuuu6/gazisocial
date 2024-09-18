@@ -9,9 +9,9 @@
                 {{ $comment->created_at->locale('tr')->diffForHumans() }} yorum yapıldı.
             </span>
         </div>
-        <div class="prose prose-sm max-w-none">
-            {!! $comment->html !!}
-        </div>
+        <p class="text-gray-600 break-all">
+            {{ $comment->content }}
+        </p>
     </div>
     @auth
         @can('delete', $comment)

@@ -32,6 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function isStudent()
     {
         // Return true if the user has the role with the id 1
