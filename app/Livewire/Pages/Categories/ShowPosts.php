@@ -15,7 +15,12 @@ class ShowPosts extends Component
     public function render()
     {
         return view('livewire.pages.categories.show-posts', [
-            'posts' => $this->tag->posts()->with('user')->with('tags')->withCount('comments')->latest('created_at')->simplePaginate(10)
+            'posts' => $this->tag->posts()
+                ->with('user')
+                ->with('tags')
+                ->withCount('comments')
+                ->latest('created_at')
+                ->simplePaginate(10)
         ]);
     }
 }
