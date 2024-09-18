@@ -22,7 +22,7 @@
             </button>
             <livewire:components.categories />
         </div>
-        <div class="flex items-center gap 1">
+        <div class="flex items-center gap-1">
             <x-link href="/posts/latest"
                 class="py-2 px-3 ml-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 En Yeni
