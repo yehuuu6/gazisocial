@@ -63,16 +63,7 @@
             @endguest
             @auth
                 <div class="md:flex gap-1 md:gap-2 justify-center items-center flex-row-reverse">
-                    <div class="relative flex items-center group justify-center rounded-full overflow-hidden">
-                        <div title="Profil resmini değiştir"
-                            wire:click="$dispatch('openModal', { component: 'modals.update-avatar' })"
-                            class="absolute size-full hidden group-hover:grid place-items-center bg-black bg-opacity-50 cursor-pointer">
-                            <div id="update-avatar-nav">
-                                <x-icons.image size='20' color='#f2f2f2' />
-                            </div>
-                        </div>
-                        <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-10 object-cover md:size-12">
-                    </div>
+                    <x-users.avatar :size='12' :user='Auth::user()' iconSize='20' />
                     <div class="flex flex-col text-right">
                         <x-link href="/u/{{ Auth::user()->username }}"
                             class="text-xs md:text-sm font-medium">{{ Auth::user()->name }}</x-link>
