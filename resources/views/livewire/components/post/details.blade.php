@@ -29,9 +29,6 @@
                 @endcan
             @endauth
         </div>
-        <h1
-            class="font-bold text-gray-900 text-2xl sm:text-2xl lg:text-3xl bg-gray-100 px-3 py-2 self-start sm:px-4 sm:py-3 rounded-2xl">
-            {{ $post->title }}</h1>
         <article class="prose prose-sm sm:prose-base lg:prose-lg max-w-none" wire:loading.class="animate-pulse">
             {!! $post->html !!}
         </article>
@@ -47,9 +44,10 @@
                         $colors = array_diff($colors, [$randomColor]);
                     @endphp
                     <button wire:key='poll-{{ $poll->id }}'
-                        class="{{ $randomColor }} text-white py-1 px-2 text-xs font-medium rounded-full"
+                        class="{{ $randomColor }} text-white transition-all duration-300 py-1 px-2 text-xs font-medium rounded-full flex items-center hover:bg-opacity-90 gap-1"
                         wire:click="$dispatch('openModal', { component: 'modals.show-poll-modal', arguments: { poll: {{ $poll }} }})">
-                        {{ $poll->question }}
+                        <x-icons.survey color="white" size="18" />
+                        <span>{{ $poll->question }}</span>
                     </button>
                 @endforeach
             </div>
