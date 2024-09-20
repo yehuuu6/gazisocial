@@ -6,7 +6,7 @@
         <thead id ="post-index">
             <tr class="border-b border-b-gray-200 text-xs text-gray-400">
                 <th class="p-4 font-normal text-left" width="70%">
-                    KONU
+                    KONU | "{{ $query }}" için arama sonuçları
                 </th>
                 <th class="p-4 font-normal text-center" width="10%">
                     YANITLAR

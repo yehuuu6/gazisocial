@@ -8,9 +8,9 @@
             <div class="flex flex-col gap-2 md:gap-0">
                 <div class="flex flex-wrap item-center gap-2">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('category.show', $tag->name) }}" wire:navigate
+                        <a href="{{ route('category.show', $tag->slug) }}" wire:navigate
                             wire:key="tag-{{ $tag->id }}"
-                            class="py-0.5 px-1.5 md:py-1 md:px-2 {{ $this->getRandomColorForTag() }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
+                            class="py-0.5 px-1.5 md:py-1 md:px-2 {{ $this->getTagColor($tag->color) }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"

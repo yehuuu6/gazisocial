@@ -79,11 +79,6 @@
                 <span class="text-gray-600 text-sm">{{ $user->faculty ?? 'Hemşirelik Fakültesi' }}</span>
             </div>
             <div class="flex items-center gap-1">
-                <x-icons.trophy color="#4b5563" size="24" /><span class="text-sm text-gray-600">Seviye
-                    10</span>
-            </div>
-
-            <div class="flex items-center gap-1">
                 <x-icons.post color="#4b5563" size="24" />
                 <span class="text-gray-600 text-sm">{{ $user->posts_count }} Gönderi</span>
             </div>

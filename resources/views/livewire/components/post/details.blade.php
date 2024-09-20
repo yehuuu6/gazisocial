@@ -15,9 +15,9 @@
                 </div>
                 <div class="md:ml-1 flex items-center gap-1 flex-wrap">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('category.show', $tag->name) }}" wire:navigate
+                        <a href="{{ route('category.show', $tag->slug) }}" wire:navigate
                             wire:key="tag-{{ $tag->id }}"
-                            class="py-1 px-2 {{ $this->getRandomColorForTag() }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
+                            class="py-1 px-2 {{ $this->getTagColor($tag->color) }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </div>

@@ -16,7 +16,7 @@
                 Sıfırla</a>
         </p>
     </div>
-    <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
+    <ul class="text-xs p-3 md:p-6 mt-2 md:mt-4 rounded-lg flex gap-4 md:gap-10 flex-wrap items-center justify-center">
         <li>
             <a href="/" class="text-gray-700 hover:underline">Terms</a>
         </li>

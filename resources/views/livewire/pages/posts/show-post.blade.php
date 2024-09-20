@@ -7,9 +7,9 @@
         <livewire:components.post.details :$post lazy />
         <x-seperator />
         <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
-        <ul wire:loading class="pb-5 w-full">
+        <ul wire:loading class="flex flex-1 flex-col gap-1 pb-5">
             @for ($i = 0; $i < 10; $i++)
-                <x-posts.placeholder />
+                <x-comments.placeholder />
             @endfor
         </ul>
         <ul wire:loading.remove class="flex flex-1 flex-col gap-1 pb-5">

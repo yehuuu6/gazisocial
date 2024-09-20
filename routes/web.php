@@ -60,6 +60,6 @@ Route::get('/faculties', ListFaculties::class)->name('faculties');
 
 // Categories routes START
 
-Route::get('/categories/{tag:name}', ShowPosts::class)->name('category.show');
+Route::get('/categories/{tag:slug}', ShowPosts::class)->name('category.show');
 
 // Categories routes END

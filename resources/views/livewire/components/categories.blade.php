@@ -9,7 +9,7 @@
             <div wire:key="tag-{{ $tag->id }}" class="m-2">
                 <x-link
                     class="flex capitalize items-center text-sm hover:no-underline gap-2 hover:bg-[#E5E7EB]/50 px-2 py-1 rounded-md font-normal"
-                    href="/categories/{{ Str::slug($tag->name) }}">
+                    href="/categories/{{ $tag->slug }}">
                     <x-icons.folder size="20" color="gray" />{{ $tag->name }}
                 </x-link>
             </div>

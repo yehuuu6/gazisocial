@@ -38,19 +38,31 @@
                     <h3 class="cursor-default block font-medium text-gray-700">Anketler</h3>
                     <div class="flex gap-5">
                         @foreach ($createdPolls as $poll)
-                            <div class="flex flex-col flex-grow gap-1 rounded-md border border-gray-300 bg-gray-100">
-                                <div class="flex items-center justify-between py-2 px-4">
-                                    <h3 class="text-md text-gray-700 font-medium">{{ $poll['question'] }}</h3>
-                                    <button wire:click.prevent="removePoll({{ $loop->index }})" type="button">
-                                        <x-icons.trash color='#ff6969' size='16' />
-                                    </button>
-                                </div>
-                                <x-seperator />
-                                <div class="flex flex-col gap-2 py-1 pb-3">
+                            <div class="flex flex-col flex-grow gap-1 border border-gray-300 p-4 shadow-sm rounded-md">
+                                <div class="flex flex-col gap-2">
+                                    <h3 class="text-xl text-gray-700 font-medium">
+                                        {{ $poll['question'] }}</h3>
                                     @foreach ($poll['options'] as $option)
-                                        <div class="flex items-center px-2 gap-1">
-                                            <span
-                                                class="px-3 py-2 bg-gray-200 rounded-full w-full text-gray-700">{{ $option }}</span>
+                                        <div wire:key="option-{{ $loop->index }}"
+                                            class="flex justify-between items-center transition-all duration-500 py-2 gap-1 px-3 bg-gray-50 rounded-md border-2 border-gray-200">
+                                            <div class="flex flex-col flex-grow pb-1 px-1">
+                                                <div class="flex items-center">
+                                                    <div class="flex items-center cursor-pointer w-full">
+                                                        <input type="radio" id="option-input-{{ $loop->index }}"
+                                                            name="option" readonly class="size-4">
+                                                        <label for="option-input-{{ $loop->index }}"
+                                                            class="ml-2 cursor-pointer flex-1 flex items-center justify-between">
+                                                            <span class="text-gray-700">{{ $option }}</span>
+                                                            <span class="text-gray-500">0%</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="w-full bg-gray-300 rounded-full h-2 mt-2">
+                                                    <div
+                                                        class="bg-blue-600 h-2 rounded-full transition-all duration-1000">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>

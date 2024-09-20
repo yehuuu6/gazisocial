@@ -30,7 +30,21 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        $tags = Tag::factory(30)->create();
+        $tags = collect();
+
+        $tags->push(Tag::create(['name' => 'Staj', 'color' => 'blue']));
+        $tags->push(Tag::create(['name' => 'Soru', 'color' => 'green']));
+        $tags->push(Tag::create(['name' => 'İtiraf', 'color' => 'red']));
+        $tags->push(Tag::create(['name' => 'Etkinlik', 'color' => 'yellow']));
+        $tags->push(Tag::create(['name' => 'Erasmus', 'color' => 'purple']));
+        $tags->push(Tag::create(['name' => 'Burslar', 'color' => 'orange']));
+        $tags->push(Tag::create(['name' => 'Projeler', 'color' => 'pink']));
+        $tags->push(Tag::create(['name' => 'Ulaşım', 'color' => 'cyan']));
+        $tags->push(Tag::create(['name' => 'Seyahat', 'color' => 'teal']));
+        $tags->push(Tag::create(['name' => 'Yemek', 'color' => 'indigo']));
+        $tags->push(Tag::create(['name' => 'Arkadaşlık', 'color' => 'lime']));
+        $tags->push(Tag::create(['name' => 'Spor', 'color' => 'emerald']));
+        $tags->push(Tag::create(['name' => 'Yurtlar', 'color' => 'amber']));
 
         $posts = Post::factory(50)
             ->withFixture()
