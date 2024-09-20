@@ -1,5 +1,5 @@
 @php
-    $class = 'bg-blue-100';
+    $class = 'text-primary bg-blue-100';
     // Get category name from gazisocial.test/categories/{category}
     if (Request::is('categories/*')) {
         $text = explode('/', Request::path())[1];
@@ -8,7 +8,7 @@
         $text = explode('/', Request::path())[2];
     } else {
         $text = 'Kategoriler';
-        $class = 'bg-white';
+        $class = 'text-gray-700 bg-white';
     }
 @endphp
 <header
@@ -16,7 +16,7 @@
     <div class="flex justify-between md:justify-start items-center gap-0.5">
         <div class="relative" x-data="{ open: false }">
             <button title="Kategoriler" @click="open = !open"
-                class="py-2 capitalize flex items-center gap-2 px-3 {{ $class }} text-primary text-sm border font-medium border-gray-200 shadow rounded-md">
+                class="py-2 capitalize flex items-center gap-2 px-3 {{ $class }} text-sm border font-medium border-gray-200 shadow rounded-md">
                 {{ $text }}
                 <template x-if="open">
                     <x-icons.chevron-up size="12" color="black" />
