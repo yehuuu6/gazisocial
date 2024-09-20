@@ -15,8 +15,6 @@ class Comment extends Model
         'content',
     ];
 
-    protected $withCount = ['likes'];
-
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');

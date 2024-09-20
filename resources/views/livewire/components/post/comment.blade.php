@@ -32,12 +32,25 @@
                 <button class="hover:bg-blue-200 rounded-full p-2">
                     <x-icons.comment color="#4b5563" />
                 </button>
-                <p class="text-gray-600 font-light">0</p>
+                <p class="text-gray-600 font-light">{{ $comment->comments_count }}</p>
             </div>
             <div class="flex gap-0 items-center">
-                <button class="hover:bg-blue-200 rounded-full p-2">
-                    <x-icons.heart color="#4b5563" />
-                </button>
+                @auth
+                    <button wire:loading.remove class="hover:bg-blue-200 rounded-full p-2" wire:click="toggleLike()">
+                        @if (!$this->isLikedByUser())
+                            <x-icons.heart color="#4b5563" />
+                        @else
+                            <x-icons.heart-off color="#4b5563" />
+                        @endif
+                    </button>
+                    <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
+                        class="flex rounded-full p-2 items-center" />
+                @endauth
+                @guest
+                    <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                        <x-icons.heart color="#4b5563" />
+                    </a>
+                @endguest
                 <p class="text-gray-600 font-light">{{ $comment->likes_count }}</p>
             </div>
         </div>

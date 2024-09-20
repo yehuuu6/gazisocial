@@ -11,7 +11,6 @@ use App\Models\PollOption;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Illuminate\Validation\ValidationException;
 
@@ -29,20 +28,6 @@ class CreatePost extends Component
     {
         unset($this->createdPolls[$index]);
         $this->createdPolls = array_values($this->createdPolls);
-    }
-
-    public function toggleTag(string $tagId)
-    {
-        if (($key = array_search($tagId, $this->selectedTags)) !== false) {
-            unset($this->selectedTags[$key]);
-        } else {
-            // Set max tag count to 5
-            if (count($this->selectedTags) >= 4) {
-                $this->alert('error', 'En fazla 4 etiket seçebilirsiniz.');
-                return;
-            }
-            $this->selectedTags[] = $tagId;
-        }
     }
 
     #[On('pollCreated')]
@@ -85,6 +70,9 @@ class CreatePost extends Component
 
             if (count($this->selectedTags) < 1) {
                 $this->alert('error', 'En az bir etiket seçmelisiniz.');
+                return;
+            } elseif (count($this->selectedTags) > 4) {
+                $this->alert('error', 'En fazla 4 etiket seçebilirsiniz.');
                 return;
             }
         } catch (ValidationException $e) {

@@ -27,6 +27,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'title' => str(fake()->sentence)->beforeLast('.')->title(),
             'content' => $this->faker->realText($this->faker->numberBetween(100, 3000)),
+            'likes_count' => 0,
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
     }

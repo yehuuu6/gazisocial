@@ -4,7 +4,7 @@
             <x-link class="hidden md:block" title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
                 <img class="size-8 md:size-10 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
-            <div class="flex flex-col gap-2 md:gap-1">
+            <div class="flex flex-col gap-2 md:gap-0">
                 <div class="flex flex-wrap item-center gap-2">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('category.show', $tag->name) }}" wire:navigate

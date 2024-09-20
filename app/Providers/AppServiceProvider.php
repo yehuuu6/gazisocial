@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading();
 
         Relation::morphMap([
-            'posts' => Post::class,
-            'comments' => Comment::class,
+            'post' => Post::class,
+            'comment' => Comment::class,
         ]);
     }
 }

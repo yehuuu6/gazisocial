@@ -50,7 +50,9 @@ class DatabaseSeeder extends Seeder
                     'content' => 'Yeni bir konu oluşturdu!',
                     'link' => $post->showRoute(),
                 ]);
+                $post->increment('comments_count', 33);
             });
+
 
         // Create a user with custom attributes
         $user1 = User::create([
@@ -117,6 +119,8 @@ class DatabaseSeeder extends Seeder
                     'likeable_id' => $post->id,
                     'likeable_type' => $post->getMorphClass(),
                 ]);
+
+                $post->increment('likes_count');
             });
 
             // Generate a random number of likes for comments between 0 and 100
@@ -128,6 +132,8 @@ class DatabaseSeeder extends Seeder
                     'likeable_id' => $comment->id,
                     'likeable_type' => $comment->getMorphClass(),
                 ]);
+
+                $comment->increment('likes_count');
             });
         }
     }

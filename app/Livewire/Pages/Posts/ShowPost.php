@@ -46,7 +46,7 @@ class ShowPost extends Component
     public function render()
     {
         $title = $this->post->title . ' - ' . config('app.name');
-        $comments = $this->post->comments()->with('user:id,name,username,avatar')->latest()->simplePaginate(10);
+        $comments = $this->post->comments()->with('user', 'likes')->latest()->simplePaginate(10);
 
         // Check if any session flash data exists
         if (session()->has('post-created')) {

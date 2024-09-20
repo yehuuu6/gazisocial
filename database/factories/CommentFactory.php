@@ -23,6 +23,7 @@ class CommentFactory extends Factory
             'user_id' => User::factory(),
             'post_id' => Post::factory(),
             'content' => $this->faker->realText($this->faker->numberBetween(100, 750)),
+            'likes_count' => 0,
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
     }

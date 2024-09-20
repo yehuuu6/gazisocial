@@ -13,7 +13,7 @@
                         <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
                     </div>
                 </div>
-                <div class="sm:ml-2">
+                <div class="md:ml-1 flex items-center gap-1 flex-wrap">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('category.show', $tag->name) }}" wire:navigate
                             wire:key="tag-{{ $tag->id }}"
@@ -29,7 +29,8 @@
                 @endcan
             @endauth
         </div>
-        <article class="prose prose-sm sm:prose-base lg:prose-lg max-w-none" wire:loading.class="animate-pulse">
+        <article class="prose prose-sm sm:prose-base lg:prose-lg max-w-none" wire:loading.class="animate-pulse"
+            wire:target.except='toggleLike'>
             {!! $post->html !!}
         </article>
         @if ($post->polls->count() > 0)
@@ -65,13 +66,26 @@
                         <x-icons.comment color="#4b5563" />
                     </a>
                 @endguest
-                <p class="text-gray-600 font-light">{{ $post->comments_count }}</p>
+                <p class="text-gray-600 font-light">{{ Number::abbreviate($post->comments_count) }}</p>
             </div>
             <div class="flex gap-0 items-center">
-                <button class="hover:bg-blue-200 rounded-full p-2">
-                    <x-icons.heart color="#4b5563" />
-                </button>
-                <p class="text-gray-600 font-light">{{ $post->likes_count }}</p>
+                @auth
+                    <button wire:loading.remove class="hover:bg-blue-200 rounded-full p-2" wire:click="toggleLike()">
+                        @if (!$this->isLikedByUser())
+                            <x-icons.heart color="#4b5563" />
+                        @else
+                            <x-icons.heart-off color="#4b5563" />
+                        @endif
+                    </button>
+                    <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
+                        class="flex rounded-full p-2 items-center" />
+                @endauth
+                @guest
+                    <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                        <x-icons.heart color="#4b5563" />
+                    </a>
+                @endguest
+                <p class="text-gray-600 font-light">{{ Number::abbreviate($post->likes_count) }}</p>
             </div>
             <div class="flex gap-0 items-center">
                 <button class="hover:bg-blue-200 rounded-full p-2">

@@ -19,11 +19,6 @@ class Post extends Model
         'html',
     ];
 
-    protected $withCount = [
-        'likes',
-        'comments',
-    ];
-
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

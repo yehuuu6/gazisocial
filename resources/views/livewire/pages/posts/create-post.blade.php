@@ -12,21 +12,23 @@
                     <label for="content" class="block font-medium text-gray-700">İçerik</label>
                     <x-editor wire:model="content"></x-editor>
                 </div>
-                <div class="flex flex-col gap-2 px-4">
-                    <h3 class="cursor-default block font-medium text-gray-700">Etiketler</h3>
-                    <div id="tags" class="flex flex-wrap gap-2">
+                <div x-data="{ selectedTags: $wire.selectedTags }" class="flex flex-col gap-2 px-4">
+                    <label for="tags" class="cursor-default block font-medium text-gray-700">Etiketler</label>
+                    <input type="hidden" name="tags" id="tags" wire:model='selectedTags'>
+                    <div class="flex flex-wrap gap-2">
                         @foreach ($tags as $tag)
-                            <button wire:click="toggleTag('{{ $tag->id }}')" type="button" wire:target="toggleTag"
-                                wire:key="tag-toggler-{{ $tag->id }}" wire:loading.attr="disabled"
-                                wire:loading.class="animate-pulse"
-                                class="px-3 py-1 flex items-center gap-1 rounded-full shadow-sm focus:outline-none sm:text-sm
-                                {{ in_array($tag->id, $selectedTags) ? 'bg-indigo-500 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700' }}">
-                                @if (in_array($tag->id, $selectedTags))
+                            <button
+                                x-on:click="selectedTags.includes({{ $tag->id }}) ? selectedTags.splice(selectedTags.indexOf({{ $tag->id }}), 1) : selectedTags.push({{ $tag->id }})"
+                                type="button"
+                                x-bind:class="selectedTags.includes({{ $tag->id }}) ? 'bg-indigo-500 text-white' :
+                                    'bg-gray-100 hover:bg-gray-200 text-gray-700'"
+                                class="px-3 py-1 flex items-center gap-1 rounded-full shadow-sm focus:outline-none sm:text-sm">
+                                <template x-if="selectedTags.includes({{ $tag->id }})">
                                     <x-icons.minus color='white' size='14' />
-                                @else
+                                </template>
+                                <template x-if="!selectedTags.includes({{ $tag->id }})">
                                     <x-icons.plus color='#6366f1' size='14' />
-                                @endif
-
+                                </template>
                                 {{ $tag->name }}
                             </button>
                         @endforeach
