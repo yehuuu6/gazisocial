@@ -21,7 +21,8 @@ class SearchUser extends Component
     public function render()
     {
         return view('livewire.pages.users.search-user', [
-            'users' => User::where('name', 'like', '%' . $this->query . '%')
+            'users' => User::with('roles')
+                ->where('name', 'like', '%' . $this->query . '%')
                 ->orWhere('username', 'like', '%' . $this->query . '%')
                 ->latest('created_at')
                 ->simplePaginate(10),

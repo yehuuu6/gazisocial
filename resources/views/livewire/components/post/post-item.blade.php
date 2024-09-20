@@ -1,7 +1,8 @@
 <tr>
     <td class="p-4 text-left">
         <div class="flex items-center gap-2">
-            <x-link class="hidden md:block" title="{{ $post->user->name }}" href="/u/{{ $post->user->username }}">
+            <x-link class="hidden md:block" title="{{ $post->user->name }}"
+                href="{{ route('user.show', $post->user->username) }}">
                 <img class="size-8 md:size-10 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-2 md:gap-0">

@@ -1,28 +1,46 @@
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
-    <div id="user-index">
-        <ul wire:loading class="divide-y flex flex-1 flex-col gap-1 pb-5 w-full">
-            @for ($i = 0; $i < 10; $i++)
-                <x-posts.placeholder />
-            @endfor
-        </ul>
-        <ul wire:loading.remove class="divide-y flex flex-1 flex-col gap-1 pb-5">
+    <div wire:loading>
+        <x-posts.placeholder />
+    </div>
+    <table wire:loading.remove class="w-full">
+        <thead id ="user-index">
+            <tr class="border-b border-b-gray-200 text-xs text-gray-400">
+                <th class="p-4 font-normal text-left" width="70%">
+                    KONU
+                </th>
+                <th class="p-4 font-normal text-center" width="10%">
+                    YANITLAR
+                </th>
+                <th class="hidden md:table-cell p-4 font-normal text-center" width="10%">
+                    BEĞENİLER
+                </th>
+                <th class="p-4 font-normal text-center" width="10%">
+                    AKTİVİTE
+                </th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
             @forelse ($users as $user)
                 <livewire:components.user.user-item :$user :key="$user->id" />
             @empty
-                <li class="p-5 text-center text-gray-500">
-                    Arama sonucu bulunamadı.
-                </li>
+                <tr>
+                    <td class="p-4 text-center" colspan="4">
+                        <span class="text-gray-400">Sonuç bulunamadı.</span>
+                    </td>
+                </tr>
             @endforelse
-        </ul>
-    </div>
+        </tbody>
+    </table>
     {{ $users->links('livewire.pagination.simple') }}
 </div>
 @script
     <script>
         $wire.on('scroll-to-top', function() {
             const postIndexer = document.getElementById('user-index');
-            postIndexer.scroll({
-                top: 0,
+            const offset = 75;
+            const topPosition = postIndexer.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({
+                top: topPosition,
                 behavior: 'smooth'
             });
         });

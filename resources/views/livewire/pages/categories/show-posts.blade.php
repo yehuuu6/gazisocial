@@ -20,9 +20,15 @@
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
-            @foreach ($posts as $post)
+            @forelse ($posts as $post)
                 <livewire:components.post.post-item :$post :key="$post->id" />
-            @endforeach
+            @empty
+                <tr>
+                    <td class="p-4 text-center" colspan="4">
+                        <span class="text-gray-400">Sonuç bulunamadı.</span>
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
     {{ $posts->links('livewire.pagination.simple') }}

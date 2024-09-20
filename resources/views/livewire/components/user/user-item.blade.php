@@ -1,13 +1,33 @@
-<div class="flex flex-col p-2 md:p-4">
-    <div class="flex justify-between items-center">
-        <div class="flex gap-1 items-center">
-            <img class="size-7 mr-2 md:size-8 rounded-full" src="{{ $user->avatar }}" alt="avatar">
-            <x-link title="{{ $user->name }}" href="/u/{{ $user->username }}"
-                class="text-base md:text-lg font-medium text-blue-800">
-                {{ $user->name }}
+<tr>
+    <td class="p-4 text-left">
+        <div class="flex items-center gap-2">
+            <x-link class="hidden md:block" title="{{ $user->name }}" href="{{ route('user.show', $user->username) }}">
+                <img class="size-8 md:size-10 rounded-full" src="{{ $user->avatar }}" alt="avatar">
             </x-link>
-            <span class="text-gray-500 text-xs md:text-sm">{{ '@' . $user->username }}</span>
+            <div class="flex flex-col gap-2 md:gap-0">
+                <div class="flex flex-wrap item-center gap-2">
+                    @foreach ($user->roles as $role)
+                        <span
+                            class="py-1 px-2 {{ $colorVariants[$role->color] }} text-white font-medium rounded-full capitalize text-xs">{{ $role->name }}</span>
+                    @endforeach
+                </div>
+                <x-link href="{{ route('user.show', $user->username) }}"
+                    class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
+                    {{ $user->name }}
+                </x-link>
+            </div>
         </div>
-    </div>
-    <p class="ml-2 mt-2 text-gray-500 break-all text-sm md:text-base line-clamp-1">{{ $bio }}</p>
-</div>
+    </td>
+    <td class="p-4 text-center text-xs md:text-sm font-semibold text-gray-400">
+        1
+    </td>
+    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+        2
+    </td>
+    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+        {{ $user->created_at->locale('tr')->diffForHumans() }}
+    </td>
+    <td class="p-4 md:hidden text-center text-xs md:text-sm text-gray-400">
+        {{ $user->created_at->locale('tr')->shortAbsoluteDiffForHumans() }}
+    </td>
+</tr>

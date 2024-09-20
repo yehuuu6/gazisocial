@@ -1,5 +1,4 @@
 <div>
-    <x-page-title>Kullanıcı Profili</x-page-title>
     <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
         <livewire:components.user.details :$user />
         <div class="flex">
