@@ -71,7 +71,7 @@ class SearchBar extends Component
     private function getSearchResults()
     {
 
-        if (strlen($this->search) < 2) {
+        if (strlen($this->search) === 0) {
             return [];
         }
 
