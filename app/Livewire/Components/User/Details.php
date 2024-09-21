@@ -10,23 +10,31 @@ class Details extends Component
 {
     public User $user;
 
-    public function loadCounts()
-    {
-        $this->user->loadCount('comments');
-        $this->user->loadCount('posts');
-    }
+    public $colorVariants = [
+        'blue' => 'bg-blue-700',
+        'red' => 'bg-red-700',
+        'green' => 'bg-green-700',
+    ];
 
-    public function mount()
+    public $bio;
+
+    public function mount(User $user)
     {
-        $this->loadCounts();
+        $this->user = $user;
+
+        if ($this->user->bio === null || empty($this->user->bio)) {
+            $this->bio = 'Herhangi bir bilgi verilmemiş.';
+        } else {
+            $this->bio = $user->bio;
+        }
     }
 
     #[On('userCommentDeleted')]
     #[On('userPostDeleted')]
+    #[On('avatar-updated')]
     public function refreshPage()
     {
         $this->user->refresh();
-        $this->loadCounts();
     }
 
     public function render()

@@ -1,4 +1,7 @@
-<div class="flex gap-2 p-3 sm:gap-4 sm:p-5">
+<div x-data="{ addCommentModal: false }" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
+    @auth
+        <livewire:modals.create-comment-modal :$post />
+    @endauth
     <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="size-10 sm:size-12 rounded-full">
     <div class="w-full flex gap-2 flex-col sm:gap-4">
         <div class="flex justify-between items-center">
@@ -23,7 +26,8 @@
             </div>
             @auth
                 @can('delete', $post)
-                    <button wire:click="deletePost" class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                    <button @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
+                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
                         <x-icons.trash color="#ff6969" size="14" />
                     </button>
                 @endcan
@@ -56,8 +60,7 @@
         <div class="post-icon flex">
             <div class="flex gap-0 items-center">
                 @auth
-                    <button class="hover:bg-blue-200 p-2 rounded-full"
-                        wire:click="$dispatch('openModal', { component: 'modals.comment-modal', arguments: { post: {{ $post }} }})">
+                    <button class="hover:bg-blue-200 p-2 rounded-full" @click="addCommentModal = true">
                         <x-icons.comment color="#4b5563" />
                     </button>
                 @endauth

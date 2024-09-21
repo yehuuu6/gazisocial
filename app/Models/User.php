@@ -27,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'badge_visibility',
     ];
 
+    protected $withCount = ['posts', 'comments'];
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');

@@ -1,14 +1,18 @@
 @php
-    $class = 'text-primary bg-blue-100';
-    // Get category name from gazisocial.test/categories/{category}
+    $class = 'text-gray-700 bg-white';
+    $text = 'Kategoriler';
+
     if (Request::is('categories/*')) {
-        $text = explode('/', Request::path())[1];
+        $slug = explode('/', Request::path())[1];
+        $text = optional(\App\Models\Tag::where('slug', $slug)->first())->name ?? $text;
+        $class = 'text-primary bg-blue-100';
     } elseif (Request::is('posts/search/*')) {
-        // Get category name from gazisocial.test/posts/search/{category}/{query}
-        $text = explode('/', Request::path())[2];
-    } else {
-        $text = 'Kategoriler';
-        $class = 'text-gray-700 bg-white';
+        $slug = explode('/', Request::path())[2];
+
+        if ($slug !== 'all') {
+            $text = optional(\App\Models\Tag::where('slug', $slug)->first())->name ?? $text;
+            $class = 'text-primary bg-blue-100';
+        }
     }
 @endphp
 <header
@@ -28,11 +32,11 @@
             <livewire:components.categories />
         </div>
         <div class="flex items-center gap-1">
-            <x-link href="/posts/latest"
+            <x-link href="{{ route('post.index', 'latest') }}"
                 class="py-2 px-3 ml-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 En Yeni
             </x-link>
-            <x-link href="/posts/popular"
+            <x-link href="{{ route('post.index', 'popular') }}"
                 class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 Popüler
             </x-link>
@@ -46,7 +50,7 @@
         </div>
     </div>
     <div class="hidden md:flex items-center gap-2">
-        <x-link href="/posts/create"
+        <x-link href="{{ route('post.create') }}"
             class="py-2 px-3 text-white bg-primary text-sm font-medium text-opacity-90 rounded hover:text-opacity-100 hover:no-underline">
             Yeni Konu Oluştur
         </x-link>

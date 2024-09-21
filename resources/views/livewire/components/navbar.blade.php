@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }"
-    class="py-4 md:py-5 bg-white border-b border-gray-200 shadow-sm sticky bg-opacity-85 backdrop-blur top-0 z-30">
+    class="py-4 md:py-5 bg-white border-b border-gray-200 shadow-sm sticky bg-opacity-85 backdrop-blur top-0 !z-20">
     <div class="relative flex items-center justify-between mx-[3%] md:mx-[6%] lg:mx-[12%]">
         <x-link href="/" class="hover:no-underline group flex hover:opacity-90 items-center gap-1.5 md:gap-2.5">
             <img src="{{ asset('gazi-logo.png') }}" alt="Gazi Social" class="size-10 md:size-12">
@@ -63,7 +63,7 @@
             @endguest
             @auth
                 <div class="md:flex gap-1 md:gap-2 justify-center items-center flex-row-reverse">
-                    <x-users.avatar :size='12' :user='Auth::user()' iconSize='20' />
+                    <img src="{{ Auth::user()->avatar }}" alt="profil resmi" class="object-cover size-12 rounded-full">
                     <div class="flex flex-col text-right">
                         <x-link href="/u/{{ Auth::user()->username }}"
                             class="text-xs md:text-sm font-medium">{{ Auth::user()->name }}</x-link>

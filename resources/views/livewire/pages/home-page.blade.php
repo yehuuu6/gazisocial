@@ -3,7 +3,7 @@
         <div wire:loading>
             <x-posts.placeholder />
         </div>
-        <table wire:loading.remove class="w-full">
+        <table wire:loading.table.remove class="w-full">
             <thead id ="post-index">
                 <tr class="border-b border-b-gray-200 text-xs text-gray-400">
                     <th class="p-4 font-normal text-left" width="70%">

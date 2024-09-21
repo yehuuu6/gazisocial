@@ -30,6 +30,26 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
+        // Create a user with custom attributes
+        $user1 = User::create([
+            'name' => 'Eren Aydın',
+            'username' => 'yehuuu6',
+            'avatar' => 'https://ui-avatars.com/api/?name=Eren%20Aydın&background=random',
+            'email' => 'eren.aydin@gazi.edu.tr',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        Activity::create([
+            'user_id' => $user1->id,
+            'content' => "Gazi Social'a katıldı!",
+        ]);
+
+        // Add gazi social role to the user
+        $user1->roles()->attach($owner);
+        $user1->roles()->attach($gazili);
+        $users[] = $user1;
+
         $tags = collect();
 
         $tags->push(Tag::create(['name' => 'Staj', 'color' => 'blue']));
@@ -67,26 +87,6 @@ class DatabaseSeeder extends Seeder
                 $post->increment('comments_count', 33);
             });
 
-
-        // Create a user with custom attributes
-        $user1 = User::create([
-            'name' => 'Eren Aydın',
-            'username' => 'yehuuu6',
-            'avatar' => 'https://ui-avatars.com/api/?name=Eren%20Aydın&background=random',
-            'email' => 'eren.aydin@gazi.edu.tr',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
-
-        Activity::create([
-            'user_id' => $user1->id,
-            'content' => "Gazi Social'a katıldı!",
-        ]);
-
-        // Add gazi social role to the user
-        $user1->roles()->attach($owner);
-        $user1->roles()->attach($gazili);
-
         $user2 = User::create([
             'name' => 'Ahmet Kandaz',
             'username' => 'KaNEX',
@@ -118,7 +118,6 @@ class DatabaseSeeder extends Seeder
         $user3->roles()->attach($admin);
         $user3->roles()->attach($gazili);
 
-        $users[] = $user1;
         $users[] = $user2;
         $users[] = $user3;
 

@@ -14,12 +14,12 @@ class SearchPost extends Component
     use WithPagination, WithoutUrlPagination;
 
     public $query;
-    public $category;
+    public $tag;
 
-    public function mount($query, $category)
+    public function mount($query, $tag)
     {
         $this->query = $query;
-        $this->category = $category;
+        $this->tag = $tag;
 
         // If query is empty, redirect to home page
         if (empty($this->query)) return redirect()->to(route('home'));
@@ -32,7 +32,7 @@ class SearchPost extends Component
 
     public function getPosts()
     {
-        if ($this->category === 'all') {
+        if ($this->tag === 'all') {
             $posts = Post::with(['user'])
                 ->with('tags')
                 ->where(function ($query) {
@@ -42,7 +42,8 @@ class SearchPost extends Component
                 ->latest('created_at')
                 ->simplePaginate(10);
         } else {
-            $tag = Tag::where('name', $this->category)->first();
+            $tag = Tag::where('slug', $this->tag)->first();
+            if (!$tag) abort(404);
             $posts = $tag
                 ->posts()
                 ->with(['user'])

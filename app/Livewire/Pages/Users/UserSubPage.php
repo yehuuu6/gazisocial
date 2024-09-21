@@ -60,6 +60,7 @@ class UserSubPage extends Component
                     'posts' => $this->user->posts()
                         ->select('id', 'user_id', 'title', 'created_at', 'content', 'html')
                         ->with('user:id')
+                        ->with('tags:id,name,color,slug')
                         ->latest('created_at')
                         ->simplePaginate(10),
                 ]);
@@ -73,13 +74,17 @@ class UserSubPage extends Component
                 ]);
             case 'user-likes':
                 return view('livewire.pages.users.user-likes-page', [
-                    'likes' => [],
+                    'likes' => $this->user->likes()
+                        ->with('user')
+                        ->latest('created_at')
+                        ->simplePaginate(10),
                 ]);
             default:
                 return view('livewire.pages.users.user-posts-page', [
                     'posts' => $this->user->posts()
                         ->select('id', 'user_id', 'title', 'created_at', 'content', 'html')
                         ->with('user:id')
+                        ->with('tags:id,name,color,slug')
                         ->latest('created_at')
                         ->simplePaginate(10),
                 ]);

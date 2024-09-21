@@ -14,6 +14,8 @@ class PollOption extends Model
         'option',
     ];
 
+    protected $withCount = ['votes'];
+
     public function poll()
     {
         return $this->belongsTo(Poll::class);

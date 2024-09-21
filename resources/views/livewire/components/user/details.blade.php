@@ -1,18 +1,10 @@
-@php
-    if ($user->bio === null || empty($user->bio)) {
-        $bio = 'Herhangi bir bilgi verilmemiş.';
-    } else {
-        $bio = $user->bio;
-    }
-    // Color variants
-    $colorVariants = [
-        'blue' => 'bg-blue-700',
-        'red' => 'bg-red-700',
-        'green' => 'bg-green-700',
-    ];
-@endphp
-<div class="p-4">
+<div class="p-4" x-data="{ updateAvatarModal: false }">
     <div class="flex items-start md:items-center gap-3">
+        @auth
+            @if (Auth::user()->id === $user->id)
+                <livewire:modals.update-avatar-modal :$user />
+            @endif
+        @endauth
         <x-users.avatar :size='24' :$user />
         <div class="flex flex-col gap-3 flex-1">
             <div class="flex items-center justify-between">
@@ -34,7 +26,7 @@
                 @auth
                     @if (Auth::user()->id === $user->id)
                         <x-link href="{{ route('user.edit', $user->username) }}" title="Profili Düzenle"
-                            class="transition-transform duration-100 hover:no-underline hover:-translate-y-1">
+                            class="hover:no-underline hover:bg-gray-100 rounded-full p-2 inline-block">
                             <x-icons.settings color="#4b5563" size="25" />
                         </x-link>
                     @endif
@@ -100,14 +92,3 @@
         </div>
     </div>
 </div>
-@script
-    <script>
-        const avatar = document.querySelector('#update-avatar-item');
-        Livewire.on('openModal', () => {
-            avatar.classList.add('animate-bounce');
-        });
-        Livewire.on('closeModal', () => {
-            avatar.classList.remove('animate-bounce');
-        });
-    </script>
-@endscript

@@ -62,23 +62,6 @@ class Details extends Component
         $this->refreshPage();
     }
 
-    public function deletePost()
-    {
-
-        $response = Gate::inspect('delete', $this->post);
-
-        if (!$response->allowed()) {
-            $this->alert('error', 'Bu konuyu silme izniniz yok.');
-            return;
-        }
-
-        $this->post->delete();
-
-        session()->flash('post-deleted', 'Konu başarıyla silindi.');
-
-        $this->redirect(route('user.show', $this->post->user), navigate: true);
-    }
-
     #[On('comment-created')]
     #[On('comment-deleted')]
     public function refreshPage()

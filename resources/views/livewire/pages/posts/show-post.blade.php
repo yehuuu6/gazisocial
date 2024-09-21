@@ -1,7 +1,12 @@
 @section('canonical')
     <link rel="canonical" href="{{ $post->showRoute() }}">
 @endsection
-<div>
+<div x-data="{
+    deleteCommentModal: false,
+    commentId: null,
+    deletePostModal: false,
+    postId: null,
+}">
     <x-page-title>{{ $post->title }}</x-page-title>
     <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
         <livewire:components.post.details :$post lazy />
@@ -22,14 +27,22 @@
         </ul>
         {{ $comments->links('livewire.pagination.simple') }}
     </div>
-    @script
-        <script>
-            $wire.on('scroll-to-header', function() {
-                document.getElementById('comment-header').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        </script>
-    @endscript
-
+    @auth
+        <livewire:modals.delete-comment-modal />
+        <livewire:modals.delete-post-modal />
+    @endauth
 </div>
+
+@script
+    <script>
+        $wire.on('scroll-to-header', function() {
+            const header = document.getElementById('comment-header');
+            const offset = 75;
+            const topPosition = header.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({
+                top: topPosition,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+@endscript

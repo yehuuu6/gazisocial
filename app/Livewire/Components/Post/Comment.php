@@ -52,25 +52,6 @@ class Comment extends Component
         $this->comment->refresh();
     }
 
-    public function deleteComment()
-    {
-
-        $response = Gate::inspect('delete', $this->comment);
-
-        if (!$response->allowed()) {
-            $this->alert('error', 'Bu yorumu silme izniniz yok.');
-            return;
-        }
-
-        $this->comment->delete();
-
-        $this->comment->post->decrement('comments_count');
-
-        $this->alert('success', 'Yorum silindi.');
-
-        $this->dispatch('comment-deleted');
-    }
-
     public function render()
     {
         return view('livewire.components.post.comment');

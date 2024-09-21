@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Modals;
 
+use Livewire\Component;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
-use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
 
-class UpdateAvatar extends ModalComponent
+class UpdateAvatarModal extends Component
 {
 
     use LivewireAlert, WithFileUploads;
@@ -41,11 +41,14 @@ class UpdateAvatar extends ModalComponent
         // Alert success message
         $this->alert('success', 'Fotoğrafınız kaldırıldı!');
 
-        // Refresh the user instance
-        $this->user->refresh();
+        // Clear the avatar property
+        $this->avatar = null;
+
+        // Clear temporary avatar files
+        $this->reset('avatar');
 
         // Dispatch the modal close event
-        $this->dispatch('closeModal');
+        $this->dispatch('avatar-updated');
     }
 
     public function updateAvatar()
@@ -90,14 +93,18 @@ class UpdateAvatar extends ModalComponent
         // Refresh the user instance
         $this->user->refresh();
 
+        // Clear the avatar property
+        $this->avatar = null;
+
+        // Clear temporary avatar files
+        $this->reset('avatar');
+
         // Dispatch the modal close event
-        $this->dispatch('closeModal');
+        $this->dispatch('avatar-updated');
     }
-
-
 
     public function render()
     {
-        return view('livewire.modals.update-avatar');
+        return view('livewire.modals.update-avatar-modal');
     }
 }

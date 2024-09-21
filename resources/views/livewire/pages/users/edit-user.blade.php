@@ -3,7 +3,7 @@
         Profili Düzenle
     </x-page-title>
     <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
-        <div class="grid gap-10 m-5 grid-cols-[1fr_350px]">
+        <div class="grid gap-5 m-3.5 lg:gap-10 md:m-5 lg:grid-cols-[1fr_350px]">
             <div class="flex flex-col gap-10">
                 <x-users.edit.container>
                     <x-users.edit.title title="Profil Bilgileri" description="Profilinizi güncelleyin" />

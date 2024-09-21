@@ -1,4 +1,9 @@
-<div>
+<div x-data="{
+    deleteCommentModal: false,
+    commentId: null,
+    deletePostModal: false,
+    postId: null,
+}">
     <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
         <livewire:components.user.details :$user />
         <div class="flex">
@@ -12,6 +17,12 @@
         <x-seperator />
         <livewire:pages.users.user-sub-page :$user />
     </div>
+    @auth
+        @if (Auth::user()->id === $user->id)
+            <livewire:modals.delete-comment-modal />
+            <livewire:modals.delete-post-modal />
+        @endif
+    @endauth
 </div>
 
 @script

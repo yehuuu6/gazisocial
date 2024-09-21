@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 
 class SearchBar extends Component
@@ -30,12 +31,13 @@ class SearchBar extends Component
         // If current route is category.show, update the tagName
 
         if (!$this->isUserRoute()) {
+            $this->tagName = 'all';
+
             if (Route::currentRouteName() === 'category.show') {
                 $this->tagName = Route::current()->parameter('tag')->name;
-            } else if (Route::currentRouteName() === 'post.search') {
-                $this->tagName = Route::current()->parameter('category');
-            } else {
-                $this->tagName = 'all';
+            }
+            if (Route::currentRouteName() === 'post.search') {
+                $this->tagName = Route::current()->parameter('tag');
             }
         }
 
@@ -63,7 +65,7 @@ class SearchBar extends Component
             $this->placeholder = 'Bir kullanıcı ara...';
             $this->targetUrl = '/u/search/';
         } else {
-            $this->placeholder = $this->tagName !== 'all' ? 'Bu kategoride konu ara...' : 'Bir konu ara...';
+            $this->placeholder = $this->tagName !== 'all' ? $this->tagName . ' kategorisinde konu ara...' : 'Bir konu ara...';
             $this->targetUrl = '/posts/search/';
         }
     }
@@ -99,7 +101,7 @@ class SearchBar extends Component
         if ($this->isUserRoute()) {
             return $this->redirect($this->targetUrl . $query, navigate: true);
         } else {
-            return $this->redirect($this->targetUrl . $this->tagName . '/' . $query, navigate: true);
+            return $this->redirect($this->targetUrl . Str::slug($this->tagName) . '/' . $query, navigate: true);
         }
     }
 
@@ -107,7 +109,8 @@ class SearchBar extends Component
     {
 
         if ($this->tagName !== 'all') {
-            $tag = Tag::where('name', $this->tagName)->first();
+            $tag = Tag::where('slug', Str::slug($this->tagName))->first();
+            if (!$tag) abort(404);
             $posts = $tag
                 ->posts()
                 ->with(['user'])

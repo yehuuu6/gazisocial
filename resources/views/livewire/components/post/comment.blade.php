@@ -2,7 +2,7 @@
     <img src="{{ asset($comment->user->avatar) }}" alt="avatar" class="size-8 object-cover rounded-full">
     <div class="w-full flex flex-col gap-2 justify-center">
         <div class="flex justify-between items-center">
-            <div class="flex gap-1 md:items-center flex-col md:flex-row">
+            <div class="flex gap-1 md:items-center flex-col md:flex-row flex-wrap">
                 <div>
                     <x-link href="/u/{{ $comment->user->username }}" class="font-medium">
                         {{ $comment->user->name }}
@@ -20,7 +20,9 @@
             </div>
             @auth
                 @can('delete', $comment)
-                    <button wire:click="deleteComment" class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                    <button
+                        @click="commentId = {{ $comment->id }}; deleteCommentModal = true; $dispatch('delete-comment-modal-open')"
+                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
                         <x-icons.trash color="#ff6969" size="14" />
                     </button>
                 @endcan

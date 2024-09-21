@@ -39,7 +39,7 @@ Route::get('/', HomePage::class)->name('home');
 
 Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
 Route::get('/posts/{order?}', HomePage::class)->name('post.index');
-Route::get('/posts/search/{category}/{query}', SearchPost::class)->name('post.search');
+Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('post.search');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('post.show');
 
 // Post Routes END

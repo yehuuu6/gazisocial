@@ -1,7 +1,7 @@
 <div wire:poll.5s class="rounded-lg shadow-md">
     <div class="flex items-center justify-between">
         <h3 class="text-xl py-4 px-6 text-gray-700 font-medium">{{ $poll->question }} <span
-                class="text-sm text-gray-500 font-normal">{{ $poll->votes->count() }} oy verildi.</span></h3>
+                class="text-sm text-gray-500 font-normal">Toplam {{ $poll->votes->count() }} oy verildi.</span></h3>
         <div class="py-4 px-6 flex gap-1 items-center">
             <x-icons.dot color='#ff6969' size='12' />
             <h4 class="text-red-400 font-extrabold text-lg">CANLI</h4>
@@ -15,7 +15,7 @@
                     // Calculate percentage of votes with $poll->votes
                     $totalVotes = $poll->votes->count();
                     $optionVotes = $option->votes->count();
-                    $percentage = $totalVotes > 0 ? round(($optionVotes / $totalVotes) * 100, 2) : 0;
+                    $percentage = number_format($totalVotes > 0 ? round(($optionVotes / $totalVotes) * 100, 2) : 0);
 
                     // Set border class between gray and blue based on selectedOption and option->id
 
@@ -32,7 +32,11 @@
                                     {{ $selectedOption == $option->id ? 'checked' : '' }} class="size-4">
                                 <label for="{{ $option->id }}"
                                     class="ml-2 cursor-pointer flex-1 flex items-center justify-between">
-                                    <span class="text-gray-700">{{ $option->option }}</span>
+                                    <div>
+                                        <span class="text-gray-700">{{ $option->option }}</span>
+                                        <span class="text-gray-500 text-sm font-light">{{ $option->votes_count }}
+                                            oy</span>
+                                    </div>
                                     <span class="text-gray-500">{{ $percentage }}%</span>
                                 </label>
                             </div>
