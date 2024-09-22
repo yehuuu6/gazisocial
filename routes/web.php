@@ -11,6 +11,8 @@ use App\Livewire\Pages\Posts\CreatePost;
 use App\Livewire\Pages\Posts\SearchPost;
 use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Auth\ForgotPassword;
+use App\Livewire\Pages\Auth\ResetPassword;
 use App\Livewire\Pages\Categories\ShowPosts;
 use App\Livewire\Pages\Faculty\ListFaculties;
 use App\Livewire\Pages\Users\EditUser;
@@ -30,6 +32,10 @@ Route::get('/email/verify/{id}/{hash}', [Verify::class, 'verifyUser'])
 
 Route::post('/email/verification-notification', [Verify::class, 'sendVerifyMail'])
     ->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name('password.request');
+
+Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
 // Auth routes END
 

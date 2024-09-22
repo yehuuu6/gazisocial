@@ -17,6 +17,11 @@ class LikePolicy
     public function create(User $user, Model $likeable): bool
     {
 
+        // If the user is not verified, return false
+        if (!$user->hasVerifiedEmail()) {
+            return false;
+        }
+
         if (! in_array($likeable::class, [Post::class, Comment::class])) {
             return false;
         }

@@ -19,6 +19,19 @@ class Post extends Model
         'html',
     ];
 
+    protected static function booted()
+    {
+        // Create activity model when a post is created
+        static::created(function ($post) {
+            Activity::create([
+                'user_id' => $post->user_id,
+                'post_id' => $post->id,
+                'content' => 'Yeni bir konu oluşturdu!',
+                'link' => $post->showRoute(),
+            ]);
+        });
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

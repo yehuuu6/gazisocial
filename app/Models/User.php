@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasFactory, Notifiable;
 
@@ -30,9 +31,36 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $withCount = ['posts', 'comments'];
 
+    protected static function booted()
+    {
+
+        // Set user's default avatar
+        static::created(function ($user) {
+            $user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=random';
+            $user->save();
+        });
+
+        static::created(function ($user) {
+            Activity::create([
+                'user_id' => $user->id,
+                'content' => "Gazi Social'a katıldı!",
+            ]);
+        });
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');
+    }
+
+    public function updateDefaultAvatar()
+    {
+        // check if the user has a default avatar by checking if the avatar contains ui-avatars.com
+        if (strpos($this->avatar, 'ui-avatars.com') === false) return;
+
+        $newAvatar = 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=random';
+        $this->avatar = $newAvatar;
+        $this->save();
     }
 
     public function likes()

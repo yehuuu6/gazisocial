@@ -24,7 +24,8 @@
                 Kaydınızı tamamlamak için lütfen e-posta adresinizi doğrulayın. Bu, sizi ve Gazi Social topluluğunu
                 güvende tutmamıza yardımcı olur. <br>
                 <strong class="text-gray-700">Eğer e-postayı almadıysanız,</strong>
-            <form wire:submit="sendVerifyMail" class="d-inline">
+            </p>
+            <form wire:submit="sendVerifyMail">
                 @csrf
                 <button wire:loading.class="bg-gray-300 cursor-not-allowed" wire:loading.class.remove = "bg-primary"
                     class="bg-primary mt-3 h-[40px] flex items-center gap-1 justify-center opacity-90 hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
@@ -33,7 +34,6 @@
                     <span wire:loading.remove>Yeniden Gönder</span>
                 </button>
             </form>
-            </p>
         </div>
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">

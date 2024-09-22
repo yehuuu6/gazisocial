@@ -4,12 +4,12 @@ namespace App\Livewire\Components\Post;
 
 use App\Models\Like;
 use App\Models\Post;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Details extends Component
 {
@@ -37,7 +37,12 @@ class Details extends Component
     {
         if (! $this->isLikedByUser()) {
 
-            $this->authorize('create', [Like::class, $this->post]);
+            $response = Gate::inspect('create', [Like::class, $this->post]);
+
+            if (! $response->allowed()) {
+                $this->alert('error', 'Beğenebilmek için e-postanızı onaylayın.');
+                return;
+            }
 
             $likeable = Relation::getMorphedModel('post')::findOrFail($this->post->id);
 

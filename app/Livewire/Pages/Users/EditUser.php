@@ -75,6 +75,19 @@ class EditUser extends Component
             'bio' => $this->bio,
         ]);
 
+        // If name is updated, update the avatar
+        if ($result && $this->user->wasChanged('name')) {
+            $this->user->updateDefaultAvatar();
+            $this->flash('success', 'Profil bilgileriniz başarıyla güncellendi.', redirect: route('user.edit', $this->user->username));
+            return;
+        }
+
+        // If the username is updated, update the page URL
+        if ($result && $this->user->wasChanged('username')) {
+            $this->flash('success', 'Profil bilgileriniz başarıyla güncellendi.', redirect: route('user.edit', $this->user->username));
+            return;
+        }
+
         if ($result) {
             $this->alert('success', 'Profil bilgileriniz başarıyla güncellendi.');
         } else {

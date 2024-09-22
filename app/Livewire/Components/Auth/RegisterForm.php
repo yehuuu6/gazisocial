@@ -4,7 +4,6 @@ namespace App\Livewire\Components\Auth;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\ValidationException;
@@ -70,11 +69,6 @@ class RegisterForm extends Component
         Auth::login($user);
 
         event(new Registered($user));
-
-        Activity::create([
-            'user_id' => $user->id,
-            'content' => "Gazi Social'a katıldı!",
-        ]);
 
         $this->flash('success', 'Başarıyla kayıt oldunuz.', redirect: route('verification.notice'));
     }

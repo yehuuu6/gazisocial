@@ -27,9 +27,9 @@ class UserFactory extends Factory
         return [
             'name' => $name,
             'username' => fake()->unique()->userName(),
-            'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&background=random',
             'email' => fake()->unique()->safeEmail(),
             'bio' => fake()->sentence(),
+            'last_activity' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -42,7 +42,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
