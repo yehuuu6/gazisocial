@@ -15,6 +15,13 @@ class Comment extends Model
         'content',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($comment) {
+            $comment->user->update(['last_activity' => now()]);
+        });
+    }
+
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');

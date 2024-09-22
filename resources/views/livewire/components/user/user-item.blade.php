@@ -4,10 +4,13 @@
             <x-link class="hidden md:block" title="{{ $user->name }}" href="{{ route('user.show', $user->username) }}">
                 <img class="size-8 md:size-10 rounded-full" src="{{ $user->avatar }}" alt="avatar">
             </x-link>
-            <x-link href="{{ route('user.show', $user->username) }}"
-                class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
-                {{ $user->name }}
-            </x-link>
+            <div class="flex flex-col gap-0">
+                <x-link href="{{ route('user.show', $user->username) }}"
+                    class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
+                    {{ $user->name }}
+                </x-link>
+                <span class="text-xs md:text-sm text-gray-400">{{ '@' . $user->username }}</span>
+            </div>
         </div>
     </td>
     <td class="p-4 text-center text-xs md:text-sm font-semibold text-gray-400">
@@ -21,9 +24,9 @@
         </div>
     </td>
     <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
-        {{ $user->created_at->locale('tr')->diffForHumans() }}
+        {{ $user->last_activity->locale('tr')->diffForHumans() }}
     </td>
     <td class="p-4 md:hidden text-center text-xs md:text-sm text-gray-400">
-        {{ $user->created_at->locale('tr')->shortAbsoluteDiffForHumans() }}
+        {{ $user->last_activity->locale('tr')->shortAbsoluteDiffForHumans() }}
     </td>
 </tr>

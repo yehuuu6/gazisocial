@@ -1,10 +1,6 @@
-<div x-cloak x-show="deletePostModal" x-transition.opacity.duration.250ms role="dialog" aria-modal="true"
-    x-on:post-deleted.window="deletePostModal = false" x-on:delete-post-modal-open.window="$wire.set('postId', postId)"
-    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex md:items-center items-end
-    justify-center h-full z-50">
-    <div x-cloak x-show="deletePostModal" x-transition
-        class="rounded-lg w-full md:w-3/4 lg:w-1/3 overflow-hidden bg-gray-50 mx-5 md:mx-0 md:mb-0 mb-5"
-        @click.away="deletePostModal = false">
+<x-modal-wrapper x-show="deletePostModal" x-on:post-deleted.window="deletePostModal = false"
+    x-on:delete-post-modal-open.window="$wire.set('postId', postId)">
+    <x-modal-inner-wrapper x-show="deletePostModal" @click.away="deletePostModal = false">
         <form wire:submit="deletePost" enctype="multipart/form-data">
             @csrf
             <h3 class="text-xl py-4 px-6 text-gray-700 bg-white font-medium">Konuyu Kaldır</h3>
@@ -29,5 +25,5 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
+    </x-modal-inner-wrapper>
+</x-modal-wrapper>

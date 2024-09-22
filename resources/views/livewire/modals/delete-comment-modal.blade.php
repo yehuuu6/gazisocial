@@ -1,11 +1,6 @@
-<div x-cloak x-show="deleteCommentModal" x-transition.opacity.duration.250ms role="dialog" aria-modal="true"
-    x-on:comment-deleted.window="deleteCommentModal = false"
-    x-on:delete-comment-modal-open.window="$wire.set('commentId', commentId)"
-    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex md:items-center items-end
-    justify-center h-full z-50">
-    <div x-cloak x-show="deleteCommentModal" x-transition
-        class="rounded-lg w-full md:w-3/4 lg:w-1/3 overflow-hidden bg-gray-50 mx-5 md:mx-0 md:mb-0 mb-5"
-        @click.away="deleteCommentModal = false">
+<x-modal-wrapper x-show="deleteCommentModal" x-on:comment-deleted.window="deleteCommentModal = false"
+    x-on:delete-comment-modal-open.window="$wire.set('commentId', commentId)">
+    <x-modal-inner-wrapper x-show="deleteCommentModal" @click.away="deleteCommentModal = false">
         <form wire:submit="deleteComment" enctype="multipart/form-data">
             @csrf
             <h3 class="text-xl py-4 px-6 text-gray-700 bg-white font-medium">Yorumu Kaldır</h3>
@@ -30,5 +25,5 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
+    </x-modal-inner-wrapper>
+</x-modal-wrapper>

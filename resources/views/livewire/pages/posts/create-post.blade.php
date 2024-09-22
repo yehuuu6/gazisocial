@@ -1,5 +1,5 @@
 <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
-    <form wire:submit="createPost" enctype="multipart/form-data" class="flex flex-col h-full">
+    <form wire:submit="createPost" class="flex flex-col h-full">
         <div class="flex-grow">
             <div class="flex flex-col gap-5 py-4">
                 <div class="flex flex-col gap-2 px-4">

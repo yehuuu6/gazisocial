@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'is_private',
         'badge_visibility',
+        'last_activity',
     ];
 
     protected $withCount = ['posts', 'comments'];
@@ -74,6 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'last_activity' => 'datetime',
             'password' => 'hashed',
         ];
     }

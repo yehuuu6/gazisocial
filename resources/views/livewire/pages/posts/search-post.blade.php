@@ -5,7 +5,7 @@
     <table wire:loading.table.remove class="w-full">
         <thead id ="post-index">
             <tr class="border-b border-b-gray-200 text-xs text-gray-400">
-                <th class="p-4 font-normal text-left" width="70%">
+                <th class="p-4 font-normal text-left" width="60%">
                     KONU | "{{ $query }}" için arama sonuçları
                 </th>
                 <th class="p-4 font-normal text-center" width="10%">
@@ -14,8 +14,8 @@
                 <th class="hidden md:table-cell p-4 font-normal text-center" width="10%">
                     BEĞENİLER
                 </th>
-                <th class="p-4 font-normal text-center" width="10%">
-                    AKTİVİTE
+                <th class="p-4 font-normal text-center" width="20%">
+                    OLUŞTURULDU
                 </th>
             </tr>
         </thead>

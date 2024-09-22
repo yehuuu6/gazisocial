@@ -9,7 +9,12 @@
         </x-link>
         <button @click="open = !open" class="md:hidden flex items-center p-1 rounded-md hover:bg-gray-100"
             title="Menüyü Aç">
-            <x-icons.menu size='30' color='black' />
+            <template x-if="open">
+                <x-icons.close size='30' color='rgb(11, 62, 117)' />
+            </template>
+            <template x-if="!open">
+                <x-icons.menu size='30' color='rgb(11, 62, 117)' />
+            </template>
         </button>
         <div x-cloak x-show='open' @click.away="open = false" x-transition.duration.250ms
             class="absolute bg-white w-full rounded-b-lg shadow-md top-14 p-2 bg-opacity-95 flex md:hidden flex-col gap-2">

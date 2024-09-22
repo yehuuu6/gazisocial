@@ -1,5 +1,4 @@
-<form wire:submit="register" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg"
-    enctype="multipart/form-data">
+<form wire:submit="register" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg">
     @csrf
     <div class="mb-4 flex gap-4">
         <div>

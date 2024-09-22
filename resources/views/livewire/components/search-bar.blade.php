@@ -1,7 +1,7 @@
 <div x-cloak x-show="open" @click.away="open = false" x-transition.duration.250ms
     class="absolute top-10 right-0 flex flex-col z-10 gap-0.5 mt-1 shadow-md border border-gray-200 w-[350px] md:w-[375px] lg:w-[400px] bg-white rounded-lg overflow-hidden">
 
-    <form wire:submit="goToSearchRoute" enctype="multipart/form-data"
+    <form wire:submit="goToSearchRoute"
         class="flex m-2 items-center overflow-hidden border shadow rounded-md border-gray-300">
         <input wire:model.live="search" type="text" spellcheck="false" required
             class="px-4 py-2 text-sm flex-grow text-gray-700 focus:outline-none focus:border-blue-400"

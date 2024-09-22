@@ -8,13 +8,8 @@
         $previewText = $avatar->getClientOriginalName();
     }
 @endphp
-<div x-cloak x-show="updateAvatarModal" x-transition.opacity.duration.250ms role="dialog" aria-modal="true"
-    x-on:avatar-updated.window="updateAvatarModal = false"
-    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex md:items-center items-end
-    justify-center h-full z-50">
-    <div x-cloak x-show="updateAvatarModal" x-transition
-        class="rounded-lg w-full md:w-3/4 lg:w-1/3 overflow-hidden bg-gray-50 mx-5 md:mx-0 md:mb-0 mb-5"
-        @click.away="updateAvatarModal = false">
+<x-modal-wrapper x-show="updateAvatarModal" x-on:avatar-updated.window="updateAvatarModal = false">
+    <x-modal-inner-wrapper x-show="updateAvatarModal" @click.away="updateAvatarModal = false">
         <form wire:submit.prevent="updateAvatar" lazy class="rounded-lg shadow-md" enctype="multipart/form-data">
             @csrf
             <div class="flex items-center justify-between">
@@ -54,5 +49,5 @@
                 </button>
             </div>
         </form>
-    </div>
-</div>
+    </x-modal-inner-wrapper>
+</x-modal-wrapper>

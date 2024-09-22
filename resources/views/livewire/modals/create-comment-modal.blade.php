@@ -1,11 +1,6 @@
-<div x-cloak x-show="addCommentModal" x-transition.opacity.duration.250ms role="dialog" aria-modal="true"
-    x-on:comment-created.window="addCommentModal = false"
-    class="fixed inset-0 bg-gray-500 bg-opacity-50 flex md:items-center items-end
-    justify-center h-full z-50">
-    <div x-cloak x-show="addCommentModal" x-transition
-        class="rounded-lg w-full md:w-3/4 lg:w-1/3 overflow-hidden bg-gray-50 mx-5 md:mx-0 md:mb-0 mb-5"
-        @click.away="addCommentModal = false">
-        <form wire:submit="createComment" class="bg-white" enctype="multipart/form-data">
+<x-modal-wrapper x-show="addCommentModal" x-on:comment-created.window="addCommentModal = false">
+    <x-modal-inner-wrapper x-show="addCommentModal" @click.away="addCommentModal = false">
+        <form wire:submit="createComment" class="bg-white">
             @csrf
             <h3 class="text-xl py-4 px-6 text-gray-700 bg-white font-medium">Yorum Yap</h3>
             <x-seperator />
@@ -34,5 +29,5 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
+    </x-modal-inner-wrapper>
+</x-modal-wrapper>

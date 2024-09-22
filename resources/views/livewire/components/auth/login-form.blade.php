@@ -1,5 +1,4 @@
-<form wire:submit="login" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full"
-    enctype="multipart/form-data">
+<form wire:submit="login" class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
     @csrf
     <div class="mb-4">
         <label class="block text-gray-700 text-sm font-normal mb-2" for="email">

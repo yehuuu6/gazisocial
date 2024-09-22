@@ -14,7 +14,7 @@
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"
-                    class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
+                    class="text-sm md:text-base lg:text-lg hover:no-underline break-all text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
                     {{ $post->title }}
                 </x-link>
             </div>
