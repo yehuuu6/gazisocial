@@ -13,12 +13,11 @@
             @foreach ($poll->options as $option)
                 @php
                     // Calculate percentage of votes with $poll->votes
-                    $totalVotes = $poll->votes->count();
-                    $optionVotes = $option->votes->count();
+                    $totalVotes = $poll->votes_count;
+                    $optionVotes = $option->votes_count;
                     $percentage = number_format($totalVotes > 0 ? round(($optionVotes / $totalVotes) * 100, 2) : 0);
 
                     // Set border class between gray and blue based on selectedOption and option->id
-
                     $borderClass =
                         $selectedOption && $selectedOption == $option->id ? 'border-blue-500' : 'border-gray-300';
                 @endphp
@@ -34,7 +33,7 @@
                                     class="ml-2 cursor-pointer flex-1 flex items-center justify-between">
                                     <div>
                                         <span class="text-gray-700">{{ $option->option }}</span>
-                                        <span class="text-gray-500 text-sm font-light">{{ $option->votes_count }}
+                                        <span class="text-gray-500 text-sm font-light">{{ $optionVotes }}
                                             oy</span>
                                     </div>
                                     <span class="text-gray-500">{{ $percentage }}%</span>

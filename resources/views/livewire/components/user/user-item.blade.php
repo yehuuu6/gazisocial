@@ -1,11 +1,11 @@
 <tr>
     <td class="p-4 text-left">
         <div class="flex items-center gap-2">
-            <x-link class="hidden md:block" title="{{ $user->name }}" href="{{ route('user.show', $user->username) }}">
+            <x-link class="hidden md:block" title="{{ $user->name }}" href="{{ route('users.show', $user->username) }}">
                 <img class="size-8 md:size-10 rounded-full" src="{{ $user->avatar }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-0">
-                <x-link href="{{ route('user.show', $user->username) }}"
+                <x-link href="{{ route('users.show', $user->username) }}"
                     class="text-sm md:text-base lg:text-lg hover:no-underline text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
                     {{ $user->name }}
                 </x-link>

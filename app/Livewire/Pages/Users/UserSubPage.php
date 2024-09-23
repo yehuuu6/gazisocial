@@ -19,9 +19,7 @@ class UserSubPage extends Component
 
     public function isPrivateProfile(): bool
     {
-        if ($this->user->is_private) {
-            return true;
-        }
+        if ($this->user->is_private) return true;
 
         return false;
     }
@@ -55,15 +53,6 @@ class UserSubPage extends Component
         }
 
         switch ($this->currentView) {
-            case 'user-posts':
-                return view('livewire.pages.users.user-posts-page', [
-                    'posts' => $this->user->posts()
-                        ->select('id', 'user_id', 'title', 'created_at', 'content', 'html')
-                        ->with('user:id')
-                        ->with('tags:id,name,color,slug')
-                        ->latest('created_at')
-                        ->simplePaginate(10),
-                ]);
             case 'user-comments':
                 return view('livewire.pages.users.user-comments-page', [
                     'comments' => $this->user->comments()

@@ -8,8 +8,8 @@
         $previewText = $avatar->getClientOriginalName();
     }
 @endphp
-<x-modal-wrapper x-show="updateAvatarModal" x-on:avatar-updated.window="updateAvatarModal = false">
-    <x-modal-inner-wrapper x-show="updateAvatarModal" @click.away="updateAvatarModal = false">
+<x-modals.modal-wrapper x-show="updateAvatarModal" x-on:avatar-updated.window="updateAvatarModal = false">
+    <x-modals.modal-inner-wrapper x-show="updateAvatarModal" @click.away="updateAvatarModal = false">
         <form wire:submit.prevent="updateAvatar" lazy class="rounded-lg shadow-md" enctype="multipart/form-data">
             @csrf
             <div class="flex items-center justify-between">
@@ -49,5 +49,5 @@
                 </button>
             </div>
         </form>
-    </x-modal-inner-wrapper>
-</x-modal-wrapper>
+    </x-modals.modal-inner-wrapper>
+</x-modals.modal-wrapper>

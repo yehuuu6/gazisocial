@@ -14,6 +14,8 @@ class Poll extends Model
         'question',
     ];
 
+    protected $withCount = ['votes'];
+
     public function post()
     {
         return $this->belongsTo(Post::class);

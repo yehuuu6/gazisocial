@@ -5,11 +5,18 @@
         placeholder="Kategori Ara" />
 
     <div class="max-h-[200px] md:max-h-[225px] lg:max-h-[250px] overflow-y-auto">
+        <div class="m-2">
+            <x-link
+                class="flex capitalize items-center text-sm hover:no-underline gap-2 hover:bg-[#E5E7EB]/50 px-2 py-1 rounded-md font-normal"
+                href="{{ route('home') }}">
+                <x-icons.folder size="20" color="gray" />Tüm Kategoriler
+            </x-link>
+        </div>
         @forelse ($tags as $tag)
             <div wire:key="tag-{{ $tag->id }}" class="m-2">
                 <x-link
                     class="flex capitalize items-center text-sm hover:no-underline gap-2 hover:bg-[#E5E7EB]/50 px-2 py-1 rounded-md font-normal"
-                    href="/categories/{{ $tag->slug }}">
+                    href="{{ route('tags.show', $tag->slug) }}">
                     <x-icons.folder size="20" color="gray" />{{ $tag->name }}
                 </x-link>
             </div>

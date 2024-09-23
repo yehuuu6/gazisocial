@@ -6,7 +6,7 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
-class Categories extends Component
+class TagsLister extends Component
 {
     public string $query = '';
 
@@ -18,7 +18,7 @@ class Categories extends Component
             return Tag::where('name', 'like', '%' . $this->query . '%')->get();
         });
 
-        return view('livewire.components.categories', [
+        return view('livewire.components.tags-lister', [
             'tags' => $tags
         ]);
     }

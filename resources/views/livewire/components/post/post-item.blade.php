@@ -2,14 +2,13 @@
     <td class="p-4 text-left">
         <div class="flex items-center gap-2">
             <x-link class="hidden md:block" title="{{ $post->user->name }}"
-                href="{{ route('user.show', $post->user->username) }}">
+                href="{{ route('users.show', $post->user->username) }}">
                 <img class="size-8 md:size-10 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-2 md:gap-0">
                 <div class="flex flex-wrap item-center gap-2">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('category.show', $tag->slug) }}" wire:navigate
-                            wire:key="tag-{{ $tag->id }}"
+                        <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate wire:key="tag-{{ $tag->id }}"
                             class="py-0.5 px-1.5 md:py-1 md:px-2 {{ $this->getTagColor($tag->color) }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>

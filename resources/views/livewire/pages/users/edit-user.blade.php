@@ -27,9 +27,13 @@
                                     <span>E-posta</span>
                                     @if (Auth::user()->hasVerifiedEmail())
                                         @if (Auth::user()->isStudent())
-                                            <span
-                                                class="text-xs bg-green-500 ml-1 py-1 px-2 rounded-full text-white">Gazi
-                                                Üniversitesine bağlılığınız onaylandı</span>
+                                            <span class="text-xs bg-green-500 ml-1 py-1 px-2 rounded-full text-white">
+                                                Gazi Üniversitesine bağlılığınız onaylandı
+                                            </span>
+                                        @else
+                                            <span class="text-xs bg-blue-500 ml-1 py-1 px-2 rounded-full text-white">
+                                                E posta adresiniz onaylandı
+                                            </span>
                                         @endif
                                     @else
                                         <a href="{{ route('verification.notice') }}"

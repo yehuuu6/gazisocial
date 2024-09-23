@@ -2,7 +2,7 @@
     $class = 'text-gray-700 bg-white';
     $text = 'Kategoriler';
 
-    if (Request::is('categories/*')) {
+    if (Request::is('tags/*')) {
         $slug = explode('/', Request::path())[1];
         $text = optional(\App\Models\Tag::where('slug', $slug)->first())->name ?? $text;
         $class = 'text-primary bg-blue-100';
@@ -29,14 +29,14 @@
                     <x-icons.chevron-down size="12" color="black" />
                 </template>
             </button>
-            <livewire:components.categories />
+            <livewire:components.tags-lister />
         </div>
         <div class="flex items-center gap-1">
-            <x-link href="{{ route('post.index', 'latest') }}"
+            <x-link href="{{ route('posts.index', 'latest') }}"
                 class="py-2 px-3 ml-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 En Yeni
             </x-link>
-            <x-link href="{{ route('post.index', 'popular') }}"
+            <x-link href="{{ route('posts.index', 'popular') }}"
                 class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 Popüler
             </x-link>
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="hidden md:flex items-center gap-2">
-        <x-link href="{{ route('post.create') }}"
+        <x-link href="{{ route('posts.create') }}"
             class="py-2 px-3 text-white bg-primary text-sm font-medium text-opacity-90 rounded hover:text-opacity-100 hover:no-underline">
             Yeni Konu Oluştur
         </x-link>

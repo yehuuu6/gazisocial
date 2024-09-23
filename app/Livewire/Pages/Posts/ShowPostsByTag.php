@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Livewire\Pages\Categories;
+namespace App\Livewire\Pages\Posts;
 
 use App\Models\Tag;
-use Livewire\WithPagination, Livewire\WithoutUrlPagination, Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
+use Livewire\Component;
 
-class ShowPosts extends Component
+class ShowPostsByTag extends Component
 {
 
     use WithPagination, WithoutUrlPagination;
@@ -14,7 +16,7 @@ class ShowPosts extends Component
 
     public function render()
     {
-        return view('livewire.pages.categories.show-posts', [
+        return view('livewire.pages.posts.show-posts-by-tag', [
             'posts' => $this->tag->posts()
                 ->with('user')
                 ->with('tags')

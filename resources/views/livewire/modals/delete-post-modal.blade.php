@@ -1,6 +1,6 @@
-<x-modal-wrapper x-show="deletePostModal" x-on:post-deleted.window="deletePostModal = false"
+<x-modals.modal-wrapper x-show="deletePostModal" x-on:post-deleted.window="deletePostModal = false"
     x-on:delete-post-modal-open.window="$wire.set('postId', postId)">
-    <x-modal-inner-wrapper x-show="deletePostModal" @click.away="deletePostModal = false">
+    <x-modals.modal-inner-wrapper x-show="deletePostModal" @click.away="deletePostModal = false">
         <form wire:submit="deletePost" enctype="multipart/form-data">
             @csrf
             <h3 class="text-xl py-4 px-6 text-gray-700 bg-white font-medium">Konuyu Kaldır</h3>
@@ -25,5 +25,5 @@
                 </div>
             </div>
         </form>
-    </x-modal-inner-wrapper>
-</x-modal-wrapper>
+    </x-modals.modal-inner-wrapper>
+</x-modals.modal-wrapper>

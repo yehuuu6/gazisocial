@@ -9,7 +9,7 @@
         </span>
         <div class="flex gap-1.5 items-center mt-2 lg:ml-1 lg:mt-0 flex-wrap">
             @foreach ($post->tags as $tag)
-                <x-link href="{{ route('category.show', $tag->slug) }}"
+                <x-link href="{{ route('tags.show', $tag->slug) }}"
                     class="bg-{{ $tag->color }}-500 text-white py-1 px-2 rounded-full text-xs hover:no-underline">
                     {{ $tag->name }}
                 </x-link>

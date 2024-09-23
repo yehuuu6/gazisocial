@@ -1,6 +1,6 @@
-<x-modal-wrapper x-show="deleteCommentModal" x-on:comment-deleted.window="deleteCommentModal = false"
+<x-modals.modal-wrapper x-show="deleteCommentModal" x-on:comment-deleted.window="deleteCommentModal = false"
     x-on:delete-comment-modal-open.window="$wire.set('commentId', commentId)">
-    <x-modal-inner-wrapper x-show="deleteCommentModal" @click.away="deleteCommentModal = false">
+    <x-modals.modal-inner-wrapper x-show="deleteCommentModal" @click.away="deleteCommentModal = false">
         <form wire:submit="deleteComment" enctype="multipart/form-data">
             @csrf
             <h3 class="text-xl py-4 px-6 text-gray-700 bg-white font-medium">Yorumu Kaldır</h3>
@@ -25,5 +25,5 @@
                 </div>
             </div>
         </form>
-    </x-modal-inner-wrapper>
-</x-modal-wrapper>
+    </x-modals.modal-inner-wrapper>
+</x-modals.modal-wrapper>

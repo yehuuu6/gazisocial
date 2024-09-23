@@ -114,7 +114,7 @@ class CreatePost extends Component
 
         session()->flash('post-created', 'Konu başarıyla oluşturuldu.');
 
-        $activity = Activity::create([
+        Activity::create([
             'user_id' => Auth::id(),
             'post_id' => $post->id,
             'content' => 'Yeni bir konu oluşturdu!',

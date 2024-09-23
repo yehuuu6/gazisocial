@@ -25,7 +25,7 @@
                 </div>
                 @auth
                     @if (Auth::user()->id === $user->id)
-                        <x-link href="{{ route('user.edit', $user->username) }}" title="Profili Düzenle"
+                        <x-link href="{{ route('users.edit', $user->username) }}" title="Profili Düzenle"
                             class="hover:no-underline hover:bg-gray-100 rounded-full p-2 inline-block">
                             <x-icons.settings color="#4b5563" size="25" />
                         </x-link>

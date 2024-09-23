@@ -13,7 +13,7 @@ use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
 use App\Livewire\Pages\Auth\ForgotPassword;
 use App\Livewire\Pages\Auth\ResetPassword;
-use App\Livewire\Pages\Categories\ShowPosts;
+use App\Livewire\Pages\Posts\ShowPostsByTag;
 use App\Livewire\Pages\Faculty\ListFaculties;
 use App\Livewire\Pages\Users\EditUser;
 
@@ -43,18 +43,18 @@ Route::get('/', HomePage::class)->name('home');
 
 // Post routes START
 
-Route::get('/posts/create', CreatePost::class)->name('post.create')->middleware('auth', 'verified');
-Route::get('/posts/{order?}', HomePage::class)->name('post.index');
-Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('post.search');
-Route::get('/posts/{post}/{slug}', ShowPost::class)->name('post.show');
+Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
+Route::get('/posts/{order?}', HomePage::class)->name('posts.index');
+Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
+Route::get('/posts/{post}/{slug}', ShowPost::class)->name('posts.show');
 
 // Post Routes END
 
 // User routes START
 
-Route::get('/u/search/{query?}', SearchUser::class)->name('user.search');
-Route::get('/u/{user:username}', UserPage::class)->name('user.show');
-Route::get('/u/{user:username}/edit', EditUser::class)->name('user.edit')->middleware('auth');
+Route::get('/u/search/{query?}', SearchUser::class)->name('users.search');
+Route::get('/u/{user:username}', UserPage::class)->name('users.show');
+Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->middleware('auth');
 
 // User routes END
 
@@ -66,6 +66,6 @@ Route::get('/faculties', ListFaculties::class)->name('faculties');
 
 // Categories routes START
 
-Route::get('/categories/{tag:slug}', ShowPosts::class)->name('category.show');
+Route::get('/tags/{tag:slug}', ShowPostsByTag::class)->name('tags.show');
 
 // Categories routes END

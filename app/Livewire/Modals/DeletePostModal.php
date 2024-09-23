@@ -32,7 +32,7 @@ class DeletePostModal extends Component
 
         session()->flash('post-deleted', 'Konu başarıyla silindi.');
 
-        $this->redirect(route('user.show', $post->user), navigate: true);
+        $this->redirect(route('users.show', $post->user), navigate: true);
     }
 
     public function render()

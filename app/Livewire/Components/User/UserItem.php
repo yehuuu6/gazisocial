@@ -20,7 +20,7 @@ class UserItem extends Component
     public function mount($user)
     {
         $this->user = $user;
-        $this->bio = Str::limit($this->user->bio, 150, '...') ?? 'Herhangi bir bilgi verilmemiş.';
+        $this->bio = $user->bio ?? 'Herhangi bir bilgi verilmemiş.';
     }
 
     public function render()

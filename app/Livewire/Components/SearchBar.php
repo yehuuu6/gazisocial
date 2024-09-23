@@ -28,15 +28,15 @@ class SearchBar extends Component
     {
         if (Route::currentRouteName() === 'livewire.update') return;
 
-        // If current route is category.show, update the tagName
+        // If current route is tags.show, update the tagName
 
         if (!$this->isUserRoute()) {
             $this->tagName = 'all';
 
-            if (Route::currentRouteName() === 'category.show') {
+            if (Route::currentRouteName() === 'tags.show') {
                 $this->tagName = Route::current()->parameter('tag')->name;
             }
-            if (Route::currentRouteName() === 'post.search') {
+            if (Route::currentRouteName() === 'posts.search') {
                 $this->tagName = Route::current()->parameter('tag');
             }
         }
@@ -56,14 +56,14 @@ class SearchBar extends Component
 
     public function isUserRoute(): bool
     {
-        return $this->currentRoute === 'user.show' || $this->currentRoute === 'user.search' || $this->currentRoute === 'user.edit';
+        return $this->currentRoute === 'users.show' || $this->currentRoute === 'users.search' || $this->currentRoute === 'users.edit';
     }
 
     private function setPlaceholderAndTargetUrl()
     {
         if ($this->isUserRoute()) {
             $this->placeholder = 'Bir kullanıcı ara...';
-            $this->targetUrl = '/u/search/';
+            $this->targetUrl = route('users.search') . '/';
         } else {
             $this->placeholder = $this->tagName !== 'all' ? $this->tagName . ' kategorisinde konu ara...' : 'Bir konu ara...';
             $this->targetUrl = '/posts/search/';
