@@ -1,61 +1,67 @@
 <?php
+
 namespace App\Livewire\Modals;
 
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
 
-class CreatePollModal extends ModalComponent
+class CreatePollModal extends Component
 {
     use LivewireAlert;
 
     public $question;
     public $optionInputs = [
-        ['option' => ''],
-        ['option' => ''],
+        '',
+        '',
     ];
 
-    public function removeOption($index)
+    public function validateOptions(): bool
     {
-        if (count($this->optionInputs) <= 2) {
-            $this->alert('error', 'En az 2 seçenek olmalıdır.');
-            return;
+
+        if (count($this->optionInputs) < 2) {
+            $this->alert('error', 'En az 2 yanıt olmalıdır.');
+            return false;
         }
 
-        unset($this->optionInputs[$index]);
-        $this->optionInputs = array_values($this->optionInputs);
-    }
-
-    public function addOption()
-    {
-        if (count($this->optionInputs) >= 5) {
-            $this->alert('error', 'En fazla 5 seçenek ekleyebilirsiniz.');
-            return;
+        if (count($this->optionInputs) > 5) {
+            $this->alert('error', 'En fazla 5 yanıt ekleyebilirsiniz.');
+            return false;
         }
 
-        $this->optionInputs[] = ['option' => ''];
-        $this->optionInputs = array_values($this->optionInputs);
+        // Check if there are empty options
+        foreach ($this->optionInputs as $option) {
+            if (empty($option)) {
+                $this->alert('error', 'Boş yanıt ekleyemezsiniz.');
+                return false;
+            }
+        }
+
+        // Check if the options are between 1 and 50 characters
+        foreach ($this->optionInputs as $option) {
+            if (strlen($option) < 1 || strlen($option) > 50) {
+                $this->alert('error', 'Yanıt en az 1 en fazla 50 karakter olmalıdır.');
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function createPoll()
     {
+
+        if (!$this->validateOptions()) return;
+
         $messages = [
             'question.required' => 'Sorusu olmayan anket olmaz!',
             'question.min' => 'Soru en az :min karakter olmalıdır.',
             'question.max' => 'Soru en fazla :max karakter olmalıdır.',
-            'optionInputs.*.option.required' => 'Yanıt boş bırakılamaz!',
-            'optionInputs.*.option.string' => 'Yanıt metin olmalıdır.',
-            'optionInputs.*.option.min' => 'Yanıt en az :min karakter olmalıdır.',
-            'optionInputs.*.option.max' => 'Yanıt en fazla :max karakter olmalıdır.',
         ];
 
         try {
             $this->validate([
                 'question' => 'bail|required|min:2|max:100',
-            ], $messages);
-
-            $this->validate([
-                'optionInputs.*.option' => 'bail|required|string|min:1|max:50',
             ], $messages);
         } catch (ValidationException $e) {
             $errors = $e->validator->errors()->all();
@@ -64,8 +70,8 @@ class CreatePollModal extends ModalComponent
             return;
         }
 
-        $options = array_map(function($option) {
-            return $option['option'];
+        $options = array_map(function ($option) {
+            return $option;
         }, $this->optionInputs);
 
         $pollData = [
@@ -73,18 +79,16 @@ class CreatePollModal extends ModalComponent
             'options' => $options,
         ];
 
-        $this->dispatch('pollCreated', $pollData);
+        $this->dispatch('poll-created', $pollData);
 
         $this->alert('success', 'Anket oluşturuldu.');
 
         // Reset form
         $this->question = '';
         $this->optionInputs = [
-            ['option' => ''],
-            ['option' => ''],
+            '',
+            '',
         ];
-
-        $this->closeModal();
     }
 
     public function render()

@@ -1,4 +1,5 @@
-<div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
+<div x-data="{ createPollModal: false }" class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
+    <livewire:modals.create-poll-modal />
     <form wire:submit="createPost" class="flex flex-col h-full">
         <div class="flex-grow">
             <div class="flex flex-col gap-5 py-4">
@@ -9,11 +10,11 @@
                         class="block w-full bg-gray-50 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                 </div>
                 <div class="flex flex-col gap-2 px-4">
-                    <label for="content" class="block font-medium text-gray-700">İçerik</label>
+                    <h4 class="block font-medium text-gray-700">İçerik</h4>
                     <x-editor wire:model="content"></x-editor>
                 </div>
                 <div x-data="{ selectedTags: $wire.selectedTags }" class="flex flex-col gap-2 px-4">
-                    <label for="tags" class="cursor-default block font-medium text-gray-700">Etiketler</label>
+                    <h4 class="cursor-default block font-medium text-gray-700">Etiketler</h4>
                     <input type="hidden" name="tags" id="tags" wire:model='selectedTags'>
                     <div class="flex flex-wrap gap-2">
                         @foreach ($tags as $tag)
@@ -82,7 +83,7 @@
         </div>
         <x-seperator />
         <div class="flex justify-end bg-gray-50 p-6 gap-4">
-            <button type="button" wire:click="$dispatch('openModal', { component: 'modals.create-poll-modal' })"
+            <button type="button" @click="createPollModal = true"
                 class="px-6 py-2 border border-green-500 outline-none bg-transparent text-green-500 font-medium hover:bg-green-500 hover:text-white rounded outline:none">
                 Anket Ekle
             </button>

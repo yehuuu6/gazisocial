@@ -30,7 +30,7 @@ class CreatePost extends Component
         $this->createdPolls = array_values($this->createdPolls);
     }
 
-    #[On('pollCreated')]
+    #[On('poll-created')]
     public function addPollToCache($poll)
     {
         // Set max poll count to 3

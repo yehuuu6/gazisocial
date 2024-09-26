@@ -28,7 +28,7 @@
                 @endcan
             @endauth
         </div>
-        <p class="text-gray-600 break-all">
+        <p class="text-gray-600 break-all text-sm md:text-base">
             {{ $comment->content }}
         </p>
         <div class="post-icon flex gap-1">
