@@ -12,7 +12,7 @@
                     class="block w-full bg-gray-50 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     autocomplete="off" />
             </div>
-            <div class="px-6 py-3 flex flex-col gap-2" x-data="{ options: $wire.optionInputs }">
+            <div class="px-6 py-3 flex flex-col gap-2" x-data="{ options: $wire.entangle('optionInputs') }">
                 <div class="flex items-end gap-1">
                     <h3 class="block text-sm font-medium text-gray-700">Yanıtlar</h3>
                     <button x-on:click="options.push('')" type="button" class="text-sm text-blue-400 hover:underline">

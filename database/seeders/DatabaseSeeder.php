@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Comment;
-use App\Models\Role;
 use App\Models\Tag;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Reply;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -78,23 +79,47 @@ class DatabaseSeeder extends Seeder
 
         $posts = Post::factory(50)
             ->withFixture()
-            ->has(Comment::factory(33)->recycle($users))
+            ->has(Comment::factory(30)->recycle($users))
             ->recycle($users)
             ->create()
-            ->each(function ($post) use ($tags) {
-                // Randomly assign between 1 and 5 tags to each post
+            ->each(function ($post) use ($tags, $users) {
+                // Randomly assign between 1 and 4 tags to each post in a single operation
                 $post->tags()->attach(
                     $tags->random(rand(1, 4))->pluck('id')->toArray()
                 );
 
-                $post->increment('comments_count', 33);
+                // Preload post comments count
+                $post->update(['comments_count' => $post->comments->count()]);
+
+                // Add 1 to 5 replies to each comment
+                $post->comments->each(function ($comment) use ($users) {
+                    $replyCount = rand(0, 5);
+                    if ($replyCount === 0) {
+                        return;
+                    }
+
+                    // Create replies, assigning a random user to each one
+                    Reply::factory($replyCount)->create([
+                        'comment_id' => $comment->id,
+                    ])->each(function ($reply) use ($users) {
+                        // Assign a random user to each reply
+                        $reply->update([
+                            'user_id' => $users->random()->id,
+                        ]);
+                    });
+
+                    // Update replies_count for the comment in one go
+                    $comment->increment('replies_count', $replyCount);
+                });
             });
 
-        // Create Likes for each user
 
+        $comments = Comment::all();
+
+        // Create Likes for each user
         foreach ($users as $user) {
-            // Generate a random number of likes for posts between 0 and 50
-            $postLikesCount = rand(0, 50);
+            // Generate a random number of likes for posts between 0 and the number of available posts
+            $postLikesCount = rand(0, $posts->count());
             $posts->random($postLikesCount)->each(function ($post) use ($user) {
                 Like::create([
                     'user_id' => $user->id,
@@ -105,9 +130,8 @@ class DatabaseSeeder extends Seeder
                 $post->increment('likes_count');
             });
 
-            // Generate a random number of likes for comments between 0 and 100
-            $commentLikesCount = rand(0, 100);
-            $comments = Comment::all();
+            // Generate a random number of likes for comments between 0 and the number of available comments
+            $commentLikesCount = rand(0, $comments->count());
             $comments->random($commentLikesCount)->each(function ($comment) use ($user) {
                 Like::create([
                     'user_id' => $user->id,

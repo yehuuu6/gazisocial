@@ -32,8 +32,8 @@
                 @endcan
             @endauth
         </div>
-        <article class="prose prose-sm sm:prose-base lg:prose-lg max-w-none" wire:loading.class="animate-pulse"
-            wire:target.except='toggleLike'>
+        <article class="break-all prose prose-sm sm:prose-base lg:prose-lg max-w-none"
+            wire:loading.class="animate-pulse" wire:target.except='toggleLike'>
             {!! $post->html !!}
         </article>
         @if ($post->polls->count() > 0)

@@ -36,7 +36,7 @@ class HomePage extends Component
             ->with('user')
             ->with('tags')
             ->latest($this->getOrderType())
-            ->paginate(10);
+            ->simplePaginate(20);
     }
 
     public function render()

@@ -2,15 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Models\User;
-use App\Models\Post;
-
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reply>
  */
-class CommentFactory extends Factory
+class ReplyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,12 +18,12 @@ class CommentFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'user_id' => User::factory(),
-            'post_id' => Post::factory(),
+            'comment_id' => Comment::factory(),
             'content' => $this->faker->realText($this->faker->numberBetween(100, 750)),
             'likes_count' => 0,
-            'replies_count' => 0,
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
     }

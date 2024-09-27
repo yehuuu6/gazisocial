@@ -19,6 +19,7 @@ class RegisterForm extends Component
     public $email;
     public $password;
     public $password_confirmation;
+    public $accept_terms = false;
 
     public function register()
     {
@@ -40,6 +41,8 @@ class RegisterForm extends Component
             'password.string' => 'Şifre alanı metin tipinde olmalıdır.',
             'password.min' => 'Şifre alanı en az :min karakter olabilir.',
             'password.confirmed' => 'Şifreler uyuşmuyor.',
+            'accept_terms.required' => 'Kullanıcı sözleşmesini kabul etmelisiniz.',
+            'accept_terms.accepted' => 'Kullanıcı sözleşmesini kabul etmelisiniz.',
         ];
 
         try {
@@ -48,6 +51,7 @@ class RegisterForm extends Component
                 'username' => 'required|string|max:30|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
+                'accept_terms' => 'required|accepted',
             ], $messages);
         } catch (ValidationException $e) {
             $message = $e->getMessage();

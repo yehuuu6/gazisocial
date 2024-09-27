@@ -35,25 +35,29 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 px-4">
+                <div class="flex flex-col gap-2 px-4" x-data="{ polls: $wire.entangle('createdPolls') }">
                     <h3 class="cursor-default block font-medium text-gray-700">Anketler</h3>
                     <div class="flex gap-5">
-                        @foreach ($createdPolls as $poll)
+                        <template x-for="(poll, pollIndex) in polls" :key="pollIndex">
                             <div class="flex flex-col flex-grow gap-1 border border-gray-300 p-4 shadow-sm rounded-md">
                                 <div class="flex flex-col gap-2">
-                                    <h3 class="text-xl text-gray-700 font-medium">
-                                        {{ $poll['question'] }}</h3>
-                                    @foreach ($poll['options'] as $option)
-                                        <div wire:key="option-{{ $loop->index }}"
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-xl text-gray-700 font-medium" x-text="poll.question"></h3>
+                                        <button type="button" x-on:click="polls.splice(pollIndex, 1)">
+                                            <x-icons.trash size='18' color="#ff6969" />
+                                        </button>
+                                    </div>
+                                    <template x-for="(option, optionIndex) in poll.options" :key="optionIndex">
+                                        <div
                                             class="flex justify-between items-center transition-all duration-500 py-2 gap-1 px-3 bg-gray-50 rounded-md border-2 border-gray-200">
                                             <div class="flex flex-col flex-grow pb-1 px-1">
                                                 <div class="flex items-center">
                                                     <div class="flex items-center cursor-pointer w-full">
-                                                        <input type="radio" id="option-input-{{ $loop->index }}"
+                                                        <input type="radio" :id="'option-input-' + optionIndex"
                                                             name="option" readonly class="size-4">
-                                                        <label for="option-input-{{ $loop->index }}"
+                                                        <label :for="'option-input-' + optionIndex"
                                                             class="ml-2 cursor-pointer flex-1 flex items-center justify-between">
-                                                            <span class="text-gray-700">{{ $option }}</span>
+                                                            <span class="text-gray-700" x-text="option"></span>
                                                             <span class="text-gray-500">0%</span>
                                                         </label>
                                                     </div>
@@ -65,18 +69,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    </template>
                                 </div>
                             </div>
-                        @endforeach
+                        </template>
                     </div>
-                    @if (count($createdPolls) === 0)
-                        <h3 class="text-gray-500">Hiç anket eklenmemiş.</h3>
-                    @else
-                        <h3 class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
-                            yayınlamadığınız
-                            sürece görünmeyecektir.</h3>
-                    @endif
+                    <h3 x-show="polls.length === 0" class="text-gray-500">Hiç anket eklenmemiş.</h3>
+                    <h3 x-show="polls.length > 0" class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
+                        yayınlamadığınız sürece görünmeyecektir.</h3>
                 </div>
 
             </div>

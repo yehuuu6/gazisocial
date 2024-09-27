@@ -36,7 +36,7 @@
             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password" type="password" name="password" required wire:model="password">
     </div>
-    <div class="mb-4">
+    <div class="mb-1">
         <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
             Şifreyi Onayla
         </label>
@@ -44,6 +44,15 @@
             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password_confirmation" type="password" name="password_confirmation" required
             wire:model="password_confirmation">
+    </div>
+
+    <div class="mb-4 flex items-center gap-1">
+        <input id="accept_terms" type="checkbox" value="0" wire:model="accept_terms"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <label for="accept_terms" class="ms-2 text-sm font-light text-gray-600">
+            <a href="{{ route('terms') }}" target="_blank" class="text-primary hover:underline font-normal">
+                Kullanıcı Sözleşmesi</a>'ni okudum ve kabul ediyorum.
+        </label>
     </div>
 
 

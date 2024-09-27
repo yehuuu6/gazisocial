@@ -5,26 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Reply extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'post_id',
-        'content',
-    ];
+    protected $fillable = ['user_id', 'comment_id', 'content'];
 
     protected static function booted()
     {
-        static::created(function ($comment) {
-            $comment->user->update(['last_activity' => now()]);
+        static::created(function ($reply) {
+            $reply->user->update(['last_activity' => now()]);
         });
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
     }
 
     public function likes()
@@ -37,8 +28,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function post()
+    public function comment()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Comment::class);
     }
 }

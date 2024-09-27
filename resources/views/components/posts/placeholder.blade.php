@@ -1,10 +1,10 @@
 <table class="w-full">
     <thead>
         <tr class="border-b border-b-gray-200 uppercase text-xs text-gray-400">
-            <th class="p-4 font-normal text-left" width="70%">Konu</th>
+            <th class="p-4 font-normal text-left" width="60%">Konu</th>
             <th class="p-4 font-normal text-center" width="10%">Yanıtlar</th>
             <th class="hidden md:table-cell p-4 font-normal text-center" width="10%">Beğeniler</th>
-            <th class="p-4 font-normal text-center" width="10%">Aktivite</th>
+            <th class="p-4 font-normal text-center" width="20%">Aktivite</th>
         </tr>
     </thead>
     <tbody class="divide-y divide-gray-100">

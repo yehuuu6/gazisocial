@@ -40,7 +40,7 @@ class SearchPost extends Component
                         ->orWhere('content', 'like', '%' . $this->query . '%');
                 })
                 ->latest('created_at')
-                ->simplePaginate(10);
+                ->simplePaginate(20);
         } else {
             $tag = Tag::where('slug', $this->tag)->first();
             if (!$tag) abort(404);
@@ -53,7 +53,7 @@ class SearchPost extends Component
                         ->orWhere('content', 'like', '%' . $this->query . '%');
                 })
                 ->latest('created_at')
-                ->simplePaginate(10);
+                ->simplePaginate(20);
         }
 
         return $posts;

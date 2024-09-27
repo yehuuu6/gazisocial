@@ -21,7 +21,7 @@ class ShowPostsByTag extends Component
                 ->with('user')
                 ->with('tags')
                 ->latest('created_at')
-                ->simplePaginate(10)
+                ->simplePaginate(20)
         ]);
     }
 }

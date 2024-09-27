@@ -37,6 +37,10 @@ Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name
 
 Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
+Route::get('/terms', function () {
+    return "hello world!";
+})->name('terms');
+
 // Auth routes END
 
 Route::get('/', HomePage::class)->name('home');
