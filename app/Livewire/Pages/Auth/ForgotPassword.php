@@ -26,22 +26,19 @@ class ForgotPassword extends Component
             'email.max' => 'E-posta adresi en fazla :max karakter olabilir.',
         ];
 
+        $this->validate([
+            'email' => 'required|email|max:255',
+        ], $messages);
+
         try {
-            $this->validate([
-                'email' => 'required|email|max:255',
-            ], $messages);
+            $status = Password::sendResetLink(['email' => $this->email]);
         } catch (ValidationException $e) {
             $this->alert('error', $e->validator->errors()->first());
             return;
         }
 
-        $status = Password::sendResetLink(['email' => $this->email]);
-
-        if ($status === Password::RESET_LINK_SENT) {
-            $this->alert('info', 'Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.');
-        } else {
-            $this->alert('error', 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
-        }
+        // Always display the same message
+        $this->alert('info', 'Eğer bu e-posta adresine kayıtlı bir hesap bulunuyorsa, şifre sıfırlama bağlantısı gönderilecektir.');
     }
 
     #[Layout('layout.auth')]

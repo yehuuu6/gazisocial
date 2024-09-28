@@ -68,7 +68,7 @@
                         <x-icons.comment color="#4b5563" />
                     </a>
                 @endguest
-                <p class="text-gray-600 font-light">{{ Number::abbreviate($post->comments_count) }}</p>
+                <span class="text-gray-600 font-light">{{ Number::abbreviate($post->getCommentsCount()) }}</span>
             </div>
             <div class="flex gap-0 items-center">
                 @auth
@@ -87,13 +87,13 @@
                         <x-icons.heart color="#4b5563" />
                     </a>
                 @endguest
-                <p class="text-gray-600 font-light">{{ Number::abbreviate($post->likes_count) }}</p>
+                <span class="text-gray-600 font-light">{{ Number::abbreviate($post->likes_count) }}</span>
             </div>
             <div class="flex gap-0 items-center">
                 <button class="hover:bg-blue-200 rounded-full p-2">
                     <x-icons.share color="#4b5563" />
                 </button>
-                <p class="text-gray-600 font-light">392</p>
+                <span class="text-gray-600 font-light">392</span>
             </div>
         </div>
     </div>

@@ -9,13 +9,32 @@ class Reply extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'comment_id', 'content'];
+    protected $fillable = ['user_id', 'post_id', 'comment_id', 'content'];
 
     protected static function booted()
     {
         static::created(function ($reply) {
+
+            $reply->load('user', 'post', 'comment');
+
             $reply->user->update(['last_activity' => now()]);
+            $reply->user->increment('replies_count');
+            $reply->comment->post->increment('replies_count');
+            $reply->comment->increment('replies_count');
+
+            // Increment the popularity of the post
+            $reply->comment->post->increment('popularity', $reply->popularityValue());
         });
+    }
+
+    public function popularityValue()
+    {
+        return 1;
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 
     public function likes()

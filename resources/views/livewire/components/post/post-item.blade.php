@@ -20,7 +20,7 @@
         </div>
     </td>
     <td class="p-4 text-center text-xs md:text-sm font-semibold text-gray-400">
-        {{ number_format($post->comments_count) }}
+        {{ number_format($post->getCommentsCount()) }}
     </td>
     <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
         {{ number_format($post->likes_count) }}

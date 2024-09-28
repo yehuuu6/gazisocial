@@ -6,7 +6,7 @@
     <div class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
         <form wire:submit="sendPasswordResetLink">
             @csrf
-            <div class="flex flex-col gap-0.5 items-start">
+            <div class="flex flex-col gap-0.5 items-start mb-4">
                 <label class="block text-gray-700 text-sm font-normal mb-2" for="email">
                     E-posta
                 </label>

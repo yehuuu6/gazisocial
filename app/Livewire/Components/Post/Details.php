@@ -50,14 +50,15 @@ class Details extends Component
                 'user_id' => Auth::id(),
             ]);
 
-            $likeable->increment('likes_count');
-
             $msg = 'Gönderi beğenildi.';
         } else {
 
             $this->authorize('delete', [Like::class, $this->post]);
 
-            $this->post->likes()->whereBelongsTo(Auth::user())->delete();
+            $like = $this->post->likes()->whereBelongsTo(Auth::user())->first();
+
+            $this->post->decrement('popularity', $like->popularityValue());
+            $like->delete();
             $this->post->decrement('likes_count');
             $msg = 'Gönderi beğenisi kaldırıldı.';
         }

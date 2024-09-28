@@ -29,7 +29,15 @@ class Post extends Model
                 'content' => 'Yeni bir konu oluşturdu!',
                 'link' => $post->showRoute(),
             ]);
+
+            // Update users post count
+            $post->user->increment('posts_count');
         });
+    }
+
+    public function getCommentsCount()
+    {
+        return $this->comments_count + $this->replies_count;
     }
 
     public function tags()

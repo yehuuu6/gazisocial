@@ -18,8 +18,19 @@ class Comment extends Model
     protected static function booted()
     {
         static::created(function ($comment) {
+            $comment->load('user', 'post');
             $comment->user->update(['last_activity' => now()]);
+            $comment->user->increment('comments_count');
+            $comment->post->increment('comments_count');
+
+            // Increment the popularity of the post
+            $comment->post->increment('popularity', $comment->popularityValue());
         });
+    }
+
+    public function popularityValue()
+    {
+        return 2;
     }
 
     public function replies()

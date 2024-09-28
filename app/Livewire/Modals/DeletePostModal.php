@@ -26,6 +26,8 @@ class DeletePostModal extends Component
             return;
         }
 
+        $post->user->decrement('posts_count');
+
         $post->delete();
 
         $this->dispatch('post-deleted');

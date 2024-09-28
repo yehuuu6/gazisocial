@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Reply;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,7 @@ class LikePolicy
             return false;
         }
 
-        if (! in_array($likeable::class, [Post::class, Comment::class])) {
+        if (! in_array($likeable::class, [Post::class, Comment::class, Reply::class])) {
             return false;
         }
 
@@ -34,7 +35,7 @@ class LikePolicy
      */
     public function delete(User $user, Model $likeable): bool
     {
-        if (! in_array($likeable::class, [Post::class, Comment::class])) {
+        if (! in_array($likeable::class, [Post::class, Comment::class, Reply::class])) {
             return false;
         }
 

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->boolean('is_private')->default(false);
             $table->string('badge_visibility')->default('default'); // default, partial, hidden
             $table->string('avatar')->nullable();
+            $table->unsignedBigInteger('posts_count')->default(0);
+            $table->unsignedBigInteger('comments_count')->default(0);
+            $table->unsignedBigInteger('replies_count')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_activity')->nullable();

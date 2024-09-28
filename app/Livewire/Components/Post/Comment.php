@@ -35,14 +35,12 @@ class Comment extends Component
                 'user_id' => Auth::id(),
             ]);
 
-            $likeable->increment('likes_count');
-
             $msg = 'Yorum beğenildi.';
         } else {
 
             $this->authorize('delete', [Like::class, $this->comment]);
-
-            $this->comment->likes()->whereBelongsTo(Auth::user())->delete();
+            $comment = $this->comment->likes()->whereBelongsTo(Auth::user())->first();
+            $comment->delete();
             $this->comment->decrement('likes_count');
             $msg = 'Yorum beğenisi kaldırıldı.';
         }

@@ -17,23 +17,30 @@
 @endphp
 <header
     class="mx-[3%] md:mx-[6%] lg:mx-[12%] flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between md:items-center mt-4 md:mt-8">
-    <div class="flex justify-between md:justify-start items-center gap-0.5">
-        <div class="relative" x-data="{ open: false }">
-            <button title="Kategoriler" @click="open = !open"
-                class="py-2 capitalize flex items-center gap-2 px-3 {{ $class }} text-sm border font-medium border-gray-200 shadow rounded-md">
-                {{ $text }}
-                <template x-if="open">
-                    <x-icons.chevron-up size="12" color="black" />
-                </template>
-                <template x-if="!open">
-                    <x-icons.chevron-down size="12" color="black" />
-                </template>
-            </button>
-            <livewire:components.tags-lister />
+    <div class="flex justify-between md:justify-start items-center gap-3">
+        <div class="flex items-center gap-2 md:gap-3 flex-row-reverse">
+            <div class="relative">
+                <button class="py-2 bg-white border border-gray-200 shadow rounded-md flex items-center px-3">
+                    <x-icons.filter size="19" color="#374151" />
+                </button>
+            </div>
+            <div class="relative" x-data="{ open: false }">
+                <button title="Kategoriler" @click="open = !open"
+                    class="py-2 capitalize flex items-center gap-2 px-3 {{ $class }} text-sm border font-medium border-gray-200 shadow rounded-md">
+                    {{ $text }}
+                    <template x-if="open">
+                        <x-icons.chevron-up size="12" color="black" />
+                    </template>
+                    <template x-if="!open">
+                        <x-icons.chevron-down size="12" color="black" />
+                    </template>
+                </button>
+                <livewire:components.tags-lister />
+            </div>
         </div>
         <div class="flex items-center gap-1">
             <x-link href="{{ route('posts.index', 'latest') }}"
-                class="py-2 px-3 ml-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
+                class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
                 En Yeni
             </x-link>
             <x-link href="{{ route('posts.index', 'popular') }}"

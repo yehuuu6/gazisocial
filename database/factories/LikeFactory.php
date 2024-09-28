@@ -20,7 +20,7 @@ class LikeFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(['email' => 'test+' . Str::uuid() . '@example.com']),
+            'user_id' => User::factory(),
             'likeable_id' => Post::factory(),
             'likeable_type' => $this->likeableType(...),
         ];

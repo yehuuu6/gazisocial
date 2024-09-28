@@ -29,8 +29,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'last_activity',
     ];
 
-    protected $withCount = ['posts', 'comments'];
-
     protected static function booted()
     {
 
@@ -46,6 +44,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
                 'content' => "Gazi Social'a katıldı!",
             ]);
         });
+    }
+
+    public function getCommentsCount()
+    {
+        return $this->comments_count + $this->replies_count;
     }
 
     public function roles()

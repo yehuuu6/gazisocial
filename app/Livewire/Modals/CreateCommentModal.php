@@ -51,8 +51,6 @@ class CreateCommentModal extends Component
             'post_id' => $this->post->id,
         ]);
 
-        $this->post->increment('comments_count');
-
         $this->content = '';
 
         $this->alert('success', 'Yorum eklendi.');

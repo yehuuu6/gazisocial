@@ -38,7 +38,7 @@
                     <button class="hover:bg-blue-200 rounded-full p-2">
                         <x-icons.comment color="#4b5563" />
                     </button>
-                    <p class="text-gray-600 font-light">{{ $comment->replies_count }}</p>
+                    <span class="text-gray-600 font-light">{{ $comment->replies_count }}</span>
                 </div>
                 <div class="flex gap-0 items-center">
                     @auth
@@ -57,54 +57,22 @@
                             <x-icons.heart color="#4b5563" />
                         </a>
                     @endguest
-                    <p class="text-gray-600 font-light">{{ $comment->likes_count }}</p>
+                    <span class="text-gray-600 font-light">{{ $comment->likes_count }}</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="my-1">
+    <div class="ml-10 px-3.5 py-1">
         @foreach ($comment->replies as $reply)
-            <div class="ml-10 flex gap-3 px-3.5 py-1 border-l-2 border-gray-100">
-                <img src="{{ asset($reply->user->avatar) }}" alt="avatar" class="size-8 object-cover rounded-full">
-                <div class="w-full flex flex-col gap-2 justify-center">
-                    <div class="flex justify-between items-center">
-                        <div class="flex gap-1 md:items-center flex-col md:flex-row flex-wrap">
-                            <div class="flex items-center gap-1">
-                                <x-link href="{{ route('users.show', $reply->user->username) }}" class="font-medium">
-                                    {{ $reply->user->name }}
-                                </x-link>
-                                <span class="text-sm text-gray-500">{{ '@' . $reply->user->username }}</span>
-                            </div>
-                            <span class="hidden md:inline-block text-gray-500 text-xs">•</span>
-                            <span
-                                class="text-sm text-gray-500">{{ $reply->created_at->locale('tr')->diffForHumans() }}</span>
-                        </div>
-                        @auth
-                            <button class="text-sm opacity-60 hover:opacity-100" title="Sil">
-                                <x-icons.trash color="#ff6969" size="14" />
-                            </button>
-                        @endauth
-                    </div>
-                    <p class="text-gray-600 break-all text-sm md:text-base">
-                        {{ $reply->content }}
-                    </p>
-                    <div class="post-icon flex gap-1">
-                        <div class="flex gap-0 items-center">
-                            @auth
-                                <button class="hover:bg-blue-200 rounded-full p-2">
-                                    <x-icons.heart color="#4b5563" />
-                                </button>
-                            @endauth
-                            @guest
-                                <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
-                                    <x-icons.heart color="#4b5563" />
-                                </a>
-                            @endguest
-                            <p class="text-gray-600 font-light">{{ $reply->likes_count }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <livewire:components.post.reply :$reply :key="'reply-' . $reply->id" />
         @endforeach
+        @if ($comment->replies_count > 5)
+            <div class="flex ml-3.5 my-3">
+                <x-link href="{{ $comment->post->showRoute() }}"
+                    class="text-gray-500 text-sm font-medium hover:underline">
+                    Tüm konuşmayı gör
+                </x-link>
+            </div>
+        @endif
     </div>
 </li>

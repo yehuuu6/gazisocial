@@ -17,7 +17,7 @@ class HomePage extends Component
         $orderDefinitions = [
             '' => 'created_at',
             'latest' => 'created_at',
-            'popular' => 'comments_count',
+            'popular' => 'popularity',
         ];
 
         if (!array_key_exists($this->order, $orderDefinitions)) abort(404);
