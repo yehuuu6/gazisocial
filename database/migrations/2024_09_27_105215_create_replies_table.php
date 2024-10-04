@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Comment::class)->constrained()->cascadeOnDelete();
             $table->longText('content');
             $table->unsignedBigInteger('likes_count')->default(0);

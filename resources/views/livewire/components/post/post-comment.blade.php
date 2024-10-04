@@ -36,7 +36,7 @@
             <div class="post-icon flex gap-1">
                 <div class="flex gap-0 items-center">
                     <button class="hover:bg-blue-200 rounded-full p-2">
-                        <x-icons.comment color="#4b5563" />
+                        <x-icons.reply color="#4b5563" />
                     </button>
                     <span class="text-gray-600 font-light">{{ $comment->replies_count }}</span>
                 </div>
@@ -63,9 +63,11 @@
         </div>
     </div>
     <div class="ml-10 px-3.5 py-1">
-        @foreach ($comment->replies as $reply)
-            <livewire:components.post.reply :$reply :key="'reply-' . $reply->id" />
-        @endforeach
+        <ul>
+            @foreach ($replies as $reply)
+                <livewire:components.post.reply :$reply :key="'reply-' . $reply->id" />
+            @endforeach
+        </ul>
         @if ($comment->replies_count > 5)
             <div class="flex ml-3.5 my-3">
                 <x-link href="{{ $comment->post->showRoute() }}"

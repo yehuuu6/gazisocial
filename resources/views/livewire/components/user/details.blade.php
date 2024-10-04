@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex items-center gap-1">
                         <x-icons.comment color="#4b5563" size="24" />
-                        <span class="text-gray-600 text-sm">{{ $user->getCommentsCount() }} Yorum</span>
+                        <span class="text-gray-600 text-sm">{{ $user->getCommentsCount() }} Yorum & Yanıt</span>
                     </div>
                     @if ($user->is_private)
                         <div class="flex gap-1 items-center">

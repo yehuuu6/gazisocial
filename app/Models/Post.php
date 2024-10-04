@@ -33,6 +33,14 @@ class Post extends Model
             // Update users post count
             $post->user->increment('posts_count');
         });
+
+        static::deleted(function ($post) {
+            // Update users post count
+            $post->user->decrement('posts_count');
+
+            // Delete likes attached to the post
+            $post->likes()->delete();
+        });
     }
 
     public function getCommentsCount()

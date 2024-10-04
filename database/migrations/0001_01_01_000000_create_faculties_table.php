@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('faculties', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
+            $table->string('name');
+            $table->text('description');
+            $table->string('slug')->unique();
+            $table->string('url');
             $table->timestamps();
         });
     }

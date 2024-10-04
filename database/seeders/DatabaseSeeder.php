@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
         $tags->push(Tag::create(['name' => 'Spor', 'color' => 'emerald']));
         $tags->push(Tag::create(['name' => 'Yurtlar', 'color' => 'amber']));
 
-        Post::factory(50)
+        Post::factory(30)
             ->withFixture()
             ->recycle($users)
             ->create()
@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
                         Like::create([
                             'user_id' => $user->id,
                             'likeable_id' => $post->id,
-                            'likeable_type' => Post::class,
+                            'likeable_type' => 'post'
                         ]);
                     }
                 }
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
                                 Like::create([
                                     'user_id' => $user->id,
                                     'likeable_id' => $comment->id,
-                                    'likeable_type' => Comment::class,
+                                    'likeable_type' => 'comment'
                                 ]);
                             }
                         }
@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
                                         Like::create([
                                             'user_id' => $user->id,
                                             'likeable_id' => $reply->id,
-                                            'likeable_type' => Reply::class,
+                                            'likeable_type' => 'reply'
                                         ]);
                                     }
                                 }

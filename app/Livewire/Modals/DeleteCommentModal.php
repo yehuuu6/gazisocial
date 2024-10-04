@@ -28,8 +28,6 @@ class DeleteCommentModal extends Component
 
         $comment->delete();
 
-        $comment->post->decrement('comments_count');
-
         $this->alert('success', 'Yorum silindi.');
 
         $this->dispatch('comment-deleted');

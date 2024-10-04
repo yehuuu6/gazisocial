@@ -9,6 +9,13 @@
     <x-livewire-alert::scripts />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
+    <script>
+        if (navigator.userAgent.match(/samsung/i)) {
+            alert("Tarayıcınız (Samsung Internet) bu siteyi doğru göstermeyebilir. " +
+                "Lütfen koyu temayı kapatın (açıksa) veya farklı bir tarayıcı kullanın.\n\n" +
+                "Firefox, Microsoft Edge, ya da Google Chrome önerebiliriz.");
+        }
+    </script>
 </head>
 
 <body class="antialiased w-full min-h-dvh bg-gray-100 font-inter overflow-x-hidden">

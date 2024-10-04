@@ -56,10 +56,7 @@ class Details extends Component
             $this->authorize('delete', [Like::class, $this->post]);
 
             $like = $this->post->likes()->whereBelongsTo(Auth::user())->first();
-
-            $this->post->decrement('popularity', $like->popularityValue());
             $like->delete();
-            $this->post->decrement('likes_count');
             $msg = 'Gönderi beğenisi kaldırıldı.';
         }
 

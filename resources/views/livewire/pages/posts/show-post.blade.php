@@ -8,7 +8,7 @@
     postId: null,
 }">
     <x-page-title>{{ $post->title }}</x-page-title>
-    <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
+    <div class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
         <livewire:components.post.details :$post lazy />
         <x-seperator />
         <h3 id="comment-header" class="p-4 text-xl font-bold">Yorumlar</h3>
@@ -22,7 +22,7 @@
                 <li class="p-4 text-gray-500">Henüz yorum yapılmamış, ilk yorumu siz yapın!</li>
             @endif
             @foreach ($comments as $comment)
-                <livewire:components.post.comment :$comment postAuthor="{{ $post->user->id }}" :key="$comment->id" />
+                <livewire:components.post.post-comment :$comment :key="$comment->id" />
             @endforeach
         </ul>
         {{ $comments->links('livewire.pagination.simple') }}

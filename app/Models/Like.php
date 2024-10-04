@@ -25,6 +25,19 @@ class Like extends Model
                 $like->likeable->increment('popularity', $like->popularityValue());
             }
         });
+
+        static::deleted(function ($like) {
+            $like->user->update(['last_activity' => now()]);
+
+            if (! in_array($like->likeable::class, [Post::class, Comment::class, Reply::class])) return;
+
+            $like->likeable->decrement('likes_count');
+
+            // Decrement the popularity of the likeable model if it is a Post
+            if ($like->likeable instanceof Post) {
+                $like->likeable->decrement('popularity', $like->popularityValue());
+            }
+        });
     }
 
     public function popularityValue()

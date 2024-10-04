@@ -16,6 +16,10 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@alpinejs/anchor": "^3.14.1",
+        "@alpinejs/collapse": "^3.14.1",
+        "@alpinejs/focus": "^3.14.1",
+        "@marcreichel/alpine-auto-animate": "^1.1.0",
         "@tiptap/core": "^2.6.6",
         "@tiptap/extension-link": "^2.6.6",
         "@tiptap/pm": "^2.6.6",

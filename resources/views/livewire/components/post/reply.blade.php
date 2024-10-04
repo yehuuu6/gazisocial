@@ -1,4 +1,4 @@
-<div class="flex gap-3 border-l-2 border-gray-100 px-3.5 py-2">
+<li class="flex gap-3 border-l-2 border-gray-100 px-3.5 py-2">
     <img src="{{ asset($reply->user->avatar) }}" alt="avatar" class="size-8 object-cover rounded-full">
     <div class="w-full flex flex-col gap-2 justify-center">
         <div class="flex justify-between items-center">
@@ -45,4 +45,4 @@
             <span class="text-gray-600 font-light">{{ $reply->likes_count }}</span>
         </div>
     </div>
-</div>
+</li>

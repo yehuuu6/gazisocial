@@ -15,8 +15,6 @@ class Reply extends Model
     {
         static::created(function ($reply) {
 
-            $reply->load('user', 'post', 'comment');
-
             $reply->user->update(['last_activity' => now()]);
             $reply->user->increment('replies_count');
             $reply->comment->post->increment('replies_count');
@@ -24,6 +22,17 @@ class Reply extends Model
 
             // Increment the popularity of the post
             $reply->comment->post->increment('popularity', $reply->popularityValue());
+        });
+
+        static::deleted(function ($reply) {
+            $reply->load('user', 'comment.post');
+            $reply->user->update(['last_activity' => now()]);
+            $reply->user->decrement('replies_count');
+            $reply->comment->post->decrement('replies_count');
+            $reply->comment->decrement('replies_count');
+
+            // Decrement the popularity of the post
+            $reply->comment->post->decrement('popularity', $reply->popularityValue());
         });
     }
 

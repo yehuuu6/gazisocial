@@ -38,13 +38,6 @@ class UserSubPage extends Component
         $this->currentView = 'user-comments';
     }
 
-    #[On('showUserLikes')]
-    public function showUserLikes()
-    {
-        $this->resetPage();
-        $this->currentView = 'user-likes';
-    }
-
     public function render()
     {
 
@@ -58,13 +51,6 @@ class UserSubPage extends Component
                     'comments' => $this->user->comments()
                         ->select('id', 'user_id', 'content', 'created_at', 'post_id')
                         ->with('user:id')
-                        ->latest('created_at')
-                        ->simplePaginate(20),
-                ]);
-            case 'user-likes':
-                return view('livewire.pages.users.user-likes-page', [
-                    'likes' => $this->user->likes()
-                        ->with('user')
                         ->latest('created_at')
                         ->simplePaginate(20),
                 ]);

@@ -2,7 +2,7 @@
     @auth
         <livewire:modals.create-comment-modal :$post />
     @endauth
-    <img src="{{ asset($post->user->avatar) }}" alt="avatar" class="size-10 sm:size-12 rounded-full">
+    <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
     <div class="w-full flex gap-2 flex-col sm:gap-4">
         <div class="flex justify-between items-center">
             <div class="flex gap-1 flex-col-reverse sm:flex-row items-baseline">
@@ -74,9 +74,9 @@
                 @auth
                     <button wire:loading.remove class="hover:bg-blue-200 rounded-full p-2" wire:click="toggleLike()">
                         @if (!$this->isLikedByUser())
-                            <x-icons.heart color="#4b5563" />
+                            <x-icons.heart />
                         @else
-                            <x-icons.heart-off color="#4b5563" />
+                            <x-icons.heart-off />
                         @endif
                     </button>
                     <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
@@ -84,7 +84,7 @@
                 @endauth
                 @guest
                     <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
-                        <x-icons.heart color="#4b5563" />
+                        <x-icons.heart />
                     </a>
                 @endguest
                 <span class="text-gray-600 font-light">{{ Number::abbreviate($post->likes_count) }}</span>

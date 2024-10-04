@@ -2,7 +2,7 @@
     <td class="p-4 text-left">
         <div class="flex items-center gap-2">
             <x-link class="hidden md:block" title="{{ $user->name }}" href="{{ route('users.show', $user->username) }}">
-                <img class="size-8 md:size-10 rounded-full" src="{{ $user->avatar }}" alt="avatar">
+                <img class="size-8 md:size-10 rounded-full object-cover" src="{{ asset($user->avatar) }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-0">
                 <x-link href="{{ route('users.show', $user->username) }}"

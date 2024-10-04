@@ -1,8 +1,9 @@
 @props(['size' => '6', 'color' => 'gray'])
 
-<svg xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 24 24"
-    fill="none" stroke="{{ $color }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="lucide lucide-heart">
-    <path
-        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+<svg stroke="currentColor" fill="none" stroke-width="4" version="1" viewBox="0 0 48 48"
+    enable-background="new 0 0 48 48" height="{{ $size }}" width="{{ $size }}"
+    xmlns="http://www.w3.org/2000/svg">
+    <path stroke="#4b5563"
+        d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z">
+    </path>
 </svg>

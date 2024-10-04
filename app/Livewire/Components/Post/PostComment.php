@@ -3,20 +3,28 @@
 namespace App\Livewire\Components\Post;
 
 use App\Models\Like;
+use App\Models\Comment;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class Comment extends Component
+class PostComment extends Component
 {
 
     use LivewireAlert;
 
-    public $comment;
+    public Comment $comment;
+
+    public $replies;
 
     public $postAuthor;
+
+    public function mount()
+    {
+        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest("created_at")->get();
+        $this->postAuthor = $this->comment->post->user->id;
+    }
 
     public function isLikedByUser(): bool
     {
@@ -41,7 +49,6 @@ class Comment extends Component
             $this->authorize('delete', [Like::class, $this->comment]);
             $comment = $this->comment->likes()->whereBelongsTo(Auth::user())->first();
             $comment->delete();
-            $this->comment->decrement('likes_count');
             $msg = 'Yorum beğenisi kaldırıldı.';
         }
 
@@ -52,6 +59,6 @@ class Comment extends Component
 
     public function render()
     {
-        return view('livewire.components.post.comment');
+        return view('livewire.components.post.post-comment');
     }
 }

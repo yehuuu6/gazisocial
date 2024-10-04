@@ -1,6 +1,6 @@
 @php
     $class = 'text-gray-700 bg-white';
-    $text = 'Kategoriler';
+    $text = 'Etiketler';
 
     if (Request::is('tags/*')) {
         $slug = explode('/', Request::path())[1];
@@ -16,17 +16,12 @@
     }
 @endphp
 <header
-    class="mx-[3%] md:mx-[6%] lg:mx-[12%] flex flex-col gap-3 md:gap-0 md:flex-row md:justify-between md:items-center mt-4 md:mt-8">
-    <div class="flex justify-between md:justify-start items-center gap-3">
-        <div class="flex items-center gap-2 md:gap-3 flex-row-reverse">
-            <div class="relative">
-                <button class="py-2 bg-white border border-gray-200 shadow rounded-md flex items-center px-3">
-                    <x-icons.filter size="19" color="#374151" />
-                </button>
-            </div>
+    class="mx-[3%] mt-4 flex flex-col gap-3 md:mx-[6%] md:mt-8 md:flex-row md:items-center md:justify-between md:gap-0 lg:mx-[12%]">
+    <div class="flex items-center justify-between gap-3 md:justify-start">
+        <div class="flex flex-row-reverse items-center gap-2 md:gap-3">
             <div class="relative" x-data="{ open: false }">
-                <button title="Kategoriler" @click="open = !open"
-                    class="py-2 capitalize flex items-center gap-2 px-3 {{ $class }} text-sm border font-medium border-gray-200 shadow rounded-md">
+                <button x-ref="tagsToggle" title="Etiketler" @click="open = !open"
+                    class="{{ $class }} flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium capitalize shadow">
                     {{ $text }}
                     <template x-if="open">
                         <x-icons.chevron-up size="12" color="black" />
@@ -40,34 +35,34 @@
         </div>
         <div class="flex items-center gap-1">
             <x-link href="{{ route('posts.index', 'latest') }}"
-                class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
+                class="{{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }} rounded-md px-3 py-2 text-sm font-medium hover:no-underline">
                 En Yeni
             </x-link>
             <x-link href="{{ route('posts.index', 'popular') }}"
-                class="py-2 px-3 text-sm font-medium rounded-md hover:no-underline {{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }}">
+                class="{{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }} rounded-md px-3 py-2 text-sm font-medium hover:no-underline">
                 Popüler
             </x-link>
-            <div class="relative md:hidden flex items-center justify-center" x-data="{ open: false }">
-                <button title="Arama Yap" @click="open = !open"
-                    class="p-2 text-opacity-90 rounded-full hover:bg-white hover:no-underline">
+            <div class="relative flex items-center justify-center md:hidden" x-data="{ open: false }">
+                <button title="Arama Yap" @click="open = !open" x-ref="searchToggle"
+                    class="rounded-full p-2 text-opacity-90 hover:bg-white hover:no-underline">
                     <x-icons.search size="20" color="rgb(11,62,117)" />
                 </button>
                 <livewire:components.search-bar />
             </div>
         </div>
     </div>
-    <div class="hidden md:flex items-center gap-2">
+    <div class="hidden items-center gap-2 md:flex">
         <x-link href="{{ route('posts.create') }}"
-            class="py-2 px-3 text-white bg-primary text-sm font-medium text-opacity-90 rounded hover:text-opacity-100 hover:no-underline">
+            class="rounded bg-primary px-3 py-2 text-sm font-medium text-white text-opacity-90 hover:text-opacity-100 hover:no-underline">
             Yeni Konu Oluştur
         </x-link>
         <x-link href="/faculties"
-            class="py-2 px-3 text-primary border border-primary text-sm font-medium text-opacity-90 rounded hover:text-opacity-100 hover:no-underline">
+            class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
             Fakülteye Katıl
         </x-link>
         <div class="relative flex items-center justify-center" x-data="{ open: false }">
-            <button title="Arama Yap" @click="open = !open"
-                class="p-2 text-opacity-90 rounded-full hover:bg-white hover:no-underline">
+            <button title="Arama Yap" @click="open = !open" x-ref="searchToggle"
+                class="rounded-full p-2 text-opacity-90 hover:bg-white hover:no-underline">
                 <x-icons.search size="20" color="rgb(11,62,117)" />
             </button>
             <livewire:components.search-bar />

@@ -31,8 +31,9 @@
                     id="password_confirmation" type="password" name="password_confirmation"
                     wire:model="password_confirmation" required>
             </div>
-            <button wire:loading.class="bg-gray-300 cursor-not-allowed" wire:loading.class.remove = "bg-primary"
-                class="bg-primary mt-3 h-[40px] flex items-center gap-1 justify-center opacity-90 hover:opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            <button wire:loading.class="bg-gray-200 cursor-not-allowed"
+                wire:loading.class.remove = "bg-primary hover:bg-opacity-100" wire:loading.attr="disabled"
+                class="bg-primary flex items-center h-[40px] gap-1 overflow-hidden justify-center bg-opacity-90 hover:bg-opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                 type="submit">
                 <x-icons.spinner wire:loading size="32" color="#479fff" />
                 <span wire:loading.remove>Şifremi Sıfırla</span>
