@@ -1,15 +1,21 @@
 <li class="flex gap-3 border-l-2 border-gray-100 px-3.5 py-2">
-    <img src="{{ asset($reply->user->avatar) }}" alt="avatar" class="size-8 object-cover rounded-full">
-    <div class="w-full flex flex-col gap-2 justify-center">
-        <div class="flex justify-between items-center">
-            <div class="flex gap-1 md:items-center flex-col md:flex-row flex-wrap">
+    <img src="{{ asset($reply->user->avatar) }}" alt="avatar" class="size-8 rounded-full object-cover">
+    <div class="flex w-full flex-col justify-center gap-2">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col flex-wrap gap-1 md:flex-row md:items-center">
                 <div class="flex items-center gap-1">
                     <x-link href="{{ route('users.show', $reply->user->username) }}" class="font-medium">
                         {{ $reply->user->name }}
                     </x-link>
-                    <span class="text-sm text-gray-500">{{ '@' . $reply->user->username }}</span>
+                    @if ($postAuthor == $reply->user->id)
+                        <span class="ml-1 rounded-full bg-primary px-2 py-1 text-xs font-medium capitalize text-white">
+                            Konu Sahibi
+                        </span>
+                    @else
+                        <span class="text-sm text-gray-500">{{ '@' . $reply->user->username }}</span>
+                    @endif
                 </div>
-                <span class="hidden md:inline-block text-gray-500 text-xs">•</span>
+                <span class="hidden text-xs text-gray-500 md:inline-block">•</span>
                 <span class="text-sm text-gray-500">{{ $reply->created_at->locale('tr')->diffForHumans() }}
                     önce yanıtladı
                 </span>
@@ -22,12 +28,12 @@
                 @endcan
             @endauth
         </div>
-        <p class="text-gray-600 break-all text-sm md:text-base">
+        <p class="break-all text-sm text-gray-600 md:text-base">
             {{ $reply->content }}
         </p>
-        <div class="flex gap-0 items-center">
+        <div class="flex items-center gap-0">
             @auth
-                <button wire:loading.remove class="hover:bg-blue-200 rounded-full p-2" wire:click="toggleLike()">
+                <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
                     @if (!$this->isLikedByUser())
                         <x-icons.heart size='16' color="#4b5563" />
                     @else
@@ -35,14 +41,14 @@
                     @endif
                 </button>
                 <x-icons.spinner color='#4b5563' size='16' wire:loading.flex wire:target="toggleLike"
-                    class="flex rounded-full p-2 items-center" />
+                    class="flex items-center rounded-full p-2" />
             @endauth
             @guest
-                <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
                     <x-icons.heart size='16' color="#4b5563" />
                 </a>
             @endguest
-            <span class="text-gray-600 font-light">{{ $reply->likes_count }}</span>
+            <span class="font-light text-gray-600">{{ $reply->likes_count }}</span>
         </div>
     </div>
 </li>

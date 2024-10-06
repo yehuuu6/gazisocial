@@ -3,6 +3,7 @@
 @endsection
 <div x-data="{
     deleteCommentModal: false,
+    addReplyModal: false,
     commentId: null,
     deletePostModal: false,
     postId: null,
@@ -28,6 +29,7 @@
         {{ $comments->links('livewire.pagination.simple') }}
     </div>
     @auth
+        <livewire:modals.create-reply-modal />
         <livewire:modals.delete-comment-modal />
         <livewire:modals.delete-post-modal />
     @endauth

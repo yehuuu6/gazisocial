@@ -5,10 +5,11 @@ namespace App\Livewire\Pages;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Post;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class HomePage extends Component
 {
-    use WithPagination;
+    use WithPagination, LivewireAlert;
 
     public string $order = 'latest';
 
@@ -41,6 +42,9 @@ class HomePage extends Component
 
     public function render()
     {
+        if (session()->has('emailVerified')) {
+            $this->alert('success', session('emailVerified'));
+        }
         return view('livewire.pages.home-page', [
             'posts' => $this->fetchPosts(),
         ]);

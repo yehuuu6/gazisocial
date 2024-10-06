@@ -6,6 +6,7 @@ use App\Models\Like;
 use App\Models\Comment;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -55,6 +56,13 @@ class PostComment extends Component
         $this->alert('success', $msg);
 
         $this->comment->refresh();
+    }
+
+    #[On('reply-added')]
+    public function refreshComment()
+    {
+        $this->comment->refresh();
+        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest("created_at")->get();
     }
 
     public function render()

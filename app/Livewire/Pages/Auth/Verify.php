@@ -34,11 +34,20 @@ class Verify extends Component
         $this->user = Auth::user();
         // if user has @gazi.edu.tr email, assign gazili role
         if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
-            $role = Role::find(1); // Gazili
-            $this->user->roles()->attach($role);
+            // Check if user already has gazili role
+            if ($this->user->roles()->where('name', 'öğrenci')->count() === 0) {
+                $role = Role::find(1); // Gazili
+                $this->user->roles()->attach($role);
+            }
         }
 
-        return redirect(route('home'));
+        if ($this->user->isStudent()) {
+            session()->flash('emailVerifiedStudent', 'E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.');
+            return redirect(route('faculties'));
+        } else {
+            session()->flash('emailVerified', 'E-posta adresiniz doğrulandı.');
+            return redirect(route('home'));
+        }
     }
 
     public function sendVerifyMail(Request $request)
@@ -46,8 +55,6 @@ class Verify extends Component
         $request->user()->sendEmailVerificationNotification();
 
         $this->alert('info', 'Doğrulama e-postası gönderildi.');
-
-        return back();
     }
 
     protected function returnHomeIfVerified()

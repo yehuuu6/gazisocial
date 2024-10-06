@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\Like;
 
-class Reply extends Component
+class CommentReply extends Component
 {
 
     use LivewireAlert;
 
     public $reply;
+    public $postAuthor;
 
     public function isLikedByUser(): bool
     {
@@ -49,6 +50,6 @@ class Reply extends Component
 
     public function render()
     {
-        return view('livewire.components.post.reply');
+        return view('livewire.components.post.comment-reply');
     }
 }

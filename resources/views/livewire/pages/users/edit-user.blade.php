@@ -101,8 +101,49 @@
                 </x-users.edit.container>
             </div>
             <div class="flex flex-col gap-10">
+                @if (Auth::user()->isStudent())
+                    @if (!Auth::user()->faculty)
+                        <x-users.edit.container :renderBadge="true">
+                            <x-users.edit.title title="Fakülte"
+                                description="Görünüşe göre Gazi Üniversitesi öğrencisisin. Profilini tamamlamak için hangi fakülteden olduğunu belirt!" />
+                            <x-seperator />
+                            <div class="flex flex-col gap-3 p-4">
+                                <x-link
+                                    class="rounded bg-blue-500 px-6 py-2 text-center font-medium text-white hover:bg-blue-600 hover:no-underline"
+                                    href="{{ route('faculties') }}">
+                                    Fakülteleri Gör
+                                </x-link>
+                            </div>
+                        </x-users.edit.container>
+                    @else
+                        <x-users.edit.container :renderBadge="true">
+                            <x-users.edit.title title="Fakülte" description="Profilinizde görünen fakülte" />
+                            <x-seperator />
+                            <div class="flex flex-col p-4">
+                                <h3 class="font-medium text-gray-700">
+                                    {{ Auth::user()->faculty->name }}
+                                </h3>
+                                <span class="text-sm text-gray-500">
+                                    {{ Auth::user()->faculty->description }}
+                                </span>
+                                <button wire:click="leaveFaculty({{ Auth::user()->faculty->id }})"
+                                    class="mt-3 rounded bg-blue-500 px-6 py-2 text-center font-medium text-white hover:bg-blue-600">
+                                    <span class="flex items-center justify-center" wire:loading.remove
+                                        wire:target="leaveFaculty">
+                                        Ayrıl
+                                    </span>
+                                    <span class="flex items-center justify-center" wire:loading.flex
+                                        wire:target="leaveFaculty">
+                                        <x-icons.spinner size='24' color='white' />
+                                    </span>
+                                </button>
+                            </div>
+                        </x-users.edit.container>
+                    @endif
+                @endif
                 <x-users.edit.container>
-                    <x-users.edit.title title="Gizlilik Tercihleri" description="Gizlilik tercihlerinizi güncelleyin" />
+                    <x-users.edit.title title="Gizlilik Tercihleri"
+                        description="Gizlilik tercihlerinizi güncelleyin" />
                     <x-seperator />
                     <form wire:submit="updatePrivacyInfo">
                         <div class="flex flex-col gap-3 p-4">

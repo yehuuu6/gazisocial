@@ -15,6 +15,7 @@ use App\Livewire\Pages\Auth\ForgotPassword;
 use App\Livewire\Pages\Auth\ResetPassword;
 use App\Livewire\Pages\Posts\ShowPostsByTag;
 use App\Livewire\Pages\Faculty\ListFaculties;
+use App\Livewire\Pages\Post\RepliesPage;
 use App\Livewire\Pages\Users\EditUser;
 
 // Auth routes START
@@ -50,6 +51,7 @@ Route::get('/', HomePage::class)->name('home');
 Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
 Route::get('/posts/{order?}', HomePage::class)->name('posts.index');
 Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
+Route::get('/posts/{post}/comments/{comment}/replies', RepliesPage::class)->name('posts.replies');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('posts.show');
 
 // Post Routes END
@@ -64,7 +66,7 @@ Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->midd
 
 // Faculties routes START
 
-Route::get('/faculties', ListFaculties::class)->name('faculties');
+Route::get('/faculties', ListFaculties::class)->name('faculties')->middleware('can:join,App\Models\Faculty');
 
 // Faculties routes END
 

@@ -7,6 +7,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class EditUser extends Component
 {
@@ -41,6 +42,23 @@ class EditUser extends Component
         $this->badgeVisibility = $user->badge_visibility;
 
         $this->authorize('view', $this->user);
+    }
+
+    public function leaveFaculty()
+    {
+        $user = Auth::user();
+
+        if (!$user->faculty) {
+            $this->alert('error', 'Bir fakülteden ayrılmak için öncelikle bir fakülteye katılmalısınız.');
+            return;
+        }
+
+        /**
+         * @var \App\Models\User $user
+         */
+        $user->faculty()->dissociate();
+        $user->save();
+        $this->alert('success', 'Fakülteden başarıyla ayrıldınız.');
     }
 
     public function updateProfileInfo()

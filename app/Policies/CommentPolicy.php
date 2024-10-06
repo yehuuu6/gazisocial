@@ -32,4 +32,20 @@ class CommentPolicy
     {
         return $user->id === $comment->user->id;
     }
+
+    /**
+     * Determine whether the user can reply to the model.
+     */
+    public function reply(User $user, Comment $comment): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if (!$user->hasVerifiedEmail()) {
+            return false;
+        }
+
+        return true;
+    }
 }

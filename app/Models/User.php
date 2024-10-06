@@ -51,6 +51,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->comments_count + $this->replies_count;
     }
 
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');

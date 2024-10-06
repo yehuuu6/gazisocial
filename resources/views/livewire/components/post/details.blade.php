@@ -3,23 +3,23 @@
         <livewire:modals.create-comment-modal :$post />
     @endauth
     <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
-    <div class="w-full flex gap-2 flex-col sm:gap-4">
-        <div class="flex justify-between items-center">
-            <div class="flex gap-1 flex-col-reverse sm:flex-row items-baseline">
-                <div class="flex flex-col sm:flex-row gap-1">
+    <div class="flex w-full flex-col gap-2 sm:gap-4">
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col-reverse items-baseline gap-1 sm:flex-row">
+                <div class="flex flex-col gap-1 sm:flex-row">
                     <x-link href="/u/{{ $post->user->username }}" class="font-medium">
                         {{ $post->user->name }}
                     </x-link>
                     <div class="flex items-center gap-1">
                         <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
-                        <span class="inline-block text-gray-500 text-xs">•</span>
+                        <span class="inline-block text-xs text-gray-500">•</span>
                         <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
                     </div>
                 </div>
-                <div class="md:ml-1 flex items-center gap-1 flex-wrap">
+                <div class="flex flex-wrap items-center gap-1 md:ml-1">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate wire:key="tag-{{ $tag->id }}"
-                            class="py-1 px-2 {{ $this->getTagColor($tag->color) }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
+                            class="{{ $this->getTagColor($tag->color) }} rounded-full px-2 py-1 text-xs font-medium capitalize text-white transition-all duration-100 hover:bg-opacity-90">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 @endcan
             @endauth
         </div>
-        <article class="break-all prose prose-sm sm:prose-base lg:prose-lg max-w-none"
+        <article class="prose prose-sm max-w-none break-all sm:prose-base lg:prose-lg"
             wire:loading.class="animate-pulse" wire:target.except='toggleLike'>
             {!! $post->html !!}
         </article>
@@ -48,7 +48,7 @@
                         $colors = array_diff($colors, [$randomColor]);
                     @endphp
                     <button wire:key='poll-{{ $poll->id }}'
-                        class="{{ $randomColor }} text-white transition-all duration-300 py-1 px-2 text-xs font-medium rounded-full flex items-center hover:bg-opacity-90 gap-1"
+                        class="{{ $randomColor }} flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium text-white transition-all duration-300 hover:bg-opacity-90"
                         wire:click="$dispatch('openModal', { component: 'modals.show-poll-modal', arguments: { poll: {{ $poll }} }})">
                         <x-icons.survey color="white" size="18" />
                         <span>{{ $poll->question }}</span>
@@ -57,22 +57,22 @@
             </div>
         @endif
         <div class="post-icon flex">
-            <div class="flex gap-0 items-center">
+            <div class="flex items-center gap-0">
                 @auth
-                    <button class="hover:bg-blue-200 p-2 rounded-full" @click="addCommentModal = true">
+                    <button class="rounded-full p-2 hover:bg-blue-200" @click="addCommentModal = true">
                         <x-icons.comment color="#4b5563" />
                     </button>
                 @endauth
                 @guest
-                    <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                    <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
                         <x-icons.comment color="#4b5563" />
                     </a>
                 @endguest
-                <span class="text-gray-600 font-light">{{ Number::abbreviate($post->getCommentsCount()) }}</span>
+                <span class="font-light text-gray-600">{{ Number::abbreviate($post->getCommentsCount()) }}</span>
             </div>
-            <div class="flex gap-0 items-center">
+            <div class="flex items-center gap-0">
                 @auth
-                    <button wire:loading.remove class="hover:bg-blue-200 rounded-full p-2" wire:click="toggleLike()">
+                    <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
                         @if (!$this->isLikedByUser())
                             <x-icons.heart />
                         @else
@@ -80,20 +80,20 @@
                         @endif
                     </button>
                     <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
-                        class="flex rounded-full p-2 items-center" />
+                        class="flex items-center rounded-full p-2" />
                 @endauth
                 @guest
-                    <a class="hover:bg-blue-100 p-2 rounded-full" href="{{ route('login') }}">
+                    <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
                         <x-icons.heart />
                     </a>
                 @endguest
-                <span class="text-gray-600 font-light">{{ Number::abbreviate($post->likes_count) }}</span>
+                <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
             </div>
-            <div class="flex gap-0 items-center">
-                <button class="hover:bg-blue-200 rounded-full p-2">
+            <div class="flex items-center gap-0">
+                <button class="rounded-full p-2 hover:bg-blue-200">
                     <x-icons.share color="#4b5563" />
                 </button>
-                <span class="text-gray-600 font-light">392</span>
+                <span class="font-light text-gray-600">392</span>
             </div>
         </div>
     </div>

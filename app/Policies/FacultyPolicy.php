@@ -11,7 +11,10 @@ class FacultyPolicy
      */
     public function join(User $user): bool
     {
-        // Check if the user is a student
-        return $user->isStudent();
+        if (!$user || !$user->hasVerifiedEmail()) return false;
+        if ($user->faculty_id !== null) return false;
+        if (! $user->isStudent()) return false;
+
+        return true;
     }
 }
