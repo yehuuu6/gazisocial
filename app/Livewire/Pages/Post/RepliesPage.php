@@ -2,12 +2,27 @@
 
 namespace App\Livewire\Pages\Post;
 
+use App\Models\Comment;
+use App\Models\Post;
 use Livewire\Component;
 
 class RepliesPage extends Component
 {
+
+    public Post $post;
+    public Comment $comment;
+    public $postAuthor;
+
+    public function mount()
+    {
+        $this->postAuthor = $this->post->user->id;
+    }
+
     public function render()
     {
-        return view('livewire.pages.post.replies-page');
+        $this->comment->load('replies.user', 'replies.likes');
+        return view('livewire.pages.post.replies-page', [
+            'replies' => $this->comment->replies()->with(['user', 'likes'])->latest('created_at')->simplePaginate(15),
+        ]);
     }
 }

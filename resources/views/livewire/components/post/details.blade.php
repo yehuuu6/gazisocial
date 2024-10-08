@@ -11,9 +11,10 @@
                         {{ $post->user->name }}
                     </x-link>
                     <div class="flex items-center gap-1">
-                        <p class="text-sm text-gray-500">{{ '@' . $post->user->username }}</p>
+                        <span class="text-sm text-gray-500">{{ '@' . $post->user->username }}</span>
                         <span class="inline-block text-xs text-gray-500">•</span>
-                        <p class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</p>
+                        <span
+                            class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</span>
                     </div>
                 </div>
                 <div class="flex flex-wrap items-center gap-1 md:ml-1">

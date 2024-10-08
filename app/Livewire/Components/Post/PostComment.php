@@ -23,7 +23,7 @@ class PostComment extends Component
 
     public function mount()
     {
-        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest("created_at")->get();
+        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->oldest('created_at')->get();
         $this->postAuthor = $this->comment->post->user->id;
     }
 
@@ -59,10 +59,11 @@ class PostComment extends Component
     }
 
     #[On('reply-added')]
+    #[On('reply-deleted')]
     public function refreshComment()
     {
         $this->comment->refresh();
-        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest("created_at")->get();
+        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest('created_at')->get();
     }
 
     public function render()

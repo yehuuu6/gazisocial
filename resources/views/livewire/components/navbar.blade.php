@@ -67,16 +67,49 @@
                 </div>
             @endguest
             @auth
-                <div class="flex-row-reverse items-center justify-center gap-1 md:flex md:gap-2">
-                    <img src="{{ Auth::user()->avatar }}" alt="profil resmi" class="size-12 rounded-full object-cover">
-                    <div class="flex flex-col text-right">
+                <div x-data="{ open: false }">
+                    <div @click="open = !open" x-ref="userMenu"
+                        class="bg-opacity-85 flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100 hover:backdrop-blur">
+                        <img src="{{ Auth::user()->avatar }}" alt="profil resmi" class="size-9 rounded-full object-cover">
+                        <div class="ml-1 flex flex-col">
+                            <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
+                            <span class="text-xs font-light text-gray-500">{{ '@' . Auth::user()->username }}</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="size-5 ml-0.5" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"></path>
+                        </svg>
+                    </div>
+                    <div class="flex w-[225px] max-w-lg flex-col gap-1 rounded-md border border-gray-200 bg-white text-sm text-gray-800 shadow"
+                        x-anchor.offset.5.bottom-end="$refs.userMenu" x-cloak x-show="open" @click.away="open = false"
+                        x-transition.scale.origin.top>
+                        <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
+                        <x-seperator />
                         <x-link href="/u/{{ Auth::user()->username }}"
-                            class="text-xs font-medium md:text-sm">{{ Auth::user()->name }}</x-link>
-                        <form method="POST" action="{{ route('logout') }}" enctype="multipart/form-data">
+                            class="mx-1 flex items-center gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                            <x-icons.user size='17' color="#131313" />
+                            <span>Profili Gör</span>
+                        </x-link>
+                        <x-link href="{{ route('users.edit', Auth::user()->username) }}"
+                            class="mx-1 flex items-center gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                            <x-icons.cog size='17' color="#131313" />
+                            <span>Ayarlar</span>
+                        </x-link>
+                        <a href="https://github.com/yehuuu6/gazisocial" target="_blank"
+                            class="mx-1 flex items-center gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                            <x-icons.social.github-regular size='17' color="#131313" />
+                            <span>GitHub Repo</span>
+                        </a>
+                        <x-seperator />
+                        <form method="POST" action="{{ route('logout') }}"
+                            class="mx-1 mb-1 cursor-pointer rounded px-2 py-2 hover:bg-gray-100">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-xs font-normal hover:text-red-500 md:text-sm">Çıkış
-                                Yap</button>
+                            <button type="submit" class="mx-1 flex w-full items-center gap-1.5 rounded hover:no-underline">
+                                <x-icons.logout size='17' color="#131313" />
+                                <span>Çıkış Yap</span>
+                            </button>
                         </form>
                     </div>
                 </div>

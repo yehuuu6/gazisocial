@@ -3,8 +3,10 @@
 @endsection
 <div x-data="{
     deleteCommentModal: false,
+    deleteReplyModal: false,
     addReplyModal: false,
     commentId: null,
+    replyId: null,
     deletePostModal: false,
     postId: null,
 }">
@@ -31,6 +33,7 @@
     @auth
         <livewire:modals.create-reply-modal />
         <livewire:modals.delete-comment-modal />
+        <livewire:modals.delete-reply-modal />
         <livewire:modals.delete-post-modal />
     @endauth
 </div>

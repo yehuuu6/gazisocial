@@ -22,7 +22,9 @@
             </div>
             @auth
                 @can('delete', $reply)
-                    <button class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                    <button
+                        @click="replyId = {{ $reply->id }}; deleteReplyModal = true; $dispatch('delete-reply-modal-open')"
+                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
                         <x-icons.trash color="#ff6969" size="14" />
                     </button>
                 @endcan

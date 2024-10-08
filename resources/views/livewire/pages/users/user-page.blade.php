@@ -4,13 +4,15 @@
     deletePostModal: false,
     postId: null,
 }">
-    <div class="bg-white shadow-md rounded-xl flex flex-col overflow-hidden border border-gray-100">
+    <div class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
         <livewire:components.user.details :$user />
         <div class="flex">
             <button wire:click='$dispatch("showUserPosts")' id="user-posts"
-                class="active-profile-tab flex-1 py-2 text-center font-medium border-b-2">Gönderiler</button>
+                class="active-profile-tab flex-1 border-b-2 py-2 text-center font-medium">Gönderiler</button>
             <button wire:click='$dispatch("showUserComments")' id="user-comments"
-                class="profile-tab flex-1 py-2 text-center font-medium border-b-2">Yorumlar</button>
+                class="profile-tab flex-1 border-b-2 py-2 text-center font-medium">Yorumlar</button>
+            <button wire:click='$dispatch("showUserReplies")' id="user-replies"
+                class="profile-tab flex-1 border-b-2 py-2 text-center font-medium">Yanıtlar</button>
         </div>
         <x-seperator />
         <livewire:pages.users.user-sub-page :$user />
@@ -28,6 +30,7 @@
         const tabs = {
             posts: document.getElementById('user-posts'),
             comments: document.getElementById('user-comments'),
+            replies: document.getElementById('user-replies'),
         };
 
         function updateTabs(activeTab) {
@@ -40,5 +43,6 @@
 
         Livewire.on('showUserPosts', () => updateTabs('posts'));
         Livewire.on('showUserComments', () => updateTabs('comments'));
+        Livewire.on('showUserReplies', () => updateTabs('replies'));
     </script>
 @endscript

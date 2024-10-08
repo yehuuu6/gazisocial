@@ -18,10 +18,10 @@
     </script>
 </head>
 
-<body class="antialiased w-full min-h-dvh bg-gray-100 font-inter overflow-x-hidden">
+<body class="min-h-screen w-full overflow-x-hidden bg-gray-100 font-inter antialiased">
     <livewire:components.navbar />
     <x-header />
-    <main class="mx-[3%] md:mx-[6%] lg:mx-[12%] mt-4 md:mt-8">
+    <main class="mx-[3%] mt-4 md:mx-[6%] md:mt-8 lg:mx-[12%]">
         {{ $slot }}
     </main>
     <x-footer />
