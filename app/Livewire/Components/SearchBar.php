@@ -8,6 +8,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
+use Livewire\Attributes\On;
 
 class SearchBar extends Component
 {
@@ -44,6 +45,7 @@ class SearchBar extends Component
         $this->currentRoute = Route::currentRouteName();
     }
 
+    #[On('orderChanged')]
     public function render()
     {
 
@@ -52,6 +54,12 @@ class SearchBar extends Component
         return view('livewire.components.search-bar', [
             'results' => $results,
         ]);
+    }
+
+    public function getOrderType(): string
+    {
+        // Get the order type from session(order)
+        return session('order', 'created_at');
     }
 
     public function isUserRoute(): bool
@@ -118,7 +126,7 @@ class SearchBar extends Component
                     $query->where('title', 'like', '%' . $this->search . '%')
                         ->orWhere('content', 'like', '%' . $this->search . '%');
                 })
-                ->latest('created_at')
+                ->latest($this->getOrderType())
                 ->limit(5)
                 ->get();
         } else {

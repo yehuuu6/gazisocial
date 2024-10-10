@@ -6,24 +6,16 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Post;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 class HomePage extends Component
 {
     use WithPagination, LivewireAlert;
 
-    public string $order = 'latest';
-
     public function getOrderType(): string
     {
-        $orderDefinitions = [
-            '' => 'created_at',
-            'latest' => 'created_at',
-            'popular' => 'popularity',
-        ];
-
-        if (!array_key_exists($this->order, $orderDefinitions)) abort(404);
-
-        return $orderDefinitions[$this->order];
+        // Get the order type from session(order)
+        return session('order', 'created_at');
     }
 
     public function updatingPage()
@@ -40,6 +32,7 @@ class HomePage extends Component
             ->simplePaginate(20);
     }
 
+    #[On('orderChanged')]
     public function render()
     {
         if (session()->has('emailVerified')) {

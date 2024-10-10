@@ -42,7 +42,7 @@
                                     @endif
                                 </label>
                                 <input type="email" id="email" name="email" value="{{ Auth::user()->email }}"
-                                    readonly
+                                    readonly autocomplete="email"
                                     class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-500 focus:outline-none" />
                             </div>
                             <div class="flex flex-col gap-2 px-4">

@@ -4,7 +4,7 @@
 
     <form wire:submit="goToSearchRoute" x-trap="open"
         class="m-2 flex items-center overflow-hidden rounded-md border border-gray-300 shadow">
-        <input wire:model.live="search" type="text" spellcheck="false" required id="search" name="search"
+        <input wire:model.live="search" type="text" spellcheck="false" required name="search"
             class="flex-grow px-4 py-2 text-sm text-gray-700 focus:border-blue-400 focus:outline-none"
             placeholder="{{ $placeholder }}" />
         <button type="submit" class="bg-primary p-2 text-sm text-white hover:bg-opacity-90">

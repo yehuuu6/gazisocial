@@ -49,7 +49,7 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
-Route::get('/posts/{order?}', HomePage::class)->name('posts.index');
+Route::get('/posts', HomePage::class)->name('posts.index');
 Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
 Route::get('/posts/{post}/comments/{comment}/replies', RepliesPage::class)->name('posts.replies');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('posts.show');
@@ -70,8 +70,8 @@ Route::get('/faculties', ListFaculties::class)->name('faculties')->middleware('c
 
 // Faculties routes END
 
-// Categories routes START
+// Tags routes START
 
 Route::get('/tags/{tag:slug}', ShowPostsByTag::class)->name('tags.show');
 
-// Categories routes END
+// Tags routes END
