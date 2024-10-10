@@ -8,4 +8,17 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        minify: true,
+        sourcemap: false,
+        rollupOptions: {
+            output: {
+                manualChunks: (path) => {
+                    if (path.includes('node_modules')) {
+                        return 'vendor';
+                    }
+                }
+            }
+        }
+    },
 });
