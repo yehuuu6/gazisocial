@@ -34,14 +34,7 @@
             </div>
         </div>
         <div class="flex items-center gap-1">
-            <x-link href="{{ route('posts.index', 'latest') }}"
-                class="{{ Request::is('posts/latest') || Request::is('/') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }} rounded-md px-3 py-2 text-sm font-medium hover:no-underline">
-                En Yeni
-            </x-link>
-            <x-link href="{{ route('posts.index', 'popular') }}"
-                class="{{ Request::is('posts/popular') ? 'bg-blue-100 text-primary' : 'text-gray-700 text-opacity-80 hover:text-opacity-100' }} rounded-md px-3 py-2 text-sm font-medium hover:no-underline">
-                Popüler
-            </x-link>
+            <livewire:components.order-buttons />
             <div class="relative flex items-center justify-center md:hidden" x-data="{ open: false }">
                 <button title="Arama Yap" @click="open = !open" x-ref="searchToggle"
                     class="rounded-full p-2 text-opacity-90 hover:bg-white hover:no-underline">
