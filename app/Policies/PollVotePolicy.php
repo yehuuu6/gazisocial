@@ -30,6 +30,9 @@ class PollVotePolicy
      */
     public function update(User $user, PollVote $vote): bool
     {
+        if (!$user) {
+            return false;
+        }
         return $user->id === $vote->user->id;
     }
 }

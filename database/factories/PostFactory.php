@@ -29,7 +29,8 @@ class PostFactory extends Factory
             'content' => $this->faker->realText($this->faker->numberBetween(100, 3000)),
             'likes_count' => 0,
             'comments_count' => 0,
-            'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
+            'replies_count' => 0,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 

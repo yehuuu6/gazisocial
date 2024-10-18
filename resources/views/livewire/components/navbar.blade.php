@@ -18,13 +18,13 @@
         </button>
         <div x-cloak x-show='open' @click.away="open = false" x-collapse
             class="absolute top-14 flex w-full flex-col gap-2 rounded-b-lg bg-white bg-opacity-95 p-2 shadow-md md:hidden">
-            <x-link href="/posts/create"
+            <x-link href="/posts/pinned"
                 class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                 Yeni Konu Oluştur
             </x-link>
-            <x-link href="/faculties"
+            <x-link href="/posts/pinned"
                 class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
-                Fakülteye Katıl
+                Sabitlenmiş Konular
             </x-link>
             @guest
                 <x-link href="{{ route('login') }}"
@@ -37,6 +37,12 @@
                 </x-link>
             @endguest
             @auth
+                @if (!Auth::user()->faculty)
+                    <x-link href="/faculties"
+                        class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
+                        Fakülteye Katıl
+                    </x-link>
+                @endif
                 <x-link href="/u/{{ Auth::user()->username }}"
                     class="flex flex-row-reverse items-center justify-between gap-1 rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                     <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full object-cover">

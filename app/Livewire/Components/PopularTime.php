@@ -8,12 +8,12 @@ class PopularTime extends Component
 {
     public $text = 'Zaman aralığı içinde';
     public $time;
-    public $validTimes = ['today', 'this_week', 'three_months', 'six_months', 'this_year', 'all_time'];
+    public $validTimes = ['today', 'one_week', 'three_months', 'six_months', 'one_year', 'all_time'];
 
     public function mount()
     {
         // Retrieve the saved time period state from the session
-        $saved = session('time_period') ?? 'today';
+        $saved = session('time_period') ?? 'all_time';
         $this->time = $saved;
         $this->updateTexts($saved);
     }
@@ -46,8 +46,8 @@ class PopularTime extends Component
                 $this->time = 'all_time';
                 break;
             default:
-                $this->text = 'Bugün';
-                $this->time = 'today';
+                $this->text = 'Tüm Zamanlar';
+                $this->time = 'all_time';
                 break;
         }
     }
@@ -55,7 +55,7 @@ class PopularTime extends Component
     public function setTimePeriod(string $period)
     {
         if (!in_array($period, $this->validTimes)) {
-            $period = 'today';
+            $period = 'all_time';
         }
 
         // Set session time period

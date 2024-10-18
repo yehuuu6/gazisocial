@@ -73,7 +73,7 @@ class SearchBar extends Component
             $this->placeholder = 'Bir kullanıcı ara...';
             $this->targetUrl = route('users.search') . '/';
         } else {
-            $this->placeholder = $this->tagName !== 'all' ? $this->tagName . ' kategorisinde konu ara...' : 'Bir konu ara...';
+            $this->placeholder = $this->tagName !== 'all' ? Str::ucfirst($this->tagName) . ' kategorisinde konu ara...' : 'Bir konu ara...';
             $this->targetUrl = '/posts/search/';
         }
     }

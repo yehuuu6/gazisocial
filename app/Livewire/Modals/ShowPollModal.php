@@ -2,17 +2,18 @@
 
 namespace App\Livewire\Modals;
 
+use App\Events\PollVoted;
 use App\Models\Poll;
-use App\Models\PollOption;
-use App\Models\PollVote;
 use Illuminate\Support\Facades\Gate;
-use LivewireUI\Modal\ModalComponent;
+use App\Models\PollVote;
+use App\Models\PollOption;
+use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 
-class ShowPollModal extends ModalComponent
+class ShowPollModal extends Component
 {
-
     use LivewireAlert;
 
     public Poll $poll;
@@ -22,17 +23,16 @@ class ShowPollModal extends ModalComponent
     {
         $this->poll = $poll;
 
+        $this->poll->load('votes', 'options.votes');
+
         // Check if the user has already voted
         if (Auth::check()) {
             $this->selectedOption = $this->poll->votes->where('user_id', Auth::id())->first();
-
-            if ($this->selectedOption) {
-                $this->selectedOption = $this->selectedOption->poll_option_id;
-            }
+            $this->selectedOption = $this->selectedOption ? $this->selectedOption->poll_option_id : null;
         }
     }
 
-    public function selectOption(PollOption $option)
+    public function vote(PollOption $option)
     {
         // Validate if the user is allowed to vote
         $response = Gate::inspect('create', PollVote::class);
@@ -78,18 +78,36 @@ class ShowPollModal extends ModalComponent
             ]);
         }
 
-        // Anketi tazele
-        $this->poll = $this->poll->fresh();
-
         // Başarı mesajı
         $this->alert('success', $msg);
+
+        // Broadcast the event
+        PollVoted::dispatch($this->poll);
+
+        // Recalculate the poll options
+        $this->poll->options = $this->calculatePollOptionVotes($this->poll);
     }
 
+    private function calculatePollOptionVotes(Poll $poll)
+    {
 
+        $totalVotes = $poll->votes_count;
+
+        if ($totalVotes === 0) return $poll->options->map(function ($option) {
+            $option->percentage = 0;
+            return $option;
+        });
+
+        return $poll->options->map(function ($option) use ($totalVotes) {
+            $option->percentage = round(($option->votes_count / $totalVotes) * 100, 2);
+            return $option;
+        });
+    }
+
+    #[On('echo:polls.{poll.id},PollVoted')]
     public function render()
     {
-        return view('livewire.modals.show-poll-modal', [
-            'poll' => $this->poll->load('options.votes')
-        ]);
+        $this->poll->options = $this->calculatePollOptionVotes($this->poll);
+        return view('livewire.modals.show-poll-modal');
     }
 }

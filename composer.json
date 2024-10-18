@@ -8,9 +8,9 @@
         "php": "^8.2",
         "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^11.9",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.5",
-        "wire-elements/modal": "^2.0"
+        "livewire/livewire": "^3.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

@@ -1,6 +1,6 @@
 <div x-data="{ addReplyModal: false }" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
     @auth
-        <livewire:modals.create-reply-modal />
+        <livewire:modals.create-reply-modal :commentId="$comment->id" />
     @endauth
     <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($comment->user->avatar) }}" alt="avatar">
     <div class="flex w-full flex-col gap-2 sm:gap-4">

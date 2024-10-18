@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
         $tags->push(Tag::create(['name' => 'Spor', 'color' => 'emerald']));
         $tags->push(Tag::create(['name' => 'Yurtlar', 'color' => 'amber']));
 
-        Post::factory(30)
+        Post::factory(rand(30, 100))
             ->withFixture()
             ->recycle($users)
             ->create()

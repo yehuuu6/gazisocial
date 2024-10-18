@@ -49,6 +49,9 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
+Route::get('/posts/pinned', function () {
+    return 'hello world, pinned posts here.';
+})->name('posts.pinned');
 Route::get('/posts', HomePage::class)->name('posts.index');
 Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
 Route::get('/posts/{post}/comments/{comment}/replies', RepliesPage::class)->name('posts.replies');

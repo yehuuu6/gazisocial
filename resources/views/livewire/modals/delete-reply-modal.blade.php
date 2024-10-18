@@ -3,7 +3,7 @@
     <x-modals.modal-inner-wrapper x-show="deleteReplyModal" @click.away="deleteReplyModal = false">
         <form wire:submit="deleteReply" enctype="multipart/form-data">
             @csrf
-            <h3 class="bg-white px-6 py-4 text-xl font-medium text-gray-700">Yorumu Kaldır</h3>
+            <h3 class="bg-white px-6 py-4 text-xl font-medium text-gray-700">Yanıtı Kaldır</h3>
             <x-seperator />
             <input type="hidden" id="reply-id" name="reply-id" wire:model="replyId">
             <div class="bg-white px-6 py-4">

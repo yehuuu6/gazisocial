@@ -1,5 +1,5 @@
 <x-modals.modal-wrapper x-show="addCommentModal" x-on:comment-created.window="addCommentModal = false">
-    <x-modals.modal-inner-wrapper x-show="addCommentModal" @click.away="addCommentModal = false">
+    <x-modals.modal-inner-wrapper x-show="addCommentModal" @click.away="addCommentModal = false" x-trap="addCommentModal">
         <form wire:submit="createComment" class="bg-white">
             @csrf
             <h3 class="bg-white px-6 py-4 text-xl font-medium text-gray-700">Yorum Yap</h3>

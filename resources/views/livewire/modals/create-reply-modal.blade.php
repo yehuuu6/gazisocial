@@ -1,6 +1,6 @@
 <x-modals.modal-wrapper x-show="addReplyModal" x-on:reply-added.window="addReplyModal = false"
     x-on:add-reply-modal-open.window="$wire.set('commentId', commentId)">
-    <x-modals.modal-inner-wrapper x-show="addReplyModal" @click.away="addReplyModal = false">
+    <x-modals.modal-inner-wrapper x-show="addReplyModal" @click.away="addReplyModal = false" x-trap="addReplyModal">
         <form wire:submit="addReply" class="bg-white">
             @csrf
             <h3 class="bg-white px-6 py-4 text-xl font-medium text-gray-700">Yanıt Ekle</h3>

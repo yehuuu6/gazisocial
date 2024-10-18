@@ -1,4 +1,4 @@
-<tr>
+<tr class="transition-all duration-200 hover:bg-gray-50">
     <td class="p-4 text-left">
         <div class="flex items-center gap-2">
             <x-link class="hidden md:block" title="{{ $post->user->name }}"
@@ -6,29 +6,30 @@
                 <img class="size-8 md:size-10 rounded-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-2 md:gap-0">
-                <div class="flex flex-wrap item-center gap-2">
+                <div class="item-center flex flex-wrap gap-2">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate wire:key="tag-{{ $tag->id }}"
-                            class="py-0.5 px-1.5 md:py-1 md:px-2 {{ $this->getTagColor($tag->color) }} text-white transition-all duration-100 font-medium rounded-full capitalize text-xs hover:bg-opacity-90">{{ $tag->name }}</a>
+                        <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate
+                            wire:key="post-tag-{{ $tag->id }}"
+                            class="{{ $this->getTagColor($tag->color) }} rounded-full px-1.5 py-0.5 text-xs font-medium capitalize text-white transition-all duration-100 hover:bg-opacity-90 md:px-2 md:py-1">{{ $tag->name }}</a>
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"
-                    class="text-sm md:text-base lg:text-lg hover:no-underline break-all text-gray-700 font-medium hover:opacity-85 transition-all duration-300">
+                    class="hover:opacity-85 break-all text-sm font-medium text-gray-700 transition-all duration-300 hover:no-underline md:text-base lg:text-lg">
                     {{ $post->title }}
                 </x-link>
             </div>
         </div>
     </td>
-    <td class="p-4 text-center text-xs md:text-sm font-semibold text-gray-400">
+    <td class="p-4 text-center text-xs font-semibold text-gray-400 md:text-sm">
         {{ number_format($post->getCommentsCount()) }}
     </td>
-    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+    <td class="hidden p-4 text-center text-xs text-gray-400 md:table-cell md:text-sm">
         {{ number_format($post->likes_count) }}
     </td>
-    <td class="p-4 hidden md:table-cell text-center text-xs md:text-sm text-gray-400">
+    <td class="hidden p-4 text-center text-xs text-gray-400 md:table-cell md:text-sm">
         {{ $post->created_at->locale('tr')->diffForHumans() }}
     </td>
-    <td class="p-4 md:hidden text-center text-xs md:text-sm text-gray-400">
+    <td class="p-4 text-center text-xs text-gray-400 md:hidden md:text-sm">
         {{ $post->created_at->locale('tr')->shortAbsoluteDiffForHumans() }}
     </td>
 </tr>

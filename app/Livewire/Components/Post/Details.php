@@ -67,6 +67,8 @@ class Details extends Component
 
     #[On('comment-created')]
     #[On('comment-deleted')]
+    #[On('reply-added')]
+    #[On('reply-deleted')]
     public function refreshPage()
     {
         $this->post->refresh();

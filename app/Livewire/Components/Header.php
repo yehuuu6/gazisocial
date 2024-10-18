@@ -14,8 +14,6 @@ class Header extends Component
 
     public function mount()
     {
-
-
         if (Request::is('tags/*')) {
             $this->slug = explode('/', Request::path())[1];
             $this->text = optional(\App\Models\Tag::where('slug', $this->slug)->first())->name ?? $this->text;

@@ -1,7 +1,14 @@
-<div x-data="{ addCommentModal: false }" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
+<div x-data="{
+    addCommentModal: false,
+    @foreach ($post->polls as $poll)
+    {{ 'showPollModal' . $poll->id . ': false,' }} @endforeach
+}" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
     @auth
         <livewire:modals.create-comment-modal :$post />
     @endauth
+    @foreach ($post->polls as $poll)
+        <livewire:modals.show-poll-modal :$poll :key="'poll-modal-' . $poll->id" />
+    @endforeach
     <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
     <div class="flex w-full flex-col gap-2 sm:gap-4">
         <div class="flex items-center justify-between">
@@ -50,7 +57,7 @@
                     @endphp
                     <button wire:key='poll-{{ $poll->id }}'
                         class="{{ $randomColor }} flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium text-white transition-all duration-300 hover:bg-opacity-90"
-                        wire:click="$dispatch('openModal', { component: 'modals.show-poll-modal', arguments: { poll: {{ $poll }} }})">
+                        x-on:click='showPollModal{{ $poll->id }}=true'>
                         <x-icons.survey color="white" size="18" />
                         <span>{{ $poll->question }}</span>
                     </button>

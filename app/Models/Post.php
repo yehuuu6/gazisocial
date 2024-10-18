@@ -17,6 +17,7 @@ class Post extends Model
         'title',
         'content',
         'html',
+        'is_pinned',
     ];
 
     protected static function booted()

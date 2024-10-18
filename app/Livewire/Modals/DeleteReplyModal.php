@@ -22,13 +22,13 @@ class DeleteReplyModal extends Component
         $response = Gate::inspect('delete', $reply);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Bu yorumu silme izniniz yok.');
+            $this->alert('error', 'Bu yanıtı silme izniniz yok.');
             return;
         }
 
         $reply->delete();
 
-        $this->alert('success', 'Yorum silindi.');
+        $this->alert('success', 'Yanıt silindi.');
 
         $this->dispatch('reply-deleted');
         $this->dispatch('userReplyDeleted');

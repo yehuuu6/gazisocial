@@ -27,7 +27,6 @@
         {{ $slot }}
     </main>
     <x-footer />
-    @livewire('wire-elements-modal')
 </body>
 
 </html>

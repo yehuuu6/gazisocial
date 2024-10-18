@@ -11,7 +11,7 @@
         </template>
     </button>
     <div x-cloak x-show="open" @click.away="open = false" x-collapse x-anchor.bottom-start="$refs.timeToggle"
-        class="z-10 mt-1 w-[225px] gap-0.5 rounded-lg border border-gray-200 bg-white shadow-md md:w-[250px] lg:w-[275px]">
+        class="z-10 mt-1 w-[225px] gap-0.5 whitespace-nowrap rounded-lg border border-gray-200 bg-white shadow-md md:w-[250px] lg:w-[275px]">
         <div class="flex flex-col gap-1 p-2">
             <button wire:click="setTimePeriod('today')"
                 class="flex items-center gap-2 rounded-md px-2 py-1 text-sm font-normal capitalize hover:bg-[#E5E7EB]/50 hover:no-underline">

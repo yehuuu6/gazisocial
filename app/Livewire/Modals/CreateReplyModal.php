@@ -22,7 +22,7 @@ class CreateReplyModal extends Component
     {
         $comment = Comment::find($this->commentId);
 
-        $response = Gate::inspect('reply', $comment);
+        $response = Gate::inspect('create', $comment->replies()->make());
 
         if (!$response->allowed()) {
             $this->alert('error', 'Bu yoruma yanıt verme izniniz yok.');

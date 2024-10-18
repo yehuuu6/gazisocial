@@ -35,13 +35,19 @@
                 class="rounded bg-primary px-3 py-2 text-sm font-medium text-white text-opacity-90 hover:text-opacity-100 hover:no-underline">
                 Yeni Konu Oluştur
             </x-link>
+            <x-link href="/posts/pinned"
+                class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
+                Sabitlenmiş Konular
+            </x-link>
             @auth
-                @if (!Auth::user()->faculty)
-                    <x-link href="/faculties"
-                        class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
-                        Fakülteye Katıl
-                    </x-link>
-                @endif
+                @can('join', App\Models\Faculty::class)
+                    @if (!Auth::user()->faculty)
+                        <x-link href="/faculties"
+                            class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
+                            Fakülteye Katıl
+                        </x-link>
+                    @endif
+                @endcan
             @endauth
             <div class="relative flex items-center justify-center" x-data="{ open: false }">
                 <button title="Arama Yap" @click="open = !open" x-ref="searchToggle"

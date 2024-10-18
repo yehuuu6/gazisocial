@@ -27,6 +27,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
+        Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
+            $full_trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, limit: 6);
+            $trace = array_pop($full_trace);
+
+            $file_parts = explode('/', $trace['file']);
+            $file  = array_pop($file_parts);
+
+            $class = get_class($model);
+
+            // Throw an exception if the relation is not loaded
+            throw new \Exception("Attempted to lazy load [{$relation}] on [line:{$trace['line']}] in [{$file}] for model [{$class}].");
+        });
+
         Vite::prefetch(concurrency: 3);
 
         Carbon::setLocale('tr');
