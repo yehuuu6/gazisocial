@@ -38,13 +38,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             $user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=random';
             $user->save();
         });
-
-        static::created(function ($user) {
-            Activity::create([
-                'user_id' => $user->id,
-                'content' => "Gazi Social'a katıldı!",
-            ]);
-        });
     }
 
     public function sendEmailVerificationNotification()

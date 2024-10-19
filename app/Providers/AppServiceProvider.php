@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Vite;
+use App\Models\Like;
+use App\Observers\PostObserver;
+use App\Observers\CommentObserver;
+use App\Observers\ReplyObserver;
+use App\Observers\LikeObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Start observing the models
+        Post::observe(PostObserver::class);
+        Comment::observe(CommentObserver::class);
+        Reply::observe(ReplyObserver::class);
+        Like::observe(LikeObserver::class);
 
         Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
             $full_trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, limit: 6);
