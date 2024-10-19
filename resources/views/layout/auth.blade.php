@@ -15,6 +15,5 @@
 <body class="bg-white font-inter">
     {{ $slot }}
 </body>
-@livewire('wire-elements-modal')
 
 </html>
