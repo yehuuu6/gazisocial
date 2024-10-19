@@ -100,7 +100,7 @@ class ShowPollModal extends Component
         }
 
         return $poll->options->map(function ($option) use ($totalVotes) {
-            $option->percentage = round(($option->votes_count / $totalVotes) * 100, 1);
+            $option->percentage = round(($option->votes_count / $totalVotes) * 100);
             return $option;
         });
     }
