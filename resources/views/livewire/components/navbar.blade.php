@@ -37,12 +37,14 @@
                 </x-link>
             @endguest
             @auth
-                @if (!Auth::user()->faculty)
-                    <x-link href="/faculties"
-                        class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
-                        Fakülteye Katıl
-                    </x-link>
-                @endif
+                @can('join', App\Models\Faculty::class)
+                    @if (!Auth::user()->faculty)
+                        <x-link href="/faculties"
+                            class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
+                            Fakülteye Katıl
+                        </x-link>
+                    @endif
+                @endcan
                 <x-link href="/u/{{ Auth::user()->username }}"
                     class="flex flex-row-reverse items-center justify-between gap-1 rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                     <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full object-cover">
