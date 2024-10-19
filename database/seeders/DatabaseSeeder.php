@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Reply;
+use App\Models\Poll;
+use App\Models\PollVote;
+use App\Models\PollOption;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Comment;
 use Illuminate\Database\Seeder;
@@ -82,7 +85,6 @@ class DatabaseSeeder extends Seeder
             ->recycle($users)
             ->create()
             ->each(function ($post) use ($tags, $users) {
-
                 foreach ($users as $user) {
                     if (rand(0, 1)) {
                         Like::create([
@@ -90,6 +92,22 @@ class DatabaseSeeder extends Seeder
                             'likeable_id' => $post->id,
                             'likeable_type' => 'post'
                         ]);
+                    }
+                }
+
+                // Create poll with a chance of 25% using PollFactory, PollOptionFactory and PollVoteFactory
+                if (rand(0, 3) === 0) {
+                    $poll = Poll::factory()->create(['post_id' => $post->id]);
+                    $options = PollOption::factory(rand(2, 5))->create(['poll_id' => $poll->id]);
+                    // Create votes using users
+                    foreach ($users as $user) {
+                        if (rand(0, 1)) {
+                            PollVote::create([
+                                'poll_id' => $poll->id,
+                                'user_id' => $user->id,
+                                'poll_option_id' => $options->random()->id
+                            ]);
+                        }
                     }
                 }
 
