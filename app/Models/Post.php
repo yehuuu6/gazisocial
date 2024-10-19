@@ -20,30 +20,6 @@ class Post extends Model
         'is_pinned',
     ];
 
-    protected static function booted()
-    {
-        // Create activity model when a post is created
-        static::created(function ($post) {
-            Activity::create([
-                'user_id' => $post->user_id,
-                'post_id' => $post->id,
-                'content' => 'Yeni bir konu oluşturdu!',
-                'link' => $post->showRoute(),
-            ]);
-
-            // Update users post count
-            $post->user->increment('posts_count');
-        });
-
-        static::deleted(function ($post) {
-            // Update users post count
-            $post->user->decrement('posts_count');
-
-            // Delete likes attached to the post
-            $post->likes()->delete();
-        });
-    }
-
     public function getCommentsCount()
     {
         return $this->comments_count + $this->replies_count;
