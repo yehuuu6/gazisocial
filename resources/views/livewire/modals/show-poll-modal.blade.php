@@ -47,7 +47,7 @@
             <div class="flex items-center justify-end gap-2 bg-gray-50 p-4">
                 <button type="button"
                     x-on:click="showPollModal{{ $poll->id }} = false;$dispatch('poll-modal-close')"
-                    class="rounded px-4 py-2 font-medium text-blue-500 outline-none hover:bg-blue-100">
+                    class="rounded px-4 py-2 font-medium text-red-500 outline-none hover:bg-red-100">
                     Kapat
                 </button>
             </div>
