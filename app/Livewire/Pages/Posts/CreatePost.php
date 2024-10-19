@@ -114,13 +114,6 @@ class CreatePost extends Component
 
         session()->flash('post-created', 'Konu başarıyla oluşturuldu.');
 
-        Activity::create([
-            'user_id' => Auth::id(),
-            'post_id' => $post->id,
-            'content' => 'Yeni bir konu oluşturdu!',
-            'link' => $post->showRoute()
-        ]);
-
         return $this->redirect($post->showRoute(), navigate: true);
     }
 
