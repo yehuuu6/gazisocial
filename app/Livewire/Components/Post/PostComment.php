@@ -23,13 +23,18 @@ class PostComment extends Component
 
     public function mount()
     {
-        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->oldest('created_at')->get();
+        $this->setReplies();
         $this->postAuthor = $this->comment->post->user->id;
     }
 
     public function isLikedByUser(): bool
     {
         return $this->comment->likes->contains('user_id', Auth::id());
+    }
+
+    public function setReplies(): void
+    {
+        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->oldest('created_at')->get();
     }
 
     public function toggleLike()
@@ -63,7 +68,7 @@ class PostComment extends Component
     public function refreshComment()
     {
         $this->comment->refresh();
-        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->latest('created_at')->get();
+        $this->setReplies();
     }
 
     public function render()
