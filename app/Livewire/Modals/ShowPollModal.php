@@ -32,8 +32,12 @@ class ShowPollModal extends Component
         }
     }
 
-    public function vote(PollOption $option)
+    public function vote($optionId)
     {
+        $option = PollOption::find($optionId);
+
+        if (!$option) return;
+
         // Validate if the user is allowed to vote
         $response = Gate::inspect('create', PollVote::class);
 

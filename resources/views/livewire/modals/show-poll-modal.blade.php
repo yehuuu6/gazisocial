@@ -19,7 +19,7 @@
                 <div class="flex flex-col gap-2 px-6 py-4">
                     @foreach ($poll->options as $option)
                         <button wire:key="poll-option-{{ $option->id }}" type="button"
-                            wire:click="vote({{ $option }})" @class([
+                            wire:click="vote({{ $option->id }})" @class([
                                 'transition-all duration-300 border-blue-400 rounded-md border-2 px-4 py-2 hover:bg-gray-100 cursor-pointer' =>
                                     $option->id == $selectedOption,
                                 'transition-all duration-300 border-gray-300 rounded-md border-2 px-4 py-2 hover:bg-gray-100 cursor-pointer' =>
@@ -32,9 +32,9 @@
                                 </div>
                                 <span class="text-sm text-gray-600">%{{ $option->percentage }}</span>
                             </div>
-                            <div class="flex items-center mt-2">
-                                <div class="w-full bg-gray-300 rounded-full">
-                                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-1000"
+                            <div class="mt-2 flex items-center">
+                                <div class="w-full rounded-full bg-gray-300">
+                                    <div class="h-2 rounded-full bg-blue-500 transition-all duration-1000"
                                         style="width: {{ $option->percentage }}%">
                                     </div>
                                 </div>
@@ -45,8 +45,7 @@
             </div>
             <x-seperator />
             <div class="flex items-center justify-end gap-2 bg-gray-50 p-4">
-                <button type="button"
-                    x-on:click="showPollModal{{ $poll->id }} = false;$dispatch('poll-modal-close')"
+                <button type="button" x-on:click="showPollModal{{ $poll->id }} = false"
                     class="rounded px-4 py-2 font-medium text-red-500 outline-none hover:bg-red-100">
                     Kapat
                 </button>
