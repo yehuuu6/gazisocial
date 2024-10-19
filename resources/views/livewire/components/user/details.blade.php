@@ -68,12 +68,12 @@
     <div class='mt-4 flex flex-col gap-3 md:hidden'>
         <p class="text-gray-600">{{ $bio }}</p>
         <div class="flex flex-wrap items-center gap-3 md:flex-nowrap">
-            @can('have', $user->faculty, $user)
+            @if ($user->faculty)
                 <div class="flex items-center gap-1">
                     <x-icons.graduate color="#4b5563" size="24" />
                     <span class="text-sm text-gray-600">{{ $user->faculty->name }}</span>
                 </div>
-            @endcan
+            @endif
             <div class="flex items-center gap-1">
                 <x-icons.post color="#4b5563" size="24" />
                 <span class="text-sm text-gray-600">{{ $user->posts_count }} Gönderi</span>
