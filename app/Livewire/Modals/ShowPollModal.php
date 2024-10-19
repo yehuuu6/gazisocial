@@ -83,23 +83,24 @@ class ShowPollModal extends Component
 
         // Broadcast the event
         PollVoted::dispatch($this->poll);
-
-        // Recalculate the poll options
-        $this->poll->options = $this->calculatePollOptionVotes($this->poll);
     }
 
     private function calculatePollOptionVotes(Poll $poll)
     {
+        // Ensure the poll object is refreshed to get the latest vote counts
+        $poll->refresh();
 
         $totalVotes = $poll->votes_count;
 
-        if ($totalVotes === 0) return $poll->options->map(function ($option) {
-            $option->percentage = 0;
-            return $option;
-        });
+        if ($totalVotes === 0) {
+            return $poll->options->map(function ($option) {
+                $option->percentage = 0;
+                return $option;
+            });
+        }
 
         return $poll->options->map(function ($option) use ($totalVotes) {
-            $option->percentage = round(($option->votes_count / $totalVotes) * 100, 2);
+            $option->percentage = round(($option->votes_count / $totalVotes) * 100, 1);
             return $option;
         });
     }
