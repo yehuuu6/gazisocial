@@ -18,11 +18,26 @@ class ShowPost extends Component
 
     public Post $post;
 
+    public $commentSortType = 'popularity';
+
     public function mount(Request $request)
     {
         if (!Str::endsWith($this->post->showRoute(), $request->path())) {
             return redirect()->to($this->post->showRoute($request->query()), status: 301);
         }
+    }
+
+    public function sortBy($type)
+    {
+        if ($this->commentSortType === $type) {
+            return;
+        }
+
+        if (!in_array($type, ['latest', 'popularity'])) {
+            $this->commentSortType = 'popularity';
+        }
+
+        $this->commentSortType = $type;
     }
 
     public function updatingPage()
@@ -33,7 +48,7 @@ class ShowPost extends Component
     #[On('comment-created')]
     public function resetAndScroll()
     {
-        $this->resetPage();
+        $this->refreshPage();
         $this->dispatch('scroll-to-header');
     }
 
@@ -53,8 +68,9 @@ class ShowPost extends Component
                 'post',
                 'likes',
             ])
-            ->latest('created_at')
-            ->simplePaginate(15);
+            ->when($this->commentSortType === 'latest', fn($query) => $query->latest())
+            ->when($this->commentSortType === 'popularity', fn($query) => $query->orderByDesc('popularity'))
+            ->simplePaginate(10);
 
         // Check if any session flash data exists
         if (session()->has('post-created')) {

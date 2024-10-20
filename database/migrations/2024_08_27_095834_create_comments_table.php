@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longText('content');
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->unsignedBigInteger('replies_count')->default(0);
+            $table->bigInteger('popularity')->default(0);
             $table->timestamps();
         });
     }
