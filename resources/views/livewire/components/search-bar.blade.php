@@ -1,4 +1,4 @@
-<div x-cloak x-show="open" @click.away="open = false" x-transition.duration.250ms
+<div x-cloak x-show="open" @click.away="open = false" x-transition.origin.right.duration.250ms
     x-anchor.bottom-start="$refs.searchToggle"
     class="z-10 mt-1 flex w-[350px] flex-col gap-0.5 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md md:w-[375px] lg:w-[400px]">
 
