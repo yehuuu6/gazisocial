@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Comment;
+use App\Models\Reply;
 
 class CommentObserver
 {
@@ -19,7 +20,7 @@ class CommentObserver
         $comment->user->update(['last_activity' => now()]);
 
         // Increment the popularity of the likeable model if it is a Post
-        $comment->post->increment('popularity', $comment->popularityValue());
+        $comment->post->increment('popularity', Comment::popularityValue());
     }
 
     /**
@@ -35,16 +36,21 @@ class CommentObserver
      */
     public function deleting(Comment $comment): void
     {
+        // Get the count of replies before they are deleted
+        $repliesCount = $comment->replies_count;
+
+        // Decrement the replies_count on the post and user
+        $comment->post->decrement('replies_count', $repliesCount);
+        $comment->user->decrement('replies_count', $repliesCount);
+
         // Delete the likes of the comment
         $comment->likes()->delete();
     }
-
     /**
      * Handle the Comment "deleted" event.
      */
     public function deleted(Comment $comment): void
     {
-        //$comment->load('post', 'user');
         // Decrement the comments_count on the post and user
         $comment->post->decrement('comments_count');
         $comment->user->decrement('comments_count');
@@ -52,7 +58,9 @@ class CommentObserver
         // Update the last_activity of the user
         $comment->user->update(['last_activity' => now()]);
 
+        $popularityValue = Comment::popularityValue() + ($comment->replies_count * Reply::popularityValue());
+
         // Decrement the popularity of the likeable model if it is a Post
-        $comment->post->decrement('popularity', $comment->popularityValue());
+        $comment->post->decrement('popularity', $popularityValue);
     }
 }

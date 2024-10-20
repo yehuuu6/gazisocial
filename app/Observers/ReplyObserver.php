@@ -19,7 +19,10 @@ class ReplyObserver
         $reply->user->update(['last_activity' => now()]);
 
         // Increment the popularity of the likeable model if it is a Post
-        $reply->comment->post->increment('popularity', $reply->popularityValue());
+        $reply->comment->post->increment('popularity', Reply::popularityValue());
+
+        // Increment the popularity of the likeable model if it is a Comment
+        $reply->comment->increment('popularity', Reply::popularityValue());
     }
 
     /**
@@ -35,6 +38,11 @@ class ReplyObserver
      */
     public function deleting(Reply $reply): void
     {
+        // Decrement the replies_count on the comment, post, and user before cascading deletions
+        $reply->comment->decrement('replies_count');
+        $reply->user->decrement('replies_count');
+        $reply->comment->post->decrement('replies_count');
+
         // Delete the likes of the reply
         $reply->likes()->delete();
     }
@@ -44,14 +52,14 @@ class ReplyObserver
      */
     public function deleted(Reply $reply): void
     {
-        $reply->comment->decrement('replies_count');
-        $reply->user->decrement('replies_count');
-        $reply->comment->post->decrement('replies_count');
 
         // Update the last_activity of the user
         $reply->user->update(['last_activity' => now()]);
 
         // Decrement the popularity of the likeable model if it is a Post
-        $reply->comment->post->decrement('popularity', $reply->popularityValue());
+        $reply->comment->post->decrement('popularity', Reply::popularityValue());
+
+        // Decrement the popularity of the likeable model if it is a Comment
+        $reply->comment->decrement('popularity', Reply::popularityValue());
     }
 }

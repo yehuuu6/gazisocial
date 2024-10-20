@@ -23,9 +23,9 @@ class LikeObserver
 
         $like->likeable->increment('likes_count');
 
-        // Increment the popularity of the likeable model if it is a Post
-        if ($like->likeable instanceof Post) {
-            $like->likeable->increment('popularity', $like->popularityValue());
+        // Increment the popularity of the likeable model if it is a Post or a Comment
+        if ($like->likeable instanceof Post || $like->likeable instanceof Comment) {
+            $like->likeable->increment('popularity', Like::popularityValue());
         }
     }
 
@@ -51,9 +51,9 @@ class LikeObserver
 
         $like->likeable->decrement('likes_count');
 
-        // Decrement the popularity of the likeable model if it is a Post
-        if ($like->likeable instanceof Post) {
-            $like->likeable->decrement('popularity', $like->popularityValue());
+        // Decrement the popularity of the likeable model if it is a Post or a Comment
+        if ($like->likeable instanceof Post || $like->likeable instanceof Comment) {
+            $like->likeable->decrement('popularity', Like::popularityValue());
         }
     }
 }
