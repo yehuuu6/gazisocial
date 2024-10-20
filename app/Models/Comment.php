@@ -15,7 +15,11 @@ class Comment extends Model
         'content',
     ];
 
-    public function popularityValue()
+    /**
+     * Return the popularity value of the model.
+     * @return int
+     */
+    public static function popularityValue()
     {
         return 2;
     }

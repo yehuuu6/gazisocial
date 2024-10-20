@@ -11,7 +11,11 @@ class Like extends Model
 
     protected $fillable = ['user_id', 'likeable_id', 'likeable_type'];
 
-    public function popularityValue()
+    /**
+     * Return the popularity value of the model.
+     * @return int
+     */
+    public static function popularityValue()
     {
         return 3;
     }

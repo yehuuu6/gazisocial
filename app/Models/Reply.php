@@ -11,7 +11,11 @@ class Reply extends Model
 
     protected $fillable = ['user_id', 'post_id', 'comment_id', 'content'];
 
-    public function popularityValue()
+    /**
+     * Return the popularity value of the model.
+     * @return int
+     */
+    public static function popularityValue()
     {
         return 1;
     }
