@@ -1,4 +1,4 @@
-<li class="flex gap-3 border-l-2 border-gray-100 px-3.5 py-2">
+<li class="flex gap-3 @if ($type == 'nested') border-l-2 border-gray-100 @endif px-3.5 py-2">
     <img src="{{ asset($reply->user->avatar) }}" alt="avatar" class="size-8 rounded-full object-cover">
     <div class="flex w-full flex-col justify-center gap-2">
         <div class="flex items-center justify-between">
@@ -19,14 +19,20 @@
                 <span class="text-sm text-gray-500">{{ $reply->created_at->locale('tr')->diffForHumans() }}
                     önce yanıtladı
                 </span>
+                @if ($isNew)
+                    <x-tooltip text="Yanıtınız yeni eklenmiştir. Daha sonra silebilirsiniz."
+                        class="text-xs px-2 py-1 bg-emerald-400 text-white rounded-full">Yeni</x-tooltip>
+                @endif
             </div>
             @auth
                 @can('delete', $reply)
-                    <button
-                        @click="replyId = {{ $reply->id }}; deleteReplyModal = true; $dispatch('delete-reply-modal-open')"
-                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
-                        <x-icons.trash color="#ff6969" size="14" />
-                    </button>
+                    @if (!$isNew)
+                        <button
+                            @click="replyId = {{ $reply->id }}; deleteReplyModal = true; $dispatch('delete-reply-modal-open')"
+                            class="text-sm opacity-60 hover:opacity-100" title="Sil">
+                            <x-icons.trash color="#ff6969" size="14" />
+                        </button>
+                    @endif
                 @endcan
             @endauth
         </div>

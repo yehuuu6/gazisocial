@@ -1,4 +1,4 @@
-<div x-data="{ addReplyModal: false }" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
+<div x-data="{ addReplyModal: false }" class="flex gap-2 p-3 sm:gap-4 md:p-5 pb-0 md:pb-0">
     @auth
         <livewire:modals.create-reply-modal :commentId="$comment->id" />
     @endauth
