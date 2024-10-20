@@ -54,6 +54,13 @@
                             <x-icons.lock color="#4b5563" size="24" />
                             <span class="text-sm text-gray-600">Gizli Profil</span>
                         </div>
+                    @else
+                        <div class="flex items-center gap-1">
+                            <x-icons.activity color="#4b5563" size="24" />
+                            <span class="text-sm text-gray-600">
+                                Son hareket {{ $user->last_activity->locale('tr')->diffForHumans() }}
+                            </span>
+                        </div>
                     @endif
                     <div class="flex items-center gap-1">
                         <x-icons.calender color="#4b5563" size="24" />
@@ -82,17 +89,24 @@
                 <x-icons.comment color="#4b5563" size="24" />
                 <span class="text-sm text-gray-600">{{ $user->comments_count }} Yorum</span>
             </div>
-            <div class="flex items-center gap-1">
-                <x-icons.calender color="#4b5563" size="24" />
-                <span class="text-sm text-gray-600">{{ $user->created_at->locale('tr')->translatedFormat('F Y') }}
-                    tarihinde katıldı</span>
-            </div>
             @if ($user->is_private)
                 <div class="flex items-center gap-1">
                     <x-icons.lock color="#4b5563" size="24" />
                     <span class="text-sm text-gray-600">Gizli Profil</span>
                 </div>
+            @else
+                <div class="flex items-center gap-1">
+                    <x-icons.activity color="#4b5563" size="24" />
+                    <span class="text-sm text-gray-600">
+                        Son hareket {{ $user->last_activity->locale('tr')->diffForHumans() }}
+                    </span>
+                </div>
             @endif
+            <div class="flex items-center gap-1">
+                <x-icons.calender color="#4b5563" size="24" />
+                <span class="text-sm text-gray-600">{{ $user->created_at->locale('tr')->translatedFormat('F Y') }}
+                    tarihinde katıldı</span>
+            </div>
         </div>
     </div>
 </div>
