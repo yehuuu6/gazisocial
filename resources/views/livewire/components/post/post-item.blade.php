@@ -24,7 +24,9 @@
         {{ number_format($post->getCommentsCount()) }}
     </td>
     <td class="hidden p-4 text-center text-xs text-gray-400 md:table-cell md:text-sm">
-        {{ number_format($post->likes_count) }}
+        <x-tooltip text="Popularity = {{ $post->popularity }}">
+            <span>{{ Number::abbreviate($post->likes_count) }}</span>
+        </x-tooltip>
     </td>
     <td class="hidden p-4 text-center text-xs text-gray-400 md:table-cell md:text-sm">
         {{ $post->created_at->locale('tr')->diffForHumans() }}

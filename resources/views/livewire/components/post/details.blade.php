@@ -95,7 +95,10 @@
                         <x-icons.heart />
                     </a>
                 @endguest
-                <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
+                <x-tooltip text="Popularity = {{ $post->popularity }}">
+                    <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
+                </x-tooltip>
+
             </div>
             <div class="flex items-center gap-0">
                 <button class="rounded-full p-2 hover:bg-blue-200">
