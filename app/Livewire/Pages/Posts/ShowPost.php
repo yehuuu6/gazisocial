@@ -48,6 +48,7 @@ class ShowPost extends Component
     #[On('comment-created')]
     public function resetAndScroll()
     {
+        $this->sortBy('latest');
         $this->refreshPage();
         $this->dispatch('scroll-to-header');
     }
