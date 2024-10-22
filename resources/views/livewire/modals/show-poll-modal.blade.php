@@ -18,7 +18,8 @@
             <div class="flex flex-grow flex-col gap-1">
                 <div class="flex flex-col gap-2 px-6 py-4">
                     @foreach ($poll->options as $option)
-                        <button wire:key="poll-option-{{ $option->id }}" type="button"
+                        <button wire:key="poll-option-{{ $option->id }}" type="button" wire:target="vote"
+                            wire:loading.attr="disabled" wire:loading.class="animate-pulse"
                             wire:click="vote({{ $option->id }})" @class([
                                 'transition-all duration-300 border-blue-400 rounded-md border-2 px-4 py-2 hover:bg-gray-100 cursor-pointer' =>
                                     $option->id == $selectedOption,
