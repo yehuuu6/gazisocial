@@ -1,5 +1,6 @@
 <div x-data="{
     addCommentModal: false,
+    shareModal: false,
     @foreach ($post->polls as $poll)
     {{ 'showPollModal' . $poll->id . ': false,' }} @endforeach
 }" class="flex gap-2 p-3 sm:gap-4 sm:p-5">
@@ -9,6 +10,7 @@
     @foreach ($post->polls as $poll)
         <livewire:modals.show-poll-modal :$poll :key="'poll-modal-' . $poll->id" />
     @endforeach
+    <livewire:modals.share-modal :url="$post->showRoute()" />
     <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
     <div class="flex w-full flex-col gap-2 sm:gap-4">
         <div class="flex items-center justify-between">
@@ -31,14 +33,24 @@
                     @endforeach
                 </div>
             </div>
-            @auth
-                @can('delete', $post)
-                    <button @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
-                        class="text-sm opacity-60 hover:opacity-100" title="Sil">
-                        <x-icons.trash color="#ff6969" size="14" />
+            <div class="flex items-center gap-5 md:mt-3">
+                <x-tooltip text="Paylaş" class="flex justify-center items-center">
+                    <button x-on:click="shareModal=true" type="button" class="opacity-60 hover:opacity-100">
+                        <x-icons.share color="#4b5563" size="20" />
                     </button>
-                @endcan
-            @endauth
+                </x-tooltip>
+                @auth
+                    @can('delete', $post)
+                        <x-tooltip text="Sil" class="flex justify-center items-center">
+                            <button
+                                @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
+                                class="opacity-60 hover:opacity-100">
+                                <x-icons.trash color="#ff6969" size="18" />
+                            </button>
+                        </x-tooltip>
+                    @endcan
+                @endauth
+            </div>
         </div>
         <article class="prose prose-sm max-w-none break-all sm:prose-base lg:prose-lg"
             wire:loading.class="animate-pulse" wire:target.except='toggleLike'>
@@ -99,12 +111,6 @@
                     <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
                 </x-tooltip>
 
-            </div>
-            <div class="flex items-center gap-0">
-                <button class="rounded-full p-2 hover:bg-blue-200">
-                    <x-icons.share color="#4b5563" />
-                </button>
-                <span class="font-light text-gray-600">392</span>
             </div>
         </div>
     </div>
