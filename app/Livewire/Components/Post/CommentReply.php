@@ -14,9 +14,13 @@ class CommentReply extends Component
     use LivewireAlert;
 
     public $reply;
-    public $postAuthor;
     public $isNew = false;
     public $type = 'nested'; // To render border-left on nested replies. Might be full-page or nested.
+
+    public function mount()
+    {
+        $this->reply->load('post');
+    }
 
     public function isLikedByUser(): bool
     {

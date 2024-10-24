@@ -8,7 +8,7 @@
                         <x-link href="/u/{{ $comment->user->username }}" class="font-medium">
                             {{ $comment->user->name }}
                         </x-link>
-                        @if ($postAuthor == $comment->user->id)
+                        @if ($comment->post->user->id == $comment->user->id && !$comment->post->is_anon)
                             <span
                                 class="ml-1 rounded-full bg-primary px-2 py-1 text-xs font-medium capitalize text-white">
                                 Konu Sahibi
@@ -74,7 +74,7 @@
     <div class="ml-10 px-3.5 py-1">
         <ul>
             @foreach ($replies as $reply)
-                <livewire:components.post.comment-reply :$postAuthor :$reply :key="'reply-' . $reply->id" />
+                <livewire:components.post.comment-reply :$reply :key="'reply-' . $reply->id" />
             @endforeach
         </ul>
         @if ($comment->replies_count > 5)

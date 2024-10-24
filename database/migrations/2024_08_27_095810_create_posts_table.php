@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('comments_count')->default(0);
             $table->unsignedBigInteger('replies_count')->default(0);
             $table->boolean('is_pinned')->default(false);
+            $table->boolean('is_anon')->default(false);
             $table->bigInteger('popularity')->default(0);
             $table->timestamps();
         });

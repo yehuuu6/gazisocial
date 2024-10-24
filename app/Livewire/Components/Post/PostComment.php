@@ -19,12 +19,10 @@ class PostComment extends Component
 
     public $replies;
 
-    public $postAuthor;
-
     public function mount()
     {
         $this->setReplies();
-        $this->postAuthor = $this->comment->post->user->id;
+        $this->comment->load('post');
     }
 
     public function isLikedByUser(): bool

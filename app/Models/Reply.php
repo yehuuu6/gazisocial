@@ -20,6 +20,11 @@ class Reply extends Model
         return 1;
     }
 
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
     public function likes()
     {
         return $this->morphMany(Like::class, 'likeable');

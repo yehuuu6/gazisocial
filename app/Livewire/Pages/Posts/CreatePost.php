@@ -21,6 +21,7 @@ class CreatePost extends Component
 
     public $title;
     public $content;
+    public $isAnon = false;
     public $createdPolls = [];
     public $selectedTags = [];
 
@@ -57,14 +58,12 @@ class CreatePost extends Component
             'title.max' => 'Konu başlığı en fazla :max karakter olabilir.',
             'content.required' => 'Konu içeriği zorunludur.',
             'content.min' => 'Konu içeriği en az :min karakter olmalıdır.',
-            'content.max' => 'Konu içeriği en fazla :max karakter olabilir.'
+            'content.max' => 'Konu içeriği en fazla :max karakter olabilir.',
         ];
 
         try {
             $this->validate([
-                'title' => 'bail|required|min:6|max:100'
-            ], $messages);
-            $this->validate([
+                'title' => 'bail|required|min:6|max:100',
                 'content' => 'bail|required|min:10|max:5000'
             ], $messages);
 
@@ -85,6 +84,7 @@ class CreatePost extends Component
         $validated = [
             'title' => $this->title,
             'content' => $this->content,
+            'is_anon' => $this->isAnon
         ];
 
         $post = Post::create([

@@ -1,9 +1,9 @@
-@props(['text'])
+@props(['text', 'position' => 'top', 'arrow' => true])
 <div x-data="{
     tooltipVisible: false,
     tooltipText: '{{ $text }}',
-    tooltipArrow: true,
-    tooltipPosition: 'top',
+    tooltipArrow: {{ $arrow }},
+    tooltipPosition: '{{ $position }}',
 }" x-init="$refs.content.addEventListener('mouseenter', () => { tooltipVisible = true; });
 $refs.content.addEventListener('mouseleave', () => { tooltipVisible = false; });" class="relative">
 

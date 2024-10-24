@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $gazili = Role::create(['name' => 'öğrenci', 'color' => 'green', 'level' => 0]);
-        $admin = Role::create(['name' => 'yönetici', 'color' => 'red', 'level' => 1]);
-        $owner = Role::create(['name' => 'gazi social', 'color' => 'blue', 'level' => 2]);
+        $gazili = Role::create(['name' => 'student', 'color' => 'green', 'level' => 0]);
+        $admin = Role::create(['name' => 'admin', 'color' => 'red', 'level' => 1]);
+        $owner = Role::create(['name' => 'gazisocial', 'color' => 'blue', 'level' => 2]);
 
         $users = User::factory(10)->create();
 
@@ -134,9 +134,11 @@ class DatabaseSeeder extends Seeder
                         // Create replies between 0 and 10 for each comment
                         Reply::factory(rand(0, 10))
                             ->recycle($users)
-                            ->create(['comment_id' => $comment->id])
+                            ->create([
+                                'comment_id' => $comment->id,
+                                'post_id' => $comment->post_id
+                            ])
                             ->each(function ($reply) use ($users) {
-
                                 foreach ($users as $user) {
                                     if (rand(0, 1)) {
                                         Like::create([

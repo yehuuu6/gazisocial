@@ -7,7 +7,7 @@
                     <x-link href="{{ route('users.show', $reply->user->username) }}" class="font-medium">
                         {{ $reply->user->name }}
                     </x-link>
-                    @if ($postAuthor == $reply->user->id)
+                    @if ($reply->post->user->id == $reply->user->id && !$reply->post->is_anon)
                         <span class="ml-1 rounded-full bg-primary px-2 py-1 text-xs font-medium capitalize text-white">
                             Konu Sahibi
                         </span>

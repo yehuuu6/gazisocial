@@ -30,6 +30,7 @@ class PostFactory extends Factory
             'likes_count' => 0,
             'comments_count' => 0,
             'replies_count' => 0,
+            'is_anon' => $this->faker->boolean(10),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }

@@ -13,15 +13,18 @@
     <livewire:modals.share-modal :url="$post->showRoute()" />
     <img class="size-12 md:size-14 rounded-full object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
     <div class="flex w-full flex-col gap-2 sm:gap-4">
-        <div class="flex items-center justify-between">
+        <div class="flex items-start md:items-center justify-between mr-2">
             <div class="flex flex-col-reverse items-baseline gap-1 sm:flex-row">
                 <div class="flex flex-col gap-1 sm:flex-row">
-                    <x-link href="/u/{{ $post->user->username }}" class="font-medium">
-                        {{ $post->user->name }}
-                    </x-link>
+                    @if ($post->is_anon && Auth::id() !== $post->user->id)
+                        <span class="font-medium">Anonim</span>
+                    @else
+                        <x-link href="/u/{{ $post->user->username }}" class="font-medium">
+                            {{ $post->user->name }}
+                        </x-link>
+                    @endif
                     <div class="flex items-center gap-1">
-                        <span class="text-sm text-gray-500">{{ '@' . $post->user->username }}</span>
-                        <span class="inline-block text-xs text-gray-500">•</span>
+                        <span class="hidden sm:inline-block text-xs text-gray-500">•</span>
                         <span
                             class="text-sm text-gray-500">{{ $post->created_at->locale('tr')->diffForHumans() }}</span>
                     </div>
@@ -33,19 +36,31 @@
                     @endforeach
                 </div>
             </div>
-            <div class="flex items-center gap-5 md:mt-3">
-                <x-tooltip text="Paylaş" class="flex justify-center items-center">
+            <div class="flex items-center gap-4">
+                @if ($post->is_anon)
+                    <x-tooltip text="Anonim" position="bottom" class="flex justify-center items-center">
+                        <x-icons.info color="orange" size="20" />
+                    </x-tooltip>
+                @endif
+                <x-tooltip text="Paylaş" position="bottom" class="flex justify-center items-center">
                     <button x-on:click="shareModal=true" type="button" class="opacity-60 hover:opacity-100">
                         <x-icons.share color="#4b5563" size="20" />
                     </button>
                 </x-tooltip>
                 @auth
+                    @can('update', $post)
+                        <x-tooltip text="Düzenle" position="bottom" class="flex justify-center items-center">
+                            <a href="{{ route('posts.create') }}" class="opacity-60 hover:opacity-100">
+                                <x-icons.edit color="#4b5563" size="20" />
+                            </a>
+                        </x-tooltip>
+                    @endcan
                     @can('delete', $post)
-                        <x-tooltip text="Sil" class="flex justify-center items-center">
+                        <x-tooltip text="Sil" position="bottom" class="flex justify-center items-center">
                             <button
                                 @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
                                 class="opacity-60 hover:opacity-100">
-                                <x-icons.trash color="#ff6969" size="18" />
+                                <x-icons.trash color="#ff6969" size="15" />
                             </button>
                         </x-tooltip>
                     @endcan

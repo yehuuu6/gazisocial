@@ -59,6 +59,11 @@ class RegisterForm extends Component
             return;
         }
 
+        if ($this->username == "anonymous") {
+            $this->alert('error', 'Bu kullanıcı adı kullanılamaz.');
+            return;
+        }
+
         $attributes = [
             'name' => $this->name,
             'username' => $this->username,

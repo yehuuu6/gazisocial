@@ -40,6 +40,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         });
     }
 
+    public function hasRole(string $role)
+    {
+        return $this->roles->contains('name', $role);
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new SendEmailVerification);

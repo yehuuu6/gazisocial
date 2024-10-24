@@ -1,7 +1,7 @@
 @push('scripts')
     @vite('resources/js/editor.js')
 @endpush
-<div x-data="{ createPollModal: false }" class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
+<div x-data="{ createPollModal: false }" class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
     <livewire:modals.create-poll-modal />
     <form wire:submit="createPost" class="flex h-full flex-col">
         <div class="flex-grow">
@@ -15,6 +15,32 @@
                 <div class="flex flex-col gap-2 px-4">
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
                     <x-editor wire:model="content"></x-editor>
+                </div>
+                <div x-data="{ switchOn: false }" class="flex flex-col gap-2 px-4">
+                    <h4 class="flex items-center gap-1 cursor-default font-medium text-gray-700">
+                        <span>Gizlilik</span>
+                        <x-tooltip x-show="switchOn" position="right"
+                            text="Yöneticiler kimliğinizi her zaman görebilir.">
+                            <x-icons.info size='17' color='orange' />
+                        </x-tooltip>
+                    </h4>
+                    <div class="flex items-center gap-2">
+                        <input wire:model="isAnon" id="thisId" type="checkbox" name="switch" class="hidden"
+                            :checked="switchOn">
+
+                        <button x-ref="switchButton" type="button" @click="switchOn = ! switchOn"
+                            :class="switchOn ? 'bg-blue-600' : 'bg-neutral-200'"
+                            class="relative inline-flex h-6 py-0.5 focus:outline-none rounded-full w-10" x-cloak>
+                            <span :class="switchOn ? 'translate-x-[18px]' : 'translate-x-0.5'"
+                                class="w-5 h-5 duration-200 ease-in-out bg-white rounded-full shadow-md"></span>
+                        </button>
+
+                        <label @click="$refs.switchButton.click(); $refs.switchButton.focus()" :id="$id('switch')"
+                            :class="{ 'text-blue-600': switchOn, 'text-gray-500': !switchOn }"
+                            class="text-sm select-none" x-cloak>
+                            Anonim olarak paylaş
+                        </label>
+                    </div>
                 </div>
                 <div x-data="{ selectedTags: $wire.selectedTags }" class="flex flex-col gap-2 px-4">
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>
@@ -77,11 +103,10 @@
                             </div>
                         </template>
                     </div>
-                    <h3 x-show="polls.length === 0" class="text-gray-500">Hiç anket eklenmemiş.</h3>
+                    <h3 x-show="polls.length === 0" class="text-sm text-gray-500">Hiç anket eklenmemiş.</h3>
                     <h3 x-show="polls.length > 0" class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
                         yayınlamadığınız sürece görünmeyecektir.</h3>
                 </div>
-
             </div>
         </div>
         <x-seperator />
