@@ -48,6 +48,7 @@ class CreateReplyModal extends Component
         $comment->replies()->create([
             ...$validated,
             'user_id' => Auth::id(),
+            'post_id' => $comment->post_id,
             'comment_id' => $this->commentId,
         ]);
 
