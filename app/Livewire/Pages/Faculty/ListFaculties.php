@@ -54,6 +54,8 @@ class ListFaculties extends Component
         $user->faculty()->associate($faculty);
         $user->save();
 
+        $this->alert('info', 'Yönlendiriliyorsunuz...');
+
         if ($faculty->type === 'faculty') {
             $msg = 'ne başarıyla katıldınız.';
         } else {
