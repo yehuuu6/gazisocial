@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Pages\Posts;
 
-use App\Models\Activity;
 use App\Models\Tag;
 use Livewire\Component;
 use App\Models\Post;
