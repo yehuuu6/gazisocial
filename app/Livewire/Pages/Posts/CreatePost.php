@@ -111,6 +111,8 @@ class CreatePost extends Component
             }
         }
 
+        $this->alert('info', 'Yönlendiriliyorsunuz...');
+
         session()->flash('post-created', 'Konu başarıyla oluşturuldu.');
 
         return $this->redirect($post->showRoute(), navigate: true);

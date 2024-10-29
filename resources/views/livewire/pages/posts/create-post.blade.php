@@ -1,7 +1,7 @@
 @push('scripts')
     @vite('resources/js/editor.js')
 @endpush
-<div x-data="{ createPollModal: false }" class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
+<div x-data="{ createPollModal: false, switchOn: $wire.entangle('isAnon') }" class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
     <livewire:modals.create-poll-modal />
     <form wire:submit="createPost" class="flex h-full flex-col">
         <div class="flex-grow">
@@ -16,7 +16,7 @@
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
                     <x-editor wire:model="content"></x-editor>
                 </div>
-                <div x-data="{ switchOn: false }" class="flex flex-col gap-2 px-4">
+                <div class="flex flex-col gap-2 px-4">
                     <h4 class="flex items-center gap-1 cursor-default font-medium text-gray-700">
                         <span>Gizlilik</span>
                         <x-tooltip x-show="switchOn" position="right"
@@ -25,9 +25,7 @@
                         </x-tooltip>
                     </h4>
                     <div class="flex items-center gap-2">
-                        <input wire:model="isAnon" id="thisId" type="checkbox" name="switch" class="hidden"
-                            :checked="switchOn">
-
+                        <input id="isAnon" type="checkbox" name="switch" class="hidden" :checked="switchOn">
                         <button x-ref="switchButton" type="button" @click="switchOn = ! switchOn"
                             :class="switchOn ? 'bg-blue-600' : 'bg-neutral-200'"
                             class="relative inline-flex h-6 py-0.5 focus:outline-none rounded-full w-10" x-cloak>
