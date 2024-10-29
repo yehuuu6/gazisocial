@@ -14,6 +14,7 @@ class Details extends Component
         'blue' => 'bg-blue-700',
         'red' => 'bg-red-700',
         'green' => 'bg-green-700',
+        'yellow' => 'bg-yellow-500',
     ];
 
     public $bio;

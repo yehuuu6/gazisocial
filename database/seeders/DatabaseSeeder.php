@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $gazili = Role::create(['name' => 'student', 'color' => 'green', 'level' => 0]);
-        $admin = Role::create(['name' => 'admin', 'color' => 'red', 'level' => 1]);
-        $owner = Role::create(['name' => 'gazisocial', 'color' => 'blue', 'level' => 2]);
+        $pistoltim = Role::create(['slug' => 'pistoltim', 'name' => 'Pistol Tim', 'color' => 'orange', 'level' => 0]);
+        $gazili = Role::create(['slug' => 'student', 'name' => 'Öğrenci', 'color' => 'green', 'level' => 0]);
+        $admin = Role::create(['slug' => 'admin', 'name' => 'Yönetici', 'color' => 'red', 'level' => 1]);
+        $owner = Role::create(['slug' => 'gazisocial', 'name' => 'Gazi Social', 'color' => 'blue', 'level' => 2]);
 
         $users = User::factory(10)->create();
 
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
 
         // Add gazi social role to the user
         $user1->roles()->attach($owner);
+        $user1->roles()->attach($pistoltim);
         $user1->roles()->attach($gazili);
 
         $user2 = User::create([
