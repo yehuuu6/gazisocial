@@ -18,6 +18,7 @@ class Post extends Model
         'title',
         'content',
         'html',
+        'is_anon',
         'is_pinned',
     ];
 
