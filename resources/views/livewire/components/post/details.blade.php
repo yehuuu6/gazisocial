@@ -77,7 +77,7 @@
                     class="self-start py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
                     <x-icons.info color="orange" size="18" />
                     <span>
-                        Bu post anonim olarak paylaşıldı, sadece siz kim olduğunuzu görebilirsiniz.
+                        Bu konuyu anonim olarak paylaştınız, sadece siz kim olduğunuzu görebilirsiniz.
                     </span>
                 </div>
             @endif
