@@ -37,7 +37,7 @@ class PostPolicy
     public function update(User $user, Post $post): bool
     {
         // Check if the user is the owner of the post
-        return $user->id === $post->user->id;
+        return $user->id === $post->user_id;
     }
 
     /**
@@ -45,6 +45,6 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user->id;
+        return $user->id === $post->user_id;
     }
 }

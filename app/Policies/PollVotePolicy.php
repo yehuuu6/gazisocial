@@ -33,6 +33,6 @@ class PollVotePolicy
         if (!$user) {
             return false;
         }
-        return $user->id === $vote->user->id;
+        return $user->id === $vote->user_id;
     }
 }
