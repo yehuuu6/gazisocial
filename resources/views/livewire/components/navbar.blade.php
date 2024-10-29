@@ -106,18 +106,18 @@
                         </x-link>
                         <a href="https://github.com/yehuuu6/gazisocial" target="_blank"
                             class="mx-1 flex items-center justify-between gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                            <div class="5 flex items-center gap-1">
+                            <div class="flex items-center gap-1">
                                 <x-icons.social.github-regular size='17' color="#131313" />
                                 <span>GitHub Repo</span>
                             </div>
                             <x-icons.star size='17' color="#ffe600" fill="#ffe600" />
                         </a>
                         <x-seperator />
-                        <form method="POST" action="{{ route('logout') }}"
-                            class="mx-1 mb-1 cursor-pointer rounded px-2 py-2 hover:bg-gray-100">
+                        <form method="POST" action="{{ route('logout') }}" class="flex">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="mx-1 flex w-full items-center gap-1.5 rounded hover:no-underline">
+                            <button type="submit"
+                                class="mx-1 flex-1 mb-1 flex items-center gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                                 <x-icons.logout size='17' color="#131313" />
                                 <span>Çıkış Yap</span>
                             </button>
