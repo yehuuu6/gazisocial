@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -20,6 +21,19 @@ class Post extends Model
         'is_pinned',
     ];
 
+    /**
+     * Check if the post is anonymous but belongs to the authenticated user.
+     * @return bool
+     */
+    public function anonToMe()
+    {
+        return $this->is_anon && $this->user_id === Auth::id();
+    }
+
+    /**
+     * Return the total number of comments and replies.
+     * @return string 
+     */
     public function getCommentsCount()
     {
         return $this->comments_count + $this->replies_count;
@@ -55,6 +69,11 @@ class Post extends Model
         return Attribute::set(fn($value) => Str::title($value));
     }
 
+    /**
+     * Get the post's route.
+     * @param array $parameters
+     * @return string
+     */
     public function showRoute(array $parameters = [])
     {
         return route('posts.show', [$this, Str::slug($this->title), ...$parameters]);

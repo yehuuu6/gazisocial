@@ -28,16 +28,15 @@ class PostPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine if the given post can be updated by the user.
+     *
+     * @param User $user
+     * @param Post $post
+     * @return bool
      */
     public function update(User $user, Post $post): bool
     {
-
-        // if user has admin role, return true
-        if ($user->hasRole('admin')) {
-            return true;
-        }
-
+        // Check if the user is the owner of the post
         return $user->id === $post->user->id;
     }
 

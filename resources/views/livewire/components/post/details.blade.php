@@ -39,7 +39,7 @@
             <div class="flex items-center gap-4">
                 @if ($post->is_anon)
                     <x-tooltip text="Anonim" position="bottom" class="flex justify-center items-center">
-                        <x-icons.info color="orange" size="20" />
+                        <x-icons.anon color="orange" size="22" />
                     </x-tooltip>
                 @endif
                 <x-tooltip text="Paylaş" position="bottom" class="flex justify-center items-center">
@@ -50,7 +50,7 @@
                 @auth
                     @can('update', $post)
                         <x-tooltip text="Düzenle" position="bottom" class="flex justify-center items-center">
-                            <a href="{{ route('posts.create') }}" class="opacity-60 hover:opacity-100">
+                            <a href="{{ route('posts.edit', $post) }}" class="opacity-60 hover:opacity-100">
                                 <x-icons.edit color="#4b5563" size="20" />
                             </a>
                         </x-tooltip>
@@ -71,6 +71,17 @@
             wire:loading.class="animate-pulse" wire:target.except='toggleLike'>
             {!! $post->html !!}
         </article>
+        @auth
+            @if ($post->is_anon && Auth::id() === $post->user_id)
+                <div
+                    class="self-start py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
+                    <x-icons.info color="orange" size="18" />
+                    <span>
+                        Bu post anonim olarak paylaşıldı, sadece siz kim olduğunuzu görebilirsiniz.
+                    </span>
+                </div>
+            @endif
+        @endauth
         @if ($post->polls->count() > 0)
             <div class="flex items-center gap-2">
                 @php

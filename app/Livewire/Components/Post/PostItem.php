@@ -3,7 +3,6 @@
 namespace App\Livewire\Components\Post;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PostItem extends Component
@@ -13,7 +12,8 @@ class PostItem extends Component
 
     public function mount()
     {
-        if ($this->post->is_anon) {
+
+        if ($this->post->is_anon && !$this->post->anonToMe()) {
             $this->post->user->name = 'Anonim';
             $this->post->user->avatar = 'https://ui-avatars.com/api/?name=Anonymous&color=7F9CF5&background=EBF4FF';
             $this->post->user->username = 'anonymous';

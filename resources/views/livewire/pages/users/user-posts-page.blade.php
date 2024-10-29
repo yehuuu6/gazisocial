@@ -6,6 +6,9 @@
     </div>
     <div wire:loading.flex.remove class="p-5 flex flex-col gap-5 items-center justify-center">
         @forelse ($posts as $post)
+            @if (Auth::id() !== $post->user_id && $post->is_anon)
+                @continue
+            @endif
             <livewire:components.user.user-post :$post wire:key="post-{{ $post->id }}" />
         @empty
             <h3 class="text-center text-lg text-gray-600 my-14">Burada gösterilecek bir şey yok.</h3>

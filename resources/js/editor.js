@@ -4,7 +4,6 @@ import { Markdown } from "tiptap-markdown";
 import { Link } from "@tiptap/extension-link";
 
 window.setupEditor = function (content) {
-    console.log("setupEditor");
     let editor;
     return {
         updatedAt: Date.now(), // force Alpine to rerender on selection change

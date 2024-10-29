@@ -16,6 +16,7 @@ use App\Livewire\Pages\Auth\ResetPassword;
 use App\Livewire\Pages\Posts\ShowPostsByTag;
 use App\Livewire\Pages\Faculty\ListFaculties;
 use App\Livewire\Pages\Post\RepliesPage;
+use App\Livewire\Pages\Posts\EditPost;
 use App\Livewire\Pages\Users\EditUser;
 
 // Auth routes START
@@ -49,6 +50,9 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
+Route::get('/posts/edit/{post}', EditPost::class)
+    ->name('posts.edit')
+    ->middleware('auth', 'verified');
 Route::get('/posts/pinned', function () {
     return 'hello world, pinned posts here.';
 })->name('posts.pinned');

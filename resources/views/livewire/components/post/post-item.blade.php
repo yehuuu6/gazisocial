@@ -14,8 +14,15 @@
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"
-                    class="hover:opacity-85 break-all text-sm font-medium text-gray-700 transition-all duration-300 hover:no-underline md:text-base lg:text-lg">
-                    {{ $post->title }}
+                    class="flex md:items-center gap-2 hover:opacity-85 break-all text-sm font-medium text-gray-700 transition-all duration-300 hover:no-underline md:text-base lg:text-lg">
+                    <span>{{ $post->title }}</span>
+                    @if ($post->anonToMe())
+                        <x-tooltip text="Anonim, sadece ben görebilirim">
+                            <span>
+                                <x-icons.anon size="22" color="orange" />
+                            </span>
+                        </x-tooltip>
+                    @endif
                 </x-link>
             </div>
         </div>
