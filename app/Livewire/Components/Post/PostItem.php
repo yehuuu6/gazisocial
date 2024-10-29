@@ -12,11 +12,14 @@ class PostItem extends Component
 
     public function mount()
     {
-
         if ($this->post->is_anon && !$this->post->anonToMe()) {
-            $this->post->user->name = 'Anonim';
-            $this->post->user->avatar = 'https://ui-avatars.com/api/?name=Anonymous&color=7F9CF5&background=EBF4FF';
-            $this->post->user->username = 'anonymous';
+            $user = clone $this->post->user;
+            $user->name = 'Anonim';
+            $user->avatar = 'https://ui-avatars.com/api/?name=Anonymous&color=7F9CF5&background=EBF4FF';
+            $user->username = 'anonymous';
+            // Hide sensitive fields
+            unset($user->email, $user->created_at, $user->updated_at);
+            $this->post->user = $user;
         }
     }
 
