@@ -82,8 +82,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function isStudent()
     {
-        // Return true if the user has the role with the id 1
-        return $this->roles->contains('id', 1);
+        // Return true if the user has the role with the slug 'student'
+        return $this->roles->contains('slug', 'student');
     }
 
     public function posts()
