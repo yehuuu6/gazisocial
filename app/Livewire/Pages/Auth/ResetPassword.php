@@ -52,7 +52,7 @@ class ResetPassword extends Component
 
 
         if ($status === Password::PASSWORD_RESET) {
-            $this->alert('success', 'Şifreniz başarıyla sıfırlandı!');
+            $this->flash('success', 'Şifreniz başarıyla sıfırlandı!', redirect: route('login'));
         } else {
             $this->alert('error', 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
         }
