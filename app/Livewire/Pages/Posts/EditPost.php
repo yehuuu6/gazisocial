@@ -27,7 +27,7 @@ class EditPost extends Component
         $this->authorize('update', $this->post);
 
         $this->title = $this->post->title;
-        $this->content = $this->post->content;
+        $this->content = $this->post->html;
         $this->isAnon = $this->post->is_anon;
         $this->selectedTags = $this->post->tags->pluck('id')->toArray();
         $this->createdPolls = $this->post->polls->toArray();
