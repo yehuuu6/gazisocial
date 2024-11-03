@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\ConvertsMarkdownToHtml;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -50,7 +51,7 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function polls()
+    public function polls(): HasMany
     {
         return $this->hasMany(Poll::class);
     }

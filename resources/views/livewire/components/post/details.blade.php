@@ -67,7 +67,7 @@
                 @endauth
             </div>
         </div>
-        <article class="prose prose-sm max-w-none break-all sm:prose-base lg:prose-lg"
+        <article class="prose prose-sm max-w-none break-all sm:prose-base lg:prose-lg ProseMirror"
             wire:loading.class="animate-pulse" wire:target.except='toggleLike'>
             {!! $post->html !!}
         </article>

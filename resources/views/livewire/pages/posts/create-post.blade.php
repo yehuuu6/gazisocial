@@ -78,16 +78,14 @@
                                         <div
                                             class="flex items-center justify-between gap-1 rounded-md border-2 border-gray-200 bg-gray-50 px-3 py-2 transition-all duration-500">
                                             <div class="flex flex-grow flex-col px-1 pb-1">
-                                                <div class="flex items-center">
-                                                    <div class="flex w-full cursor-pointer items-center">
-                                                        <input type="radio" :id="'option-input-' + optionIndex"
-                                                            name="option" readonly class="size-4">
-                                                        <label :for="'option-input-' + optionIndex"
-                                                            class="ml-2 flex flex-1 cursor-pointer items-center justify-between">
-                                                            <span class="text-gray-700" x-text="option"></span>
-                                                            <span class="text-gray-500">0%</span>
-                                                        </label>
-                                                    </div>
+                                                <div class="flex w-full cursor-pointer items-center">
+                                                    <input type="radio" :id="'option-input-' + optionIndex"
+                                                        name="option" readonly class="size-4">
+                                                    <label :for="'option-input-' + optionIndex"
+                                                        class="ml-2 flex flex-1 cursor-pointer items-center justify-between">
+                                                        <span class="text-gray-700" x-text="option"></span>
+                                                        <span class="text-gray-500">0%</span>
+                                                    </label>
                                                 </div>
                                                 <div class="mt-2 h-2 w-full rounded-full bg-gray-300">
                                                     <div

@@ -3,8 +3,7 @@
         <h2 class="text-2xl font-medium text-gray-800">Fakülteler</h2>
         <div class="flex flex-col gap-5">
             @foreach ($faculties as $faculty)
-                <div
-                    class="group flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
+                <div class="flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
                     <div class="flex flex-col">
                         <a target="_blank" href="{{ $faculty->url }}"
                             class="text-lg font-medium text-blue-600 hover:underline">{{ $faculty->name }}</a>
@@ -12,12 +11,13 @@
                     </div>
                     @if (!Auth::user()->faculty)
                         <button wire:click="joinFaculty({{ $faculty->id }})"
-                            class="hidden w-[75px] items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none group-hover:flex hover:bg-blue-900">
+                            class="w-[75px] items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none flex hover:bg-blue-900">
                             <span class="flex items-center justify-center" wire:loading.remove
-                                wire:target="joinFaculty">
+                                wire:target="joinFaculty({{ $faculty->id }})">
                                 Katıl
                             </span>
-                            <span class="flex items-center justify-center" wire:loading.flex wire:target="joinFaculty">
+                            <span class="flex items-center justify-center" wire:loading.flex
+                                wire:target="joinFaculty({{ $faculty->id }})">
                                 <x-icons.spinner size='24' color='white' />
                             </span>
                         </button>
@@ -44,8 +44,7 @@
         <h2 class="text-2xl font-medium text-gray-800">Meslek Yüksekokulları</h2>
         <div class="flex flex-col gap-5">
             @foreach ($vocationals as $vocational)
-                <div
-                    class="group flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
+                <div class="flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
                     <div class="flex flex-col">
                         <a target="_blank" href="{{ $vocational->url }}"
                             class="text-lg font-medium text-blue-600 hover:underline">{{ $vocational->name }}</a>
@@ -53,12 +52,13 @@
                     </div>
                     @if (!Auth::user()->faculty)
                         <button wire:click="joinFaculty({{ $vocational->id }})"
-                            class="hidden w-[75px] items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none group-hover:flex hover:bg-blue-900">
+                            class="w-[75px] items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none flex hover:bg-blue-900">
                             <span class="flex items-center justify-center" wire:loading.remove
-                                wire:target="joinFaculty">
+                                wire:target="joinFaculty({{ $vocational->id }})">
                                 Katıl
                             </span>
-                            <span class="flex items-center justify-center" wire:loading.flex wire:target="joinFaculty">
+                            <span class="flex items-center justify-center" wire:loading.flex
+                                wire:target="joinFaculty({{ $vocational->id }})">
                                 <x-icons.spinner size='24' color='white' />
                             </span>
                         </button>

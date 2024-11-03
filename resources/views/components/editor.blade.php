@@ -3,7 +3,7 @@
     'editorClass' => 'bg-gray-50',
     'content' => '',
 ])
-<div x-data="{ content: @entangle($attributes->wire('model')), ...setupEditor('{{ preg_replace('/\s+/', ' ', $content) }}') }" x-init="() => init($refs.editor)" wire:ignore {{ $attributes->whereDoesntStartWith('wire:model') }}
+<div x-data="{ content: $wire.entangle('content'), ...setupEditor() }" x-init="() => init($refs.editor)" wire:ignore {{ $attributes->whereDoesntStartWith('wire:model') }}
     class="border border-gray-200 rounded-md {{ $class }}">
     <template x-if="isLoaded()">
         <menu class="bg-gray-100 flex flex-wrap divide-x border-b">

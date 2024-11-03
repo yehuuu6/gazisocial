@@ -1,9 +1,9 @@
 @push('scripts')
     @vite('resources/js/editor.js')
 @endpush
-<div x-data="{ createPollModal: false }" class="flex flex-col rounded-xl border overflow-hidden border-gray-100 bg-white shadow-md">
+<div x-data="{ createPollModal: false, switchOn: $wire.entangle('isAnon') }" class="flex flex-col rounded-xl border overflow-hidden border-gray-100 bg-white shadow-md">
     <livewire:modals.create-poll-modal />
-    <form wire:submit="createPost" class="flex h-full flex-col">
+    <form wire:submit="savePost" class="flex h-full flex-col">
         <div class="flex-grow">
             <div class="flex flex-col gap-5 py-4">
                 <div class="flex flex-col gap-2 px-4">
@@ -14,9 +14,9 @@
                 </div>
                 <div class="flex flex-col gap-2 px-4">
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
-                    <x-editor wire:model="content" :$content />
+                    <x-editor wire:model="content" :$content spellcheck="false" />
                 </div>
-                <div x-data="{ switchOn: false }" class="flex flex-col gap-2 px-4">
+                <div class="flex flex-col gap-2 px-4">
                     <h4 class="flex items-center gap-1 cursor-default font-medium text-gray-700">
                         <span>Gizlilik</span>
                         <x-tooltip x-show="switchOn" position="right"
@@ -25,9 +25,7 @@
                         </x-tooltip>
                     </h4>
                     <div class="flex items-center gap-2">
-                        <input wire:model="isAnon" id="isAnon" type="checkbox" name="isAnon" class="hidden"
-                            :checked="switchOn">
-
+                        <input id="isAnon" type="checkbox" name="isAnon" class="hidden" :checked="switchOn">
                         <button x-ref="switchButton" type="button" @click="switchOn = ! switchOn"
                             :class="switchOn ? 'bg-blue-600' : 'bg-neutral-200'"
                             class="relative inline-flex h-6 py-0.5 focus:outline-none rounded-full w-10" x-cloak>
@@ -42,7 +40,7 @@
                         </label>
                     </div>
                 </div>
-                <div x-data="{ selectedTags: $wire.selectedTags }" class="flex flex-col gap-2 px-4">
+                <div x-data="{ selectedTags: $wire.entangle('selectedTags') }" class="flex flex-col gap-2 px-4">
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>
                     <input type="hidden" name="tags" id="tags" wire:model='selectedTags'>
                     <div class="flex flex-wrap gap-2">
@@ -71,29 +69,47 @@
                             <div class="flex flex-grow flex-col gap-1 rounded-md border border-gray-300 p-4 shadow-sm">
                                 <div class="flex flex-col gap-2">
                                     <div class="flex items-center justify-between">
-                                        <h3 class="text-xl font-medium text-gray-700" x-text="poll.question"></h3>
-                                        <button type="button" x-on:click="polls.splice(pollIndex, 1)">
-                                            <x-icons.trash size='18' color="#ff6969" />
-                                        </button>
+                                        <div class="flex items-center gap-2">
+                                            <h3 class="text-xl font-medium text-gray-700" x-text="poll.question"></h3>
+                                            <template x-if="poll.is_active">
+                                                <x-tooltip text="Kullanıcılar ankete oy vermiş!">
+                                                    <x-icons.info color='orange' size='20' />
+                                                </x-tooltip>
+                                            </template>
+                                        </div>
+                                        <div class="flex items-center gap-1.5">
+                                            <button type="button" class="hover:opacity-80">
+                                                <x-tooltip text="Düzenle">
+                                                    <x-icons.edit color='#4b5563' size='20' />
+                                                </x-tooltip>
+                                            </button>
+                                            <button type="button" x-on:click="polls.splice(pollIndex, 1)"
+                                                class="hover:opacity-80">
+                                                <x-tooltip text="Sil">
+                                                    <x-icons.trash size='18' color="#ff6969" />
+                                                </x-tooltip>
+                                            </button>
+                                        </div>
                                     </div>
                                     <template x-for="(option, optionIndex) in poll.options" :key="optionIndex">
                                         <div
-                                            class="flex items-center justify-between gap-1 rounded-md border-2 border-gray-200 bg-gray-50 px-3 py-2 transition-all duration-500">
-                                            <div class="flex flex-grow flex-col px-1 pb-1">
-                                                <div class="flex items-center">
-                                                    <div class="flex w-full cursor-pointer items-center">
-                                                        <input type="radio" :id="'option-input-' + optionIndex"
-                                                            name="option" readonly class="size-4">
-                                                        <label :for="'option-input-' + optionIndex"
-                                                            class="ml-2 flex flex-1 cursor-pointer items-center justify-between">
-                                                            <span class="text-gray-700" x-text="option"></span>
-                                                            <span class="text-gray-500">0%</span>
-                                                        </label>
-                                                    </div>
+                                            class="rounded-md border-2 border-gray-200 px-3 py-2 transition-all duration-500">
+                                            <div class="flex flex-grow flex-col px-1 pb-1 gap-2">
+                                                <div class="flex w-full items-center">
+                                                    <label :for="'option-input-' + optionIndex"
+                                                        class="flex flex-1 items-center justify-between">
+                                                        <div>
+                                                            <span class="text-gray-700" x-text="option.option"></span>
+                                                            <span class="text-sm text-gray-500"
+                                                                x-text="'(' + option.votes_count + ' oy)'"></span>
+                                                        </div>
+                                                        <span class="text-gray-500 text-sm"
+                                                            x-text="option.percentage + '%'"></span>
+                                                    </label>
                                                 </div>
-                                                <div class="mt-2 h-2 w-full rounded-full bg-gray-300">
-                                                    <div
-                                                        class="h-2 rounded-full bg-blue-600 transition-all duration-1000">
+                                                <div class="w-full rounded-full bg-gray-300">
+                                                    <div class="h-2 rounded-full bg-blue-500 transition-all duration-1000"
+                                                        :style="'width: ' + option.percentage + '%'">
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,23 +119,36 @@
                             </div>
                         </template>
                     </div>
-                    <h3 x-show="polls.length === 0" class="text-sm text-gray-500">Hiç anket eklenmemiş.</h3>
-                    <h3 x-show="polls.length > 0" class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
-                        yayınlamadığınız sürece görünmeyecektir.</h3>
+                    <h3 x-show="polls.length === 0" class="text-sm text-gray-500">
+                        Hiç anket eklenmemiş.
+                    </h3>
+                    <h3 x-show="polls.length > 0" class="text-sm text-orange-400 mt-3.5">
+                        Oluşturduğunuz anketler taslaktır ve konuyu yayınlamadığınız sürece görünmeyecektir.
+                    </h3>
                 </div>
             </div>
         </div>
         <x-seperator />
-        <div class="flex justify-end gap-4 bg-gray-50 p-6">
-            <button type="button" @click="createPollModal = true"
-                class="outline:none rounded border border-green-500 bg-transparent px-6 py-2 font-medium text-green-500 outline-none hover:bg-green-500 hover:text-white">
-                Anket Ekle
-            </button>
-            <button type="submit" wire:loading.class='animate-pulse' wire:loading.attr='disabled'
-                wire:target='createPost'
-                class="rounded bg-blue-500 px-6 py-2 font-medium text-white outline-none hover:bg-blue-600">
-                Kaydet
-            </button>
+        <div class="flex items-center justify-between bg-gray-50 p-6">
+            <x-link href="{{ route('posts.index') }}"
+                class="rounded px-4 py-2 font-medium text-red-500 outline-none hover:bg-red-100 hover:no-underline">
+                İptal
+            </x-link>
+            <div class="flex justify-end gap-4">
+                <button wire:click='test' type="button"
+                    class="rounded bg-orange-50 px-6 py-2 font-medium text-orange-400 outline-none hover:bg-orange-100">
+                    Debug
+                </button>
+                <button type="button" @click="createPollModal = true"
+                    class="outline:none rounded border border-green-500 bg-transparent px-6 py-2 font-medium text-green-500 outline-none hover:bg-green-500 hover:text-white">
+                    Anket Ekle
+                </button>
+                <button type="submit" wire:loading.class='animate-pulse' wire:loading.attr='disabled'
+                    wire:target='savePost'
+                    class="rounded bg-blue-500 px-6 py-2 font-medium text-white outline-none hover:bg-blue-600">
+                    Kaydet
+                </button>
+            </div>
         </div>
     </form>
 </div>

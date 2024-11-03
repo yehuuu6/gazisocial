@@ -42,6 +42,8 @@ window.setupEditor = function (content) {
                 if (content === editor.storage.markdown.getMarkdown()) return;
                 editor.commands.setContent(content, false);
             });
+
+            editor.commands.setContent(this.content, false);
         },
         isLoaded() {
             return editor;

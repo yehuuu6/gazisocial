@@ -78,6 +78,10 @@ class ShowPost extends Component
             $this->alert('success', session('post-created'));
         }
 
+        if (session()->has('post-updated')) {
+            $this->alert('success', session('post-updated'));
+        }
+
         return view('livewire.pages.posts.show-post', compact('comments'))
             ->title($title);
     }
