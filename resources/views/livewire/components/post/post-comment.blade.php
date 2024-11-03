@@ -33,18 +33,18 @@
             <p class="break-all text-sm text-gray-600 md:text-base">
                 {{ $comment->content }}
             </p>
-            <div class="post-icon flex gap-1">
+            <div class="flex gap-1">
                 <div class="flex items-center gap-0">
                     @auth
                         <button
                             @click="commentId = {{ $comment->id }}; addReplyModal = true; $dispatch('add-reply-modal-open')"
                             class="rounded-full p-2 hover:bg-blue-200">
-                            <x-icons.reply color="#4b5563" />
+                            <x-icons.reply color="#4b5563" size="16" />
                         </button>
                     @endauth
                     @guest
                         <x-link href="{{ route('login') }}" class="rounded-full p-2 hover:bg-blue-100">
-                            <x-icons.reply color="#4b5563" />
+                            <x-icons.reply color="#4b5563" size="16" />
                         </x-link>
                     @endguest
                     <span class="font-light text-gray-600">{{ $comment->replies_count }}</span>
@@ -53,9 +53,9 @@
                     @auth
                         <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
                             @if (!$this->isLikedByUser())
-                                <x-icons.heart color="#4b5563" />
+                                <x-icons.heart color="#4b5563" size="16" />
                             @else
-                                <x-icons.heart-off color="#4b5563" />
+                                <x-icons.heart-off color="#4b5563" size="16" />
                             @endif
                         </button>
                         <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
@@ -63,7 +63,7 @@
                     @endauth
                     @guest
                         <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
-                            <x-icons.heart color="#4b5563" />
+                            <x-icons.heart color="#4b5563" size="16" />
                         </a>
                     @endguest
                     <span class="font-light text-gray-600">{{ $comment->likes_count }}</span>

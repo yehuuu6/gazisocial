@@ -102,16 +102,16 @@
                 @endforeach
             </div>
         @endif
-        <div class="post-icon flex">
+        <div class="flex gap-1">
             <div class="flex items-center gap-0">
                 @auth
                     <button class="rounded-full p-2 hover:bg-blue-200" @click="addCommentModal = true">
-                        <x-icons.comment color="#4b5563" />
+                        <x-icons.comment color="#4b5563" size="16" />
                     </button>
                 @endauth
                 @guest
                     <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
-                        <x-icons.comment color="#4b5563" />
+                        <x-icons.comment color="#4b5563" size="16" />
                     </a>
                 @endguest
                 <span class="font-light text-gray-600">{{ Number::abbreviate($post->getCommentsCount()) }}</span>
@@ -120,9 +120,9 @@
                 @auth
                     <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
                         @if (!$this->isLikedByUser())
-                            <x-icons.heart />
+                            <x-icons.heart size="16" />
                         @else
-                            <x-icons.heart-off />
+                            <x-icons.heart-off size="16" />
                         @endif
                     </button>
                     <x-icons.spinner color='#4b5563' size='6' wire:loading.flex wire:target="toggleLike"
@@ -130,7 +130,7 @@
                 @endauth
                 @guest
                     <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
-                        <x-icons.heart />
+                        <x-icons.heart size="16" />
                     </a>
                 @endguest
                 <x-tooltip text="Popularity = {{ $post->popularity }}">

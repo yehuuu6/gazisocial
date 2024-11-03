@@ -8,12 +8,6 @@
     body * {
         @apply scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-gray-200;
     }
-    .post-icon {
-        @apply gap-5;
-    }
-    .post-icon svg {
-        @apply size-4;
-    }
 
     .active-profile-tab {
         @apply text-blue-500 border-blue-500;

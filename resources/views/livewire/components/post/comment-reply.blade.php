@@ -39,24 +39,39 @@
         <p class="break-all text-sm text-gray-600 md:text-base">
             {{ $reply->content }}
         </p>
-        <div class="flex items-center gap-0">
-            @auth
-                <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
-                    @if (!$this->isLikedByUser())
+        <div class="flex gap-1">
+            <div class="flex items-center gap-0">
+                @auth
+                    <button @click="replyId = {{ $reply->id }}; addReplyModal = true; $dispatch('add-reply-modal-open')"
+                        class="rounded-full p-2 hover:bg-blue-200">
+                        <x-icons.reply color="#4b5563" size="16" />
+                    </button>
+                @endauth
+                @guest
+                    <x-link href="{{ route('login') }}" class="rounded-full p-2 hover:bg-blue-100">
+                        <x-icons.reply color="#4b5563" size="16" />
+                    </x-link>
+                @endguest
+            </div>
+            <div class="flex items-center gap-0">
+                @auth
+                    <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
+                        @if (!$this->isLikedByUser())
+                            <x-icons.heart size='16' color="#4b5563" />
+                        @else
+                            <x-icons.heart-off size='16' color="#4b5563" />
+                        @endif
+                    </button>
+                    <x-icons.spinner color='#4b5563' size='16' wire:loading.flex wire:target="toggleLike"
+                        class="flex items-center rounded-full p-2" />
+                @endauth
+                @guest
+                    <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
                         <x-icons.heart size='16' color="#4b5563" />
-                    @else
-                        <x-icons.heart-off size='16' color="#4b5563" />
-                    @endif
-                </button>
-                <x-icons.spinner color='#4b5563' size='16' wire:loading.flex wire:target="toggleLike"
-                    class="flex items-center rounded-full p-2" />
-            @endauth
-            @guest
-                <a class="rounded-full p-2 hover:bg-blue-100" href="{{ route('login') }}">
-                    <x-icons.heart size='16' color="#4b5563" />
-                </a>
-            @endguest
-            <span class="font-light text-gray-600">{{ $reply->likes_count }}</span>
+                    </a>
+                @endguest
+                <span class="font-light text-gray-600">{{ $reply->likes_count }}</span>
+            </div>
         </div>
     </div>
 </li>
