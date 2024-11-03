@@ -73,15 +73,6 @@ class ShowPost extends Component
             ->when($this->commentSortType === 'popularity', fn($query) => $query->orderByDesc('popularity'))
             ->simplePaginate(10);
 
-        // Check if any session flash data exists
-        if (session()->has('post-created')) {
-            $this->alert('success', session('post-created'));
-        }
-
-        if (session()->has('post-updated')) {
-            $this->alert('success', session('post-updated'));
-        }
-
         return view('livewire.pages.posts.show-post', compact('comments'))
             ->title($title);
     }

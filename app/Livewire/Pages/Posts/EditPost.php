@@ -161,11 +161,7 @@ class EditPost extends Component
 
         $this->post->tags()->sync($this->selectedTags);
 
-        $this->alert('info', 'Yönlendiriliyorsunuz...');
-
-        session()->flash('post-updated', 'Konu başarıyla güncellendi.');
-
-        return $this->redirect($this->post->showRoute(), navigate: true);
+        $this->flash('success', 'Konu başarıyla güncellendi.', redirect: $this->post->showRoute());
     }
 
     public function render()
