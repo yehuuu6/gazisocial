@@ -11,8 +11,6 @@
                 class="active-profile-tab flex-1 border-b-2 py-2 text-center font-medium">Gönderiler</button>
             <button wire:click='$dispatch("showUserComments")' id="user-comments"
                 class="profile-tab flex-1 border-b-2 py-2 text-center font-medium">Yorumlar</button>
-            <button wire:click='$dispatch("showUserReplies")' id="user-replies"
-                class="profile-tab flex-1 border-b-2 py-2 text-center font-medium">Yanıtlar</button>
         </div>
         <x-seperator />
         <livewire:pages.users.user-sub-page :$user />
@@ -30,7 +28,6 @@
         const tabs = {
             posts: document.getElementById('user-posts'),
             comments: document.getElementById('user-comments'),
-            replies: document.getElementById('user-replies'),
         };
 
         function updateTabs(activeTab) {
@@ -43,6 +40,5 @@
 
         Livewire.on('showUserPosts', () => updateTabs('posts'));
         Livewire.on('showUserComments', () => updateTabs('comments'));
-        Livewire.on('showUserReplies', () => updateTabs('replies'));
     </script>
 @endscript
