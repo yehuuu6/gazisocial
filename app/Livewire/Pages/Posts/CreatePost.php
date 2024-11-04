@@ -111,7 +111,7 @@ class CreatePost extends Component
             }
         }
 
-        $this->flash('success', 'Konu başarıyla oluşturuldu.', redirect: $this->post->showRoute());
+        $this->flash('success', 'Konu başarıyla oluşturuldu.', redirect: $post->showRoute());
     }
 
     public function render()
