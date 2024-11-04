@@ -42,19 +42,6 @@
         <div class="flex gap-1">
             <div class="flex items-center gap-0">
                 @auth
-                    <button @click="replyId = {{ $reply->id }}; addReplyModal = true; $dispatch('add-reply-modal-open')"
-                        class="rounded-full p-2 hover:bg-blue-200">
-                        <x-icons.reply color="#4b5563" size="16" />
-                    </button>
-                @endauth
-                @guest
-                    <x-link href="{{ route('login') }}" class="rounded-full p-2 hover:bg-blue-100">
-                        <x-icons.reply color="#4b5563" size="16" />
-                    </x-link>
-                @endguest
-            </div>
-            <div class="flex items-center gap-0">
-                @auth
                     <button wire:loading.remove class="rounded-full p-2 hover:bg-blue-200" wire:click="toggleLike()">
                         @if (!$this->isLikedByUser())
                             <x-icons.heart size='16' color="#4b5563" />
