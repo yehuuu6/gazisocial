@@ -30,9 +30,7 @@
                 Politikası</x-link>
         </div>
     </div>
-    <div class="mt-4 flex flex-col-reverse justify-between gap-2 md:flex-row md:items-center lg:mt-8">
-        <span class="text-sm text-gray-500">© 2024 Gazi Social</span>
-        <span class="text-sm italic text-gray-400">"Sosyalleşmenin yeni adresi..."</span>
+    <div class="mt-4 flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center lg:mt-8">
         <div class="items center flex gap-4">
             <x-link href="" class="text-gray-500 hover:text-primary">
                 <x-icons.social.github size='22' />
@@ -43,6 +41,13 @@
             <x-link href="" class="text-gray-500 hover:text-primary">
                 <x-icons.social.instagram size='22' />
             </x-link>
+        </div>
+        <div class="flex flex-col gap-2 md:items-end text-gray-500">
+            <span>Made with 🧠 & <a target="_blank" class="text-cyan-400 hover:underline"
+                    href="https://tallstack.dev/">TALL stack</a>
+                by <a target="_blank" class="text-primary hover:underline"
+                    href="https://instagram.com/therenaydin">@therenaydin</a></span>
+            <span class="text-gray-500">Copyright © 2024 All rights reserved.</span>
         </div>
     </div>
 </footer>
