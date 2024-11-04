@@ -11,6 +11,8 @@ class PostObserver
      */
     public function created(Post $post): void
     {
+        if ($post->is_anon) return;
+
         // Update the last_activity of the user
         $post->user->update(['last_activity' => now()]);
 
