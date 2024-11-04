@@ -24,7 +24,10 @@ class PostObserver
      */
     public function updated(Post $post): void
     {
-        //
+        if ($post->is_anon) return;
+
+        // Update the last_activity of the user
+        $post->user->update(['last_activity' => now()]);
     }
 
     /**
@@ -35,10 +38,13 @@ class PostObserver
         // Delete the likes of the post
         $post->likes()->delete();
 
-        // Update the last_activity of the user
-        $post->user->update(['last_activity' => now()]);
+        if (!$post->is_anon) {
+            // Update the last_activity of the user
+            $post->user->update(['last_activity' => now()]);
 
-        $post->user->decrement('posts_count');
+            $post->user->decrement('posts_count');
+        }
+
         $post->user->decrement('comments_count', $post->comments_count);
         $post->user->decrement('replies_count', $post->replies_count);
     }
