@@ -4,9 +4,18 @@
             {{ $post->title }}
         </x-link>
         <span class="hidden lg:inline-block text-gray-500 text-xs">•</span>
-        <span class="text-gray-500 text-sm">
-            {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı.
-        </span>
+        <div class="flex items-center gap-2">
+            <span class="text-gray-500 text-sm">
+                {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı.
+            </span>
+            @if ($post->anonToMe())
+                <x-tooltip text="Anonim, sadece siz görebilirsiniz.">
+                    <span>
+                        <x-icons.anon size="25" color="orange" />
+                    </span>
+                </x-tooltip>
+            @endif
+        </div>
         <div class="flex gap-1.5 items-center mt-2 lg:ml-1 lg:mt-0 flex-wrap">
             @foreach ($post->tags as $tag)
                 <x-link href="{{ route('tags.show', $tag->slug) }}"
