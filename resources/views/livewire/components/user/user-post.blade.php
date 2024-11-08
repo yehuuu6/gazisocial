@@ -26,11 +26,19 @@
         </div>
     </div>
     @auth
-        @can('delete', $post)
-            <button @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
-                class="text-sm text-red-300 self-start lg:self-auto font-mono hover:text-red-600">
-                <x-icons.trash color="#ff6969" size="14" />
-            </button>
-        @endcan
+        <div class="flex items-center gap-3">
+            @can('update', $post)
+                <x-link href="{{ route('posts.edit', $post) }}"
+                    class="opacity-60 self-start hover:opacity-100 hover:no-underline">
+                    <x-icons.edit color="#4b5563" size="16" />
+                </x-link>
+            @endcan
+            @can('delete', $post)
+                <button @click="postId = {{ $post->id }}; deletePostModal = true; $dispatch('delete-post-modal-open')"
+                    class="text-sm text-red-300 self-start lg:self-auto font-mono hover:text-red-600">
+                    <x-icons.trash color="#ff6969" size="14" />
+                </button>
+            @endcan
+        </div>
     @endauth
 </div>
