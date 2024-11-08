@@ -31,8 +31,8 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-1 md:ml-1">
                     @foreach ($post->tags as $tag)
-                        <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate wire:key="tag-{{ $tag->id }}"
-                            class="{{ $this->getTagColor($tag->color) }} rounded-full px-2 py-1 text-xs font-medium capitalize text-white transition-all duration-100 hover:bg-opacity-90">{{ $tag->name }}</a>
+                        <a wire:navigate href="{{ route('tags.show', $tag->slug) }}" wire:key="tag-{{ $tag->id }}"
+                            class="{{ $this->getTagColor($tag->color) }} rounded-full px-2 py-1 text-xs font-medium capitalize text-white transition-all duration-100 hover:bg-opacity-90 hover:no-underline">{{ $tag->name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -50,9 +50,10 @@
                 @auth
                     @can('update', $post)
                         <x-tooltip text="Düzenle" position="bottom" class="flex justify-center items-center">
-                            <a href="{{ route('posts.edit', $post) }}" class="opacity-60 hover:opacity-100">
+                            <x-link href="{{ route('posts.edit', $post) }}"
+                                class="opacity-60 hover:opacity-100 hover:no-underline">
                                 <x-icons.edit color="#4b5563" size="20" />
-                            </a>
+                            </x-link>
                         </x-tooltip>
                     @endcan
                     @can('delete', $post)
