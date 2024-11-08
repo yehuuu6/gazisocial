@@ -16,7 +16,7 @@
                     <livewire:components.tags-lister />
                 </div>
             </div>
-            <div class="flex items-center gap-1" x-data="{ open: false }">
+            <div class="flex items-center gap-1 flex-wrap justify-end md:justify-normal" x-data="{ open: false }">
                 <livewire:components.order-buttons />
                 @if (session()->has('order') && session('order') === 'popularity')
                     <livewire:components.popular-time />
@@ -35,14 +35,10 @@
                 class="rounded bg-primary px-3 py-2 text-sm font-medium text-white text-opacity-90 hover:text-opacity-100 hover:no-underline">
                 Yeni Konu Oluştur
             </x-link>
-            <x-link href="/posts/pinned"
-                class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
-                Sabitlenmiş Konular
-            </x-link>
             @auth
                 @can('join', App\Models\Faculty::class)
                     @if (!Auth::user()->faculty)
-                        <x-link href="/faculties"
+                        <x-link href="{{ route('faculties') }}"
                             class="rounded border border-primary px-3 py-2 text-sm font-medium text-primary text-opacity-90 hover:text-opacity-100 hover:no-underline">
                             Fakülteye Katıl
                         </x-link>

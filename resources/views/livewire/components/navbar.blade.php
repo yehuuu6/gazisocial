@@ -18,13 +18,9 @@
         </button>
         <div x-cloak x-show='open' @click.away="open = false" x-collapse
             class="absolute top-14 flex w-full flex-col gap-2 rounded-b-lg bg-white bg-opacity-95 p-2 shadow-md md:hidden">
-            <x-link href="/posts/pinned"
+            <x-link href="{{ route('posts.create') }}"
                 class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                 Yeni Konu Oluştur
-            </x-link>
-            <x-link href="/posts/pinned"
-                class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
-                Sabitlenmiş Konular
             </x-link>
             @guest
                 <x-link href="{{ route('login') }}"
@@ -39,13 +35,13 @@
             @auth
                 @can('join', App\Models\Faculty::class)
                     @if (!Auth::user()->faculty)
-                        <x-link href="/faculties"
+                        <x-link href="{{ route('faculties') }}"
                             class="rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                             Fakülteye Katıl
                         </x-link>
                     @endif
                 @endcan
-                <x-link href="/u/{{ Auth::user()->username }}"
+                <x-link href="{{ route('users.show', Auth::user()->username) }}"
                     class="flex flex-row-reverse items-center justify-between gap-1 rounded px-3 py-2 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                     <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full object-cover">
                     <span>{{ Auth::user()->name }}</span>
@@ -94,7 +90,7 @@
                         x-transition.scale.origin.top>
                         <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
                         <x-seperator />
-                        <x-link href="/u/{{ Auth::user()->username }}"
+                        <x-link href="{{ route('users.show', Auth::user()->username) }}"
                             class="mx-1 flex items-center gap-1.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                             <x-icons.user size='17' color="#131313" />
                             <span>Profili Gör</span>

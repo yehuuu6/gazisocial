@@ -53,9 +53,6 @@ Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware
 Route::get('/posts/edit/{post}', EditPost::class)
     ->name('posts.edit')
     ->middleware('auth', 'verified');
-Route::get('/posts/pinned', function () {
-    return 'hello world, pinned posts here.';
-})->name('posts.pinned');
 Route::get('/posts', HomePage::class)->name('posts.index');
 Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
 Route::get('/posts/{post}/comments/{comment}/replies', RepliesPage::class)->name('posts.replies');
