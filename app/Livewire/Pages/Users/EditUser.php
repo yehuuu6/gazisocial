@@ -28,7 +28,6 @@ class EditUser extends Component
 
     // Update Account Privacy Settings
     public $profileVisibility;
-    public $badgeVisibility; // default, partial, hidden
 
     public function mount(User $user)
     {
@@ -39,7 +38,6 @@ class EditUser extends Component
         $this->bio = $user->bio;
 
         $this->profileVisibility = $user->is_private ? 'private' : 'public';
-        $this->badgeVisibility = $user->badge_visibility;
 
         $this->authorize('view', $this->user);
     }
@@ -160,21 +158,19 @@ class EditUser extends Component
         try {
             $this->validate([
                 'profileVisibility' => 'required|in:public,private',
-                'badgeVisibility' => 'required|in:default,partial,hidden',
             ]);
         } catch (ValidationException $e) {
             $this->alert('error', $e->getMessage());
         }
 
         // If there is no change in the privacy settings, return
-        if ($this->profileVisibility === ($this->user->is_private ? 'private' : 'public') && $this->badgeVisibility === $this->user->badge_visibility) {
+        if ($this->profileVisibility === ($this->user->is_private ? 'private' : 'public')) {
             $this->alert('info', 'Değişiklik yapmadınız.');
             return;
         }
 
         $result = $this->user->update([
             'is_private' => $this->profileVisibility === 'private' ? 1 : 0,
-            'badge_visibility' => $this->badgeVisibility,
         ]);
 
         if ($result) {

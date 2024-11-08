@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->text('bio')->nullable();
             $table->boolean('is_private')->default(false);
-            $table->string('badge_visibility')->default('default'); // default, partial, hidden
             $table->string('avatar')->nullable();
             $table->foreignId('faculty_id')->nullable()->constrained()->nullOnDelete();
             $table->unsignedBigInteger('posts_count')->default(0);

@@ -157,15 +157,6 @@
                                     <option value="private">Gizli</option>
                                 </select>
                             </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="badge-visibility" class="block font-medium text-gray-700">Rozetler</label>
-                                <select wire:model="badgeVisibility" id="badge-visibility" name="badge-visibility"
-                                    class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
-                                    <option value="default">Varsayılan</option>
-                                    <option value="partial">Kısmi</option>
-                                    <option value="hidden">Gizli</option>
-                                </select>
-                            </div>
                             <button type="submit" wire:loading.attr="disabled" wire:target="updatePrivacyInfo"
                                 wire:loading.class="animate-pulse"
                                 class="mt-2 rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600">
