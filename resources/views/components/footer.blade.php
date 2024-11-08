@@ -32,15 +32,15 @@
     </div>
     <div class="mt-4 flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center lg:mt-8">
         <div class="items center flex gap-4">
-            <x-link href="" class="text-gray-500 hover:text-primary">
+            <a target="_blank" href="https://github.com/yehuuu6/gazisocial" class="text-gray-500 hover:text-primary">
                 <x-icons.social.github size='22' />
-            </x-link>
-            <x-link href="" class="text-gray-500 hover:text-primary">
+            </a>
+            <a target="_blank" href="https://x.com/therenaydin" class="text-gray-500 hover:text-primary">
                 <x-icons.social.x size='22' />
-            </x-link>
-            <x-link href="" class="text-gray-500 hover:text-primary">
+            </a>
+            <a target="_blank" href="https://instagram.com/therenaydin" class="text-gray-500 hover:text-primary">
                 <x-icons.social.instagram size='22' />
-            </x-link>
+            </a>
         </div>
         <div class="flex flex-col gap-2 md:items-end text-gray-500">
             <span>Made with 🧠 & <a target="_blank" class="text-cyan-400 hover:underline"
