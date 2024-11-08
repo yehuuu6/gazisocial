@@ -135,10 +135,6 @@
                 İptal
             </x-link>
             <div class="flex justify-end gap-4">
-                <button wire:click='test' type="button"
-                    class="rounded bg-orange-50 px-6 py-2 font-medium text-orange-400 outline-none hover:bg-orange-100">
-                    Debug
-                </button>
                 <button type="button" @click="createPollModal = true"
                     class="outline:none rounded border border-green-500 bg-transparent px-6 py-2 font-medium text-green-500 outline-none hover:bg-green-500 hover:text-white">
                     Anket Ekle

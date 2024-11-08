@@ -42,11 +42,6 @@ class EditPost extends Component
         }
     }
 
-    public function test()
-    {
-        dd($this->content);
-    }
-
     // Create new option object and insert it into createdPolls array.
     // New object must follow these rules;
     // 1. id = option's id
