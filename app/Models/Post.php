@@ -20,7 +20,6 @@ class Post extends Model
         'content',
         'html',
         'is_anon',
-        'is_pinned',
     ];
 
     /**
