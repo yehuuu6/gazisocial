@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CreateCommentModal extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public Post $post;
 
@@ -21,6 +23,12 @@ class CreateCommentModal extends Component
 
     public function createComment()
     {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
 
         $response = Gate::inspect('create', Comment::class);
 

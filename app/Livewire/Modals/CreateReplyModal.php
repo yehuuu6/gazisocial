@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CreateReplyModal extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public $content = '';
 
@@ -20,6 +22,14 @@ class CreateReplyModal extends Component
 
     public function addReply()
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $comment = Comment::find($this->commentId);
 
         $response = Gate::inspect('create', $comment->replies()->make());

@@ -134,9 +134,7 @@
                         <x-icons.heart size="16" />
                     </a>
                 @endguest
-                <x-tooltip text="Popularity = {{ $post->popularity }}">
-                    <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
-                </x-tooltip>
+                <span class="font-light text-gray-600">{{ Number::abbreviate($post->likes_count) }}</span>
 
             </div>
         </div>

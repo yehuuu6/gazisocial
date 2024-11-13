@@ -7,11 +7,13 @@ use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class ListFaculties extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public $faculties;
     public $vocationals;
@@ -24,6 +26,14 @@ class ListFaculties extends Component
 
     public function leaveFaculty()
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $user = Auth::user();
 
         if (!$user->faculty) {
@@ -41,6 +51,14 @@ class ListFaculties extends Component
 
     public function joinFaculty($facultyId)
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $response = Gate::inspect('join', Faculty::class);
         if (!$response->allowed()) {
             $this->alert('error', 'Bir fakülteye katılmak için gerekli izinlere sahip değilsiniz.');

@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
 use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CreatePost extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public $title;
     public $content;
@@ -44,6 +46,14 @@ class CreatePost extends Component
 
     public function createPost()
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $response = Gate::inspect('create', Post::class);
 
         if (!$response->allowed()) {

@@ -4,13 +4,15 @@ namespace App\Livewire\Components\Auth;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class LoginForm extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public $email;
     public $password;
@@ -26,6 +28,14 @@ class LoginForm extends Component
 
     public function login()
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $messages = [
             'email.required' => 'Email alanı boş bırakılamaz.',
             'email.email' => 'Geçerli bir email adresi giriniz.',

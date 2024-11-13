@@ -11,13 +11,15 @@ use App\Models\PollOption;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class EditPost extends Component
 {
     // TODO: If the user updates the post without changing the content, the post will be updated with an empty content.
     // Also if the code has code blocks, TipTap editor's setContent method will not work properly.
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public Post $post;
 
@@ -115,6 +117,14 @@ class EditPost extends Component
 
     public function savePost()
     {
+
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $response = Gate::inspect('update', $this->post);
 
         if (!$response->allowed()) {

@@ -10,11 +10,13 @@ use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class Details extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public Post $post;
 
@@ -44,6 +46,13 @@ class Details extends Component
 
     public function toggleLike()
     {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         if (! $this->isLikedByUser()) {
 
             $response = Gate::inspect('create', [Like::class, $this->post]);

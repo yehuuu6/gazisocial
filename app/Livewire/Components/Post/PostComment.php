@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class PostComment extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public Comment $comment;
 
@@ -37,6 +39,13 @@ class PostComment extends Component
 
     public function toggleLike()
     {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         if (! $this->isLikedByUser()) {
 
             $this->authorize('create', [Like::class, $this->comment]);
