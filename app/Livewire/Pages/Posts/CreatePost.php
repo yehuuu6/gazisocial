@@ -98,6 +98,7 @@ class CreatePost extends Component
         if (count($this->createdPolls) > 0) {
             foreach ($this->createdPolls as $poll) {
                 $pollModel = Poll::create([
+                    'user_id' => Auth::id(),
                     'post_id' => $post->id,
                     'question' => $poll['question']
                 ]);

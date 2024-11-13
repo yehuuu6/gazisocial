@@ -6,7 +6,7 @@ use App\Models\Tag;
 use App\Models\Poll;
 use App\Models\Post;
 use Livewire\Component;
-use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use App\Models\PollOption;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -73,6 +73,11 @@ class EditPost extends Component
 
         // If the poll has no votes, it is not active.
         return false;
+    }
+
+    public function test()
+    {
+        dd($this->createdPolls);
     }
 
     // Create new poll object and insert it into createdPolls array.
@@ -159,6 +164,7 @@ class EditPost extends Component
         $this->flash('success', 'Konu başarıyla güncellendi.', redirect: $this->post->showRoute());
     }
 
+    #[On('userPollDeleted')]
     public function render()
     {
         return view('livewire.pages.posts.edit-post', [

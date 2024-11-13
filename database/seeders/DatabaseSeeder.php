@@ -99,7 +99,10 @@ class DatabaseSeeder extends Seeder
 
                 // Create poll with a chance of 25% using PollFactory, PollOptionFactory and PollVoteFactory
                 if (rand(0, 3) === 0) {
-                    $poll = Poll::factory()->create(['post_id' => $post->id]);
+                    $poll = Poll::factory()->create([
+                        'user_id' => $post->user_id,
+                        'post_id' => $post->id
+                    ]);
                     $options = PollOption::factory(rand(2, 5))->create(['poll_id' => $poll->id]);
                     // Create votes using users
                     foreach ($users as $user) {

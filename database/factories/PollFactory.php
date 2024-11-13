@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\PollVote;
 use App\Models\PollOption;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class PollFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'post_id' => Post::factory(),
             'question' => $this->faker->sentence,
         ];
