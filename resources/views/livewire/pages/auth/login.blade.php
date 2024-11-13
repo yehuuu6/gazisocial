@@ -18,16 +18,10 @@
     </div>
     <ul class="text-xs p-3 md:p-6 mt-2 md:mt-4 rounded-lg flex gap-4 md:gap-10 flex-wrap items-center justify-center">
         <li>
-            <a href="/" class="text-gray-700 hover:underline">Terms</a>
+            <a href="{{ route('terms') }}" class="text-gray-700 hover:underline">Kullanıcı Sözleşmesi</a>
         </li>
         <li>
-            <a href="/" class="text-gray-700 hover:underline">Privacy</a>
-        </li>
-        <li>
-            <a href="/" class="text-gray-700 hover:underline">Cookies</a>
-        </li>
-        <li>
-            <a href="/" class="text-gray-700 hover:underline">Help</a>
+            <a href="{{ route('privacy') }}" class="text-gray-700 hover:underline">Gizlilik</a>
         </li>
         <li>
             <a href="/" class="text-gray-700 hover:underline">© 2024 Gazi Social</a>

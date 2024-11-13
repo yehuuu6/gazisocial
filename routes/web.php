@@ -39,9 +39,13 @@ Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name
 
 Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
-Route::get('/terms', function () {
+Route::get('/terms-and-conditions', function () {
     return "hello world!";
 })->name('terms');
+
+Route::get('/privacy-policy', function () {
+    return "hello world!";
+})->name('privacy');
 
 // Auth routes END
 
