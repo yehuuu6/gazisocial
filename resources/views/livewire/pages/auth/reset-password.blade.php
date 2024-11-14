@@ -52,13 +52,6 @@
     </div>
     <ul class="text-xs p-6 mt-4 rounded-lg flex gap-10">
         <li>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-gray-700 hover:underline">Çıkış Yap</button>
-            </form>
-        </li>
-        <li>
             <a href="/" class="text-gray-700 hover:underline">© 2024 Gazi Social</a>
         </li>
     </ul>

@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 #[Title('E-posta Adresinizi Doğrulayın')]
 class Verify extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     #[Layout('layout.auth')]
 
@@ -52,6 +54,13 @@ class Verify extends Component
 
     public function sendVerifyMail(Request $request)
     {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         $request->user()->sendEmailVerificationNotification();
 
         $this->alert('info', 'Doğrulama e-postası gönderildi.');
