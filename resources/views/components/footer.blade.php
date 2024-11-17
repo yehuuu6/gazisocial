@@ -25,7 +25,7 @@
             <x-link href="{{ route('terms') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Kullanım
                 Koşulları</x-link>
-            <x-link href=""
+            <x-link href="{{ route('privacy') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Gizlilik
                 Politikası</x-link>
         </div>

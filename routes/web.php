@@ -17,6 +17,8 @@ use App\Livewire\Pages\Posts\ShowPostsByTag;
 use App\Livewire\Pages\Faculty\ListFaculties;
 use App\Livewire\Pages\Post\RepliesPage;
 use App\Livewire\Pages\Posts\EditPost;
+use App\Livewire\Pages\Terms\PrivacyPage;
+use App\Livewire\Pages\Terms\UserTermsPage;
 use App\Livewire\Pages\Users\EditUser;
 
 // Auth routes START
@@ -39,13 +41,9 @@ Route::get('/forgot-password', ForgotPassword::class)->middleware('guest')->name
 
 Route::get('/reset-password/{token}', ResetPassword::class)->middleware('guest')->name('password.reset');
 
-Route::get('/terms-and-conditions', function () {
-    return "hello world!";
-})->name('terms');
+Route::get('/terms-and-conditions', UserTermsPage::class)->name('terms');
 
-Route::get('/privacy-policy', function () {
-    return "hello world!";
-})->name('privacy');
+Route::get('/privacy-policy', PrivacyPage::class)->name('privacy');
 
 // Auth routes END
 
