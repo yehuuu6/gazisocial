@@ -66,9 +66,8 @@
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">9. Kullanıcı Hakları</h2>
         <ul class="list-disc list-inside text-gray-700">
-            <li>Bilgilerinize erişim talep etme.</li>
             <li>Bilgilerinizin düzeltilmesini veya silinmesini isteme.</li>
-            <li>Veri işleme faaliyetlerini sınırlandırma hakkı.</li>
+            <li>Verilerinizin işlenmesine itiraz etme.</li>
         </ul>
         <p class="text-gray-700">Bu haklardan herhangi birini kullanmak için bizimle iletişime geçebilirsiniz.</p>
     </section>

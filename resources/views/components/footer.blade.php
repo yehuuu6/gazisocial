@@ -20,7 +20,7 @@
         </div>
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">Yardım</h4>
-            <x-link href=""
+            <x-link href="{{ route('faq') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">SSS</x-link>
             <x-link href="{{ route('terms') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Kullanım
