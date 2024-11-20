@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('replies_count')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('last_activity')->nullable();
+            $table->timestamp('last_activity')->nullable()->default(now());
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

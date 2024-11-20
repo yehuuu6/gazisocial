@@ -107,8 +107,9 @@
                     <li>Reklam yapmak</li>
                     <li>Spam yapmak</li>
                     <li>Yanlış bilgi paylaşmak</li>
+                    <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek yasaktır</li>
                     <li>Diğer kullanıcıları rahatsız etmek</li>
-                    <li>Yasa dışı içerik paylaşmak</li>
+                    <li>Yasadışı içerik paylaşmak</li>
                     <li>Diğer kullanıcıları kışkırtmak</li>
                     <li>Diğer kullanıcıların gizliliğini ihlal etmek</li>
                 </ul>
