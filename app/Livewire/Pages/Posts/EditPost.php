@@ -25,7 +25,6 @@ class EditPost extends Component
 
     public $title;
     public $content;
-    public $isAnon = false;
     public $createdPolls = [];
     public $selectedTags = [];
 
@@ -36,7 +35,6 @@ class EditPost extends Component
 
         $this->title = $this->post->title;
         $this->content = $this->post->content;
-        $this->isAnon = $this->post->is_anon;
         $this->selectedTags = $this->post->tags->pluck('id')->toArray();
 
         foreach ($this->post->polls as $poll) {
@@ -163,8 +161,7 @@ class EditPost extends Component
 
         $validated = [
             'title' => $this->title,
-            'content' => $this->content,
-            'is_anon' => $this->isAnon
+            'content' => $this->content
         ];
 
         $this->post->update($validated);

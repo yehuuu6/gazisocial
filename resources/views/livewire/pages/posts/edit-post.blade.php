@@ -3,8 +3,7 @@
 @endpush
 <div x-data="{
     deletePollModal: false,
-    pollId: null,
-    switchOn: $wire.entangle('isAnon')
+    pollId: null
 }" class="flex flex-col rounded-xl border overflow-hidden border-gray-100 bg-white shadow-md">
     @auth
         <livewire:modals.delete-poll-modal />
@@ -21,30 +20,6 @@
                 <div class="flex flex-col gap-2 px-4">
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
                     <x-editor wire:model="content" :$content spellcheck="false" />
-                </div>
-                <div class="flex flex-col gap-2 px-4">
-                    <h4 class="flex items-center gap-1 cursor-default font-medium text-gray-700">
-                        <span>Gizlilik</span>
-                        <x-tooltip x-show="switchOn" position="right"
-                            text="Yöneticiler kimliğinizi her zaman görebilir.">
-                            <x-icons.info size='17' color='orange' />
-                        </x-tooltip>
-                    </h4>
-                    <div class="flex items-center gap-2">
-                        <input id="isAnon" type="checkbox" name="isAnon" class="hidden" :checked="switchOn">
-                        <button x-ref="switchButton" type="button" @click="switchOn = ! switchOn"
-                            :class="switchOn ? 'bg-blue-600' : 'bg-neutral-200'"
-                            class="relative inline-flex h-6 py-0.5 focus:outline-none rounded-full w-10" x-cloak>
-                            <span :class="switchOn ? 'translate-x-[18px]' : 'translate-x-0.5'"
-                                class="w-5 h-5 duration-200 ease-in-out bg-white rounded-full shadow-md"></span>
-                        </button>
-
-                        <label @click="$refs.switchButton.click(); $refs.switchButton.focus()" :id="$id('switch')"
-                            :class="{ 'text-blue-600': switchOn, 'text-gray-500': !switchOn }"
-                            class="text-sm select-none" x-cloak>
-                            Anonim olarak paylaş
-                        </label>
-                    </div>
                 </div>
                 <div x-data="{ selectedTags: $wire.entangle('selectedTags') }" class="flex flex-col gap-2 px-4">
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>
