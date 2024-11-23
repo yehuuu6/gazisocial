@@ -47,7 +47,7 @@
                 </button>
                 <button type="submit"
                     class="rounded bg-blue-500 px-6 py-2 font-medium text-white outline-none hover:bg-blue-600">
-                    Ekle
+                    Oluştur
                 </button>
             </div>
         </form>

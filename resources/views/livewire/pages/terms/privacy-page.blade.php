@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Gazi Social Gizlilik Sözleşmesi</h1>
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Gizlilik Politikası (Privacy Policy)</h1>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">1. Genel Bilgiler</h2>
@@ -81,7 +81,8 @@
     <section>
         <h2 class="text-xl font-semibold text-gray-800 mb-2">11. İletişim</h2>
         <p class="text-gray-700">Gizlilik Sözleşmesi hakkında sorularınız için <a href="mailto:destek@gazisocial.com"
-                class="text-blue-600 underline">destek@gazisocial.com</a> adresinden bizimle iletişime geçebilirsiniz.
+                class="text-blue-600 underline">destek@gazisocial.com</a> adresinden veya <x-link class="text-blue-600"
+                href="{{ route('contact') }}">iletişim</x-link> sayfasından bizimle iletişime geçebilirsiniz.
         </p>
     </section>
 </div>

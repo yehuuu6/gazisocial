@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Gazi Social Sıkça Sorulan Sorular</h1>
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Sıkça Sorulan Sorular (FAQ)</h1>
 
     <div x-data="{
         activeAccordion: '',
@@ -54,6 +54,16 @@
         </x-accordion>
         <x-accordion>
             <x-accordion-title>
+                Öğrenciyim ancak gazi.edu.tr mailim yok. Nasıl alabilirim?
+            </x-accordion-title>
+            <x-accordion-text>
+                Detaylı bilgi için <a class="text-blue-600 hover:underline"
+                    href="https://gazi.edu.tr/view/announcement/303951/e-posta-talep-sistemi" target="_blank">buraya</a>
+                tıklayabilirsiniz.
+            </x-accordion-text>
+        </x-accordion>
+        <x-accordion>
+            <x-accordion-title>
                 Hangi dillerde içerik paylaşabiliriz?
             </x-accordion-title>
             <x-accordion-text>
@@ -83,8 +93,8 @@
             </x-accordion-title>
             <x-accordion-text>
                 Evet. Moderatör olmak için forumda aktif bir şekilde içerik üretmeniz ve diğer kullanıcılara yardımcı
-                olmanız gerekmektedir. Moderatör olmak için <x-link href="{{ route('terms') }}"
-                    class="text-blue-500">iletişim</x-link> sayfasından bize ulaşabilirsiniz.
+                olmanız gerekmektedir. Moderatör olmak için <x-link href="{{ route('contact') }}"
+                    class="text-blue-600">iletişim</x-link> sayfasından bize ulaşabilirsiniz.
             </x-accordion-text>
         </x-accordion>
         <x-accordion>
@@ -93,7 +103,7 @@
             </x-accordion-title>
             <x-accordion-text>
                 Gazi Social'da içerik paylaşmak için öncelikle kayıt olmanız gerekmektedir. Kayıt olduktan sonra
-                <x-link href="{{ route('posts.create') }}" class="text-blue-500">konu oluştur</x-link> sayfasına giderek
+                <x-link href="{{ route('posts.create') }}" class="text-blue-600">konu oluştur</x-link> sayfasına giderek
                 içeriğinizi paylaşabilirsiniz.
             </x-accordion-text>
         </x-accordion>
@@ -107,7 +117,7 @@
                     <li>Reklam yapmak</li>
                     <li>Spam yapmak</li>
                     <li>Yanlış bilgi paylaşmak</li>
-                    <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek yasaktır</li>
+                    <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek</li>
                     <li>Diğer kullanıcıları rahatsız etmek</li>
                     <li>Yasadışı içerik paylaşmak</li>
                     <li>Diğer kullanıcıları kışkırtmak</li>

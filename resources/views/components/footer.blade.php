@@ -1,22 +1,32 @@
 <footer class="mx-[3%] mb-4 mt-4 rounded-xl px-2 py-3 md:mx-[6%] md:mb-8 md:mt-8 md:px-0 md:py-4 lg:mx-[12%]">
-    <div class="flex flex-wrap items-center justify-between gap-1 md:flex-nowrap md:gap-5">
+    <div class="flex flex-wrap items-start justify-between gap-1 md:flex-nowrap md:gap-5">
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">Gazi Social</h4>
-            <x-link href=""
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Anasayfa</x-link>
-            <x-link href=""
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hakkımızda</x-link>
-            <x-link href="" class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hata
-                Bildir</x-link>
+            <x-link href="{{ route('home') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Ana
+                Sayfa</x-link>
+            <x-link href="{{ route('posts.create') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Yeni Konu
+                Oluştur</x-link>
+            @guest
+                <a href="{{ route('login') }}"
+                    class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Giriş
+                    Yap</a>
+            @endguest
+            @auth
+                <x-link href="{{ route('users.show', Auth::user()) }}"
+                    class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hesabım</x-link>
+            @endauth
         </div>
         <div class="flex flex-col gap-2 py-4">
-            <h4 class="font-semibold text-gray-800 md:text-lg">Hizmetlerimiz</h4>
-            <x-link href=""
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Forum</x-link>
-            <x-link href=""
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Blog</x-link>
-            <x-link href=""
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Etkinlikler</x-link>
+            <h4 class="font-semibold text-gray-800 md:text-lg">İletişim</h4>
+            <x-link href="{{ route('about') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hakkımızda</x-link>
+            <x-link href="{{ route('contact') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Bizimle İletişime
+                Geç</x-link>
+            <x-link href="{{ route('bugs') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hata Bildir</x-link>
         </div>
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">Yardım</h4>
@@ -31,24 +41,14 @@
         </div>
     </div>
     <div class="mt-4 flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center lg:mt-8">
-        <div class="flex flex-col items-center gap-1.5">
-            <div class="w-full h-[85px] object-contain">
-                <img src="{{ asset('building.png') }}" alt="Gazi Üniversitesi" class="w-full h-full">
-            </div>
-            <div class="flex items-center gap-4">
-                <a target="_blank" href="https://github.com/yehuuu6/gazisocial"
-                    class="text-gray-500 hover:text-primary">
-                    <x-icons.social.github size='22' />
-                </a>
-                <a target="_blank" href="https://x.com/therenaydin" class="text-gray-500 hover:text-primary">
-                    <x-icons.social.x size='22' />
-                </a>
-                <a target="_blank" href="https://instagram.com/therenaydin" class="text-gray-500 hover:text-primary">
-                    <x-icons.social.instagram size='22' />
-                </a>
-            </div>
+        <div class="flex items-center gap-4">
+            <a target="_blank" href="https://github.com/yehuuu6/gazisocial"
+                class="flex items-center gap-1.5 text-gray-500 font-light text-sm md:text-base hover:underline">
+                <x-icons.social.github size='22' />
+                <span>GitHub Repo</span>
+            </a>
         </div>
-        <div class="flex flex-col gap-2 md:items-end text-gray-500">
+        <div class="flex flex-col gap-2 md:items-end text-gray-500 text-sm md:text-base">
             <span>Made with 🧠 & <a target="_blank" class="text-cyan-400 hover:underline"
                     href="https://tallstack.dev/">TALL stack</a>
                 by <a target="_blank" class="text-primary hover:underline"

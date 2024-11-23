@@ -13,6 +13,8 @@ use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
 use App\Livewire\Pages\Auth\ForgotPassword;
 use App\Livewire\Pages\Auth\ResetPassword;
+use App\Livewire\Pages\Contact\BugReportPage;
+use App\Livewire\Pages\Contact\ContactPage;
 use App\Livewire\Pages\Posts\ShowPostsByTag;
 use App\Livewire\Pages\Faculty\ListFaculties;
 use App\Livewire\Pages\Post\RepliesPage;
@@ -47,6 +49,12 @@ Route::get('/terms-and-conditions', UserTermsPage::class)->name('terms');
 Route::get('/privacy-policy', PrivacyPage::class)->name('privacy');
 
 Route::get('/frequently-asked-questions', FrequentlyAskedPage::class)->name('faq');
+
+Route::get('/contact', ContactPage::class)->name('contact');
+
+Route::get('/about', BugReportPage::class)->name('about');
+
+Route::get('/bug-report', BugReportPage::class)->name('bugs');
 
 // Auth routes END
 

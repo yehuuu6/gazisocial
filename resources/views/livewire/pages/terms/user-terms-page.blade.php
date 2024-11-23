@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Gazi Social Kullanıcı Şartları</h1>
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Kullanım Koşulları (Terms of Use)</h1>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">1. Şartların Kabulü</h2>
@@ -14,7 +14,8 @@
             kullanabilmek için:</p>
         <ul class="list-disc list-inside text-gray-700">
             <li>En az 18 yaşında olmalısınız.</li>
-            <li>Kayıt sırasında gerçek bilgilerinizi kullanmalısınız. Anonim paylaşım için zaten seçenek sunuyoruz.</li>
+            <li>Kayıt sırasında gerçek bilgilerinizi kullanmalısınız. Anonim paylaşım için zaten seçenek sunuyoruz.
+            </li>
         </ul>
     </section>
 
@@ -27,7 +28,8 @@
                 kopyalamayın.</li>
             <li><strong>Üniversite Kurallarına Uyun:</strong> Paylaşımlarınız üniversitenizin politikalarına uygun
                 olmalıdır.</li>
-            <li><strong>Yasalara Uyun:</strong> Platformda Türkiye Cumhuriyeti yasalarına aykırı içerikler paylaşmayın.
+            <li><strong>Yasalara Uyun:</strong> Platformda Türkiye Cumhuriyeti yasalarına aykırı içerikler
+                paylaşmayın.
             </li>
             <li><strong>Sorumluluğunuzu Bilin:</strong> Paylaşımlarınızın sorumluluğu size aittir. Gazi Social,
                 içeriklerinizden sorumlu değildir.</li>
@@ -37,7 +39,8 @@
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">4. Gizlilik</h2>
         <p class="text-gray-700">
-            Gazi Social olarak gizliliğinize saygı duyuyoruz. Bilgileriniz, yasal gereklilikler dışında, sizin izniniz
+            Gazi Social olarak gizliliğinize saygı duyuyoruz. Bilgileriniz, yasal gereklilikler dışında, sizin
+            izniniz
             olmadan paylaşılmayacaktır. Daha fazla bilgi için
             <x-link href="{{ route('privacy') }}" class="text-blue-600">
                 Gizlilik Politikamızı
@@ -76,7 +79,8 @@
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">8. Anonimlik</h2>
         <p class="text-gray-700">Platform, anonim paylaşımlara izin verir. Ancak anonim paylaşımlar da yukarıdaki
-            kurallara tabidir ve gerektiğinde denetlenecektir. Anonimlik, sorumluluklarınızı ortadan kaldırmaz. Anonim
+            kurallara tabidir ve gerektiğinde denetlenecektir. Anonimlik, sorumluluklarınızı ortadan kaldırmaz.
+            Anonim
             içeriklerin kim tarafından paylaşıldığı, Gazi Social yöneticileri tarafından görülebilir.</p>
     </section>
 
