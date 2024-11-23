@@ -9,8 +9,8 @@
                 Onaylı hesap sahibi olmak için <strong class="text-gray-700">@gazi.edu.tr</strong> uzantılı bir e-posta
                 adresi
                 kullanılmalıdır.<br>
-                <a href="https://gazi.edu.tr/view/announcement/303951/e-posta-talep-sistemi"
-                    class="text-blue-600 hover:underline" target="_blank">Daha fazla bilgi almak için tıklayın.</a>
+                <a href="{{ route('faq') }}" class="text-blue-600 hover:underline">Daha fazla bilgi almak için
+                    tıklayın.</a>
             </p>
         </div>
         <livewire:components.auth.register-form />

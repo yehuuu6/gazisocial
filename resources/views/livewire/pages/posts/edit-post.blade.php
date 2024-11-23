@@ -21,6 +21,18 @@
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
                     <x-editor wire:model="content" :$content spellcheck="false" />
                 </div>
+                <div class="flex flex-col gap-2 px-4">
+                    <h4 class="flex items-center gap-1 cursor-default font-medium text-gray-700">
+                        Gizlilik
+                    </h4>
+                    <div
+                        class="self-start py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
+                        <x-icons.info color="orange" size="18" />
+                        <span>
+                            Konu oluşturduktan sonra gizlilik ayarını değiştiremezsiniz.
+                        </span>
+                    </div>
+                </div>
                 <div x-data="{ selectedTags: $wire.entangle('selectedTags') }" class="flex flex-col gap-2 px-4">
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>
                     <input type="hidden" name="tags" id="tags" wire:model='selectedTags'>
@@ -101,16 +113,19 @@
                             </div>
                         </template>
                     </div>
-                    <h3 class="text-sm text-orange-400 mt-3.5">
-                        Bir konu oluşturulduktan sonra anket eklenemez veya mevcut anketler düzenlenemez. Sadece
-                        silinebilir.
-                    </h3>
+                    <div
+                        class="self-start py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
+                        <x-icons.info color="orange" size="18" />
+                        <span>
+                            Konu oluşturulduktan sonra yeni anket oluşturamaz veya mevcut anketleri düzenleyemezsiniz.
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
         <x-seperator />
         <div class="flex items-center justify-between bg-gray-50 p-6">
-            <x-link href="{{ route('posts.index') }}"
+            <x-link href="{{ $post->showRoute() }}"
                 class="rounded px-4 py-2 font-medium text-red-500 outline-none hover:bg-red-100 hover:no-underline">
                 İptal
             </x-link>

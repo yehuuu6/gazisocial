@@ -103,13 +103,23 @@
                     <h3 x-show="polls.length > 0" class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
                         yayınlamadığınız sürece görünmeyecektir.</h3>
                 </div>
+                <div class="px-4 self-start">
+                    <div
+                        class="py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
+                        <x-icons.info color="orange" size="18" />
+                        <span>
+                            Konu oluşturduktan sonra yeni anket oluşturamaz, mevcut anketleri düzenleyemez ve gizlilik
+                            ayarını değiştiremezsiniz.
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <x-seperator />
         <div class="flex justify-end gap-4 bg-gray-50 p-6">
             <button type="button" @click="createPollModal = true"
                 class="outline:none rounded border border-green-500 bg-transparent px-6 py-2 font-medium text-green-500 outline-none hover:bg-green-500 hover:text-white">
-                Anket Ekle
+                Anket Oluştur
             </button>
             <button type="submit" wire:loading.class='animate-pulse' wire:loading.attr='disabled'
                 wire:target='createPost'

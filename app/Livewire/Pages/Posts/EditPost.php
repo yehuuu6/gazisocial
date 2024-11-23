@@ -28,7 +28,6 @@ class EditPost extends Component
     public $createdPolls = [];
     public $selectedTags = [];
 
-    // createdPolls does not load properly.
     public function mount()
     {
         $this->authorize('update', $this->post);
