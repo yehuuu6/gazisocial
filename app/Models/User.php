@@ -40,9 +40,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         });
     }
 
-    public function hasRole(string $role)
+    public function hasRole(string $role_slug)
     {
-        return $this->roles->contains('name', $role);
+        return $this->roles->contains('slug', $role_slug);
     }
 
     public function sendEmailVerificationNotification()
@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function isStudent()
     {
         // Return true if the user has the role with the slug 'student'
-        return $this->roles->contains('slug', 'student');
+        return $this->hasRole('student');
     }
 
     public function posts()

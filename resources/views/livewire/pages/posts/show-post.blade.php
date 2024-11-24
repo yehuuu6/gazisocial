@@ -39,7 +39,7 @@
                 </button>
                 <div x-cloak x-show="open" @click.away="open = false" x-transition.origin.top.right.duration.200ms
                     x-anchor.bottom-start="$refs.commentSortToggle"
-                    class="z-10 mt-1 gap-0.5 w-full whitespace-nowrap shadow-sm rounded-lg border border-gray-200 bg-white">
+                    class="z-10 mt-1 gap-0.5 w-full min-w-max whitespace-nowrap shadow-sm rounded-lg border border-gray-200 bg-white">
                     <div class="flex flex-col gap-1 p-1.5">
                         <button wire:click="sortBy('popularity')" @click="open = false"
                             class="flex @if ($commentSortType === 'popularity') bg-gray-100 @endif text-gray-600 items-center gap-2 rounded-md px-4 py-2 text-sm font-normal capitalize hover:bg-[#E5E7EB]/50 hover:no-underline">
