@@ -1,7 +1,7 @@
 @push('scripts')
     @vite('resources/js/editor.js')
 @endpush
-<div x-data="{ createPollModal: false, switchOn: $wire.entangle('isAnon') }" class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
+<div x-data="{ createPollModal: false, switchOn: $wire.entangle('isAnon') }" class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
     <livewire:modals.create-poll-modal />
     <form wire:submit="createPost" class="flex h-full flex-col">
         <div class="flex-grow">
