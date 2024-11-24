@@ -35,7 +35,7 @@
     </div>
     <div class="flex flex-col gap-2 p-4">
         @forelse ($bugs as $bug)
-            <div class="flex justify-between items-center rounded-md border border-gray-200 bg-gray-50 p-4 gap-10">
+            <div class="flex justify-between md:items-center rounded-md border border-gray-200 bg-gray-50 p-4 gap-10">
                 <div class="flex flex-col gap-1">
                     <x-link href="{{ route('show-bug', $bug) }}"
                         class="text-lg font-medium">{{ $bug->title }}</x-link>
@@ -44,7 +44,8 @@
                         tarafından
                         {{ $bug->created_at->locale('tr')->diffForHumans() }} bildirildi.</p>
                 </div>
-                <span class="border {{ $this->getBadge($bug->status) }} px-4 py-2 rounded-md text-sm font-light">
+                <span
+                    class="border {{ $this->getBadge($bug->status) }} self-start px-4 py-2 rounded-md text-sm font-light">
                     @php
                         if ($bug->status === 'pending') {
                             echo 'Beklemede';

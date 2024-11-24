@@ -17,12 +17,13 @@ const usedColors = [
 ];
 
 export default {
-    content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-    ],
+    content: ["./resources/**/*.blade.php", "./resources/**/*.js"],
     safelist: [
-        ...usedColors.flatMap((color) => [`bg-${color}-500`, `bg-${color}-700`]),
+        ...usedColors.flatMap((color) => [
+            `bg-${color}-500`,
+            `bg-${color}-700`,
+            "bg-green-50",
+        ]),
     ],
     theme: {
         extend: {
