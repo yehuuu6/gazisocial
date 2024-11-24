@@ -38,6 +38,8 @@ class ShowPost extends Component
         }
 
         $this->commentSortType = $type;
+
+        $this->resetPage();
     }
 
     public function updatingPage()
