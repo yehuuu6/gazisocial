@@ -21,10 +21,11 @@
         </div>
     </div>
     <div
-        class="mx-6 mb-6 py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-green-200 bg-green-50 text-green-700 text-sm font-normal self-start">
-        <x-icons.info color="green" size="18" />
+        class="mx-6 mb-6 py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
+        <x-icons.info color="orange" size="18" />
         <span>
-            Hata bildirerek forumun geliştirme sürecine çok büyük katkıda bulunmuş olacaksınız.
+            Laravel (Livewire) teknik bilginiz var ise, doğrudan <a href="https://github.com/yehuuu6/gazisocial/issues"
+                target="_blank" class="hover:underline">GitHub Issues</a> sayfasına hata bildirimi yapabilirsiniz.
         </span>
     </div>
     <x-seperator />
