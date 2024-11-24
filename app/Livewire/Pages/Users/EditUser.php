@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 
+#[Title('Hesap ayarları - Gazi Social')]
 class EditUser extends Component
 {
 
