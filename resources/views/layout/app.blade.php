@@ -9,7 +9,7 @@
     <x-livewire-alert::scripts />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
-    <link rel="shortcut icon" href="{{ asset('gazi-logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <script>
         if (navigator.userAgent.match(/samsung/i)) {
             alert("Tarayıcınız (Samsung Internet) bu siteyi doğru göstermeyebilir. " +
