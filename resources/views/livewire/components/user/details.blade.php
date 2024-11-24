@@ -6,7 +6,7 @@
             @endif
         @endauth
         <x-users.avatar :size='24' :$user />
-        <div class="flex flex-1 flex-col gap-3">
+        <div class="flex flex-1 flex-col gap-1.5">
             <div class="flex items-center justify-between">
                 <div class="flex flex-col items-start gap-1 md:flex-row md:items-end">
                     <h1 class="text-xl font-medium">{{ $user->name }}</h1>
@@ -41,20 +41,20 @@
                             <span class="text-sm text-gray-600">{{ $user->faculty->name }}</span>
                         </div>
                     @endif
-                    <div class="flex items-center gap-1">
-                        <x-icons.post color="#4b5563" size="24" />
-                        <span class="text-sm text-gray-600">{{ $user->posts_count }} Gönderi</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <x-icons.comment color="#4b5563" size="24" />
-                        <span class="text-sm text-gray-600">{{ $user->getCommentsCount() }} Yorum & Yanıt</span>
-                    </div>
                     @if ($user->is_private)
                         <div class="flex items-center gap-1">
                             <x-icons.lock color="#4b5563" size="24" />
                             <span class="text-sm text-gray-600">Gizli Profil</span>
                         </div>
                     @else
+                        <div class="flex items-center gap-1">
+                            <x-icons.post color="#4b5563" size="24" />
+                            <span class="text-sm text-gray-600">{{ $user->posts_count }} Gönderi</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <x-icons.comment color="#4b5563" size="24" />
+                            <span class="text-sm text-gray-600">{{ $user->getCommentsCount() }} Yorum & Yanıt</span>
+                        </div>
                         <div class="flex items-center gap-1">
                             <x-icons.activity color="#4b5563" size="24" />
                             <span class="text-sm text-gray-600">
@@ -81,20 +81,20 @@
                     <span class="text-sm text-gray-600">{{ $user->faculty->name }}</span>
                 </div>
             @endif
-            <div class="flex items-center gap-1">
-                <x-icons.post color="#4b5563" size="24" />
-                <span class="text-sm text-gray-600">{{ $user->posts_count }} Gönderi</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <x-icons.comment color="#4b5563" size="24" />
-                <span class="text-sm text-gray-600">{{ $user->comments_count }} Yorum</span>
-            </div>
             @if ($user->is_private)
                 <div class="flex items-center gap-1">
                     <x-icons.lock color="#4b5563" size="24" />
                     <span class="text-sm text-gray-600">Gizli Profil</span>
                 </div>
             @else
+                <div class="flex items-center gap-1">
+                    <x-icons.post color="#4b5563" size="24" />
+                    <span class="text-sm text-gray-600">{{ $user->posts_count }} Gönderi</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <x-icons.comment color="#4b5563" size="24" />
+                    <span class="text-sm text-gray-600">{{ $user->comments_count }} Yorum</span>
+                </div>
                 <div class="flex items-center gap-1">
                     <x-icons.activity color="#4b5563" size="24" />
                     <span class="text-sm text-gray-600">
