@@ -1,8 +1,7 @@
 <div class="flex items-center flex-col mt-6 p-6">
-    <div class="flex items-center justify-center flex-col gap-5">
-        <a href="/"><img src="{{ asset('gazi-logo.png') }}" alt="" class="w-14 h-14"></a>
-        <h3 class="text-center mb-5 text-2xl font-light">Gazi Social Şifremi Unuttum</h3>
-    </div>
+    <a href="/" class="h-20 mb-6 hover:opacity-90">
+        <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
+    </a>
     <div class="bg-gray-50 border border-gray-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
         <form wire:submit="sendPasswordResetLink">
             @csrf

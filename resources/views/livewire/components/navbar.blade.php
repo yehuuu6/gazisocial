@@ -2,10 +2,9 @@
     class="bg-opacity-85 sticky top-0 !z-20 border-b border-gray-200 bg-white py-4 shadow-sm backdrop-blur md:py-5">
     <div class="relative mx-[3%] flex items-center justify-between md:mx-[6%] lg:mx-[12%]">
         <x-link href="/" class="group flex items-center gap-1.5 hover:no-underline hover:opacity-90 md:gap-2.5">
-            <img src="{{ asset('gazi-logo.png') }}" alt="Gazi Social" class="size-10 md:size-12">
-            <h1 class="text-lg font-semibold text-primary group-hover:opacity-90 md:text-2xl md:font-bold">
-                Gazi Social
-            </h1>
+            <div class="h-12">
+                <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
+            </div>
         </x-link>
         <button @click="open = !open" class="flex items-center rounded-md p-1 hover:bg-gray-100 md:hidden"
             title="Menüyü Aç">
