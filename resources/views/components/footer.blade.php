@@ -5,9 +5,8 @@
             <x-link href="{{ route('home') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Ana
                 Sayfa</x-link>
-            <x-link href="{{ route('posts.create') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Yeni Konu
-                Oluştur</x-link>
+            <x-link href="{{ route('about') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hakkımızda</x-link>
             @guest
                 <a href="{{ route('login') }}"
                     class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Giriş
@@ -20,8 +19,6 @@
         </div>
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">İletişim</h4>
-            <x-link href="{{ route('about') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hakkımızda</x-link>
             <x-link href="{{ route('contact') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Bizimle İletişime
                 Geç</x-link>
@@ -39,13 +36,24 @@
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Gizlilik
                 Politikası</x-link>
         </div>
+        <div class="flex flex-col gap-2 py-4">
+            <h4 class="font-semibold text-gray-800 md:text-lg">Geliştirici</h4>
+            <x-link href="{{ route('bugs') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Nasıl Katkıda
+                Bulunulur?</x-link>
+            <x-link href="{{ route('reported-bugs') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Rapor Edilmiş
+                Hatalar</x-link>
+            <x-link href="{{ route('contact') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Emeği Geçenler</x-link>
+        </div>
     </div>
     <div class="mt-4 flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center lg:mt-8">
         <div class="flex items-center gap-4">
             <a target="_blank" href="https://github.com/yehuuu6/gazisocial"
-                class="flex items-center gap-1.5 text-gray-500 font-light text-sm md:text-base hover:underline">
+                class="flex items-center gap-1.5 text-gray-500 text-sm md:text-base hover:underline">
                 <x-icons.social.github size='22' />
-                <span>GitHub Repo</span>
+                <span>GitHub Repository</span>
             </a>
         </div>
         <div class="flex flex-col gap-2 md:items-end text-gray-500 text-sm md:text-base">

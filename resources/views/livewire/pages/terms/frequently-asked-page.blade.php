@@ -131,7 +131,8 @@
             </x-accordion-title>
             <x-accordion-text>
                 Gazi Social'in geliştirme sürecine katkıda bulunmak için GitHub sayfasından projeyi forklayarak
-                geliştirmeler yapabilir, pull request gönderebilirsiniz.
+                geliştirmeler yapabilir, pull request gönderebilirsiniz. İlk iş olarak <x-link class="text-blue-600"
+                    href="{{ route('reported-bugs') }}">rapor edilmiş hatalar</x-link> sayfasına göz atabilirsiniz.
             </x-accordion-text>
         </x-accordion>
         <x-accordion>
