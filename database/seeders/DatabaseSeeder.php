@@ -4,15 +4,16 @@ namespace Database\Seeders;
 
 use App\Models\Tag;
 use App\Models\Like;
+use App\Models\Poll;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Reply;
-use App\Models\Poll;
-use App\Models\PollVote;
-use App\Models\PollOption;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Comment;
+use App\Models\PollVote;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PollOption;
+use App\Models\ReportedBug;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -65,6 +66,11 @@ class DatabaseSeeder extends Seeder
         $users[] = $user2;
         $users[] = $user3;
         $users[] = $user1;
+
+        // Create bug reports using users
+        $users->each(function ($user) {
+            ReportedBug::factory(rand(0, 5))->create(['user_id' => $user->id]);
+        });
 
         $tags = collect();
 
