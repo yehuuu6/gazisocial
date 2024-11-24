@@ -1,8 +1,7 @@
 <div class="flex items-center flex-col mt-6 p-6">
-    <div class="flex items-center justify-center flex-col gap-5">
-        <a href="/"><img src="{{ asset('gazi-logo.png') }}" class="w-14 h-14"></a>
-        <h3 class="text-center mb-6 text-2xl font-light">Gazi Social'a Katıl</h3>
-    </div>
+    <a href="/" class="h-20 mb-6 hover:opacity-90">
+        <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
+    </a>
     <div class="w-full max-w-md">
         <div class="bg-white border border-gray-200 p-6 mb-4 rounded-lg">
             <p class="text-gray-600 text-sm text-center">
