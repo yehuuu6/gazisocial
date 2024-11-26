@@ -50,8 +50,6 @@ class AppServiceProvider extends ServiceProvider
             throw new \Exception("Attempted to lazy load [{$relation}] on [line:{$trace['line']}] in [{$file}] for model [{$class}].");
         });
 
-        Vite::prefetch(concurrency: 3);
-
         Carbon::setLocale('tr');
 
         Model::preventLazyLoading();
