@@ -4,7 +4,7 @@
         @forelse ($messages as $message)
             <div class="flex justify-between md:items-center rounded-md border border-gray-200 bg-gray-50 p-4 gap-10">
                 <div class="flex flex-col gap-1">
-                    <x-link href="{{ route('show-bug', $message) }}"
+                    <x-link href="{{ route('admin.contact.show', $message) }}"
                         class="text-lg font-medium">{{ $message->email }}</x-link>
                     <p class="text-sm text-gray-600">{{ $message->name }}
                         tarafından

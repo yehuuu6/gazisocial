@@ -5,7 +5,9 @@ namespace App\Livewire\Pages\Admin;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ContactMessage;
+use Livewire\Attributes\Title;
 
+#[Title('Gönderilen Mesajlar - Gazi Social Yönetici')]
 class SentMessagesPage extends Component
 {
 
