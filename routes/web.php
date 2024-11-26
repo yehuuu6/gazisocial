@@ -14,6 +14,7 @@ use App\Livewire\Pages\Users\SearchUser;
 use App\Livewire\Components\Auth\LoginForm;
 use App\Livewire\Pages\Terms\ReportedBugsPage;
 use App\Livewire\Pages\Admin\SentMessagesPage;
+use App\Livewire\Pages\Admin\ShowMessagePage;
 use App\Livewire\Pages\Auth\ForgotPassword;
 use App\Livewire\Pages\Auth\ResetPassword;
 use App\Livewire\Pages\Contact\BugReportPage;
@@ -103,6 +104,7 @@ Route::get('/tags/{tag:slug}', ShowPostsByTag::class)->name('tags.show');
 
 // Admin routes START
 
-Route::get('/admin/contact-us-submissions', SentMessagesPage::class)->name('admin.contact')->middleware(CheckAdminRole::class);
+Route::get('/admin/contact-us-submissions', SentMessagesPage::class)->name('admin.contacts')->middleware(CheckAdminRole::class);
+Route::get('/admin/contact-us-submissions/{message}', ShowMessagePage::class)->name('admin.contact.show')->middleware(CheckAdminRole::class);
 
 // Admin routes END
