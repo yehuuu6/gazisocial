@@ -62,7 +62,7 @@ class LoginForm extends Component
             return;
         }
 
-        request()->session()->regenerate();
+        session()->regenerate();
 
         $this->flash('success', 'Başarıyla giriş yaptınız.', redirect: route('home'));
     }
