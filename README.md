@@ -1,11 +1,11 @@
-![Gazi Social Logo (Light Mode)](public/logos/GS_LOGO_DEFAULT.png#gh-light-mode-only)
-![Gazi Social Logo (Dark Mode)](public/logos/GS_LOGO_WHITE.png#gh-dark-mode-only)
+<p align="center">
+  <img src="public/logos/GS_LOGO_DEFAULT.png#gh-light-mode-only" alt="Gazi Social Logo (Light Mode)" width="200">
+  <img src="public/logos/GS_LOGO_WHITE.png#gh-dark-mode-only" alt="Gazi Social Logo (Dark Mode)" width="200">
+</p>
 
 ## 📖 Introduction
 
 Gazi Social is a modern, interactive forum platform designed for Gazi University students to connect, share thoughts, and engage in discussions. Built with **TALL stack**, Gazi Social delivers a feature-rich and seamless user experience.
-
----
 
 ## 🚀 Features
 
@@ -16,26 +16,18 @@ Gazi Social is a modern, interactive forum platform designed for Gazi University
 -   ⚡ **Real-time Updates**: Instant feedback on polls and activity counts.
 -   🔍 **Advanced Sorting and Filtering**: Find the most popular or recent posts effortlessly.
 
----
-
 ## 🛠️ Tech Stack
 
 -   **Backend**: PHP (Laravel 11)
 -   **Frontend**: Livewire 3, Alpine.js, Tailwind CSS
 
----
-
 ## 🤝 Contributing
 
-We welcome contributions to enhance Gazi Social. You can read the contribution guide [here](http://gazisocial.test/dev-center/contribution-guide)
-
----
+We welcome contributions to enhance Gazi Social. You can read the contribution guide [here](https://gazisocial.test/dev-center/contribution-guide)
 
 ## 🛡️ License
 
 Gazi Social is open-source software licensed under the [GNU General Public License v3.0](LICENSE).
-
----
 
 ## 📧 Contact
 
