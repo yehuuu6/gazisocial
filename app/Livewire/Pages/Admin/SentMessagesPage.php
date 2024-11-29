@@ -13,10 +13,21 @@ class SentMessagesPage extends Component
 
     use WithPagination;
 
+    public string $orderType = 'desc';
+
+    public function sortBy($field)
+    {
+        if ($this->orderType === 'asc') {
+            $this->orderType = 'desc';
+        } else {
+            $this->orderType = 'asc';
+        }
+    }
+
     public function render()
     {
         return view('livewire.pages.admin.sent-messages-page', [
-            'messages' => ContactMessage::latest()->simplePaginate(10)
+            'messages' => ContactMessage::orderBy('created_at', $this->orderType)->paginate(10),
         ]);
     }
 }
