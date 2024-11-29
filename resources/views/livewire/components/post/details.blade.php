@@ -75,7 +75,7 @@
         @auth
             @if ($post->is_anon && Auth::id() === $post->user_id)
                 <div
-                    class="self-start py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal">
+                    class="py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
                     <x-icons.info color="orange" size="18" />
                     <span>
                         Bu konuyu anonim olarak paylaştınız, sadece siz kim olduğunuzu görebilirsiniz.

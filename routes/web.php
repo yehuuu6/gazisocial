@@ -1,33 +1,35 @@
 <?php
 
-use App\Http\Middleware\CheckAdminRole;
 use App\Livewire\Pages\HomePage;
 use App\Livewire\Pages\Auth\Login;
 use App\Livewire\Pages\Auth\Verify;
+use App\Livewire\Pages\Dev\ShowBug;
 use App\Livewire\Pages\Auth\Register;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Pages\Posts\EditPost;
 use App\Livewire\Pages\Posts\ShowPost;
+use App\Livewire\Pages\Users\EditUser;
 use App\Livewire\Pages\Users\UserPage;
+use App\Http\Middleware\CheckAdminRole;
+use App\Livewire\Pages\DevCenter\ContributorsPage;
+use App\Livewire\Pages\Post\RepliesPage;
 use App\Livewire\Pages\Posts\CreatePost;
 use App\Livewire\Pages\Posts\SearchPost;
 use App\Livewire\Pages\Users\SearchUser;
-use App\Livewire\Components\Auth\LoginForm;
-use App\Livewire\Pages\Terms\ReportedBugsPage;
-use App\Livewire\Pages\Admin\SentMessagesPage;
-use App\Livewire\Pages\Admin\ShowMessagePage;
-use App\Livewire\Pages\Auth\ForgotPassword;
-use App\Livewire\Pages\Auth\ResetPassword;
-use App\Livewire\Pages\Contact\BugReportPage;
-use App\Livewire\Pages\Contact\ContactPage;
-use App\Livewire\Pages\Dev\ShowBug;
-use App\Livewire\Pages\Posts\ShowPostsByTag;
-use App\Livewire\Pages\Faculty\ListFaculties;
-use App\Livewire\Pages\Post\RepliesPage;
-use App\Livewire\Pages\Posts\EditPost;
-use App\Livewire\Pages\Terms\FrequentlyAskedPage;
 use App\Livewire\Pages\Terms\PrivacyPage;
+use App\Livewire\Pages\Auth\ResetPassword;
+use App\Livewire\Components\Auth\LoginForm;
+use App\Livewire\Pages\Auth\ForgotPassword;
+use App\Livewire\Pages\Contact\ContactPage;
 use App\Livewire\Pages\Terms\UserTermsPage;
-use App\Livewire\Pages\Users\EditUser;
+use App\Livewire\Pages\Posts\ShowPostsByTag;
+use App\Livewire\Pages\Admin\ShowMessagePage;
+use App\Livewire\Pages\Contact\BugReportPage;
+use App\Livewire\Pages\Faculty\ListFaculties;
+use App\Livewire\Pages\Admin\SentMessagesPage;
+use App\Livewire\Pages\DevCenter\HowToContributePage;
+use App\Livewire\Pages\Terms\ReportedBugsPage;
+use App\Livewire\Pages\Terms\FrequentlyAskedPage;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -61,11 +63,19 @@ Route::get('/about', BugReportPage::class)->name('about');
 
 Route::get('/bug-report', BugReportPage::class)->name('bugs')->middleware('auth');
 
-Route::get('/reported-bugs', ReportedBugsPage::class)->name('reported-bugs');
-
-Route::get('/reported-bug/{bug}', ShowBug::class)->name('show-bug');
-
 // Auth routes END
+
+// Dev Center Routes START
+
+Route::get('/dev-center/reported-bugs', ReportedBugsPage::class)->name('reported-bugs');
+
+Route::get('/dev-center/reported-bug/{bug}', ShowBug::class)->name('show-bug');
+
+Route::get('/dev-center/contributors', ContributorsPage::class)->name('contributors');
+
+Route::get('/dev-center/contribution-guide', HowToContributePage::class)->name('how-to-contribute');
+
+// Dev Center Routes END
 
 Route::get('/', HomePage::class)->name('home');
 
