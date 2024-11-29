@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="public/logos/GS_LOGO_DEFAULT.png#gh-light-mode-only" alt="Gazi Social Logo (Light Mode)" width="200">
-  <img src="public/logos/GS_LOGO_WHITE.png#gh-dark-mode-only" alt="Gazi Social Logo (Dark Mode)" width="200">
+  <img src="public/logos/GS_LOGO_DEFAULT.png#gh-light-mode-only" alt="Gazi Social Logo (Light Mode)" width="300">
+  <img src="public/logos/GS_LOGO_BLUE_WHITE.png#gh-dark-mode-only" alt="Gazi Social Logo (Dark Mode)" width="300">
 </p>
 
 ## 📖 Introduction
