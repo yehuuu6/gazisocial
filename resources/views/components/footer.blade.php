@@ -37,15 +37,15 @@
                 Politikası</x-link>
         </div>
         <div class="flex flex-col gap-2 py-4">
-            <h4 class="font-semibold text-gray-800 md:text-lg">Geliştirici</h4>
-            <x-link href="{{ route('bugs') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Nasıl Katkıda
-                Bulunulur?</x-link>
+            <h4 class="font-semibold text-gray-800 md:text-lg">Dev Center</h4>
+            <x-link href="{{ route('how-to-contribute') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">
+                Contribution Guide
+            </x-link>
             <x-link href="{{ route('reported-bugs') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Rapor Edilmiş
-                Hatalar</x-link>
-            <x-link href="{{ route('contact') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Emeği Geçenler</x-link>
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Reported Bugs</x-link>
+            <x-link href="{{ route('contributors') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Contributors</x-link>
         </div>
     </div>
     <div class="mt-4 flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center lg:mt-8">
@@ -57,10 +57,9 @@
             </a>
         </div>
         <div class="flex flex-col gap-2 md:items-end text-gray-500 text-sm md:text-base">
-            <span>Made with 🧠 & <a target="_blank" class="text-cyan-400 hover:underline"
-                    href="https://tallstack.dev/">TALL stack</a>
-                by <a target="_blank" class="text-primary hover:underline"
-                    href="https://instagram.com/therenaydin">@therenaydin</a></span>
+            <span>Made with 🧠
+                by contributors and <a target="_blank" class="text-primary hover:underline"
+                    href="https://instagram.com/therenaydin">@therenaydin</a>.</span>
             <span class="text-gray-500">Copyright © 2024 All rights reserved.</span>
         </div>
     </div>
