@@ -22,6 +22,8 @@ class SentMessagesPage extends Component
         } else {
             $this->orderType = 'asc';
         }
+
+        $this->resetPage();
     }
 
     public function render()
