@@ -24,6 +24,13 @@
                 rows="4"></textarea>
         </div>
     </div>
+    <div
+        class="mx-6 mb-6 py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
+        <x-icons.info color="orange" size="18" />
+        <span>
+            Gönderilen mesajlar, yalnızca forum yöneticileri tarafından incelenir ve en kısa sürede geri dönüş yapılır.
+        </span>
+    </div>
     <x-seperator />
     <div class="bg-gray-50 p-6 flex justify-end items-center gap-3">
         <button type="submit"
