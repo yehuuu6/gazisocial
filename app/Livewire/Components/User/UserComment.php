@@ -12,7 +12,7 @@ class UserComment extends Component
 
     public function render()
     {
-        $this->comment->load('user', 'post');
+        $this->comment->load('post:id,title');
 
         return view('livewire.components.user.user-comment');
     }

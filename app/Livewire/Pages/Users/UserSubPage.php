@@ -49,14 +49,12 @@ class UserSubPage extends Component
             case 'user-comments':
                 return view('livewire.pages.users.user-comments-page', [
                     'comments' => $this->user->comments()
-                        ->with('user')
                         ->latest('created_at')
                         ->simplePaginate(20),
                 ]);
             default:
                 return view('livewire.pages.users.user-posts-page', [
                     'posts' => $this->user->posts()
-                        ->with('user')
                         ->with('tags')
                         ->latest('created_at')
                         ->simplePaginate(20),

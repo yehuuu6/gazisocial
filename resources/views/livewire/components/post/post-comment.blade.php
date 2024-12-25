@@ -8,7 +8,7 @@
                         <x-link href="/u/{{ $comment->user->username }}" class="font-medium">
                             {{ $comment->user->name }}
                         </x-link>
-                        @if ($comment->post->user->id == $comment->user->id && !$comment->post->is_anon)
+                        @if ($isAuthor && !$isAnonPost)
                             <span
                                 class="ml-1 rounded-full bg-primary px-2 py-1 text-xs font-medium capitalize text-white">
                                 Konu Sahibi
@@ -79,7 +79,7 @@
         </ul>
         @if ($comment->replies_count > 5)
             <div class="my-3 ml-3.5 flex">
-                <x-link href="{{ route('posts.replies', ['post' => $comment->post->id, 'comment' => $comment->id]) }}"
+                <x-link href="{{ route('posts.replies', ['post' => $comment->post_id, 'comment' => $comment->id]) }}"
                     class="text-sm font-medium text-gray-500 hover:underline">
                     Tüm konuşmayı gör
                 </x-link>

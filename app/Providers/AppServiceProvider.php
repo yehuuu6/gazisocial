@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
 
         Carbon::setLocale('tr');
 
-        Model::preventLazyLoading();
+        Model::preventLazyLoading(! app()->isProduction());
 
         Relation::morphMap([
             'post' => Post::class,

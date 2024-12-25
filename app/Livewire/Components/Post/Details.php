@@ -34,14 +34,9 @@ class Details extends Component
         return "bg-$color-500";
     }
 
-    public function placeholder()
-    {
-        return view('components.posts.big-placeholder');
-    }
-
     public function isLikedByUser(): bool
     {
-        return $this->post->likes->contains('user_id', Auth::id());
+        return $this->post->likes()->where('user_id', Auth::id())->exists();
     }
 
     public function toggleLike()

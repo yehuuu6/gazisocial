@@ -18,15 +18,20 @@ class CommentReply extends Component
     public $reply;
     public $isNew = false;
     public $type = 'nested'; // To render border-left on nested replies. Might be full-page or nested.
+    public bool $isAuthor = false;
+    public bool $isAnonPost = false;
 
     public function mount()
     {
-        $this->reply->load('post');
+        $this->isAnonPost = $this->reply->post()->where('user_id', $this->reply->user_id)->where('is_anon', true)->exists();
+        if (! $this->isAnonPost) {
+            $this->isAuthor = $this->reply->post()->where('user_id', $this->reply->user_id)->exists();
+        }
     }
 
     public function isLikedByUser(): bool
     {
-        return $this->reply->likes->contains('user_id', Auth::id());
+        return $this->reply->likes()->where('user_id', Auth::id())->exists();
     }
 
     public function toggleLike()

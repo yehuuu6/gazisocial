@@ -27,8 +27,7 @@ class PostIndexerByTags extends Component
     public function fetchPosts()
     {
         $query = $this->tag->posts()
-            ->with('user')
-            ->with('tags');
+            ->with('user', 'tags');
 
         if ($this->getOrderType() === 'popularity') {
             $timePeriod = session('time_period');

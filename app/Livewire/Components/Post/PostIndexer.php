@@ -30,8 +30,7 @@ class PostIndexer extends Component
     public function fetchPosts()
     {
         $query = Post::query()
-            ->with('user')
-            ->with('tags');
+            ->with('user', 'tags');
 
         if ($this->getOrderType() === 'popularity') {
             $timePeriod = session('time_period');
@@ -56,8 +55,10 @@ class PostIndexer extends Component
             }
         }
 
-        return $query->latest($this->getOrderType())
+        $posts = $query->latest($this->getOrderType())
             ->simplePaginate(20);
+
+        return $posts;
     }
 
     #[On('orderChanged')]

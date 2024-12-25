@@ -10,8 +10,11 @@ class PostItem extends Component
 
     public Post $post;
 
+    public $tags;
+
     public function mount()
     {
+
         if ($this->post->is_anon && !$this->post->anonToMe()) {
             $user = clone $this->post->user;
             $user->name = 'Anonim';

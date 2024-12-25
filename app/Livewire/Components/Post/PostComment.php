@@ -21,20 +21,26 @@ class PostComment extends Component
 
     public $replies;
 
+    public bool $isAuthor = false;
+    public bool $isAnonPost = false;
+
     public function mount()
     {
         $this->setReplies();
-        $this->comment->load('post');
+        $this->isAnonPost = $this->comment->post()->where('user_id', $this->comment->user_id)->where('is_anon', true)->exists();
+        if (! $this->isAnonPost) {
+            $this->isAuthor = $this->comment->post()->where('user_id', $this->comment->user_id)->exists();
+        }
     }
 
     public function isLikedByUser(): bool
     {
-        return $this->comment->likes->contains('user_id', Auth::id());
+        return $this->comment->likes()->where('user_id', Auth::id())->exists();
     }
 
     public function setReplies(): void
     {
-        $this->replies = $this->comment->replies()->with(['user', 'likes'])->limit(5)->oldest('created_at')->get();
+        $this->replies = $this->comment->replies()->with(['user'])->limit(5)->oldest('created_at')->get();
     }
 
     public function toggleLike()

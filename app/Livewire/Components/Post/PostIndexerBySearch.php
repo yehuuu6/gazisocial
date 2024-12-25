@@ -76,8 +76,7 @@ class PostIndexerBySearch extends Component
             if (!$tag) abort(404);
             $posts = $tag
                 ->posts()
-                ->with(['user'])
-                ->with('tags')
+                ->with('user', 'tags')
                 ->where(function ($query) {
                     $query->where('title', 'like', '%' . $this->query . '%')
                         ->orWhere('content', 'like', '%' . $this->query . '%');
