@@ -31,24 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Start observing the models
-        Post::observe(PostObserver::class);
-        Comment::observe(CommentObserver::class);
-        Reply::observe(ReplyObserver::class);
-        Like::observe(LikeObserver::class);
-
-        Model::handleLazyLoadingViolationUsing(function ($model, $relation) {
-            $full_trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, limit: 6);
-            $trace = array_pop($full_trace);
-
-            $file_parts = explode('/', $trace['file']);
-            $file  = array_pop($file_parts);
-
-            $class = get_class($model);
-
-            // Throw an exception if the relation is not loaded
-            throw new \Exception("Attempted to lazy load [{$relation}] on [line:{$trace['line']}] in [{$file}] for model [{$class}].");
-        });
 
         Carbon::setLocale('tr');
 
@@ -58,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
             'post' => Post::class,
             'comment' => Comment::class,
             'reply' => Reply::class,
+            'posts' => Post::class,
+            'comments' => Comment::class,
         ]);
     }
 }

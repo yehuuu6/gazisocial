@@ -24,8 +24,17 @@ class CommentFactory extends Factory
             'post_id' => Post::factory(),
             'content' => $this->faker->realText($this->faker->numberBetween(100, 750)),
             'likes_count' => 0,
-            'replies_count' => 0,
+            'commentable_id' => Post::factory(),
+            'commentable_type' => $this->commentableType(...),
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
+    }
+
+    public function commentableType(array $values)
+    {
+        $type = $values['commentable_id'];
+        $modelName = $type instanceof Factory ? $type->model() : $type::class;
+
+        return (new $modelName)->getMorphClass();
     }
 }

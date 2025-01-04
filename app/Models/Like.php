@@ -9,7 +9,45 @@ class Like extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'likeable_id', 'likeable_type'];
+    protected $guarded = [
+        'id'
+    ];
+
+    public function addLike()
+    {
+        $this->increaseLikeCount();
+        $this->increasePopularity();
+    }
+
+    public function removeLike()
+    {
+        $this->decreaseLikeCount();
+        $this->decreasePopularity();
+    }
+
+    // Increase the popularity of the likeable.
+    public function increasePopularity()
+    {
+        $this->likeable->increment('popularity', static::popularityValue());
+    }
+
+    // Decrease the popularity of the likeable.
+    public function decreasePopularity()
+    {
+        $this->likeable->decrement('popularity', static::popularityValue());
+    }
+
+    // Increase the likes count of the likeable.
+    public function increaseLikeCount()
+    {
+        $this->likeable->increment('likes_count');
+    }
+
+    // Decrease the likes count of the likeable.
+    public function decreaseLikeCount()
+    {
+        $this->likeable->decrement('likes_count');
+    }
 
     /**
      * Return the popularity value of the model.

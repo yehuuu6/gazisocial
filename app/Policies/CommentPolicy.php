@@ -30,6 +30,11 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment): bool
     {
+        // If the user has role admin or gazisocial, return true
+        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+            return true;
+        }
+
         return $user->id === $comment->user_id;
     }
 }

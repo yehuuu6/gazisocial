@@ -1,0 +1,143 @@
+@section('canonical')
+    <link rel="canonical" href="{{ $post->showRoute() }}">
+@endsection
+<div x-data="{ shareModal: false, commentForm: false }" x-on:click.away="commentForm = false">
+    <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
+        <div class="flex">
+            <div class="flex-grow">
+                <div class="flex w-full flex-col gap-2 sm:gap-4 px-10 py-6">
+                    <div>
+                        <x-post.post-title>{{ $post->title }}</x-post.post-title>
+                        <div>
+                            <span class="text-sm text-gray-600 font-light">
+                                {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
+                        </div>
+                    </div>
+                    <article class="prose prose-sm max-w-none break-all sm:prose-base lg:prose-lg ProseMirror">
+                        {!! $post->html !!}
+                    </article>
+                    <div class="flex items-center gap-3.5">
+                        <button wire:click="toggleLike" class="flex items-center gap-1 text-gray-700 group pr-2">
+                            <div :class="{ 'text-pink-400': $wire.isLiked }"
+                                class="relative group-hover:text-pink-400 flex items-center justify-center group-focus:transform group-focus:scale-105">
+                                @if ($post->isLiked())
+                                    <x-icons.heart-off size="24" />
+                                @else
+                                    <x-icons.heart size="24" />
+                                @endif
+                                <div
+                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-pink-400 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                </div>
+                            </div>
+                            <span :class="{ 'text-pink-400': $wire.isLiked }"
+                                class="font-light text-sm ml-0.5 group-hover:text-pink-400">
+                                {{ $this->getLikesCount() }}
+                            </span>
+                        </button>
+                        <button
+                            x-on:click="commentForm = !commentForm; $nextTick(() => {
+                            if (commentForm) {
+                                document.getElementById('comment-form').scrollIntoView({ behavior: 'smooth', block: 'center'});
+                            }
+                             })"
+                            class="flex items-center gap-1 text-gray-700 group pr-2">
+                            <div class="relative group-hover:text-blue-400 flex items-center justify-center">
+                                <x-icons.comment size="22" />
+                                <div
+                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-blue-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                </div>
+                            </div>
+                            <span class="font-light text-sm ml-0.5 group-hover:text-blue-400">
+                                {{ $this->getCommentsCount() }}
+                            </span>
+                        </button>
+                        <button class="flex items-center gap-1 text-gray-700 group pr-2" x-on:click="shareModal = true">
+                            <div class="relative group-hover:text-green-400 flex items-center justify-center">
+                                <x-icons.share size="20" />
+                                <div
+                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-green-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                </div>
+                            </div>
+                            <span class="font-light text-sm ml-0.5 group-hover:text-green-400">
+                                Paylaş
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <x-seperator />
+                <livewire:post.pages.comments-list :$post lazy />
+            </div>
+            <div
+                class="hidden relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[400px] lg:w-[400px] bg-white border-l border-gray-200">
+                <div wire:ignore.self class="sticky top-0" x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
+                $el.style.top = navbarHeight + 'px';">
+                    <div class="p-6">
+                        <h4 class="text-sm text-gray-700 font-light uppercase mb-1">GÖNDERİ ETİKETLERİ</h4>
+                        <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                            @foreach ($post->tags as $tag)
+                                <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
+                            @endforeach
+                        </div>
+                    </div>
+                    <x-seperator />
+                    <div class="p-6">
+                        <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex gap-2.5 items-center">
+                                <div class="size-10 rounded-full overflow-hidden">
+                                    <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-gray-700 font-medium text-sm">{{ $post->user->name }}</span>
+                                    <span class="text-gray-500 text-xs">{{ '@' . $post->user->username }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <x-link href="{{ route('users.show', $post->user) }}"
+                                    class="text-white px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 hover:no-underline text-xs font-medium">
+                                    Profili Gör
+                                </x-link>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-4 text-gray-600">{{ $userBio }}</p>
+                        <div class="mt-2 space-y-1.5">
+                            @if ($post->user->faculty)
+                                <div class="flex items-center gap-1.5 text-gray-500 font-light">
+                                    <x-icons.graduate size="18" />
+                                    <span class="text-xs text-gray-700">{{ $post->user->faculty->name }}</span>
+                                </div>
+                            @endif
+                            <div class="flex items-center gap-1.5 text-gray-500 font-light">
+                                <x-icons.cake size="18" />
+                                <span
+                                    class="text-xs text-gray-700">{{ $post->user->created_at->locale('tr')->diffForHumans() }}
+                                    Gazi Social'a katıldı</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-gray-500 font-light">
+                                <x-icons.activity size="18" />
+                                <span class="text-xs text-gray-700">
+                                    Son aktivite {{ $post->user->last_activity->locale('tr')->diffForHumans() }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <x-seperator />
+                    <div class="p-6">
+                        <h4 class="text-sm text-gray-700 font-light uppercase">KULLANICI ROZETLERİ</h4>
+                        <div class="flex items-center flex-wrap gap-1 mt-2 mb-3">
+                            @forelse ($post->user->roles as $role)
+                                <span
+                                    class="{{ $colorVariants[$role->color] }} cursor-default rounded-full px-2 py-1 text-xs font-medium capitalize text-white">{{ $role->name }}</span>
+                            @empty
+                                <span
+                                    class="rounded-full bg-orange-500 px-2 py-1 text-xs font-medium capitalize text-white">Üye</span>
+                            @endforelse
+                        </div>
+                    </div>
+                    <x-seperator />
+                </div>
+            </div>
+        </div>
+    </div>
+    <x-post.share-modal :$post />
+</div>

@@ -1,29 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 
-const usedColors = [
-    "blue",
-    "green",
-    "red",
-    "yellow",
-    "purple",
-    "indigo",
-    "pink",
-    "orange",
-    "amber",
-    "teal",
-    "cyan",
-    "lime",
-    "emerald",
-];
-
 export default {
     content: ["./resources/**/*.blade.php", "./resources/**/*.js"],
     safelist: [
-        ...usedColors.flatMap((color) => [
-            `bg-${color}-500`,
-            `bg-${color}-700`,
-            "bg-green-50",
-        ]),
+        "bg-blue-500",
+        "bg-blue-700",
+        "bg-green-700",
+        "bg-green-500",
+        "bg-red-500",
+        "bg-yellow-500",
+        "bg-purple-500",
+        "bg-orange-500",
+        "bg-pink-500",
+        "bg-cyan-500",
+        "bg-teal-500",
+        "bg-indigo-500",
+        "bg-lime-500",
+        "bg-emerald-500",
+        "bg-amber-500",
+        "bg-green-50",
+        "bg-orange-50",
+        "text-orange-400",
+        "border-orange-200",
+        "text-green-600",
+        "border-green-200",
+        "bg-blue-100",
+        "bg-red-700",
     ],
     theme: {
         extend: {

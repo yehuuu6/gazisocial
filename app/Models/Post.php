@@ -3,41 +3,49 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasFactory, ConvertsMarkdownToHtml;
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'content',
-        'html',
-        'is_anon',
+    protected $guarded = [
+        'id'
     ];
 
-    /**
-     * Check if the post is anonymous but belongs to the authenticated user.
-     * @return bool
-     */
-    public function anonToMe()
+    public function toggleLike()
     {
-        return $this->is_anon && $this->user_id === Auth::id();
+        DB::transaction(function () {
+            if ($this->isLiked()) {
+                $like = $this->likes()->where('user_id', Auth::id())->first();
+                if ($like) {
+                    $like->removeLike();
+                    $like->delete();
+                }
+            } else {
+                $like = $this->likes()->create([
+                    'user_id' => Auth::id()
+                ]);
+                $like->addLike();
+            }
+        });
     }
 
-    /**
-     * Return the total number of comments and replies.
-     * @return string 
-     */
-    public function getCommentsCount()
+    public function isLiked(): bool
     {
-        return $this->comments_count + $this->replies_count;
+        return $this->likes()->where('user_id', Auth::id())->exists();
+    }
+
+    public function getCommentsCount(): int
+    {
+        return $this->hasMany(Comment::class)->count();
     }
 
     public function tags()
@@ -60,9 +68,9 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function comments(): MorphMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function title(): Attribute

@@ -8,7 +8,7 @@
         <span class="text-gray-900 text-sm font-medium">{{ $name }}</span>
         <span class="text-gray-500 text-sm font-normal">{{ $username }}</span>
     </div>
-    <x-tooltip text="{{ $role }}">
-        <x-icons.trophy color="#fce303" size="20" />
-    </x-tooltip>
+    <x-ui.tooltip text="{{ $role }}">
+        <x-icons.trophy size="20" class="text-yellow-400" />
+    </x-ui.tooltip>
 </div>

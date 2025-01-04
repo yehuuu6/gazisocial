@@ -19,8 +19,9 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
             $table->longText('content');
+            $table->morphs('commentable');
+            $table->unsignedTinyInteger('depth')->default(0);
             $table->unsignedBigInteger('likes_count')->default(0);
-            $table->unsignedBigInteger('replies_count')->default(0);
             $table->bigInteger('popularity')->default(0);
             $table->timestamps();
         });

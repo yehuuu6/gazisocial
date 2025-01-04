@@ -8,7 +8,6 @@ use App\Models\Poll;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Reply;
 use App\Models\Comment;
 use App\Models\PollVote;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -23,6 +22,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         $pistoltim = Role::create(['slug' => 'pistoltim', 'name' => 'Pistol Tim', 'color' => 'yellow', 'level' => 0]);
         $gazili = Role::create(['slug' => 'student', 'name' => 'Öğrenci', 'color' => 'green', 'level' => 0]);
         $admin = Role::create(['slug' => 'admin', 'name' => 'Yönetici', 'color' => 'red', 'level' => 1]);
@@ -88,18 +88,20 @@ class DatabaseSeeder extends Seeder
         $tags->push(Tag::create(['name' => 'Spor', 'color' => 'emerald']));
         $tags->push(Tag::create(['name' => 'Yurtlar', 'color' => 'amber']));
 
-        Post::factory(rand(30, 100))
+        $posts = Post::factory(30)
             ->withFixture()
             ->recycle($users)
             ->create()
             ->each(function ($post) use ($tags, $users) {
                 foreach ($users as $user) {
                     if (rand(0, 1)) {
-                        Like::create([
+                        $like = Like::create([
                             'user_id' => $user->id,
                             'likeable_id' => $post->id,
                             'likeable_type' => 'post'
                         ]);
+
+                        $like->addLike();
                     }
                 }
 
@@ -126,41 +128,51 @@ class DatabaseSeeder extends Seeder
                 $post->tags()->attach(
                     $tags->random(rand(1, 4))->pluck('id')->toArray()
                 );
-                // Create comments between 0 and 30 for each post
-                Comment::factory(rand(0, 30))
-                    ->recycle($users)
-                    ->create(['post_id' => $post->id])
-                    ->each(function ($comment) use ($users) {
-
-                        foreach ($users as $user) {
-                            if (rand(0, 1)) {
-                                Like::create([
-                                    'user_id' => $user->id,
-                                    'likeable_id' => $comment->id,
-                                    'likeable_type' => 'comment'
-                                ]);
-                            }
-                        }
-
-                        // Create replies between 0 and 10 for each comment
-                        Reply::factory(rand(0, 10))
-                            ->recycle($users)
-                            ->create([
-                                'comment_id' => $comment->id,
-                                'post_id' => $comment->post_id
-                            ])
-                            ->each(function ($reply) use ($users) {
-                                foreach ($users as $user) {
-                                    if (rand(0, 1)) {
-                                        Like::create([
-                                            'user_id' => $user->id,
-                                            'likeable_id' => $reply->id,
-                                            'likeable_type' => 'reply'
-                                        ]);
-                                    }
-                                }
-                            });
-                    });
             });
+
+        foreach ($posts as $post) {
+            $comments = Comment::factory(rand(0, 20))
+                ->recycle($users)
+                ->create([
+                    'post_id' => $post->id,
+                    'commentable_id' => $post->id,
+                    'commentable_type' => $post->getMorphClass(),
+                    'depth' => 0,
+                ]);
+
+            foreach ($comments as $comment) {
+                $this->createReplies($comment);
+            }
+        }
+
+        $this->call([
+            FacultySeeder::class,
+            ContactMessagesSeeder::class,
+        ]);
+    }
+
+    public function createReplies(Comment $comment, int $depth = 0): void
+    {
+
+        if (rand(0, 1)) {
+            return;
+        }
+
+        if ($depth > 3) {
+            return;
+        }
+
+        $replies = Comment::factory(rand(0, 5))
+            ->recycle(User::all())
+            ->create([
+                'post_id' => $comment->post_id,
+                'commentable_id' => $comment->id,
+                'commentable_type' => $comment->getMorphClass(),
+                'depth' => $depth + 1,
+            ]);
+
+        foreach ($replies as $reply) {
+            $this->createReplies($reply, $depth + 1);
+        }
     }
 }
