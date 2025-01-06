@@ -28,11 +28,11 @@ class CommentItem extends Component
     public function mount()
     {
         if ($this->comment->depth <= 5) {
+            // If the depth is less than or equal to 5, we will show 5 replies.
             $this->maxReplyCount = $this->initialMaxReplyCount;
         } else {
             // If the depth is greater than 5, we will show 1 less reply on each level.
             // So, if the depth is 6, we will show 4, if the depth is 7, we will show 3, and so on.
-
             $this->maxReplyCount = (($this->comment->depth - 5) - $this->initialMaxReplyCount) * -1;
         }
     }
@@ -54,7 +54,7 @@ class CommentItem extends Component
 
         /*
         try {
-            $this->rateLimit(10, decaySeconds: 300);
+            $this->rateLimit(50, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
             $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
@@ -88,9 +88,9 @@ class CommentItem extends Component
 
         $this->alert('success', 'Yanıtınız başarıyla eklendi.');
 
-        $this->dispatch('reply-added');
-
         $this->dispatch("view-replies.{$this->comment->id}");
+
+        $this->dispatch('comment-added');
 
         $this->reset('content');
     }

@@ -33,16 +33,20 @@
                         <p class="text-gray-800 break-all">{{ $comment->content }}</p>
                         <div class="relative flex items-center gap-0.5 mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
-                                <button
-                                    class="absolute -left-[41px] active:bg-gray-300 z-10 px-2 grid place-items-center bg-white rounded-full text-gray-700"
-                                    x-on:click="showReplies = !showReplies;">
-                                    <div x-cloak x-show="!showReplies">
-                                        <x-icons.show size="18" />
-                                    </div>
-                                    <div x-cloak x-show="showReplies">
-                                        <x-icons.hide size="18" />
-                                    </div>
-                                </button>
+                                <div class="absolute -left-[41px] z-10">
+                                    <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
+                                        <button
+                                            class="active:bg-gray-300 px-2 grid place-items-center bg-white rounded-full text-gray-700"
+                                            x-on:click="showReplies = !showReplies;">
+                                            <div x-cloak x-show="!showReplies">
+                                                <x-icons.show size="18" />
+                                            </div>
+                                            <div x-cloak x-show="showReplies">
+                                                <x-icons.hide size="18" />
+                                            </div>
+                                        </button>
+                                    </x-ui.tooltip>
+                                </div>
                             @endif
                             <x-comment.comment-button x-on:click="alert('Not implemented yet!');">
                                 <x-icons.heart size="20" />
@@ -59,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <template x-if="replyForm" x-on:reply-added.window="replyForm = false">
+                <template x-if="replyForm" x-on:comment-added.window="replyForm = false">
                     <x-comment.forms.reply-form :$comment />
                 </template>
                 {{-- Recursive component for replies --}}

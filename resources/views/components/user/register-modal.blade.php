@@ -1,4 +1,3 @@
-@props(['cause'])
 <x-modal {{ $attributes }}>
     <x-slot name="title">
         <h1 class="text-lg font-semibold p-4 text-gray-700">Kayıt Ol</h1>
@@ -9,7 +8,7 @@
                 <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
             </div>
             <h3 class="font-medium text-gray-700 text-base mb-3 text-center">
-                Gazi Social topluluğuna hoş geldiniz. {{ $cause }} üye olmanız gerekmektedir.
+                Gazi Social topluluğuna hoş geldiniz. <span x-text='message'></span> üye olmanız gerekmektedir.
             </h3>
             <p class="text-sm text-gray-600 font-normal mb-3 text-center">
                 Kayıt olarak, <x-link href="{{ route('terms') }}" class="text-blue-500">kullanım koşulları</x-link> ve

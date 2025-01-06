@@ -29,12 +29,6 @@ class Comment extends Model
         });
     }
 
-    public function isNew()
-    {
-        // Return true if the comment is authored by the authenticated user and created in the last 10 seconds.
-        return Auth::check() && $this->user_id === Auth::id() && $this->created_at >= now()->subSeconds(10);
-    }
-
     public function loadReplies(int $limit = 3)
     {
         $newReply = null;

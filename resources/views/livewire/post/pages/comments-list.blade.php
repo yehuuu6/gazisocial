@@ -1,4 +1,7 @@
-<div x-data="{ registerModal: false }" x-on:auth-required="registerModal = true">
+<div x-data="{
+    registerModal: false,
+    message: '',
+}" x-on:auth-required.window="registerModal = true; message = $event.detail.msg">
     <div class="p-6">
         <div>
             <div x-ref="commentForm" class="scroll-mt-24"
@@ -15,15 +18,15 @@
             </div>
             <div class="my-4 flex gap-1.5 items-center">
                 <span class="text-gray-600 font-normal text-xs">Sıralama Ölçütü:</span>
-                <x-ui.tooltip text="Sıralama seçeneklerini aç" position="bottom">
-                    <button
-                        class="px-4 py-2 flex items-center gap-2 text-gray-600 font-medium text-xs rounded-full hover:bg-gray-200 active:bg-gray-400 focus:bg-gray-300"
+                <x-ui.tooltip text="Sıralama seçeneklerini aç" position="bottom" delay="1000">
+                    <button x-on:click="alert('Sıralama seçenekleri açılacak')"
+                        class="px-4 py-2 flex items-center gap-2 text-gray-600 font-medium text-xs rounded-full hover:bg-gray-100 active:bg-gray-300 focus:bg-gray-200"
                         type="button">
                         <span>En Yeniler</span>
                         <x-icons.arrow-down size="18" />
                     </button>
                 </x-ui.tooltip>
-                <button
+                <button x-on:click="alert('Yorumlarda arama yapılacak')"
                     class="text-gray-600 font-light text-sm px-4 py-2 flex items-center gap-2.5 rounded-full border border-gray-300 hover:border-gray-400"
                     type="button">
                     <x-icons.search size="17" />
@@ -56,5 +59,5 @@
         </div>
     </div>
     {{ $this->comments->links('livewire.pagination.simple') }}
-    <x-user.register-modal wire:modal="registerModal" cause="Yorum yapabilmek için" />
+    <x-user.register-modal wire:modal="registerModal" />
 </div>

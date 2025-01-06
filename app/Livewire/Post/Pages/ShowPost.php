@@ -4,20 +4,24 @@ namespace App\Livewire\Post\Pages;
 
 use App\Models\Post;
 use Livewire\Component;
-use Livewire\Attributes\On;
+use App\Models\Like;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Number;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\Isolate;
+use Illuminate\Support\Facades\Gate;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Illuminate\Support\Facades\Auth;
 
 class ShowPost extends Component
 {
 
-    use LivewireAlert;
+    use LivewireAlert, WithRateLimiting;
 
     public Post $post;
     public bool $isLiked = false;
+    public int $likesCount;
+    public int $commentsCount;
 
     public $colorVariants = [
         'blue' => 'bg-blue-700',
@@ -35,6 +39,10 @@ class ShowPost extends Component
             return redirect()->to($this->post->showRoute($request->query()), status: 301);
         }
 
+        $this->isLiked = $this->post->isLiked();
+        $this->likesCount = $this->post->likes_count;
+        $this->commentsCount = $this->post->getCommentsCount();
+
         if ($this->post->user->bio === null || empty($this->post->user->bio)) {
             $this->userBio = 'Herhangi bir bilgi verilmemiş.';
         } else {
@@ -42,29 +50,39 @@ class ShowPost extends Component
         }
     }
 
-    #[Isolate]
     public function toggleLike()
     {
+
+        if (!Auth::check()) {
+            $this->dispatch('auth-required', msg: 'Gönderileri beğenmek için');
+            return;
+        }
+
+        try {
+            $this->rateLimit(50, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->dispatch('blocked-from-liking');
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
+        // Check if the post is liked by the user.
+
+        if ($this->post->isLiked()) {
+            $response = Gate::inspect('delete', [Like::class, $this->post]);
+            if (!$response->allowed()) {
+                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                return;
+            }
+        } else {
+            $response = Gate::inspect('create', [Like::class, $this->post]);
+            if (!$response->allowed()) {
+                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                return;
+            }
+        }
+
         $this->post->toggleLike();
-        $this->dispatch('like-toggled');
-    }
-
-    #[On('like-toggled')]
-    /**
-     * Refresh the post likes count on like toggled.
-     */
-    public function getLikesCount(): string
-    {
-        return Number::abbreviate($this->post->likes_count);
-    }
-
-    /**
-     * Refresh the post comments count on comment added, reply added and comment deleted.
-     */
-    #[On('comment-deleted')]
-    public function getCommentsCount(): string
-    {
-        return Number::abbreviate($this->post->getCommentsCount());
     }
 
     public function render()

@@ -1,18 +1,19 @@
+@props(['url'])
 <x-modal wire:modal="shareModal">
     <x-slot name="title">
         <h1 class="text-lg font-medium p-4 text-gray-700">Gönderiyi Paylaş</h1>
     </x-slot>
     <x-slot name="body">
         <div class="m-4 flex items-center gap-3">
-            <a target="_blank" href="https://api.whatsapp.com/send?text={{ urlencode($post->showRoute()) }}"
+            <a target="_blank" href="https://api.whatsapp.com/send?text={{ urlencode($url) }}"
                 class="overflow-hidden rounded-full p-3 grid place-items-center text-gray-200 shadow-lg bg-green-500 duration-300 transition-all hover:scale-105">
                 <x-icons.whatsapp size="30" />
             </a>
-            <a target="_blank" href="https://x.com/intent/post?url={{ urlencode($post->showRoute()) }}"
+            <a target="_blank" href="https://x.com/intent/post?url={{ urlencode($url) }}"
                 class="overflow-hidden rounded-full p-3 grid place-items-center text-gray-200 shadow-lg bg-black duration-300 transition-all hover:scale-105">
                 <x-icons.x size="30" />
             </a>
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($post->showRoute()) }}"
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}"
                 class="overflow-hidden rounded-full p-3 grid place-items-center shadow-lg bg-blue-600 text-gray-200 duration-300 transition-all hover:scale-105">
                 <x-icons.facebook size="30" />
             </a>
@@ -20,9 +21,9 @@
         <div class="m-4 flex items-center gap-2 bg-gray-100 rounded-md border border-gray-300">
             <input type="text" readonly id="post-url"
                 class="text-gray-500 bg-transparent text-sm font-medium w-full px-6 py-4 outline-none"
-                value="{{ $post->showRoute() }}" />
+                value="{{ $url }}" />
             <div x-data="{
-                copyText: '{{ $post->showRoute() }}',
+                copyText: '{{ $url }}',
                 copyNotification: false,
                 copyToClipboard() {
                     $clipboard(this.copyText);

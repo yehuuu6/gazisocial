@@ -31,17 +31,21 @@ class CommentsList extends Component
     public function addComment()
     {
 
+        if (!Auth::check()) {
+            $this->dispatch('auth-required', msg: 'Yorum yapabilmek için');
+            return;
+        }
+
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
             $this->alert('error', 'Yorum yapmak e-posta onaylı bir hesap gerektirir.');
-            $this->dispatch('auth-required');
             return;
         }
 
         /*
         try {
-            $this->rateLimit(10, decaySeconds: 300);
+            $this->rateLimit(50, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
             $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;

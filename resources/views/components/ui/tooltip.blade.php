@@ -1,11 +1,17 @@
-@props(['text', 'position' => 'top', 'arrow' => true])
+@props(['text', 'position' => 'top', 'arrow' => true, 'delay' => 0])
 <div x-data="{
     tooltipVisible: false,
     tooltipText: '{{ $text }}',
     tooltipArrow: {{ $arrow }},
     tooltipPosition: '{{ $position }}',
-}" x-init="$refs.content.addEventListener('mouseenter', () => { tooltipVisible = true; });
-$refs.content.addEventListener('mouseleave', () => { tooltipVisible = false; });" class="relative">
+}" x-init="let timeoutId;
+$refs.content.addEventListener('mouseenter', () => {
+    timeoutId = setTimeout(() => { tooltipVisible = true; }, 1000);
+});
+$refs.content.addEventListener('mouseleave', () => {
+    clearTimeout(timeoutId);
+    tooltipVisible = false;
+});" class="relative">
 
     <div x-ref="tooltip" x-show="tooltipVisible"
         :class="{
