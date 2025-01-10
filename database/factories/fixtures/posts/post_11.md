@@ -1,11 +1,19 @@
-# Erasmus İçin Hangi Ülke?
+# GAZİ YERLEŞKESİNDE SONBAHAR MANZARALARI
 
-## Erasmus İçin En İyi Tercih Nedir?
+### Kampüste Doğa Yürüyüşleri
 
-Merhaba arkadaşlar, Erasmus başvurularım yaklaşıyor ve kararsız kaldım. Sizce hangi ülkeler Erasmus için en uygun?
+Sonbahar geldiğinde Gazi Üniversitesi yerleşkesindeki ağaçlar sarı ve turuncunun en güzel tonlarına bürünüyor. Favori yürüyüş rotalarım:
 
--   **Almanya** mı?
--   **İtalya** mı?
--   **İspanya** mı?
+1. **Anıt Alanı Çevresi**
 
-Deneyimi olanlar varsa lütfen paylaşsın!
+    - Sessiz ve huzurlu bir yürüyüş için ideal.
+
+2. **Ormanlık Alan**
+    - Fakülteler arası yeşil alanlarda, özellikle akşamüstü yürüyüşü yapmak oldukça keyifli.
+
+### Tavsiyelerim
+
+-   Telefonunuzun kamerasını yanınıza alın! Harika fotoğraflar yakalayabilirsiniz.
+-   Termosunuzla sıcak kahve alıp yürüyüş sırasında keyif yapmayı unutmayın.
+
+Sonbahar manzaraları için başka önerileriniz varsa yazın, yeni yerler keşfetmek isterim! 😊

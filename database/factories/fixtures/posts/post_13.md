@@ -1,10 +1,24 @@
-# KYK Yurtlarında Temizlik Sorunu
+# DERSLERDEN SONRA DİNLENMEK İÇİN EN İYİ YERLER
 
-## KYK Yurtları Hijyen Sorunları
+### Kampüste Rahatlamak İçin Köşeler
 
-KYK yurdunda kalanlar, temizlik konusunda büyük sıkıntılar yaşadığımızı düşünüyor musunuz?
+Yoğun bir ders gününden sonra biraz kafa dinlemek şart oluyor. İşte kampüste tercih ettiğim dinlenme alanları:
 
-1. **Banyolar** yeterince temizlenmiyor.
-2. **Odalar** düzenli bakıma ihtiyaç duyuyor.
+1. **Açık Amfi**
 
-Bunu dile getirenler oldu mu? Nasıl çözüm bulunabilir?
+    - Hem sessiz hem de doğayla iç içe.
+
+2. **Kütüphanenin Sessiz Alanı**
+
+    - Özellikle ders çıkışlarında kitap okuyarak veya müzik dinleyerek vakit geçirebilirsiniz.
+
+3. **Çim Alanlar**
+    - Sıcak havalarda bir battaniye serip arkadaşlarla sohbet etmek çok keyifli oluyor.
+
+### Yanınıza Almayı Unutmayın
+
+-   Kitap veya dergi
+-   Termosunuzla sıcak bir içecek
+-   Kulaklık
+
+Siz ders sonrası nerede dinleniyorsunuz? Yeni yerler keşfetmek isterim! 😊

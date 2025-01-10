@@ -1,13 +1,22 @@
-# Kitap Okuma Günleri
+# GAZİ ÜNİVERSİTESİ’NDE KİTAP OKUMA KULÜBÜ
 
-## Kitap Okuma Etkinliği Başlıyor!
+### Kitap Okumanın Faydaları
 
-Herkese merhaba! Üniversite bünyesinde **kitap okuma etkinliği** başlatıyoruz. Her hafta bir kitap belirleyip, sonrasında tartışma grupları oluşturacağız.
+Kitap okuma kulübümüz, her hafta farklı türlerde kitapları incelemek ve tartışmak için bir araya geliyor. Eğer henüz katılmadıysanız, işte size neden bir şans vermeniz gerektiğini düşündüğüm bazı nedenler:
 
-Bu haftanın kitabı:
+1. **Yeni Perspektifler Kazanma**  
+   Kitaplar, farklı bakış açılarını görmemize olanak sağlar. Özellikle grup tartışmalarında herkesin yorumu size ilham verebilir.
 
-> **George Orwell - 1984**
+2. **Motivasyon Sağlama**  
+   Okuma alışkanlığı kazanmak istiyorsanız, belirli bir program dahilinde okumak sizi motive edebilir.
 
-Etkinlik şu tarihte: `23 Eylül 2024, 16:00`
+3. **Sosyal Bir Çevre Oluşturma**  
+   Kitaplardan konuşmak, yeni arkadaşlıklar kurmak için harika bir fırsat sunar.
 
-Katılmak isteyen var mı? Birlikte okuma ve tartışma yapabiliriz.
+> "İyi bir kitap, içimizdeki sessizliğe bir yolculuktur."
+
+### Nasıl Katılabilirsiniz?
+
+Katılmak isterseniz, kitap listemize ve toplantı saatlerine [buradan](https://kitapkulubu.gazi.edu.tr) ulaşabilirsiniz. Ayrıca, WhatsApp grubumuza katılarak her şeyden haberdar olabilirsiniz!
+
+Hepinizi bekliyoruz! Bu hafta Haruki Murakami’nin **“İmkansızın Şarkısı”** adlı kitabını tartışacağız. 😊

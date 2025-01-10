@@ -1,7 +1,22 @@
-# Sosyal Medyadan Kaçma Çabası
+# KANTİNDE UCUZ ATIŞTIRMALIKLAR
 
-## Sosyal Medya Bağımlılığına Karşı Savaşım
+### Öğrenci Bütçesi Dostu Atıştırmalıklar
 
-Arkadaşlar, sosyal medyada saatlerimi harcadığımı fark ettim. Ders çalışmak yerine sürekli **scroll yapıyorum**. Birkaç gün telefonumu kapatmaya çalıştım ama zor oluyor.
+Ders aralarında kantine uğramadan olmuyor! İşte benim favori atıştırmalıklarım:
 
-Siz nasıl başa çıkıyorsunuz? Tavsiyesi olan var mı?
+1. **Simit ve Çay**
+
+    - Hem doyurucu hem de sadece birkaç liraya hallediliyor.
+
+2. **Sandviçler**
+
+    - Günlük olarak hazırlanıyor ve lezzetleri oldukça iyi.
+
+3. **Bisküvi ve Meyve Suyu**
+    - Tatlı bir şeyler arıyorsanız birebir.
+
+### Bonus: Kahve Makinesi
+
+Kantinlerdeki kahve makinelerinden alınan kahveler, hızlı bir enerji için harika. Espresso ya da latte favorim!
+
+Sizin kantinde vazgeçilmezleriniz neler? Fikirlerinizi bekliyorum! 😊

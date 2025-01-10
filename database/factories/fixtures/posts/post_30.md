@@ -1,12 +1,8 @@
-# Gazi Müzik Atölyesi
+# Kan Bağışı Hakkında Bir Soru
 
-## Müzik Öğrenmek İsteyenler Buraya!
+### Kan Bağışlamak Zararlı Mı?
 
-Müzikle ilgilenen arkadaşlar, **Gazi Müzik Atölyesi** olarak yeni dönem kayıtlarını başlattık. Gitar, piyano ve davul gibi enstrümanlar öğrenmek isteyenler atölyemize katılabilir.
+Son zamanlarda kan bağışı hakkında çok şey duyuyorum, özellikle de **gençler için** önemini anlatıyorlar. Ama bir yandan da **bağış yaptıktan sonra zayıf hissedebileceğimi** düşünüyorum.  
+Gerçekten sağlığa zararı olur mu? **Bağış yaptıktan sonra iyileşmek** ne kadar sürer? Hepimiz sağlıklı olduğumuzda **bağış yapmalıyız** ama bir yandan da bazı kişiler korkuyor, **bağış sonrası zayıf düşeceklerini** düşünüyor.
 
-Atölye programı şu şekildedir:
-
--   **Pazartesi, Çarşamba ve Cuma**
--   Saat: `18:00 - 20:00`
-
-Katılmak isteyenler yorum bırakabilir!
+Bu konuda deneyimi olan var mı? **Kan bağışının vücuda olumsuz etkileri** nelerdir, ya da aksine faydalı mı?

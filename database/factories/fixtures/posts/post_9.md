@@ -1,7 +1,24 @@
-# Üniversitede Yeni Bölüm Açılıyor
+# KAMPÜSTE KİTAP KURTLARI İÇİN EN İYİ KÖŞELER
 
-## Gazi'de Yapay Zeka Bölümü Açıldı!
+### Gazi Üniversitesi’nde Okuma Alanları
 
-Arkadaşlar, Gazi Üniversitesi **Yapay Zeka Mühendisliği** bölümünü açıyor! 2025-2026 akademik yılı itibariyle öğrenci almaya başlayacak.
+Kitap okumayı seviyorsanız, kampüste sessiz ve huzurlu köşeler bulmak oldukça kolay. İşte benim favori yerlerim:
 
-Bölüm hakkında daha fazla bilgi almak isteyenler [bu bağlantıya](#) tıklayabilir. Yapay zeka alanına ilginiz var mı?
+1. **Merkez Kütüphane**
+
+    - Sessizlik kuralları sayesinde rahatça odaklanabilirsiniz.
+    - Geniş camlı bölümler gün ışığı alıyor, bu da okumayı daha keyifli hale getiriyor.
+
+2. **Açık Hava Bankları**
+
+    - Özellikle bahar aylarında, fakülteler arası yeşil alanlarda vakit geçirmek harika.
+
+3. **Edebiyat Fakültesi’nin Gölgelik Bahçesi**
+    - Hem sessiz hem de manzarası güzel bir alan.
+
+### Kitap Önerilerim
+
+-   Sabahattin Ali – **Kürk Mantolu Madonna**
+-   Ahmet Ümit – **Beyoğlu’nun En Güzel Abisi**
+
+Kitap okuma alışkanlıklarınızı paylaşın, belki yeni kitaplar keşfederiz! 😊

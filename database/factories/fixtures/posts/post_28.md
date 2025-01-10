@@ -1,8 +1,11 @@
-# Kampüs İçinde Otomobil Kullanımı
+# Bu Türev Nasıl Alınır?
 
-## Kampüste Araç Kullanmak Yasaklanmalı mı?
+### Yardım Edin, Türevden Bayağı Zorlandım!
 
-Son zamanlarda kampüs içinde araç kullananların sayısı arttı ve bu durum hem yaya hem de bisiklet sürücülerini tehlikeye atıyor. Sizce kampüs içinde araç kullanımı tamamen yasaklanmalı mı?
+Beni biri aydınlatabilir mi? Şu fonksiyonun türevini almakta zorlanıyorum:
 
--   **Araçlar için özel alanlar** oluşturulabilir mi?
--   Yoksa zaten bu yasaklar yeterli mi?
+\[
+f(x) = 3x^4 - 5x^3 + 2x^2 - 7x + 1
+\]
+
+Türev almayı hatırlıyorum ama bir şeyler karıştı. Nasıl çözülecek bu?

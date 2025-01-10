@@ -1,12 +1,43 @@
-# Hafta Sonu Piknik Organizasyonu
+# LARAVEL’DE API GELİŞTİRİRKEN KARŞILAŞTIĞIM SORUN
 
-## Piknik İçin Gazi'den Kaçıyoruz!
+### Sorun: API Endpoint’inden Beklenmeyen Yanıt Alıyorum
 
-Merhaba Gazi'li dostlar! Hafta sonu güzel havayı değerlendirelim dedik ve **piknik** yapmaya karar verdik. Yer olarak düşündüğümüz:
+Arkadaşlar, Laravel kullanarak bir API geliştirmeye çalışıyorum. Ancak, POST isteği yaptığımda beklediğim JSON yanıtını alamıyorum. İşte kodum:
 
--   **Mogan Gölü**
--   **Eymir Gölü**
+```php
+// routes/api.php
+Route::post('/create-post', [PostController::class, 'store']);
+```
 
-Tarih: `14 Eylül 2024`
+Ve `PostController` içindeki yöntemim:
 
-Kendi yiyeceklerinizi getirip güzel bir gün geçirelim diyoruz. Katılmak isteyen?
+```php
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|string',
+        'content' => 'required|string',
+    ]);
+
+    $post = Post::create($validated);
+
+    return response()->json([
+        'message' => 'Post başarıyla oluşturuldu!',
+        'post' => $post,
+    ], 201);
+}
+```
+
+### Aldığım Hata
+
+Postman veya bir frontend uygulamasıyla bu endpoint’i çağırdığımda, şu hata mesajını alıyorum:
+
+```
+Illuminate\Database\QueryException: SQLSTATE[23000]: Integrity constraint violation...
+```
+
+### Soru
+
+Bu hatanın sebebi ne olabilir? Veritabanı tablolarımı kontrol ettim ve gerekli kolonların hepsi mevcut. Ayrıca migration dosyalarını da yeniden çalıştırdım. Fikri olan var mı?
+
+Teşekkürler! 🙂

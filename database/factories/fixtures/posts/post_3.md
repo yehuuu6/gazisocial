@@ -1,11 +1,15 @@
-# Final Notları Açıklandı
+# GAZİ’DE SABAH DERSLERİNE HAZIRLANMAK
 
-## Final Notları Adil mi?
+### Erken Kalkmak İçin İpuçları
 
-Dersin adını vermeyeceğim ama bazı hocaların final sınavları çok **zorlayıcı** oldu. Özellikle online dersler sonrası sınav formatlarının böyle olması sizce adil mi?
+Sabah dersleri hepimiz için zorlayıcı olabiliyor, özellikle de erken kalkmakta zorlanıyorsanız. İşte bu konuda uyguladığım bazı yöntemler:
 
-1. **Online eğitim** ile normal ders arasında büyük fark var.
-2. Hocalar not skalasını **zorlaştırıyor** olabilir mi?
-3. Çan eğrisi de tam bir muamma...
+-   **Alarmı Uzakta Tutun**: Telefonu yatağınızdan uzak bir yere koyarak kalkmaya zorlanabilirsiniz.
+-   **Akşamdan Hazırlık Yapın**: Sabah giyeceğiniz kıyafetleri ve çantanızı bir gece önceden hazırlayın.
+-   **Kısa Bir Kahvaltı**: Hızlıca hazırlanabilen bir kahvaltı enerjinizi artırır. Ben genelde bir bardak süt ve tost tercih ediyorum.
 
-Ne düşünüyorsunuz? Sizce bu sistem değişmeli mi?
+### Derslere Odaklanma
+
+Sabah derslerinde daha iyi odaklanmak için derse gitmeden önce hızlıca konulara göz atmayı alışkanlık haline getirdim. Ayrıca, ders sırasında not tutmak uykunuzu açabilir!
+
+Siz sabah derslerine hazırlanmak için neler yapıyorsunuz? Fikirlerinizi paylaşabilirsiniz.

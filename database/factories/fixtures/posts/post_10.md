@@ -1,11 +1,18 @@
-# Film Gecesi
+# GAZİ KAMPÜSÜNDE SPOR YAPMAK
 
-## Gazi'de Açık Hava Sineması
+### Kampüs İçi Spor İmkanları
 
-Bu hafta sonu **açık hava sineması** etkinliğimiz var! Film şu:
+Gazi Üniversitesi’nde spor yapmayı sevenler için birçok imkan var. İşte denemenizi önerdiğim alanlar:
 
-> **Inception (Başlangıç)**
+1. **Açık Hava Spor Alanları**
 
-Tarih: `15 Eylül 2024, 20:00`
+    - Basketbol sahaları genelde dolu ama erken saatlerde boş bulabilirsiniz.
+    - Koşu parkurları, sabah yürüyüşü veya koşu için ideal.
 
-Film sonrasında kısa bir tartışma yapacağız. Katılmak isteyen?
+2. **Kapalı Spor Salonları**
+    - Üyelik sistemiyle kullanılabiliyor ve fiyatları oldukça uygun.
+    - Fitness salonunda spor ekipmanları oldukça iyi durumda.
+
+### Rutinim
+
+Ben genelde sabah koşularını tercih ediyorum, ardından birkaç dakika esneme hareketleri yaparak güne enerjik başlıyorum. Spor yapan diğer arkadaşların önerilerini duymak isterim!
