@@ -3,7 +3,8 @@
         <h2 class="text-2xl font-medium text-gray-800">Fakülteler</h2>
         <div class="flex flex-col gap-5">
             @foreach ($faculties as $faculty)
-                <div class="flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
+                <div
+                    class="group flex items-center justify-between gap-5 rounded-md border border-gray-300 bg-gray-50 p-4">
                     <div class="flex flex-col">
                         <a target="_blank" href="{{ $faculty->url }}"
                             class="text-lg font-medium text-blue-600 hover:underline">{{ $faculty->name }}</a>
@@ -11,7 +12,7 @@
                     </div>
                     @if (!Auth::user()->faculty)
                         <button wire:click="joinFaculty({{ $faculty->id }})"
-                            class="w-[75px] items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none flex hover:bg-blue-900">
+                            class="w-[75px] hidden group-hover:flex items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none hover:bg-blue-900">
                             <span class="flex items-center justify-center" wire:loading.remove
                                 wire:target="joinFaculty({{ $faculty->id }})">
                                 Katıl

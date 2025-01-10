@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -22,11 +22,37 @@ class Comment extends Model
     {
         parent::boot();
 
+        static::created(function ($comment) {
+            // Update user's last activity
+            $comment->user->heartbeat();
+        });
+
         static::deleting(function ($comment) {
             $comment->replies()->each(function ($reply) {
                 $reply->delete();
             });
         });
+    }
+
+    public function toggleLike()
+    {
+        DB::transaction(function () {
+            if ($this->isLiked()) {
+                $like = $this->likes()->where('user_id', Auth::id())->first();
+                if ($like) {
+                    $like->removeLike();
+                    $like->delete();
+                }
+            } else {
+                $like = $this->likes()->create([
+                    'user_id' => Auth::id()
+                ]);
+                $like->addLike();
+            }
+        });
+
+        // Update user's last activity
+        $this->user->heartbeat();
     }
 
     public function loadReplies(int $limit = 3)
@@ -63,9 +89,19 @@ class Comment extends Model
         }
     }
 
+    public function isLiked(): bool
+    {
+        return $this->likes()->where('user_id', Auth::id())->exists();
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getAllRepliesCount(): int
+    {
+        return $this->hasMany(Comment::class, 'parent_id')->count();
     }
 
     public function commentable(): MorphTo
@@ -89,7 +125,7 @@ class Comment extends Model
      */
     public static function popularityValue()
     {
-        return 2;
+        return 1;
     }
 
     public function likes()

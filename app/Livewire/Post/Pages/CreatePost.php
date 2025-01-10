@@ -3,14 +3,12 @@
 namespace App\Livewire\Post\Pages;
 
 use App\Models\Tag;
-use Livewire\Component;
 use App\Models\Post;
-use App\Models\Poll;
-use App\Models\PollOption;
+use Livewire\Component;
+use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\On;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
@@ -22,25 +20,12 @@ class CreatePost extends Component
 
     public $title;
     public $content;
-    public $createdPolls = [];
     public $selectedTags = [];
 
-    public function removePoll($index)
+    #[Computed]
+    public function tags()
     {
-        unset($this->createdPolls[$index]);
-        $this->createdPolls = array_values($this->createdPolls);
-    }
-
-    #[On('poll-created')]
-    public function addPollToCache($poll)
-    {
-        // Set max poll count to 3
-        if (count($this->createdPolls) >= 3) {
-            $this->alert('error', 'En fazla 3 anket oluşturabilirsiniz.');
-            return;
-        }
-        // Insert the poll to the createdPolls array
-        $this->createdPolls[] = $poll;
+        return Tag::all();
     }
 
     public function createPost()
@@ -102,31 +87,11 @@ class CreatePost extends Component
         // Attach tags to the post
         $post->tags()->attach($this->selectedTags);
 
-        // Create poll options
-        if (count($this->createdPolls) > 0) {
-            foreach ($this->createdPolls as $poll) {
-                $pollModel = Poll::create([
-                    'user_id' => Auth::id(),
-                    'post_id' => $post->id,
-                    'question' => $poll['question']
-                ]);
-
-                foreach ($poll['options'] as $option) {
-                    PollOption::create([
-                        'poll_id' => $pollModel->id,
-                        'option' => $option
-                    ]);
-                }
-            }
-        }
-
         $this->flash('success', 'Konu başarıyla oluşturuldu.', redirect: $post->showRoute());
     }
 
     public function render()
     {
-        return view('livewire.post.pages.create-post', [
-            'tags' => Tag::all()
-        ])->title('Yeni konu oluştur - ' . config('app.name'));
+        return view('livewire.post.pages.create-post')->title('Yeni konu oluştur - ' . config('app.name'));
     }
 }

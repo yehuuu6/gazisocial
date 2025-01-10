@@ -18,7 +18,6 @@ use App\Http\Middleware\CheckAdminRole;
 use App\Livewire\Docs\ReportedBugsList;
 use App\Livewire\Faculty\ShowFaculties;
 use App\Livewire\Post\Pages\CreatePost;
-use App\Livewire\Post\Pages\SearchPost;
 use App\Livewire\User\Pages\SearchUser;
 use App\Livewire\Admin\Pages\ShowMessage;
 use App\Livewire\Auth\Pages\ResetPassword;
@@ -86,8 +85,6 @@ Route::get('/posts/edit/{post}', EditPost::class)
     ->name('posts.edit')
     ->middleware('auth', 'verified');
 Route::get('/posts', Home::class)->name('posts.index');
-Route::get('/posts/search/{tag:slug}/{query}', SearchPost::class)->name('posts.search');
-//Route::get('/posts/{post}/comments/{comment}/replies', RepliesPage::class)->name('posts.replies');
 Route::get('/posts/{post}/{slug}', ShowPost::class)->name('posts.show');
 
 // Post Routes END

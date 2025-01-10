@@ -23,6 +23,8 @@ class ShowPost extends Component
     public int $likesCount;
     public int $commentsCount;
 
+    public bool $isAuthenticated;
+
     public $colorVariants = [
         'blue' => 'bg-blue-700',
         'red' => 'bg-red-700',
@@ -39,6 +41,8 @@ class ShowPost extends Component
             return redirect()->to($this->post->showRoute($request->query()), status: 301);
         }
 
+        $this->isAuthenticated = Auth::check();
+
         $this->isLiked = $this->post->isLiked();
         $this->likesCount = $this->post->likes_count;
         $this->commentsCount = $this->post->getCommentsCount();
@@ -54,7 +58,7 @@ class ShowPost extends Component
     {
 
         if (!Auth::check()) {
-            $this->dispatch('auth-required', msg: 'Gönderileri beğenmek için');
+            $this->dispatch('auth-required', msg: 'Gönderileri beğenebilmek için');
             return;
         }
 
@@ -87,7 +91,8 @@ class ShowPost extends Component
 
     public function render()
     {
-        $this->isLiked = $this->post->isLiked();
+        // NO IDEA IF THIS IS NEEDED BUT KEEPING IT FOR NOW AS A COMMENT
+        //$this->isLiked = $this->post->isLiked();
 
         return view('livewire.post.pages.show-post')
             ->title($this->post->title . ' - ' . config('app.name'));

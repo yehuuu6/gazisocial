@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-use App\Notifications\Auth\QueuedResetPassword;
+use Illuminate\Notifications\Notifiable;
 use App\Notifications\SendEmailVerification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Notifications\Auth\QueuedResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
@@ -40,6 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         });
     }
 
+    /**
+     * Update the user's last activity.
+     */
+    public function heartbeat()
+    {
+        $this->last_activity = now();
+        $this->save();
+    }
+
     public function hasRole(string $role_slug)
     {
         return $this->roles->contains('slug', $role_slug);
@@ -55,37 +67,27 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         $this->notify(new QueuedResetPassword($token));
     }
 
-    public function getCommentsCount()
+    public function getCommentsCount(): int
     {
         return $this->comments_count + $this->replies_count;
     }
 
-    public function faculty()
+    public function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class);
     }
 
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');
     }
 
-    public function updateDefaultAvatar()
-    {
-        // check if the user has a default avatar by checking if the avatar contains ui-avatars.com
-        if (strpos($this->avatar, 'ui-avatars.com') === false) return;
-
-        $newAvatar = 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=random';
-        $this->avatar = $newAvatar;
-        $this->save();
-    }
-
-    public function likes()
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
-    public function isStudent()
+    public function isStudent(): bool
     {
         // Return true if the user has the role with the slug 'student'
         return $this->hasRole('student');

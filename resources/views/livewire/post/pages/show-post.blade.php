@@ -8,18 +8,20 @@
     likeCount: $wire.likesCount,
     isLiked: $wire.isLiked,
     toggleLike() {
-        $wire.toggleLike();
-        @auth
-if (!this.isLiked) {
+        $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
+        // If user is authenticated, update the like count and status on the client side
+        if ($wire.isAuthenticated) {
+            if (!this.isLiked) {
                 this.likeCount++;
                 this.isLiked = true;
             } else {
                 this.likeCount--;
                 this.isLiked = false;
-            } @endauth
+            }
+        }
     }
-}" x-on:click.away="commentForm = false" x-on:comment-added.window="commentCount++"
-    x-on:comment-deleted.window="commentCount--">
+}" x-on:comment-added.window="commentCount++"
+    x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex">
             <div class="flex-grow">
@@ -35,7 +37,7 @@ if (!this.isLiked) {
                         class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-xl ProseMirror">
                         {!! $post->html !!}
                     </article>
-                    <div class="flex items-center gap-3.5" x-data="{ isDisabled: false }">
+                    <div class="flex items-center gap-3.5 mt-3" x-data="{ isDisabled: false }">
                         <button x-on:click="toggleLike()" :disabled='isDisabled'
                             x-on:blocked-from-liking.window="isDisabled = true"
                             class="flex items-center gap-1 text-gray-700 group pr-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none">
@@ -58,10 +60,11 @@ if (!this.isLiked) {
                             </span>
                         </button>
                         <button
-                            x-on:click="commentForm = !commentForm; $nextTick(() => {
-                            if (commentForm) {
-                                document.getElementById('comment-form').scrollIntoView({ behavior: 'smooth', block: 'center'});
-                            }
+                            x-on:click="$nextTick(() => {
+                                commentForm = true;
+                                setTimeout(() => {
+                                    document.getElementById('comment-form').scrollIntoView({ behavior: 'smooth', block: 'center'});
+                                }, 100);
                              })"
                             class="flex items-center gap-1 text-gray-700 group pr-2">
                             <div class="relative group-hover:text-blue-400 flex items-center justify-center">
@@ -84,13 +87,24 @@ if (!this.isLiked) {
                                 Paylaş
                             </span>
                         </button>
+                        <button class="flex items-center gap-1 text-gray-700 group pr-2">
+                            <div class="relative group-hover:text-orange-400 flex items-center justify-center">
+                                <x-icons.hot size="20" />
+                                <div
+                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-orange-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                </div>
+                            </div>
+                            <span class="font-light text-sm ml-0.5 group-hover:text-orange-400">
+                                {{ $post->popularity }}
+                            </span>
+                        </button>
                     </div>
                 </div>
                 <x-seperator />
                 <livewire:post.pages.comments-list :$post lazy />
             </div>
             <div
-                class="hidden relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">
+                class="hidden rounded-br-md relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">
                 <div wire:ignore.self class="sticky top-0" x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';">
                     <div class="p-6">

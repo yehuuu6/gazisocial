@@ -17,34 +17,40 @@ class Like extends Model
     {
         $this->increaseLikeCount();
         $this->increasePopularity();
+
+        // Update user's last activity
+        $this->user->heartbeat();
     }
 
     public function removeLike()
     {
         $this->decreaseLikeCount();
         $this->decreasePopularity();
+
+        // Update user's last activity
+        $this->user->heartbeat();
     }
 
     // Increase the popularity of the likeable.
-    public function increasePopularity()
+    private function increasePopularity()
     {
         $this->likeable->increment('popularity', static::popularityValue());
     }
 
     // Decrease the popularity of the likeable.
-    public function decreasePopularity()
+    private function decreasePopularity()
     {
         $this->likeable->decrement('popularity', static::popularityValue());
     }
 
     // Increase the likes count of the likeable.
-    public function increaseLikeCount()
+    private function increaseLikeCount()
     {
         $this->likeable->increment('likes_count');
     }
 
     // Decrease the likes count of the likeable.
-    public function decreaseLikeCount()
+    private function decreaseLikeCount()
     {
         $this->likeable->decrement('likes_count');
     }
@@ -55,7 +61,7 @@ class Like extends Model
      */
     public static function popularityValue()
     {
-        return 3;
+        return 2;
     }
 
     public function user()

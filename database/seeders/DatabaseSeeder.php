@@ -4,14 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Tag;
 use App\Models\Like;
-use App\Models\Poll;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Comment;
-use App\Models\PollVote;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\PollOption;
 use App\Models\ReportedBug;
 use Illuminate\Database\Seeder;
 
@@ -97,30 +94,12 @@ class DatabaseSeeder extends Seeder
                     if (rand(0, 1)) {
                         $like = Like::create([
                             'user_id' => $user->id,
+                            'post_id' => $post->id,
                             'likeable_id' => $post->id,
                             'likeable_type' => 'post'
                         ]);
 
                         $like->addLike();
-                    }
-                }
-
-                // Create poll with a chance of 25% using PollFactory, PollOptionFactory and PollVoteFactory
-                if (rand(0, 3) === 0) {
-                    $poll = Poll::factory()->create([
-                        'user_id' => $post->user_id,
-                        'post_id' => $post->id
-                    ]);
-                    $options = PollOption::factory(rand(2, 5))->create(['poll_id' => $poll->id]);
-                    // Create votes using users
-                    foreach ($users as $user) {
-                        if (rand(0, 1)) {
-                            PollVote::create([
-                                'poll_id' => $poll->id,
-                                'user_id' => $user->id,
-                                'poll_option_id' => $options->random()->id
-                            ]);
-                        }
                     }
                 }
 
@@ -135,23 +114,38 @@ class DatabaseSeeder extends Seeder
                 ->recycle($users)
                 ->create([
                     'post_id' => $post->id,
+                    'parent_id' => null,
                     'commentable_id' => $post->id,
                     'commentable_type' => $post->getMorphClass(),
                     'depth' => 0,
-                ]);
+                ])->each(function ($comment) use ($users) {
+                    foreach ($users as $user) {
+                        if (rand(0, 1)) {
+                            $like = Like::create([
+                                'user_id' => $user->id,
+                                'comment_id' => $comment->id,
+                                'likeable_id' => $comment->id,
+                                'likeable_type' => 'comment'
+                            ]);
+
+                            $like->addLike();
+                        }
+                    }
+                });
 
             foreach ($comments as $comment) {
-                $this->createReplies($comment);
+                $this->createReplies($comment, 0, $users);
             }
         }
 
+        // Run additional seeders
         $this->call([
             FacultySeeder::class,
             ContactMessagesSeeder::class,
         ]);
     }
 
-    public function createReplies(Comment $comment, int $depth = 0): void
+    private function createReplies(Comment $comment, int $depth = 0, $users): void
     {
 
         if (rand(0, 1)) {
@@ -162,17 +156,33 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
+        $parentId = $comment->parent_id ?? $comment->id;
+
         $replies = Comment::factory(rand(0, 5))
-            ->recycle(User::all())
+            ->recycle($users)
             ->create([
                 'post_id' => $comment->post_id,
+                'parent_id' => $parentId,
                 'commentable_id' => $comment->id,
                 'commentable_type' => $comment->getMorphClass(),
                 'depth' => $depth + 1,
-            ]);
+            ])->each(function ($reply) use ($users) {
+                foreach ($users as $user) {
+                    if (rand(0, 1)) {
+                        $like = Like::create([
+                            'user_id' => $user->id,
+                            'comment_id' => $reply->id,
+                            'likeable_id' => $reply->id,
+                            'likeable_type' => 'comment'
+                        ]);
+
+                        $like->addLike();
+                    }
+                }
+            });
 
         foreach ($replies as $reply) {
-            $this->createReplies($reply, $depth + 1);
+            $this->createReplies($reply, $depth + 1, $users);
         }
     }
 }

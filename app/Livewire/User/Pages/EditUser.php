@@ -95,7 +95,6 @@ class EditUser extends Component
 
         // If name is updated, update the avatar
         if ($result && $this->user->wasChanged('name')) {
-            $this->user->updateDefaultAvatar();
             $this->flash('success', 'Profil bilgileriniz başarıyla güncellendi.', redirect: route('users.edit', $this->user->username));
             return;
         }

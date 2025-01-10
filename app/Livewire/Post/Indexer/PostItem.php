@@ -10,8 +10,6 @@ class PostItem extends Component
 
     public Post $post;
 
-    public $tags;
-
     public function render()
     {
         return view('livewire.post.indexer.post-item');

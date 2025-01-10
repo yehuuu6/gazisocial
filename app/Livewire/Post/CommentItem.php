@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Post;
 
-use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
+use App\Models\Comment;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use DanHarrin\LivewireRateLimiting\WithRateLimiting;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CommentItem extends Component
 {
@@ -25,6 +26,11 @@ class CommentItem extends Component
     public int $initialMaxReplyCount = 5;
     public int $maxReplyCount;
 
+    public bool $isLiked = false;
+    public int $likesCount;
+
+    public bool $isAuthenticated;
+
     public function mount()
     {
         if ($this->comment->depth <= 5) {
@@ -35,20 +41,67 @@ class CommentItem extends Component
             // So, if the depth is 6, we will show 4, if the depth is 7, we will show 3, and so on.
             $this->maxReplyCount = (($this->comment->depth - 5) - $this->initialMaxReplyCount) * -1;
         }
+
+        $this->isLiked = $this->comment->isLiked();
+        $this->likesCount = $this->comment->likes_count;
+
+        $this->isAuthenticated = Auth::check();
+    }
+
+    public function toggleLike()
+    {
+
+        if (!Auth::check()) {
+            $this->dispatch('auth-required', msg: 'Yorumları beğenebilmek için');
+            return;
+        }
+
+        try {
+            $this->rateLimit(50, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            $this->dispatch('blocked-from-liking');
+            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
+        // Check if the comment is liked by the user.
+
+        if ($this->comment->isLiked()) {
+            $response = Gate::inspect('delete', [Like::class, $this->comment]);
+            if (!$response->allowed()) {
+                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                return;
+            }
+        } else {
+            $response = Gate::inspect('create', [Like::class, $this->comment]);
+            if (!$response->allowed()) {
+                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                return;
+            }
+        }
+
+        $this->comment->toggleLike();
     }
 
     public function placeholder()
     {
-        return view('components.post.comment-placeholder');
+        return view('components.post.comment-placeholder', [
+            'type' => $this->comment->parent_id ? 'reply' : 'comment',
+        ]);
     }
 
     public function addReply()
     {
+
+        if (!Auth::check()) {
+            $this->dispatch('auth-required', msg: 'Yanıt yazabilmek için');
+            return;
+        }
+
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
             $this->alert('error', 'Yorum yapmak e-posta onaylı bir hesap gerektirir.');
-            $this->dispatch('auth-required');
             return;
         }
 
@@ -77,9 +130,12 @@ class CommentItem extends Component
             return;
         }
 
+        $parentId = $this->comment->parent_id ?? $this->comment->id;
+
         $this->comment->replies()->create([
             ...$validated,
             'post_id' => $this->post->id,
+            'parent_id' => $parentId,
             'user_id' => Auth::id(),
             'commentable_id' => $this->comment->id,
             'commentable_type' => $this->comment->getMorphClass(),
@@ -113,11 +169,18 @@ class CommentItem extends Component
             return;
         }
 
+        $countToDecrease = $comment->getAllRepliesCount() + 1; // Add 1 to include the comment itself
+
+        if ($comment->user_id === Auth::id()) {
+            // Update user's last activity
+            $comment->user->heartbeat();
+        }
+
         $comment->delete();
 
         $this->alert('success', 'Yorum başarıyla silindi.');
 
-        $this->dispatch('comment-deleted');
+        $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }
 
     public function render()

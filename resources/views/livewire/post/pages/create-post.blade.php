@@ -19,7 +19,7 @@
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>
                     <input type="hidden" name="tags" id="tags" wire:model='selectedTags'>
                     <div class="flex flex-wrap gap-2">
-                        @foreach ($tags as $tag)
+                        @foreach ($this->tags as $tag)
                             <button
                                 x-on:click="selectedTags.includes({{ $tag->id }}) ? selectedTags.splice(selectedTags.indexOf({{ $tag->id }}), 1) : selectedTags.push({{ $tag->id }})"
                                 type="button"
@@ -37,46 +37,11 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 px-4" x-data="{ polls: $wire.entangle('createdPolls') }">
+                <div class="flex flex-col gap-2 px-4">
                     <h3 class="block cursor-default font-medium text-gray-700">Anketler</h3>
                     <div class="flex gap-5">
-                        <template x-for="(poll, pollIndex) in polls" :key="pollIndex">
-                            <div class="flex flex-grow flex-col gap-1 rounded-md border border-gray-300 p-4 shadow-sm">
-                                <div class="flex flex-col gap-2">
-                                    <div class="flex items-center justify-between">
-                                        <h3 class="text-xl font-medium text-gray-700" x-text="poll.question"></h3>
-                                        <button type="button" x-on:click="polls.splice(pollIndex, 1)">
-                                            <x-icons.trash size='18' color="#ff6969" />
-                                        </button>
-                                    </div>
-                                    <template x-for="(option, optionIndex) in poll.options" :key="optionIndex">
-                                        <div
-                                            class="flex items-center justify-between gap-1 rounded-md border-2 border-gray-200 bg-gray-50 px-3 py-2 transition-all duration-500">
-                                            <div class="flex flex-grow flex-col px-1 pb-1">
-                                                <div class="flex w-full cursor-pointer items-center">
-                                                    <input type="radio" :id="'option-input-' + optionIndex"
-                                                        name="option" readonly class="size-4">
-                                                    <label :for="'option-input-' + optionIndex"
-                                                        class="ml-2 flex flex-1 cursor-pointer items-center justify-between">
-                                                        <span class="text-gray-700" x-text="option"></span>
-                                                        <span class="text-gray-500">0%</span>
-                                                    </label>
-                                                </div>
-                                                <div class="mt-2 h-2 w-full rounded-full bg-gray-300">
-                                                    <div
-                                                        class="h-2 rounded-full bg-blue-600 transition-all duration-1000">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </div>
-                            </div>
-                        </template>
                     </div>
-                    <h3 x-show="polls.length === 0" class="text-sm text-gray-500">Hiç anket eklenmemiş.</h3>
-                    <h3 x-show="polls.length > 0" class="text-orange-400">Oluşturduğunuz anketler taslaktır ve konuyu
-                        yayınlamadığınız sürece görünmeyecektir.</h3>
+                    <h3 class="text-sm text-gray-500">Hiç anket eklenmemiş.</h3>
                 </div>
                 <div class="px-4 self-start">
                     <div
