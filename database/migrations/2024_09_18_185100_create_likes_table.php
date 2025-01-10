@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +17,8 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Post::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Comment::class)->nullable()->constrained()->cascadeOnDelete();
             $table->morphs('likeable');
             $table->timestamps();
 
