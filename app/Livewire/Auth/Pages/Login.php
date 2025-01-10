@@ -66,7 +66,7 @@ class Login extends Component
 
         session()->regenerate();
 
-        $this->flash('success', 'Başarıyla giriş yaptınız.', redirect: route('home'));
+        $this->redirectIntended(route('home'));
     }
 
     #[Layout('layout.auth')]

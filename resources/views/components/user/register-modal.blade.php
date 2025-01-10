@@ -16,15 +16,15 @@
                 kabul etmiş olursunuz.
             </p>
             <div class="flex flex-col items-center gap-3">
-                <a href="{{ route('register') }}"
+                <button type="button" wire:click="redirectAuth('register')"
                     class="rounded-full text-center w-2/3 bg-primary px-4 py-2 border border-primary text-sm font-medium text-white hover:bg-opacity-90">
                     Kayıt Ol
-                </a>
+                </button>
                 <span class="text-xs text-gray-500 font-normal text-center">Zaten üye misin?</span>
-                <a href="{{ route('login') }}"
+                <button type="button" wire:click="redirectAuth('login')"
                     class="rounded-full text-center w-2/3 px-4 py-2 text-sm font-medium text-primary hover:text-white hover:bg-opacity-90 hover:bg-primary border border-primary">
                     Giriş Yap
-                </a>
+                </button>
             </div>
         </div>
     </x-slot>

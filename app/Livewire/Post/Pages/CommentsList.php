@@ -29,6 +29,12 @@ class CommentsList extends Component
         'gif-selected' => 'addComment',
     ];
 
+    public function redirectAuth(string $route)
+    {
+        // Redirect to the login page with the intended route
+        return redirect()->setIntendedUrl($this->post->showRoute())->route($route);
+    }
+
     public function getSortMethodProperty()
     {
         // Return created_at if the sortBy property is 'newest' or 'oldest' and return 'popularity' otherwise
