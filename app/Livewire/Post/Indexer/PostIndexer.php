@@ -4,7 +4,6 @@ namespace App\Livewire\Post\Indexer;
 
 use App\Models\Post;
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class PostIndexer extends Component
@@ -16,12 +15,6 @@ class PostIndexer extends Component
         return view('components.post.indexer-placeholder');
     }
 
-    public function getOrderType(): string
-    {
-        // Get the order type from session(order)
-        return session('order', 'created_at');
-    }
-
     public function updatingPage()
     {
         $this->dispatch('scroll-to-top');
@@ -29,49 +22,9 @@ class PostIndexer extends Component
 
     public function fetchPosts()
     {
-        $query = Post::query()
-            ->with('user', 'tags');
-
-        if ($this->getOrderType() === 'popularity') {
-            $timePeriod = session('time_period');
-            switch ($timePeriod) {
-                case 'today':
-                    $query->whereDate('created_at', today());
-                    break;
-                case 'one_week':
-                    $query->whereBetween('created_at', [now()->subWeek(), now()]);
-                    break;
-                case 'three_months':
-                    $query->whereBetween('created_at', [now()->subMonths(3), now()]);
-                    break;
-                case 'six_months':
-                    $query->whereBetween('created_at', [now()->subMonths(6), now()]);
-                    break;
-                case 'one_year':
-                    $query->whereBetween('created_at', [now()->subYear(), now()]);
-                    break;
-                case 'all_time':
-                    break;
-            }
-        }
-
-        $posts = $query->latest($this->getOrderType())
+        return Post::with('user', 'tags')
+            ->latest()
             ->simplePaginate(20);
-
-        return $posts;
-    }
-
-    #[On('orderChanged')]
-    #[On('time-period-updated')]
-    public function handleEvents()
-    {
-        $this->goFirstPage();
-        $this->render();
-    }
-
-    public function goFirstPage()
-    {
-        $this->resetPage();
     }
 
     public function render()
