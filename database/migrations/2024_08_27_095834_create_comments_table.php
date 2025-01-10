@@ -18,8 +18,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
-            $table->longText('content');
+            $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
+            $table->longText('content')->nullable();
             $table->morphs('commentable');
+            $table->string('gif_url')->nullable();
             $table->unsignedTinyInteger('depth')->default(0);
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->bigInteger('popularity')->default(0);
