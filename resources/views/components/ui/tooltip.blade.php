@@ -6,7 +6,7 @@
     tooltipPosition: '{{ $position }}',
 }" x-init="let timeoutId;
 $refs.content.addEventListener('mouseenter', () => {
-    timeoutId = setTimeout(() => { tooltipVisible = true; }, 1000);
+    timeoutId = setTimeout(() => { tooltipVisible = true; }, {{ $delay }});
 });
 $refs.content.addEventListener('mouseleave', () => {
     clearTimeout(timeoutId);
