@@ -38,6 +38,16 @@ class Post extends Model
         });
     }
 
+    public function incrementPopularity(int $amount)
+    {
+        $this->increment('popularity', $amount);
+    }
+
+    public function decrementPopularity(int $amount)
+    {
+        $this->decrement('popularity', $amount);
+    }
+
     public function isLiked(): bool
     {
         return $this->likes()->where('user_id', Auth::id())->exists();

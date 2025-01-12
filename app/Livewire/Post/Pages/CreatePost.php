@@ -22,7 +22,7 @@ class CreatePost extends Component
     public $content;
     public $selectedTags = [];
 
-    #[Computed]
+    #[Computed(cache: true)]
     public function tags()
     {
         return Tag::all();

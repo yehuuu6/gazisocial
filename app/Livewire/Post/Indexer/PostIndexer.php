@@ -5,6 +5,7 @@ namespace App\Livewire\Post\Indexer;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Computed;
 
 class PostIndexer extends Component
 {
@@ -15,12 +16,8 @@ class PostIndexer extends Component
         return view('components.post.indexer-placeholder');
     }
 
-    public function updatingPage()
-    {
-        $this->dispatch('scroll-to-top');
-    }
-
-    public function fetchPosts()
+    #[Computed]
+    public function posts()
     {
         return Post::with('user', 'tags')
             ->latest()
@@ -29,8 +26,6 @@ class PostIndexer extends Component
 
     public function render()
     {
-        return view('livewire.post.indexer.post-indexer', [
-            'posts' => $this->fetchPosts(),
-        ]);
+        return view('livewire.post.indexer.post-indexer');
     }
 }

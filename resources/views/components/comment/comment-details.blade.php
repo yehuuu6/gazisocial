@@ -16,12 +16,4 @@
     <span class="text-xs text-gray-500">
         {{ $comment->created_at->locale('tr')->diffForHumans() }}
     </span>
-    <span class="text-xs text-gray-500">
-        Populerlik:
-        {{ $comment->popularity }}
-    </span>
-    <span class="text-xs text-gray-500">
-        Yanıtlar:
-        {{ $comment->getAllRepliesCount() }}
-    </span>
 </div>

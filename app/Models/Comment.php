@@ -25,6 +25,12 @@ class Comment extends Model
         static::created(function ($comment) {
             // Update user's last activity
             $comment->user->heartbeat();
+            // Update the post's popularity
+            $comment->post->incrementPopularity($comment->popularityValue());
+        });
+
+        static::deleted(function ($comment) {
+            $comment->post->decrementPopularity($comment->popularityValue());
         });
 
         static::deleting(function ($comment) {

@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <x-seperator />
-                <livewire:post.pages.comments-list :$post lazy />
+                <livewire:post.pages.comments-list :$post lazy="on-load" />
             </div>
             <div
                 class="hidden rounded-br-md relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">

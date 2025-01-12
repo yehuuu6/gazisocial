@@ -35,10 +35,11 @@ html {
     border-radius: 999px;
     transition: all 0.3s ease;
 }
-
+/* DISABLED TO SEE IF THE WHITE SPACES ON ARTICLES ON SOME RARE CASES ARE FIXED
 .ProseMirror pre {
     white-space: pre-wrap;
 }
+*/
 
 .spinner_V8m1 {
     transform-origin: center;

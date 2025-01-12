@@ -1,3 +1,5 @@
-<x-post-indexer-container>
-    <livewire:components.post.post-indexer-by-tags :$tag lazy />
-</x-post-indexer-container>
+<div>
+    <div class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
+        <livewire:post.indexer.post-indexer-by-tags :$tag lazy />
+    </div>
+</div>

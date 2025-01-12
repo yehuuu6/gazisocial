@@ -12,7 +12,7 @@
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"
-                    class="flex md:items-center gap-2 w-full hover:opacity-85 break-all text-sm font-medium text-gray-700 transition-all duration-300 hover:no-underline md:text-base lg:text-lg">
+                    class="flex md:items-center gap-2 w-full break-all text-sm font-medium text-gray-700 md:text-base lg:text-lg">
                     <span>{{ $post->title }}</span>
                 </x-link>
             </div>
