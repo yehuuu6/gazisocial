@@ -66,7 +66,7 @@ class Login extends Component
 
         session()->regenerate();
 
-        $this->redirectIntended(route('home'));
+        $this->redirect(route('home'));
     }
 
     #[Layout('layout.auth')]

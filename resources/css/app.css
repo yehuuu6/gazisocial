@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url('https://fonts.cdnfonts.com/css/abc-ginto-nord-unlicensed-trial');
+@import url("https://fonts.cdnfonts.com/css/abc-ginto-nord-unlicensed-trial");
 
 @tailwind base;
 @tailwind components;
@@ -42,6 +42,25 @@ html {
 .spinner_V8m1 circle {
     stroke-linecap: round;
     animation: spinner_YpZS 1.5s ease-in-out infinite;
+}
+
+.dev-center::before {
+    -webkit-mask-image: url(/public/seperator.svg);
+    mask-image: url(/public/seperator.svg);
+    background-color: inherit;
+    content: "";
+    height: 5vw;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: auto 100%;
+    mask-size: auto 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background-position: bottom;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+    top: calc(-5vw + 2px);
 }
 
 @keyframes spinner_zKoa {
