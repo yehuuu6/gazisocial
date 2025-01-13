@@ -7,7 +7,7 @@ use App\Models\ReportedBug as Bug;
 use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 
-#[Title('Rapor Edilen Hatalar - Gazi Social Dev Center')]
+#[Title('Rapor Edilen Hatalar - Gazi Social')]
 class ReportedBugsList extends Component
 {
     use WithPagination;

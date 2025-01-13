@@ -26,6 +26,7 @@ use App\Livewire\Post\Pages\ShowPostsByTag;
 use App\Livewire\Admin\Pages\MessagesIndexer;
 use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
+use App\Livewire\Post\Pages\ListPosts;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -62,13 +63,13 @@ Route::get('/about', ReportBug::class)->name('about');
 
 Route::get('/bug-report', ReportBug::class)->name('bugs')->middleware('auth');
 
+Route::get('/reported-bugs', ReportedBugsList::class)->name('reported-bugs');
+
+Route::get('/reported-bug/{bug}', ShowBug::class)->name('show-bug');
+
 // DOC routes END
 
 // Dev Center Routes START
-
-Route::get('/dev-center/reported-bugs', ReportedBugsList::class)->name('reported-bugs');
-
-Route::get('/dev-center/reported-bug/{bug}', ShowBug::class)->name('show-bug');
 
 Route::get('/dev-center/contributors', Contributors::class)->name('contributors');
 
@@ -80,12 +81,12 @@ Route::get('/', Home::class)->name('home');
 
 // Post routes START
 
-Route::get('/posts/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
-Route::get('/posts/edit/{post}', EditPost::class)
+Route::get('/p/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
+Route::get('/p/edit/{post}', EditPost::class)
     ->name('posts.edit')
     ->middleware('auth', 'verified');
-Route::get('/posts', Home::class)->name('posts.index');
-Route::get('/posts/{post}/{slug}', ShowPost::class)->name('posts.show');
+Route::get('/posts', ListPosts::class)->name('posts.index');
+Route::get('/p/{post}/{slug}', ShowPost::class)->name('posts.show');
 
 // Post Routes END
 

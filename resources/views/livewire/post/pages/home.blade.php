@@ -1,5 +1,201 @@
 <div>
-    <div class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
-        <livewire:post.indexer.post-indexer lazy />
+    <div class="bg-white rounded-xl shadow-md border border-gray-100">
+        <div class="bg-gradient-to-b from-blue-600 to-blue-700 px-10 md:px-24 text-center py-24 rounded-t-xl">
+            <h1 class="text-white text-4xl font-extrabold uppercase font-ginto">
+                GAZİ SOCİAL'A HOŞ GELDİNİZ
+            </h1>
+            <p class="text-white text-lg font-medium mt-3.5">
+                Gazi öğrencilerinin fikirlerini paylaştığı ve bir araya geldiği dijital topluluk.
+            </p>
+            <div class="flex items-center justify-center gap-4 mt-10">
+                <x-link href="{{ route('posts.create') }}"
+                    class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-gray-900 bg-opacity-90 hover:bg-opacity-100 transition duration-300 hover:no-underline">
+                    Yeni Konu Oluştur
+                </x-link>
+                <x-link href="{{ route('posts.create') }}"
+                    class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
+                    Nasıl Başlarım?
+                </x-link>
+            </div>
+        </div>
+        <div class="mt-10 md:mt-16 mx-10 md:mx-24">
+            <div class="flex items-center justify-evenly gap-3 md:gap-5 flex-wrap flex-col md:flex-row md:flex-nowrap">
+                <div
+                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                    <div>
+                        <x-icons.school size="45" class="text-red-500" />
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-700">
+                            Dijital Kampüs
+                        </h2>
+                        <p class="text-sm text-gray-500">
+                            Kampüste olan biteni dijitalde keşfedin.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                    <div>
+                        <x-icons.happy size="45" class="text-green-500" />
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-700">
+                            Reklam Yok
+                        </h2>
+                        <p class="text-sm text-gray-500">
+                            Kar amacı gütmeyen bir platform.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                    <div>
+                        <x-icons.code size="45" class="text-blue-500" />
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-700">
+                            Açık Kaynak
+                        </h2>
+                        <p class="text-sm text-gray-500">
+                            Geliştirme sürecine katkıda bulunun.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 md:mt-12 mx-10 md:mx-24">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-gray-800 text-xl font-semibold">Sabitlenmiş Konular</h3>
+                    <p class="text-sm text-normal text-gray-400 font-normal">
+                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
+                    </p>
+                </div>
+                <x-link href="{{ route('posts.index') }}" class="text-primary text-sm font-medium">
+                    Tümünü Gör
+                </x-link>
+            </div>
+            <div class="mt-3 space-y-4">
+                @foreach ($this->pinnedPosts as $post)
+                    <div class="bg-white rounded-lg shadow border border-gray-100"
+                        wire:key="pinned-post-{{ $post->id }}">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <x-ui.tooltip text="Sabitlenmiş Konu">
+                                        <x-icons.pin class="text-blue-500" size="20" />
+                                    </x-ui.tooltip>
+                                    <div class="ml-1.5 flex items-center gap-1 flex-wrap">
+                                        @foreach ($post->tags as $tag)
+                                            <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <h4 class="text-lg font-medium text-gray-700">
+                                    {{ $post->title }}
+                                </h4>
+                                <p class="text-sm font-light text-gray-500">
+                                    {{ substr(strip_tags($post->html), 0, 200) }}...
+                                </p>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="flex items-center gap-1">
+                                        <x-icons.user class="text-blue-500" size="20" />
+                                        <span class="text-sm text-gray-500">
+                                            {{ $post->user->name }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <x-icons.time class="text-blue-500" size="20" />
+                                        <span class="text-sm text-gray-500">
+                                            {{ $post->created_at->diffForHumans() }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <x-link href="{{ $post->showRoute() }}" class="text-primary text-xs font-normal">
+                                        Devamını oku
+                                    </x-link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="my-5 md:my-12 mx-10 md:mx-24">
+            <div class="text-center">
+                <h3 class="text-3xl font-semibold text-gray-800">Geliştirici Merkezi</h3>
+                <p class="mt-3 text-gray-500 text-lg font-normal">
+                    Gazi Social açık kaynaklı bir projedir. Siz de katkıda bulunarak platformun gelişimine yardımcı
+                    olabilirsiniz.
+                </p>
+                <x-link href="{{ route('how-to-contribute') }}" class="text-blue-500 text-lg font-medium mt-3">
+                    Dev Center'a Git
+                </x-link>
+            </div>
+            <div class="mt-8 grid gap-5 grid-cols-2">
+                <div
+                    class="hover:shadow-md shadow rounded-md bg-blue-50 bg-opacity-70 transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
+                    <div class="rounded-full bg-white p-2 text-blue-400">
+                        <x-icons.code size="36" />
+                    </div>
+                    <span class="text-lg font-normal text-gray-800">Nasıl Katkıda Bulunabilirim?</span>
+                    <p class="text-base font-light text-gray-600">
+                        Geliştirme sürecine katılmak için rehberimize göz atın
+                    </p>
+                    <x-link href="{{ route('how-to-contribute') }}"
+                        class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
+                        Contribution Guide
+                    </x-link>
+                </div>
+                <div
+                    class="hover:shadow-md shadow rounded-md bg-blue-50 bg-opacity-70 transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
+                    <div class="rounded-full bg-white p-2 text-blue-400">
+                        <x-icons.github size="36" />
+                    </div>
+                    <span class="text-lg font-normal text-gray-800">Projeyi Yıldızlayın</span>
+                    <p class="text-base font-light text-gray-600">
+                        Projeye GitHub üzerinden yıldız vererek destek olun
+                    </p>
+                    <a target="_blank" href="https://github.com/yehuuu6/gazisocial"
+                        class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
+                        Github Repository
+                    </a>
+                </div>
+                <div
+                    class="hover:shadow-md shadow rounded-md bg-blue-50 bg-opacity-70 transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
+                    <div class="rounded-full bg-white p-2 text-blue-400">
+                        <x-icons.bug size="36" />
+                    </div>
+                    <span class="text-lg font-normal text-gray-800">Hata Raporları</span>
+                    <p class="text-base font-light text-gray-600">
+                        Bulduğunuz hataları bildirin ve çözümlere katkıda bulunun
+                    </p>
+                    <x-link href="{{ route('reported-bugs') }}"
+                        class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
+                        Bug Reports
+                    </x-link>
+                </div>
+                <div
+                    class="hover:shadow-md shadow rounded-md bg-blue-50 bg-opacity-70 transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
+                    <div class="rounded-full bg-white p-2 text-blue-400">
+                        <x-icons.heart-off size="36" />
+                    </div>
+                    <span class="text-lg font-normal text-gray-800">Katkıda Bulunanlar</span>
+                    <p class="text-base font-light text-gray-600">
+                        Projeye katkıda bulunan geliştiricileri tanıyın
+                    </p>
+                    <x-link href="{{ route('contributors') }}"
+                        class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
+                        Contributors
+                    </x-link>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

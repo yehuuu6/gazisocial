@@ -32,21 +32,21 @@
         x-on:click.away="tagsDropdown = false" x-ref="tagsLister"
         class="bg-white border border-gray-200 rounded-md shadow min-w-[100px] overflow-hidden">
         <div>
-            <input type="text" placeholder="🔎    Etiket Ara"
+            <input type="text" placeholder="🔎    Etiket Ara" spellcheck="false"
                 class="w-full px-5 py-4 text-sm outline-none placeholder:font-normal font-medium text-gray-700 border-b border-gray-200"
                 x-model="search" x-on:input="searchTags()" x-ref="searchInput">
         </div>
         <div class="max-h-[200px] overflow-y-auto md:max-h-[225px] lg:max-h-[250px]">
             @foreach ($this->tags as $tag)
-                <x-link href="{{ route('tags.show', $tag->slug) }}" data-slug="{{ $tag->slug }}"
+                <a wire:navigate href="{{ route('tags.show', $tag->slug) }}" data-slug="{{ $tag->slug }}"
                     class="flex items-center gap-4 px-5 py-4 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:no-underline">
                     <x-icons.tag size="20" />
                     <span>{{ $tag->name }}</span>
-                </x-link>
+                </a>
             @endforeach
         </div>
         <div x-cloak x-show="foundTagCount == 0"
-            class="flex items-center gap-4 px-5 py-4 text-sm font-medium text-gray-700 cursor-default select-none">
+            class="flex items-center gap-4 px-5 py-4 text-sm font-medium text-gray-500 cursor-default select-none">
             <x-icons.sorry size="20" />
             <span>
                 Etiket bulunamadı.

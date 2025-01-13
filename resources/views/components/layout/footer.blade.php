@@ -24,6 +24,9 @@
                 Geç</x-link>
             <x-link href="{{ route('bugs') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Hata Bildir</x-link>
+            <x-link href="{{ route('reported-bugs') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Raporlanmış
+                Hatalar</x-link>
         </div>
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">Yardım</h4>
@@ -38,12 +41,14 @@
         </div>
         <div class="flex flex-col gap-2 py-4">
             <h4 class="font-semibold text-gray-800 md:text-lg">Dev Center</h4>
+            <x-link href="{{ route('contributors') }}"
+                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">
+                Introduction
+            </x-link>
             <x-link href="{{ route('how-to-contribute') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">
                 Contribution Guide
             </x-link>
-            <x-link href="{{ route('reported-bugs') }}"
-                class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Reported Bugs</x-link>
             <x-link href="{{ route('contributors') }}"
                 class="text-sm text-gray-500 hover:text-primary hover:no-underline md:text-base">Contributors</x-link>
         </div>

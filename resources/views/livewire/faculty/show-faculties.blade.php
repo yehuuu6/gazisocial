@@ -10,7 +10,7 @@
                             class="text-lg font-medium text-blue-600 hover:underline">{{ $faculty->name }}</a>
                         <span class="text-sm text-gray-500">{{ $faculty->description }}</span>
                     </div>
-                    @if (!Auth::user()->faculty)
+                    @can('join', App\Models\Faculty::class)
                         <button wire:click="joinFaculty({{ $faculty->id }})"
                             class="w-[75px] hidden group-hover:flex items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none hover:bg-blue-900">
                             <span class="flex items-center justify-center" wire:loading.remove
@@ -22,21 +22,7 @@
                                 <x-icons.spinner size='24' color='white' />
                             </span>
                         </button>
-                    @else
-                        @if (Auth::user()->faculty_id === $faculty->id)
-                            <button wire:click="leaveFaculty()"
-                                class="flex w-[75px] items-center justify-center rounded bg-red-500 px-6 py-2 font-medium text-white outline-none hover:bg-red-900">
-                                <span class="flex items-center justify-center" wire:loading.remove
-                                    wire:target="leaveFaculty">
-                                    Ayrıl
-                                </span>
-                                <span class="flex items-center justify-center" wire:loading.flex
-                                    wire:target="leaveFaculty">
-                                    <x-icons.spinner size='24' color='white' />
-                                </span>
-                            </button>
-                        @endif
-                    @endif
+                    @endcan
                 </div>
             @endforeach
         </div>

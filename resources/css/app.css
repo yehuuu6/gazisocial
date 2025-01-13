@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.cdnfonts.com/css/abc-ginto-nord-unlicensed-trial');
 
 @tailwind base;
 @tailwind components;
@@ -9,16 +10,8 @@
         @apply scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-gray-200;
     }
 
-    .active-profile-tab {
-        @apply text-blue-500 border-blue-500;
-    }
-
-    .profile-tab {
-        @apply text-gray-500 border-transparent hover:text-blue-500 hover:border-blue-500;
-    }
-
     .bottom-header {
-        @apply flex justify-between items-center p-3 bg-primary text-white md:p-4 rounded-bl-md rounded-br-md;
+        @apply flex justify-between items-center p-3 bg-primary text-white md:p-4 rounded-bl-xl rounded-br-xl;
     }
 }
 

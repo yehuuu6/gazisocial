@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->longText('html');
+            $table->boolean('is_pinned')->default(false);
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->bigInteger('popularity')->default(0);
             $table->timestamps();

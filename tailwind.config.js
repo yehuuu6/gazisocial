@@ -16,6 +16,7 @@ export default {
         "border-lime-500",
         "border-emerald-500",
         "border-amber-500",
+        "border-l-4",
         "bg-blue-500",
         "bg-blue-700",
         "bg-green-700",
@@ -44,6 +45,7 @@ export default {
         extend: {
             fontFamily: {
                 inter: ["Inter", "sans-serif"],
+                ginto: ["ABC Ginto Nord Unlicensed Trial", "sans-serif"],
             },
             animation: {
                 wiggle: "wiggle 1s ease-in-out infinite",

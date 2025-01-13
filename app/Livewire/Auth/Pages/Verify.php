@@ -44,11 +44,9 @@ class Verify extends Component
         }
 
         if ($this->user->isStudent()) {
-            session()->flash('emailVerifiedStudent', 'E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.');
-            return redirect(route('faculties'));
+            $this->flash('info', 'E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.');
         } else {
-            session()->flash('emailVerified', 'E-posta adresiniz doğrulandı.');
-            return redirect(route('home'));
+            $this->flash('info', 'E-posta adresiniz doğrulandı.');
         }
 
         // Update user's last activity

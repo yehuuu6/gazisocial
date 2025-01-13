@@ -2,19 +2,25 @@
 
 namespace App\Livewire\Post\Pages;
 
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Post;
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 
 class Home extends Component
 {
 
-    use LivewireAlert;
+    #[Computed]
+    public function pinnedPosts()
+    {
+        return Post::with('user', 'tags')
+            ->where('is_pinned', true)
+            ->latest()
+            ->limit(3)
+            ->get();
+    }
 
     public function render()
     {
-        if (session()->has('emailVerified')) {
-            $this->alert('success', session('emailVerified'));
-        }
         return view('livewire.post.pages.home');
     }
 }

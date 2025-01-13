@@ -138,6 +138,11 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        // Make the first 5 posts pinned
+        $posts->take(5)->each(function ($post) {
+            $post->update(['is_pinned' => true]);
+        });
+
         // Run additional seeders
         $this->call([
             FacultySeeder::class,
