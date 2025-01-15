@@ -23,19 +23,7 @@
                 @endguest
                 @auth
                     <div class="flex items-center gap-3 p-2">
-                        <div x-data="{ notificationsDropdown: false }" class="flex items-center gap-2 text-primary">
-                            <button x-on:click="notificationsDropdown = !notificationsDropdown" x-ref="notificationMenu"
-                                class="p-2 hover:bg-gray-100 rounded-md relative">
-                                <span
-                                    class="absolute size-2.5 top-2 right-2 animate-ping bg-blue-500 rounded-full text-xs font-semibold">
-                                </span>
-                                <span
-                                    class="absolute size-2.5 top-2 right-2 bg-blue-500 rounded-full text-xs font-semibold">
-                                </span>
-                                <x-icons.notification size="33" />
-                            </button>
-                            <livewire:user.notification-lister />
-                        </div>
+                        <livewire:user.notification-lister lazy />
                         <div x-data="{ userDropdown: false }">
                             <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
                                 class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">
