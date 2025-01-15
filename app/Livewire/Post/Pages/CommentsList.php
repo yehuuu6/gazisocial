@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Post\Pages;
 
-use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Comment;
 use Livewire\Component;
+use App\Models\Notification;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
+use App\Events\NotificationReceived;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -39,6 +41,29 @@ class CommentsList extends Component
     {
         // Return created_at if the sortBy property is 'newest' or 'oldest' and return 'popularity' otherwise
         return $this->sortBy === 'newest' || $this->sortBy === 'oldest' ? 'created_at' : 'popularity';
+    }
+
+    public function createNotification(int $commentId): void
+    {
+
+        if ($this->post->user_id === Auth::id()) {
+            return;
+        }
+
+        Notification::create(
+            [
+                'user_id' => $this->post->user_id,
+                'type' => 'post_comment',
+                'data' => [
+                    'sender_id' => Auth::id(),
+                    'post_id' => $this->post->id,
+                    'comment_id' => $commentId,
+                    'text' => Auth::user()->name . ' gönderinize yorum yaptı'
+                ],
+            ]
+        );
+
+        broadcast(new NotificationReceived(receiver: $this->post->user))->toOthers();
     }
 
     public function setSortMethod($method)
@@ -109,7 +134,7 @@ class CommentsList extends Component
             $validated = [];
         }
 
-        $this->post->comments()->create([
+        $comment = $this->post->comments()->create([
             ...$validated,
             'post_id' => $this->post->id,
             'parent_id' => null,
@@ -118,6 +143,8 @@ class CommentsList extends Component
             'commentable_id' => $this->post->id,
             'commentable_type' => $this->post->getMorphClass()
         ]);
+
+        $this->createNotification($comment->id);
 
         $this->resetPage();
 

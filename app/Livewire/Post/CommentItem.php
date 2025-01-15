@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Post;
 
+use App\Events\NotificationReceived;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Notification;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -90,6 +92,30 @@ class CommentItem extends Component
         ]);
     }
 
+    public function createNotification(int $replyId): void
+    {
+
+        if ($this->comment->user_id === Auth::id()) {
+            return;
+        }
+
+        Notification::create(
+            [
+                'user_id' => $this->comment->user_id,
+                'type' => 'comment_reply',
+                'data' => [
+                    'sender_id' => Auth::id(),
+                    'comment_id' => $this->comment->id,
+                    'reply_id' => $replyId,
+                    'post_id' => $this->post->id,
+                    'text' => Auth::user()->name . ' yorumunuza yanıt verdi'
+                ],
+            ]
+        );
+
+        broadcast(new NotificationReceived(receiver: $this->comment->user))->toOthers();
+    }
+
     public function addReply()
     {
 
@@ -132,7 +158,7 @@ class CommentItem extends Component
 
         $parentId = $this->comment->parent_id ?? $this->comment->id;
 
-        $this->comment->replies()->create([
+        $reply = $this->comment->replies()->create([
             ...$validated,
             'post_id' => $this->post->id,
             'parent_id' => $parentId,
@@ -141,6 +167,8 @@ class CommentItem extends Component
             'commentable_type' => $this->comment->getMorphClass(),
             'depth' => $this->comment->depth + 1
         ]);
+
+        $this->createNotification($reply->id);
 
         $this->alert('success', 'Yanıtınız başarıyla eklendi.');
 
