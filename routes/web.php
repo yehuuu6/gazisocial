@@ -26,6 +26,7 @@ use App\Livewire\Post\Pages\ShowPostsByTag;
 use App\Livewire\Admin\Pages\MessagesIndexer;
 use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
+use App\Livewire\Docs\DevCenter\Introduction;
 use App\Livewire\Post\Pages\ListPosts;
 
 // Auth routes START
@@ -70,6 +71,8 @@ Route::get('/reported-bug/{bug}', ShowBug::class)->name('show-bug');
 // DOC routes END
 
 // Dev Center Routes START
+
+Route::get('/dev-center', Introduction::class)->name('dev-center');
 
 Route::get('/dev-center/contributors', Contributors::class)->name('contributors');
 

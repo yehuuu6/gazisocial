@@ -1,69 +1,71 @@
 <div>
     <div class="bg-white rounded-xl shadow-md border border-gray-100">
-        <section class="bg-gradient-to-b from-blue-600 to-blue-700 px-10 md:px-24 text-center py-24 rounded-t-xl">
-            <h1 class="text-white text-4xl font-extrabold uppercase font-ginto">
-                GAZİ SOCİAL'A HOŞ GELDİNİZ
-            </h1>
-            <p class="text-white text-lg font-medium mt-3.5">
-                Gazi öğrencilerinin fikirlerini paylaştığı ve bir araya geldiği dijital topluluk.
-            </p>
-            <div class="flex items-center justify-center gap-4 mt-10">
-                <x-link href="{{ route('posts.create') }}"
-                    class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-gray-900 bg-opacity-90 hover:bg-opacity-100 transition duration-300 hover:no-underline">
-                    Yeni Konu Oluştur
-                </x-link>
-                <x-link href="{{ route('posts.create') }}"
-                    class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
-                    Nasıl Başlarım?
-                </x-link>
-            </div>
-        </section>
-        <section class="mt-10 md:mt-16 mx-10 md:mx-24">
-            <div class="flex items-center justify-evenly gap-3 md:gap-5 flex-wrap flex-col md:flex-row md:flex-nowrap">
-                <div
-                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
-                    <div>
-                        <x-icons.school size="45" class="text-red-500" />
+        @guest
+            <section class="bg-gradient-to-b from-blue-500 to-blue-700 px-10 md:px-24 text-center py-24 rounded-t-xl">
+                <h1 class="text-white text-4xl font-extrabold uppercase font-ginto">
+                    GAZİ SOCİAL'A HOŞ GELDİNİZ
+                </h1>
+                <p class="text-white text-lg font-medium mt-3.5">
+                    Gazi öğrencilerinin fikirlerini paylaştığı ve bir araya geldiği dijital topluluk.
+                </p>
+                <div class="flex items-center justify-center gap-4 mt-10">
+                    <x-link href="{{ route('posts.create') }}"
+                        class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-gray-900 bg-opacity-90 hover:bg-opacity-100 transition duration-300 hover:no-underline">
+                        Yeni Konu Oluştur
+                    </x-link>
+                    <x-link href="{{ route('posts.create') }}"
+                        class="rounded-md w-48 bg-white border border-white py-3 text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
+                        Nasıl Başlarım?
+                    </x-link>
+                </div>
+            </section>
+            <section class="mt-10 md:mt-16 mx-10 md:mx-24">
+                <div class="flex items-center justify-evenly gap-3 md:gap-5 flex-wrap flex-col md:flex-row md:flex-nowrap">
+                    <div
+                        class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                        <div>
+                            <x-icons.school size="45" class="text-red-500" />
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                Dijital Kampüs
+                            </h2>
+                            <p class="text-sm text-gray-500">
+                                Kampüste olan biteni dijitalde keşfedin.
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-700">
-                            Dijital Kampüs
-                        </h2>
-                        <p class="text-sm text-gray-500">
-                            Kampüste olan biteni dijitalde keşfedin.
-                        </p>
+                    <div
+                        class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                        <div>
+                            <x-icons.happy size="45" class="text-green-500" />
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                Reklam Yok
+                            </h2>
+                            <p class="text-sm text-gray-500">
+                                Kar amacı gütmeyen bir platform.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
+                        <div>
+                            <x-icons.code size="45" class="text-blue-500" />
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                Açık Kaynak
+                            </h2>
+                            <p class="text-sm text-gray-500">
+                                Geliştirme sürecine katkıda bulunun.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div
-                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
-                    <div>
-                        <x-icons.happy size="45" class="text-green-500" />
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-700">
-                            Reklam Yok
-                        </h2>
-                        <p class="text-sm text-gray-500">
-                            Kar amacı gütmeyen bir platform.
-                        </p>
-                    </div>
-                </div>
-                <div
-                    class="flex w-full md:w-1/3 items-center px-6 py-4 gap-3.5 bg-white border border-gray-200 rounded-lg shadow">
-                    <div>
-                        <x-icons.code size="45" class="text-blue-500" />
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-semibold text-gray-700">
-                            Açık Kaynak
-                        </h2>
-                        <p class="text-sm text-gray-500">
-                            Geliştirme sürecine katkıda bulunun.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        @endguest
         <section class="mt-5 md:mt-12 mx-10 md:mx-24">
             <div class="flex items-center justify-between">
                 <div>
@@ -127,80 +129,22 @@
                 @endforeach
             </div>
         </section>
-        <section class="dev-center mt-20 relative bg-blue-50">
+        <section class="dev-center mt-20 relative bg-blue-600">
             <div class="py-5 md:py-12 px-10 md:px-24">
                 <div class="flex flex-col items-center justify-center text-center">
-                    <h3 class="text-3xl font-semibold text-gray-900">Geliştirici Merkezi</h3>
-                    <p class="mt-1.5 text-gray-600 text-lg font-normal w-3/4">
-                        Gazi Social açık kaynaklı bir projedir. Geliştirme süreci ile ilgili her şey Dev Center adlı
-                        sayfada toplanmıştır. Siz de katkıda bulunarak platformun gelişimine yardımcı olabilirsiniz.
+                    <h3 class="text-3xl font-semibold text-white">Geliştirici Merkezi</h3>
+                    <p class="mt-1.5 text-gray-50 text-lg font-normal w-3/4">
+                        Gazi Social açık kaynaklı bir projedir. Geliştirme süreci ile ilgili içerikler "Dev Center" adlı
+                        sayfada toplanmıştır.
                     </p>
-                    <x-link href="{{ route('how-to-contribute') }}"
-                        class="text-blue-500 flex items-center justify-center gap-1 text-lg font-medium mt-4">
+                    <x-link href="{{ route('dev-center') }}"
+                        class="text-white flex items-center justify-center gap-1 text-lg font-medium mt-4">
                         Dev Center'a Git
                         <x-icons.arrow-right-alt size="20" />
                     </x-link>
                 </div>
-                <div class="mt-12 grid gap-5 grid-cols-2">
-                    <div
-                        class="hover:shadow-md shadow rounded-md bg-white transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
-                        <div class="rounded-full bg-blue-50 p-2 text-blue-400">
-                            <x-icons.code size="36" />
-                        </div>
-                        <span class="text-lg font-normal text-gray-800">Nasıl Katkıda Bulunabilirim?</span>
-                        <p class="text-base font-light text-gray-600">
-                            Geliştirme sürecine katılmak için rehberimize göz atın
-                        </p>
-                        <x-link href="{{ route('how-to-contribute') }}"
-                            class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
-                            Contribution Guide
-                        </x-link>
-                    </div>
-                    <div
-                        class="hover:shadow-md shadow rounded-md bg-white transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
-                        <div class="rounded-full bg-blue-50 p-2 text-blue-400">
-                            <x-icons.github size="36" />
-                        </div>
-                        <span class="text-lg font-normal text-gray-800">Projeyi Yıldızlayın</span>
-                        <p class="text-base font-light text-gray-600">
-                            Projeye GitHub üzerinden yıldız vererek destek olun
-                        </p>
-                        <a target="_blank" href="https://github.com/yehuuu6/gazisocial"
-                            class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
-                            GitHub Repository
-                        </a>
-                    </div>
-                    <div
-                        class="hover:shadow-md shadow rounded-md bg-white transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
-                        <div class="rounded-full bg-blue-50 p-2 text-blue-400">
-                            <x-icons.bug size="36" />
-                        </div>
-                        <span class="text-lg font-normal text-gray-800">Hata Raporları</span>
-                        <p class="text-base font-light text-gray-600">
-                            Bulduğunuz hataları bildirin ve çözümlere katkıda bulunun
-                        </p>
-                        <x-link href="{{ route('reported-bugs') }}"
-                            class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
-                            Bug Reports
-                        </x-link>
-                    </div>
-                    <div
-                        class="hover:shadow-md shadow rounded-md bg-white transition duration-200 flex flex-col items-center justify-center gap-4 px-3 py-8">
-                        <div class="rounded-full bg-blue-50 p-2 text-blue-400">
-                            <x-icons.heart size="36" />
-                        </div>
-                        <span class="text-lg font-normal text-gray-800">Katkıda Bulunanlar</span>
-                        <p class="text-base font-light text-gray-600">
-                            Projeye katkıda bulunan geliştiricileri tanıyın
-                        </p>
-                        <x-link href="{{ route('contributors') }}"
-                            class="text-gray-700 px-5 py-2.5 text-center text-sm mt-2 font-medium bg-white rounded-md border transition duration-300 border-gray-200 hover:bg-gray-100 hover:no-underline">
-                            Contributors
-                        </x-link>
-                    </div>
-                </div>
                 <div class="mt-12 text-center">
-                    <p class="text-sm text-gray-700 font-light">
+                    <p class="text-sm text-gray-100 font-light">
                         Proje <a target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html"
                             class="hover:underline italic">GNU General
                             Public License v3.0</a> lisansı ile korunmaktadır.
@@ -208,17 +152,21 @@
                 </div>
             </div>
         </section>
-        <section class="my-5 md:my-12 mx-10 md:mx-24">
-            <div class="text-center">
-                <h3 class="text-3xl font-semibold text-gray-900">Hemen Katılın ve Tartışmaya Başlayın</h3>
-                <p class="text-lg font-normal text-gray-600 mt-2 mb-8">Gazi Üniversitesi öğrenci topluluğuna katılın,
-                    bilgi
-                    paylaşın ve yeni arkadaşlıklar kurun.</p>
-                <x-link href="{{ route('register') }}"
-                    class="text-white text-sm font-medium bg-blue-600 px-6 py-3.5 rounded-md hover:no-underline hover:bg-blue-700 transition duration-300">
-                    Ücretsiz Hesap Oluştur
-                </x-link>
-            </div>
-        </section>
+        @guest
+            <section class="my-5 md:my-12 mx-10 md:mx-24">
+                <div class="text-center">
+                    <h3 class="text-3xl font-semibold text-gray-900">
+                        Hemen Katılın ve Tartışmaya Başlayın
+                    </h3>
+                    <p class="text-lg font-normal text-gray-600 mt-2 mb-8">
+                        Gazi Social topluluğuna katılın, bilgi paylaşın ve yeni arkadaşlıklar kurun.
+                    </p>
+                    <x-link href="{{ route('register') }}"
+                        class="text-white text-sm font-medium bg-blue-600 px-6 py-3.5 rounded-md hover:no-underline hover:bg-blue-700 transition duration-300">
+                        Ücretsiz Hesap Oluştur
+                    </x-link>
+                </div>
+            </section>
+        @endguest
     </div>
 </div>
