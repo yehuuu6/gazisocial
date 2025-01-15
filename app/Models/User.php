@@ -43,6 +43,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         });
     }
 
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     /**
      * Update the user's last activity.
      */
