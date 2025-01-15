@@ -9,12 +9,6 @@ use App\Models\Reply;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\Vite;
-use App\Models\Like;
-use App\Observers\PostObserver;
-use App\Observers\CommentObserver;
-use App\Observers\ReplyObserver;
-use App\Observers\LikeObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
