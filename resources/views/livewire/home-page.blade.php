@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ isGuest: {{ Auth::check() ? 'false' : 'true' }} }">
     <div class="bg-white rounded-xl shadow-md border border-gray-100">
         @guest
             <section class="bg-gradient-to-b from-blue-500 to-blue-700 px-10 md:px-24 text-center py-24 rounded-t-xl">
@@ -66,7 +66,7 @@
                 </div>
             </section>
         @endguest
-        <section class="mt-5 md:mt-12 mx-10 md:mx-24">
+        <section :class="{ 'p-6': !isGuest, 'mt-5 md:mt-12 mx-10 md:mx-24': isGuest }">
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-gray-800 text-xl font-semibold">Sabitlenmiş Konular</h3>
@@ -166,7 +166,6 @@
                         Ücretsiz Hesap Oluştur
                     </x-link>
                 </div>
-            </section>
-        @endguest
+        </section> @endguest
     </div>
 </div>

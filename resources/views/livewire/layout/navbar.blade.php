@@ -23,7 +23,7 @@
                 @endguest
                 @auth
                     <div class="flex items-center gap-3 p-2">
-                        <livewire:user.notification-lister lazy />
+                        <livewire:user.notification-lister />
                         <div x-data="{ userDropdown: false }">
                             <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
                                 class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">

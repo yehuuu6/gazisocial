@@ -3,7 +3,7 @@
 use App\Livewire\Docs\ShowBug;
 use App\Livewire\Docs\ReportBug;
 use App\Livewire\Docs\Terms\FAQ;
-use App\Livewire\Post\Pages\Home;
+use App\Livewire\HomePage;
 use App\Livewire\Auth\Pages\Login;
 use App\Livewire\Docs\ContactPage;
 use App\Livewire\Auth\Pages\Verify;
@@ -80,7 +80,7 @@ Route::get('/dev-center/contribution-guide', ContributionGuide::class)->name('ho
 
 // Dev Center Routes END
 
-Route::get('/', Home::class)->name('home');
+Route::get('/', HomePage::class)->name('home');
 
 // Post routes START
 

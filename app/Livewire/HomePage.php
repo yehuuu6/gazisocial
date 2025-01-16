@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Post\Pages;
+namespace App\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 
-class Home extends Component
+class HomePage extends Component
 {
 
     #[Computed]
@@ -21,6 +21,6 @@ class Home extends Component
 
     public function render()
     {
-        return view('livewire.post.pages.home');
+        return view('livewire.home-page');
     }
 }

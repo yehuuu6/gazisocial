@@ -10,7 +10,19 @@ use Livewire\Attributes\Computed;
 class NotificationLister extends Component
 {
 
-    public bool $hasUnreadNotifications = false;
+    public bool $hasUnreadNotifications;
+
+    public function mount()
+    {
+        $this->setUnreadBool();
+    }
+
+    private function setUnreadBool(): void
+    {
+        Notification::where('user_id', Auth::id())->where('read', false)->exists()
+            ? $this->hasUnreadNotifications = true
+            : $this->hasUnreadNotifications = false;
+    }
 
     public function placeholder()
     {
@@ -23,11 +35,6 @@ class NotificationLister extends Component
     // Not working on client side
     public function markAllAsRead()
     {
-
-        if (!$this->hasUnreadNotifications) {
-            return;
-        }
-
         /**
          * @var \App\Models\User $user
          */
@@ -51,6 +58,9 @@ class NotificationLister extends Component
         if ($notification && !$notification->read) {
             $notification->update(['read' => true]);
         }
+
+        // Redirect to the notification's action
+        // TODO: Implement this
     }
 
     #[Computed]
@@ -89,9 +99,7 @@ class NotificationLister extends Component
 
     public function render()
     {
-        Notification::where('user_id', Auth::id())->where('read', false)->exists()
-            ? $this->hasUnreadNotifications = true
-            : $this->hasUnreadNotifications = false;
+        $this->setUnreadBool();
 
         return view('livewire.user.notification-lister');
     }

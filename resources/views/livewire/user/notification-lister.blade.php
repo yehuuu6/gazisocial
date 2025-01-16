@@ -19,7 +19,8 @@
         <div class="bg-white rounded-md w-96 shadow-md border border-gray-200">
             <div class="flex items-center justify-between p-3">
                 <h1 class="font-semibold text-base text-gray-800">Bildirimler</h1>
-                <button x-on:click="hasUnreadNotifications = false; notificationsDropdown = false"
+                <button
+                    x-on:click="hasUnreadNotifications = false; notificationsDropdown = false; $dispatch('notification-read')"
                     wire:click="markAllAsRead"
                     class="p-2 text-gray-800 text-xs flex items-center gap-3 font-medium rounded-md hover:bg-gray-100">
                     <x-icons.check-check size="20" class="text-blue-600" />
@@ -32,8 +33,8 @@
                     <button x-data="{
                         isRead: {{ $notification->read ? 'true' : 'false' }},
                     }" :disabled="isRead" type="button"
-                        wire:click="markAsRead({{ $notification->id }})" x-on:click="isRead = true"
-                        wire:key='notification-{{ $notification->id }}'
+                        x-on:notification-read.window="isRead = true" wire:click="markAsRead({{ $notification->id }})"
+                        x-on:click="isRead = true" wire:key='notification-{{ $notification->id }}'
                         :class="{ 'bg-white hover:bg-gray-100': isRead, 'bg-blue-50 hover:bg-blue-100': !isRead }"
                         class="flex text-left items-center gap-3 p-3 cursor-pointer">
                         <div :class="{
