@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Post\Pages;
 
-use App\Models\Post;
-use Livewire\Component;
 use App\Models\Like;
+use App\Models\Post;
+use App\Models\Comment;
+use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
-use Illuminate\Support\Facades\Auth;
 
 class ShowPost extends Component
 {
@@ -20,6 +21,8 @@ class ShowPost extends Component
 
     public Post $post;
     public bool $isLiked = false;
+    public bool $isSingleCommentThread;
+    public $selectedCommentId;
     public int $likesCount;
     public int $commentsCount;
 
@@ -34,12 +37,10 @@ class ShowPost extends Component
 
     public $userBio;
 
-    public function mount(Request $request)
+    public function mount(Post $post, Request $request, $comment = null,)
     {
-        // Find the post by id and slug, if the title is not the same as the slug, redirect to the correct route permanently. (301)
-        if (!Str::endsWith($this->post->showRoute(), $request->path())) {
-            return redirect()->to($this->post->showRoute($request->query()), status: 301);
-        }
+        $this->post = $post;
+        $this->controlRoute($request);
 
         $this->isAuthenticated = Auth::check();
 
@@ -47,10 +48,52 @@ class ShowPost extends Component
         $this->likesCount = $this->post->likes_count;
         $this->commentsCount = $this->post->getCommentsCount();
 
+        $this->isSingleCommentThread = $this->determineIfSingleCommentThread($comment);
+
+        $this->setBio();
+    }
+
+    private function determineIfSingleCommentThread($comment): bool
+    {
+        if (! (request()->segment(4) === 'comments' && request()->segment(5) !== null)) {
+            return false;
+        }
+        // If the post does not have a comment with the given ID, return false.
+        // GOING TO THE REPLY THREAD GIVES 404 ERROR IDK WHY
+        // I THINK ITS NOT FOUND IN THE RELATION OF THE POST
+        if (Comment::where('id', $comment)->where('post_id', $this->post->id)->doesntExist()) {
+            abort(404, 'Yorum bulunamadı.');
+        }
+        if (!is_numeric($comment)) {
+            // If the comment is not integer, return false.
+            return false;
+        }
+
+        $this->selectedCommentId = $comment;
+
+        return true;
+    }
+
+    private function setBio()
+    {
         if ($this->post->user->bio === null || empty($this->post->user->bio)) {
             $this->userBio = 'Herhangi bir bilgi verilmemiş.';
         } else {
             $this->userBio = $this->post->user->bio;
+        }
+    }
+
+    private function controlRoute(Request $request)
+    {
+        // Segment 1: /p/, Segment 2: post-id, Segment 3: post-slug, Segment 4: /comments/, Segment 5: comment-id
+        // If the post slug is not the same as the post slug in the database, redirect to the correct URL.
+        $correctSlug = Str::slug($this->post->title);
+        if ($request->segment(3) !== $correctSlug) {
+            $segments = $request->segments();
+            // 0: p, 1: post-id, 2: post-slug, 3: comments, 4: comment-id
+            $segments[2] = $correctSlug; // Update third segment with the correct slug
+            $correctUrl = implode('/', $segments);
+            return redirect()->to($correctUrl, 301);
         }
     }
 
@@ -91,9 +134,6 @@ class ShowPost extends Component
 
     public function render()
     {
-        // NO IDEA IF THIS IS NEEDED BUT KEEPING IT FOR NOW AS A COMMENT
-        //$this->isLiked = $this->post->isLiked();
-
         return view('livewire.post.pages.show-post')
             ->title($this->post->title . ' - ' . config('app.name'));
     }
