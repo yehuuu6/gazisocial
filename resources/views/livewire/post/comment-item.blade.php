@@ -90,7 +90,8 @@
                                 <x-icons.comment size="20" />
                                 <span>Yanıtla</span>
                             </x-comment.comment-button>
-                            <x-comment.comment-button x-on:click="alert('Not implemented yet!');">
+                            <x-comment.comment-button
+                                x-on:click="window.location.href='{{ $post->showRoute() }}/comments/{{ $comment->id }}'">
                                 <x-icons.send size="20" />
                                 <span>Paylaş</span>
                             </x-comment.comment-button>
