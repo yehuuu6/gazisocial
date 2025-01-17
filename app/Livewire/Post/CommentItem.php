@@ -17,7 +17,6 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CommentItem extends Component
 {
-
     use LivewireAlert, WithRateLimiting;
 
     public Comment $comment;
@@ -41,6 +40,7 @@ class CommentItem extends Component
         } else {
             // If the depth is greater than 5, we will show 1 less reply on each level.
             // So, if the depth is 6, we will show 4, if the depth is 7, we will show 3, and so on.
+            // The result is negative, so we multiply it by -1 to get the positive value.
             $this->maxReplyCount = (($this->comment->depth - 5) - $this->initialMaxReplyCount) * -1;
         }
 
@@ -87,9 +87,7 @@ class CommentItem extends Component
 
     public function placeholder()
     {
-        return view('components.post.comment-placeholder', [
-            'type' => $this->comment->parent_id ? 'reply' : 'comment',
-        ]);
+        return view('components.post.comment-placeholder');
     }
 
     public function createNotification(int $replyId): void
