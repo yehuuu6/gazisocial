@@ -101,7 +101,11 @@
                     </div>
                 </div>
                 <x-seperator />
-                <livewire:post.pages.comments-list :$post lazy="on-load" />
+                @if (!$isSingleCommentThread)
+                    <livewire:post.pages.comments-list :$post lazy="on-load" />
+                @else
+                    <livewire:post.pages.single-comment-thread :$selectedCommentId :$post />
+                @endif
             </div>
             <div
                 class="hidden rounded-br-md relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">
