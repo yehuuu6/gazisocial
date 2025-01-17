@@ -90,6 +90,7 @@ Route::get('/p/edit/{post}', EditPost::class)
     ->middleware('auth', 'verified');
 Route::get('/posts', ListPosts::class)->name('posts.index');
 Route::get('/p/{post}/{slug}', ShowPost::class)->name('posts.show');
+Route::get('/p/{post}/{slug}/comments/{comment}', ShowPost::class)->name('posts.show.comment');
 
 // Post Routes END
 
