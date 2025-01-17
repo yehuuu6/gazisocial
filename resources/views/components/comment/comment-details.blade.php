@@ -16,4 +16,8 @@
     <span class="text-xs text-gray-500">
         {{ $comment->created_at->locale('tr')->diffForHumans() }}
     </span>
+    <span class="text-xs text-gray-500">•</span>
+    <span class="text-xs text-gray-500">
+        {{ $comment->depth }}. seviye
+    </span>
 </div>
