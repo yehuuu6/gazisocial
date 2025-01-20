@@ -110,7 +110,8 @@
                 <div x-cloak x-show="showReplies" class="space-y-2.5 ml-10">
                     @if ($comment->depth <= 10)
                         @foreach ($comment->loadReplies($maxReplyCount) as $reply)
-                            <livewire:post.comment-item :$post :comment="$reply" :key="'reply-' . $reply->id" lazy />
+                            <livewire:post.comment-item :$isSingleCommentThread :depth="$depth + 1" :$post
+                                :comment="$reply" :key="'reply-' . $reply->id" lazy />
                         @endforeach
                     @endif
                 </div>

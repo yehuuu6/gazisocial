@@ -117,7 +117,6 @@ class DatabaseSeeder extends Seeder
                     'parent_id' => null,
                     'commentable_id' => $post->id,
                     'commentable_type' => $post->getMorphClass(),
-                    'depth' => 0,
                 ])->each(function ($comment) use ($users) {
                     foreach ($users as $user) {
                         if (rand(0, 1)) {
@@ -170,7 +169,6 @@ class DatabaseSeeder extends Seeder
                 'parent_id' => $parentId,
                 'commentable_id' => $comment->id,
                 'commentable_type' => $comment->getMorphClass(),
-                'depth' => $depth + 1,
             ])->each(function ($reply) use ($users) {
                 foreach ($users as $user) {
                     if (rand(0, 1)) {

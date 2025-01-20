@@ -24,24 +24,69 @@ class CommentItem extends Component
 
     public $content;
 
-    public int $initialMaxReplyCount = 5;
+    public int $initialMaxReplyCount;
     public int $maxReplyCount;
+    public int $replyIncrementCount; // The number of replies to show when the user clicks the "Load more replies" button.
+
+    public bool $isSingleCommentThread;
+
+    public int $depth;
 
     public bool $isLiked = false;
     public int $likesCount;
 
     public bool $isAuthenticated;
 
-    public function mount()
+    private function setInitialMaxReplyCount()
     {
+        // If it's not a single comment thread, we will show 5 replies.
+
+        if (!$this->isSingleCommentThread) {
+            $this->initialMaxReplyCount = 5;
+        } else {
+            // If it's a single comment thread, we will show 10 replies.
+            $this->initialMaxReplyCount = 10;
+        }
+    }
+
+    /**
+     * Load more replies.
+     * This method is called when the user clicks the "Load more replies" button.
+     * It increases the maxReplyCount by the replyIncrementCount.
+     * @param int $moreReplyCount The number of replies to load. Comes from frontend.
+     */
+    public function loadMoreReplies(int $moreReplyCount)
+    {
+        // If the moreReplyCount var is less than the replyIncrementCount, just load the moreReplyCount.
+        if ($moreReplyCount < $this->replyIncrementCount) {
+            $this->maxReplyCount += $moreReplyCount;
+        } else {
+            // If the moreReplyCount var is greater than or equal to the replyIncrementCount, load the replyIncrementCount.
+            $this->maxReplyCount += $this->replyIncrementCount;
+        }
+    }
+
+    public function mount(bool $isSingleCommentThread = false, int $depth = 0)
+    {
+        $this->isSingleCommentThread = $isSingleCommentThread;
+
+        $this->setInitialMaxReplyCount();
+
+        $this->depth = $depth;
+        $this->comment->depth = $depth;
+
         if ($this->comment->depth <= 5) {
-            // If the depth is less than or equal to 5, we will show 5 replies.
+            // If the depth is less than or equal to 5, we will show initialMaxReplyCount replies.
             $this->maxReplyCount = $this->initialMaxReplyCount;
+            // Set the replyIncrementCount to the initialMaxReplyCount.
+            $this->replyIncrementCount = $this->initialMaxReplyCount;
         } else {
             // If the depth is greater than 5, we will show 1 less reply on each level.
             // So, if the depth is 6, we will show 4, if the depth is 7, we will show 3, and so on.
             // The result is negative, so we multiply it by -1 to get the positive value.
             $this->maxReplyCount = (($this->comment->depth - 5) - $this->initialMaxReplyCount) * -1;
+            // Set the replyIncrementCount to the maxReplyCount.
+            $this->replyIncrementCount = $this->maxReplyCount;
         }
 
         $this->isLiked = $this->comment->isLiked();
@@ -87,7 +132,9 @@ class CommentItem extends Component
 
     public function placeholder()
     {
-        return view('components.post.comment-placeholder');
+        return view('components.post.comment-placeholder', [
+            'depth' => $this->comment->depth
+        ]);
     }
 
     public function createNotification(int $replyId): void
@@ -212,6 +259,8 @@ class CommentItem extends Component
     public function render()
     {
         $this->comment->loadCount('replies');
+
+        $this->comment->depth = $this->depth;
 
         return view('livewire.post.comment-item');
     }
