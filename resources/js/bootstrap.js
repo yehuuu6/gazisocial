@@ -1,15 +1,4 @@
 import axios from "axios";
-import collapse from "@alpinejs/collapse";
-import anchor from "@alpinejs/anchor";
-import focus from "@alpinejs/focus";
-import AutoAnimate from "@marcreichel/alpine-auto-animate";
-import Clipboard from "@ryangjchandler/alpine-clipboard";
-
-Alpine.plugin(collapse);
-Alpine.plugin(anchor);
-Alpine.plugin(focus);
-Alpine.plugin(AutoAnimate);
-Alpine.plugin(Clipboard);
 
 window.axios = axios;
 
@@ -21,4 +10,4 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  * allow your team to quickly build robust real-time web applications.
  */
 
-import './echo';
+import "./echo";
