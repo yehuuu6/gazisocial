@@ -3,6 +3,7 @@
 @endsection
 <div x-data="{
     shareModal: false,
+    isSingleThread: $wire.isSingleCommentThread,
     commentForm: false,
     commentCount: $wire.commentsCount,
     likeCount: $wire.likesCount,
@@ -59,7 +60,7 @@
                                 class="font-light text-sm ml-0.5 group-hover:text-pink-400">
                             </span>
                         </button>
-                        <button
+                        <button :disabled="isSingleThread"
                             x-on:click="$nextTick(() => {
                                 commentForm = true;
                                 setTimeout(() => {

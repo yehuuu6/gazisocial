@@ -22,7 +22,6 @@ return new class extends Migration
             $table->longText('content')->nullable();
             $table->morphs('commentable');
             $table->string('gif_url')->nullable();
-            $table->unsignedTinyInteger('depth')->default(0);
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->bigInteger('popularity')->default(0);
             $table->timestamps();

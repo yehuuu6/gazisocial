@@ -4,8 +4,11 @@
     <div class="flex items-center gap-2.5 w-full">
         <div class="relative">
             <div class="rounded-full bg-slate-200 size-8"></div>
-            <div class="absolute inset-0 -top-1.5 -left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
-            </div>
+            @if ($depth > 0)
+                <div
+                    class="absolute inset-0 -top-1.5 -left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
+                </div>
+            @endif
         </div>
         <div class="h-2 bg-slate-200 rounded w-24"></div>
         <div class="h-2 bg-slate-200 rounded w-12"></div>

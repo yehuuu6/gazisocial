@@ -31,12 +31,11 @@
             @else
                 <div class="space-y-2.5">
                     @foreach ($this->comments as $comment)
-                        <livewire:post.comment-item :$post :$comment :key="'comment-' . $comment->id" lazy />
+                        <livewire:post.comment-item :isSingleCommentThread="true" :$post :$comment :key="'comment-' . $comment->id" lazy />
                     @endforeach
                 </div>
             @endif
         </div>
     </div>
-    {{ $this->comments->links('livewire.pagination.simple') }}
     <x-user.register-modal wire:modal="registerModal" />
 </div>

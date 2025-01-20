@@ -71,8 +71,7 @@ class SingleCommentThread extends Component
             ->where('id', $this->selectedCommentId)
             ->with('user')
             ->withCount('replies')
-            ->oldest()
-            ->simplePaginate(10);
+            ->get();
 
         return $comments;
     }
