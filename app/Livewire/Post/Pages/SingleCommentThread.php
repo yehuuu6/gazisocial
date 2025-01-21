@@ -31,6 +31,11 @@ class SingleCommentThread extends Component
         return redirect()->setIntendedUrl($this->post->showRoute())->route($route);
     }
 
+    public function placeholder()
+    {
+        return view('components.post.comment-list-placeholder');
+    }
+
     public function deleteComment(Comment $comment)
     {
 
