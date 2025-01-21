@@ -3,6 +3,7 @@
         showReplies: {{ $comment->depth }} < 3 ? true : false,
         replyForm: false,
         openMoreCommentButtons: false,
+        openShareDropdown: false,
         likeCount: $wire.likesCount,
         isLiked: $wire.isLiked,
         toggleLike() {
@@ -90,16 +91,17 @@
                                 <x-icons.comment size="20" />
                                 <span>Yanıtla</span>
                             </x-comment.comment-button>
-                            <x-comment.comment-button
-                                x-on:click="window.location.href='{{ $post->showRoute() }}/comments/{{ $comment->id }}'">
+                            <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
+                                x-ref="shareButton">
                                 <x-icons.send size="20" />
                                 <span>Paylaş</span>
                             </x-comment.comment-button>
+                            <x-comment.comment-share-dropdown :url="$comment->showRoute()" />
                             <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
                                 x-ref="moreButton">
-                                <x-icons.dots size="18" />
+                                <x-icons.dots size="20" />
                             </x-comment.comment-button>
-                            <x-comment.comment-dropdown :$comment />
+                            <x-comment.comment-more-dropdown :$comment />
                         </div>
                         <template x-if="replyForm" x-on:comment-added.window="replyForm = false">
                             <x-comment.forms.reply-form :$comment />
@@ -115,8 +117,13 @@
                         @endforeach
                     @endif
                 </div>
-                @if ($comment->replies_count > $maxReplyCount)
-                    <x-comment.continue-thread :more_replies_count="$comment->replies_count - $maxReplyCount" />
+                @if ($comment->replies_count > $maxReplyCount && $isSingleCommentThread)
+                    <x-comment.load-more-replies :moreRepliesCount="$comment->replies_count - $maxReplyCount" />
+                @elseif($comment->replies_count > $maxReplyCount && !$isSingleCommentThread)
+                    <x-comment.continue-thread :url="$comment->showRoute()" :moreRepliesCount="$comment->replies_count - $maxReplyCount" />
+                @endif
+                @if ($comment->depth > 10)
+                    <x-comment.continue-thread :url="$comment->showRoute()" :moreRepliesCount="$comment->replies_count" />
                 @endif
             </div>
         </div>

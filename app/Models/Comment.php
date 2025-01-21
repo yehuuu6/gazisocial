@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,16 @@ class Comment extends Model
                 $reply->delete();
             });
         });
+    }
+
+    /**
+     * Get the comments's single thread route.
+     * @param array $parameters
+     * @return string
+     */
+    public function showRoute(array $parameters = [])
+    {
+        return route('posts.show.comment', [$this->post_id, Str::slug($this->post->title), $this, ...$parameters]);
     }
 
     public function toggleLike()

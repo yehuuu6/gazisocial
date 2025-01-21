@@ -88,29 +88,18 @@
                                 Paylaş
                             </span>
                         </button>
-                        <button class="flex items-center gap-1 text-gray-700 group pr-2">
-                            <div class="relative group-hover:text-orange-400 flex items-center justify-center">
-                                <x-icons.hot size="20" />
-                                <div
-                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-orange-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                </div>
-                            </div>
-                            <span class="font-light text-sm ml-0.5 group-hover:text-orange-400">
-                                {{ $post->popularity }}
-                            </span>
-                        </button>
                     </div>
                 </div>
                 <x-seperator />
                 @if (!$isSingleCommentThread)
                     <livewire:post.pages.comments-list :$post lazy="on-load" />
                 @else
-                    <livewire:post.pages.single-comment-thread :$selectedCommentId :$post />
+                    <livewire:post.pages.single-comment-thread :$selectedCommentId :$post lazy="on-load" />
                 @endif
             </div>
             <div
-                class="hidden rounded-br-md relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">
-                <div wire:ignore.self class="sticky top-0" x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
+                class="hidden rounded-br-xl rounded-tr-xl relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">
+                <div wire:ignore.self class="sticky" x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';">
                     <div class="p-6">
                         <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
@@ -182,7 +171,6 @@
                             <p class="text-gray-600 font-light text-sm">Bu gönderiye ait anket bulunmamaktadır.</p>
                         </div>
                     </div>
-                    <x-seperator />
                 </div>
             </div>
         </div>
