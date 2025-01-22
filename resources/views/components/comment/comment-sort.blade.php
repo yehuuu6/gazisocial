@@ -19,23 +19,23 @@
     </div>
     <div x-anchor.bottom-center.offset.5="$refs.sortComments" x-cloak x-show="sortDropdown"
         x-on:click.away="sortDropdown = false" x-transition.scale.origin.top x-on:click="sortDropdown = false"
-        class="bg-white shadow-lg text-sm text-gray-600 rounded-lg z-10 border-t border-gray-100 max-v-[50vh] overflow-y-auto w-[150px]">
+        class="bg-white shadow-lg text-xs md:text-sm text-gray-600 rounded-lg z-10 border-t border-gray-100 max-v-[50vh] overflow-y-auto w-[150px]">
         <button wire:click="setSortMethod('popularity')" type="button" x-on:click="selectedSort = 'popularity'"
-            class="flex items-center gap-3 size-full px-5 py-4 hover:bg-gray-100">
+            class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-5 md:py-4 hover:bg-gray-100">
             <x-icons.heart-off size="22" class="text-pink-400" />
             <span>
                 Popüler
             </span>
         </button>
         <button wire:click="setSortMethod('newest')" type="button" x-on:click="selectedSort = 'newest'"
-            class="flex items-center gap-3 size-full px-5 py-4 hover:bg-gray-100">
+            class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-5 md:py-4 hover:bg-gray-100">
             <x-icons.hot size="22" class="text-orange-400" />
             <span>
                 Yeni
             </span>
         </button>
         <button wire:click="setSortMethod('oldest')" type="button" x-on:click="selectedSort = 'oldest'"
-            class="flex items-center gap-3 size-full px-5 py-4 hover:bg-gray-100">
+            class="flex items-center gap-5 px-3.5 py-2.5 md:gap-3 size-full md:px-5 md:py-4 hover:bg-gray-100">
             <x-icons.hourglass size="22" class="text-primary" />
             <span>
                 Eski

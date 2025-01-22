@@ -57,11 +57,11 @@
                 <div class="relative">
                     <div class="size-7 md:size-8 relative md:static shadow rounded-full overflow-hidden">
                         <img x-ref="avatar" class="absolute md:static z-[1] w-full h-full object-cover"
-                            src="{{ asset($comment->user->avatar) }}" alt="avatar">
+                            src="{{ asset($comment->user->avatar) }}" alt="avatar" />
                     </div>
                     @if ($comment->depth > 0)
                         <div
-                            class="absolute inset-0 -top-1.5 -left-3 md:-left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
+                            class="absolute inset-0 -top-2 md:-top-1.5 -left-3 md:-left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
                         </div>
                     @endif
                 </div>
@@ -87,7 +87,7 @@
                         @endif
                         @if ($comment->gif_url)
                             <img src="{{ asset($comment->gif_url) }}" alt="GIF"
-                                class="h-32 md:h-64 max-w-fit object-cover rounded-lg">
+                                class="h-32 md:h-64 max-w-fit object-cover rounded-lg pr-1 mt-1">
                         @endif
                         <div class="relative flex items-center gap-2 md:gap-0.5 mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)

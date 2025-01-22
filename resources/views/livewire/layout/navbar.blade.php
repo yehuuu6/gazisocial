@@ -8,22 +8,24 @@
                         class="object-contain h-full w-full">
                 </div>
             </x-link>
-            <div class="hidden md:block">
-                @guest
-                    <div class="flex items-center gap-1.5 md:gap-3">
-                        <a href="{{ route('login') }}"
-                            class="rounded-full border border-primary bg-opacity-100 px-2.5 py-1.5 text-xs text-primary transition-all duration-100 hover:bg-primary hover:bg-opacity-100 hover:text-white hover:no-underline md:px-4 md:py-2 md:text-sm">
-                            Giriş Yap
-                        </a>
-                        <a href="{{ route('register') }}"
-                            class="rounded-full bg-primary bg-opacity-100 px-2.5 py-1.5 text-xs text-white transition-all duration-100 hover:bg-opacity-90 hover:no-underline md:px-4 md:py-2 md:text-sm">
-                            Kayıt Ol
-                        </a>
-                    </div>
-                @endguest
+            <div class="flex items-center gap-2">
                 @auth
-                    <div class="flex items-center gap-3 p-2">
-                        <livewire:user.notification-lister />
+                    <livewire:user.notification-lister />
+                @endauth
+                <div class="hidden md:block">
+                    @guest
+                        <div class="flex items-center gap-1.5 md:gap-3">
+                            <a href="{{ route('login') }}"
+                                class="rounded-full border border-primary bg-opacity-100 px-2.5 py-1.5 text-xs text-primary transition-all duration-100 hover:bg-primary hover:bg-opacity-100 hover:text-white hover:no-underline md:px-4 md:py-2 md:text-sm">
+                                Giriş Yap
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="rounded-full bg-primary bg-opacity-100 px-2.5 py-1.5 text-xs text-white transition-all duration-100 hover:bg-opacity-90 hover:no-underline md:px-4 md:py-2 md:text-sm">
+                                Kayıt Ol
+                            </a>
+                        </div>
+                    @endguest
+                    @auth
                         <div x-data="{ userDropdown: false }">
                             <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
                                 class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">
@@ -74,20 +76,10 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                @endauth
-            </div>
-            <div class="flex items-center justify-end gap-3 text-primary-600 text-primary md:hidden">
-                <button x-on:click="alert('Not implemented yet!');" class="p-1 hover:bg-gray-100 rounded-md relative">
-                    <span
-                        class="absolute size-2.5 top-2 right-2 animate-ping bg-blue-500 rounded-full text-xs font-semibold">
-                    </span>
-                    <span class="absolute size-2.5 top-2 right-2 bg-blue-500 rounded-full text-xs font-semibold">
-                    </span>
-                    <x-icons.notification size="36" />
-                </button>
+                    @endauth
+                </div>
                 <button x-on:click="navbarDropdown = !navbarDropdown"
-                    class="flex items-center rounded-md p-1 hover:bg-gray-100" title="Menüyü Aç">
+                    class="flex items-center rounded-md p-1 hover:bg-gray-100 text-primary md:hidden" title="Menüyü Aç">
                     <template x-if="navbarDropdown">
                         <x-icons.close size="36" />
                     </template>

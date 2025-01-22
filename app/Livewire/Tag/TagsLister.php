@@ -17,13 +17,6 @@ class TagsLister extends Component
         return Tag::all();
     }
 
-    // Can't access the request() function in this component
-    // because it's lazy loaded so it thinks that the route is livewire/update
-    // and not the route that we are currently in.
-    // If we give the route data from the header component (which is not a livewire component)
-    // it will work, but if the route is different than the tags route
-    // and by that I mean if the current request does not have a tag parameter,
-    // then the page gives a 404 modal error.
     public function mount()
     {
         $this->displayName = $this->displayName ? $this->displayName : 'Etiketler';

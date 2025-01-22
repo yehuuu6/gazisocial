@@ -3,9 +3,19 @@
         <thead>
             <tr class="border-b border-b-gray-200 text-xs uppercase text-gray-400">
                 <th class="p-4 text-left font-normal" width="60%">KONU</th>
-                <th class="p-4 text-center font-normal" width="10%">YANITLAR</th>
+                <th class="p-4 text-center font-normal" width="10%">
+                    <span class="hidden md:inline-block">YANITLAR</span>
+                    <span class="md:hidden flex items-center justify-center">
+                        <x-icons.comment size="14" />
+                    </span>
+                </th>
                 <th class="hidden p-4 text-center font-normal md:table-cell" width="10%">BEĞENİLER</th>
-                <th class="p-4 text-center font-normal" width="20%">OLUŞTURULDU</th>
+                <th class="p-4 text-center font-normal" width="20%">
+                    <span class="hidden md:inline-block">OLUŞTURULDU</span>
+                    <span class="md:hidden flex items-center justify-center">
+                        <x-icons.time size="14" />
+                    </span>
+                </th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
@@ -13,7 +23,7 @@
                 <tr wire:key="post-placeholder-{{ $i }}">
                     <td class="px-2 py-4">
                         <div class="flex animate-pulse items-center space-x-4">
-                            <div class="hidden h-10 w-10 rounded-full bg-slate-200 md:block"></div>
+                            <div class="hidden size-10 rounded-full bg-slate-200 md:block"></div>
                             <div class="flex-1 space-y-3">
                                 <div class="grid grid-cols-4 gap-4 md:w-1/6">
                                     <div class="col-span-1 h-2 rounded bg-slate-200"></div>

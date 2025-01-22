@@ -9,13 +9,19 @@
                     KONU
                 </th>
                 <th class="p-4 text-center font-normal" width="10%">
-                    YANITLAR
+                    <span class="hidden md:inline-block">YANITLAR</span>
+                    <span class="md:hidden flex items-center justify-center">
+                        <x-icons.comment size="14" />
+                    </span>
                 </th>
                 <th class="hidden p-4 text-center font-normal md:table-cell" width="10%">
                     BEĞENİLER
                 </th>
                 <th class="p-4 text-center font-normal" width="20%">
-                    OLUŞTURULDU
+                    <span class="hidden md:inline-block">OLUŞTURULDU</span>
+                    <span class="md:hidden flex items-center justify-center">
+                        <x-icons.time size="14" />
+                    </span>
                 </th>
             </tr>
         </thead>

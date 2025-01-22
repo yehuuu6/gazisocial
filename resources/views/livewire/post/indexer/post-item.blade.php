@@ -1,9 +1,9 @@
 <tr class="transition-all duration-200 hover:bg-gray-50">
     <td class="p-4 text-left">
-        <div class="flex items-center gap-2">
-            <x-link class="hidden md:block" title="{{ $post->user->name }}"
+        <div class="flex items-center gap-4">
+            <x-link class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden" title="{{ $post->user->name }}"
                 href="{{ route('users.show', $post->user->username) }}">
-                <img class="size-8 md:size-10 rounded-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
+                <img class="w-full h-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
             </x-link>
             <div class="flex flex-col gap-2 md:gap-0 w-full">
                 <div class="item-center flex flex-wrap gap-2">
@@ -12,9 +12,16 @@
                     @endforeach
                 </div>
                 <x-link href="{{ $post->showRoute() }}"
-                    class="flex md:items-center gap-2 w-full break-all text-sm font-medium text-gray-700 md:text-base lg:text-lg">
+                    class="flex md:items-center gap-2 w-full break-all text-base font-medium text-gray-700 md:text-lg">
                     <span>{{ $post->title }}</span>
                 </x-link>
+                <div class="md:hidden">
+                    <x-link href="{{ route('users.show', $post->user->username) }}"
+                        class="text-xs font-normal text-blue-500">
+                        <span>{{ $post->user->name }}</span>
+                    </x-link>
+                    <span class="text-xs font-light text-gray-600"> tarafından</span>
+                </div>
             </div>
         </div>
     </td>
