@@ -18,7 +18,6 @@
                 "Firefox, Microsoft Edge, ya da Google Chrome önerebiliriz.");
         }
     </script>
-    @stack('scripts')
 </head>
 
 <body class="min-h-screen w-full overflow-x-hidden bg-slate-100 font-inter antialiased">

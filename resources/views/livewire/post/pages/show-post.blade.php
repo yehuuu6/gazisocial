@@ -26,7 +26,7 @@
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex">
             <div class="flex-grow">
-                <div class="flex w-full flex-col gap-2 sm:gap-4 px-10 py-6">
+                <div class="flex w-full flex-col py-4 px-6 gap-2 md:gap-4 md:px-10 md:py-6">
                     <div>
                         <x-post.post-title>{{ $post->title }}</x-post.post-title>
                         <div>
@@ -91,11 +91,13 @@
                     </div>
                 </div>
                 <x-seperator />
-                @if (!$isSingleCommentThread)
-                    <livewire:post.pages.comments-list :$post lazy="on-load" />
-                @else
-                    <livewire:post.pages.single-comment-thread :$selectedCommentId :$post lazy="on-load" />
-                @endif
+                <div>
+                    @if (!$isSingleCommentThread)
+                        <livewire:post.pages.comments-list :$post lazy="on-load" />
+                    @else
+                        <livewire:post.pages.single-comment-thread :$selectedCommentId :$post lazy="on-load" />
+                    @endif
+                </div>
             </div>
             <div
                 class="hidden rounded-br-xl rounded-tr-xl relative md:inline-block md:min-w-[200px] md:w-[200px] lg:min-w-[375px] lg:w-[375px] bg-white border-l border-gray-200">

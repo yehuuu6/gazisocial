@@ -1,11 +1,23 @@
 <div>
     <div x-data="{
-        showReplies: {{ $comment->depth }} < 3 ? true : false,
+        showReplies: true,
         replyForm: false,
         openMoreCommentButtons: false,
         openShareDropdown: false,
         likeCount: $wire.likesCount,
         isLiked: $wire.isLiked,
+        isMobile() {
+            const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            return regex.test(navigator.userAgent);
+        },
+        toggleRepliesVisibility() {
+            // If the client is mobile, and the depth is more than 2, go to the home page
+            if (this.isMobile() && {{ $comment->depth }} >= 2) {
+                window.location.href = '{{ $comment->showRoute() }}';
+            } else {
+                this.showReplies = !this.showReplies;
+            }
+        },
         toggleLike() {
             $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
             // If user is authenticated, update the like count and status on the client side
@@ -18,18 +30,38 @@
                     this.isLiked = false;
                 }
             }
+        },
+        setShowReplies() {
+            // If the client is mobile, and the depth is less than 2, show the replies
+            if (this.isMobile() && {{ $comment->depth }} < 2) {
+                return true;
+            }
+            // If the client is not mobile and the depth is less than 3, show the replies
+            if (!this.isMobile() && {{ $comment->depth }} < 3) {
+                return true;
+            }
+            return false;
+        },
+    }" x-init="showReplies = setShowReplies();
+    $wire.on('view-replies.{{ $comment->id }}', () => {
+        // If the client is mobile, and the depth is more than 2, go to the comments page
+        // To prevent the screen from beign over-crowded by replies in mobile devices
+        if (isMobile() && {{ $comment->depth }} >= 2) {
+            window.location.href = '{{ $comment->showRoute() }}';
         }
-    }" x-init="$wire.on('view-replies.{{ $comment->id }}', () => {
+    
         showReplies = true;
     })">
         <div :class="{ 'mt-2.5': {{ $comment->depth }} > 0 }">
-            <div class="flex items-center gap-2 w-fit pr-3" x-ref="comment{{ $comment->id }}">
+            <div class="flex items-center gap-1 md:gap-2 w-fit pr-3" x-ref="comment{{ $comment->id }}">
                 <div class="relative">
-                    <img x-ref="avatar" class="size-8 object-cover rounded-full shadow self-start"
-                        src="{{ asset($comment->user->avatar) }}" alt="avatar">
+                    <div class="size-7 md:size-8 relative md:static shadow rounded-full overflow-hidden">
+                        <img x-ref="avatar" class="absolute md:static z-[1] w-full h-full object-cover"
+                            src="{{ asset($comment->user->avatar) }}" alt="avatar">
+                    </div>
                     @if ($comment->depth > 0)
                         <div
-                            class="absolute inset-0 -top-1.5 -left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
+                            class="absolute inset-0 -top-1.5 -left-3 md:-left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
                         </div>
                     @endif
                 </div>
@@ -48,22 +80,22 @@
                         </div>
                     </div>
                 @endif
-                <div class="ml-10">
+                <div class="pl-9 md:pl-10 pr-2">
                     <div class="flex flex-col gap-1" x-on:click.away="replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-gray-800 break-all">{{ $comment->content }}</p>
+                            <p class="text-xs pr-5 md:text-base text-gray-800 break-all">{{ $comment->content }}</p>
                         @endif
                         @if ($comment->gif_url)
                             <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                 class="h-32 md:h-64 max-w-fit object-cover rounded-lg">
                         @endif
-                        <div class="relative flex items-center gap-0.5 mt-2 flex-wrap">
+                        <div class="relative flex items-center gap-2 md:gap-0.5 mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
-                                <div class="absolute -left-[41px] z-10">
+                                <div class="absolute -left-[38px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
                                         <button
                                             class="active:bg-gray-300 px-2 grid place-items-center bg-white rounded-full text-gray-700"
-                                            x-on:click="showReplies = !showReplies;">
+                                            x-on:click="toggleRepliesVisibility()">
                                             <div x-cloak x-show="!showReplies">
                                                 <x-icons.show size="18" />
                                             </div>
@@ -89,12 +121,12 @@
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="replyForm = !replyForm;">
                                 <x-icons.comment size="20" />
-                                <span>Yanıtla</span>
+                                <span>{{ Number::abbreviate($comment->replies_count) }}</span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
                                 x-ref="shareButton">
                                 <x-icons.send size="20" />
-                                <span>Paylaş</span>
+                                <span class="hidden md:inline-block">Paylaş</span>
                             </x-comment.comment-button>
                             <x-comment.comment-share-dropdown :url="$comment->showRoute()" />
                             <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
@@ -109,7 +141,7 @@
                     </div>
                 </div>
                 {{-- Recursive component for replies --}}
-                <div x-cloak x-show="showReplies" class="space-y-2.5 ml-10">
+                <div x-cloak x-show="showReplies" class="flex flex-col gap-0 pl-7 md:pl-10">
                     @if ($comment->depth <= 10)
                         @foreach ($comment->loadReplies($maxReplyCount) as $reply)
                             <livewire:post.comment-item :$isSingleCommentThread :depth="$depth + 1" :$post

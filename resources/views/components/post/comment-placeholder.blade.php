@@ -1,12 +1,12 @@
 <div class="relative animate-pulse rounded-md w-full my-3">
     <div class="absolute top-1 left-4 h-[95%] border-l border-slate-200 w-2">
     </div>
-    <div class="flex items-center gap-2.5 w-full">
+    <div class="flex items-center gap-1 md:gap-2.5 w-full pr-3">
         <div class="relative">
             <div class="rounded-full bg-slate-200 size-8"></div>
             @if ($depth > 0)
                 <div
-                    class="absolute inset-0 -top-1.5 -left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
+                    class="absolute inset-0 -top-1.5 -left-3 md:-left-6 border-b border-l z-0 rounded-bl-xl size-6 border-gray-200">
                 </div>
             @endif
         </div>
@@ -15,14 +15,13 @@
         <span class="text-lg text-slate-200">•</span>
         <div class="h-2 bg-slate-200 rounded w-8"></div>
     </div>
-    <div class="flex flex-col gap-2 w-full mt-0.5 ml-10">
+    <div class="flex flex-col gap-2 w-full mt-0.5 pl-8 md:pl-10 pr-2">
         <div class="h-2 bg-slate-200 rounded w-3/4"></div>
         <div class="h-2 bg-slate-200 rounded w-2/3"></div>
         <div class="h-2 bg-slate-200 rounded w-1/2"></div>
         <div class="h-2 bg-slate-200 rounded w-1/3"></div>
     </div>
-    <div class="relative flex items-center gap-4 w-full mt-4 ml-10">
-        <x-icons.show size="18" class="text-gray-300 bg-white absolute -left-[33px] z-10" />
+    <div class="relative flex items-center gap-4 w-full mt-4 pl-8 md:pl-10 flex-wrap pr-2">
         <div class="rounded-full bg-slate-200 px-6 py-2.5"></div>
         <div class="rounded-full bg-slate-200 px-6 py-2.5"></div>
         <div class="rounded-full bg-slate-200 px-3 py-2.5"></div>

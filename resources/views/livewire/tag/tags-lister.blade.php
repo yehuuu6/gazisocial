@@ -19,7 +19,7 @@
     }
 }">
     <div x-ref="tagsAnchor">
-        <x-ui.tooltip text="Konu Etiketlerini Aç" delay="1000">
+        <x-ui.tooltip text="Konu Etiketlerini Aç" delay="1000" position='bottom'>
             <button x-on:click="tagsDropdown = !tagsDropdown"
                 class="flex items-center gap-2 rounded-md bg-white {{ $this->displayColor }} px-3 py-2 text-sm font-medium capitalize shadow">
                 <span>{{ $displayName }}</span>
