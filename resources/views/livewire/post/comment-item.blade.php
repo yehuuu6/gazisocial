@@ -53,7 +53,7 @@
         showReplies = true;
     })">
         <div :class="{ 'mt-2.5': {{ $comment->depth }} > 0 }">
-            <div class="flex items-center gap-1 md:gap-2 w-fit pr-3" x-ref="comment{{ $comment->id }}">
+            <div class="flex items-center gap-1 md:gap-2 w-fit pr-1" x-ref="comment{{ $comment->id }}">
                 <div class="relative">
                     <div class="size-7 md:size-8 relative md:static shadow rounded-full overflow-hidden">
                         <img x-ref="avatar" class="absolute md:static z-[1] w-full h-full object-cover"
@@ -80,10 +80,10 @@
                         </div>
                     </div>
                 @endif
-                <div class="pl-9 md:pl-10 pr-2">
+                <div class="pl-8 md:pl-10 pr-1">
                     <div class="flex flex-col gap-1" x-on:click.away="replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-xs pr-5 md:text-base text-gray-800 break-all">{{ $comment->content }}</p>
+                            <p class="text-sm pr-1 md:text-base text-gray-800 break-all">{{ $comment->content }}</p>
                         @endif
                         @if ($comment->gif_url)
                             <img src="{{ asset($comment->gif_url) }}" alt="GIF"
@@ -91,7 +91,7 @@
                         @endif
                         <div class="relative flex items-center gap-2 md:gap-0.5 mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
-                                <div class="absolute -left-[38px] md:-left-[41px] z-10">
+                                <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
                                         <button
                                             class="active:bg-gray-300 px-2 grid place-items-center bg-white rounded-full text-gray-700"
