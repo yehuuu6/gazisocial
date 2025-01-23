@@ -19,15 +19,15 @@
                                 class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" />
                         </div>
                         <div class="flex flex-col gap-2 px-4">
-                            <label for="email" class="block font-medium text-gray-700">
+                            <label for="email" class="flex flex-col md:block font-medium text-gray-700">
                                 <span>E-posta</span>
                                 @if (Auth::user()->hasVerifiedEmail())
                                     @if (Auth::user()->isStudent())
-                                        <span class="ml-1 rounded-full bg-green-500 px-2 py-1 text-xs text-white">
+                                        <span class="md:ml-1 rounded-full bg-green-500 px-2 py-1 text-xs text-white">
                                             Gazi Üniversitesine bağlılığınız onaylandı
                                         </span>
                                     @else
-                                        <span class="ml-1 rounded-full bg-blue-500 px-2 py-1 text-xs text-white">
+                                        <span class="md:ml-1 rounded-full bg-blue-500 px-2 py-1 text-xs text-white">
                                             E posta adresiniz onaylandı
                                         </span>
                                     @endif
