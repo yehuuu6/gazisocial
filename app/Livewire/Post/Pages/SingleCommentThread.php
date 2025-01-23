@@ -18,11 +18,14 @@ class SingleCommentThread extends Component
 
     public Post $post;
     public int $selectedCommentId;
+    public $parent; // Post or Comment (commentable)
 
     public function mount(Post $post, int $selectedCommentId)
     {
         $this->post = $post;
         $this->selectedCommentId = $selectedCommentId;
+        $mainComment = Comment::findOrFail($selectedCommentId);
+        $this->parent = $mainComment->commentable;
     }
 
     public function redirectAuth(string $route)

@@ -81,15 +81,29 @@
                     </div>
                 @endif
                 <div class="pl-8 md:pl-10 pr-1">
-                    <div class="flex flex-col gap-1" x-on:click.away="replyForm = false;">
+                    <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1" x-on:click.away="replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-sm pr-1 md:text-base text-gray-800 break-all">{{ $comment->content }}</p>
+                            <p x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }"
+                                class="text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all">
+                                {{ $comment->content }}
+                            </p>
+                            <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
+                                <template x-if="isClamped">
+                                    <div class="w-full flex items-center justify-end md:hidden">
+                                        <button x-on:click="showMore = !showMore" type="button"
+                                            x-text="showMore ? 'Gizle' : 'Devamını oku'"
+                                            class="text-gray-700 text-sm mt-1 mr-2">
+                                            Devamını oku
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
                         @endif
                         @if ($comment->gif_url)
                             <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                 class="h-32 md:h-64 max-w-fit object-cover rounded-lg pr-1 mt-1">
                         @endif
-                        <div class="relative flex items-center gap-2 md:gap-0.5 mt-2 flex-wrap">
+                        <div class="relative flex items-center gap-2 md:gap-0.5 md:mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
                                 <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">

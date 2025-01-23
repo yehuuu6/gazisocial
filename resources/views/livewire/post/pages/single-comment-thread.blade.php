@@ -7,13 +7,18 @@
             $el.scrollIntoView();
         }"
             class="flex items-center justify-between gap-1 md:gap-4 mx-1.5 mt-1 mb-3 py-2 px-4 md:mx-6 md:mb-3 md:py-3 md:px-5 rounded-full border border-gray-200">
-            <span class="text-gray-600 min-w-fit font-normal text-xs md:text-sm">
-                Tek yorum gösteriliyor
-            </span>
+            @if ($parent::class === 'App\Models\Post')
+                <span class="text-gray-600 min-w-fit font-normal text-xs md:text-sm">Tek yorum gösteriliyor</span>
+            @else
+                <x-link href="{{ $parent->showRoute() }}" class="text-blue-400 min-w-fit font-normal text-xs md:text-sm">
+                    Tek yanıt gösteriliyor
+                </x-link>
+            @endif
             <hr class="w-full border-t border-gray-200">
-            <x-link href="{{ $this->post->showRoute() }}" class="min-w-fit text-blue-400 font-normal text-xs md:text-sm">
+            <a href="{{ $this->post->showRoute() . '#comments' }}"
+                class="min-w-fit text-blue-400 font-normal text-xs md:text-sm hover:underline">
                 Tüm yorumları gör
-            </x-link>
+            </a>
         </div>
         <div class="px-2">
             @if (!$this->comments->isNotEmpty())
@@ -31,7 +36,7 @@
                     </div>
                 </div>
             @else
-                <div class="flex flex-col gap-1 md:gap-2.5 overflow-x-hidden">
+                <div class="flex flex-col gap-1 md:gap-2.5">
                     @foreach ($this->comments as $comment)
                         <livewire:post.comment-item :isSingleCommentThread="true" :$post :$comment :key="'comment-' . $comment->id" />
                     @endforeach

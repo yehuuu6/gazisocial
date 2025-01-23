@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <x-seperator />
-                <div>
+                <div id="comments">
                     @if (!$isSingleCommentThread)
                         <livewire:post.pages.comments-list :$post lazy="on-load" />
                     @else
