@@ -147,7 +147,7 @@
                 @endforeach
             </div>
         </section>
-        <section class="dev-center mt-7 md:mt-20 relative bg-blue-600">
+        <section :class="{ 'rounded-b-xl': !isGuest }" class="dev-center mt-7 md:mt-20 relative bg-blue-600">
             <div class="py-8 pb-12 md:py-12 px-10 md:px-24">
                 <div class="flex flex-col items-center justify-center text-center">
                     <h3 class="text-xl md:text-3xl font-semibold text-white">Geliştirici Merkezi</h3>

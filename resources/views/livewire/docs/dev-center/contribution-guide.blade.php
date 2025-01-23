@@ -1,8 +1,10 @@
 <div class="bg-white overflow-hidden shadow-md rounded-xl border border-gray-100">
     <div class="m-6 mb-0 flex flex-col gap-3">
         <div
-            class="py-2 px-4 flex-col md:flex-row inline-flex gap-2.5 md:items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-            <x-icons.info color="orange" size="18" />
+            class="py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
+            <div>
+                <x-icons.info size="18" class="size-8 md:size-5" />
+            </div>
             <span>
                 This guide might get updated in the future. Please check back regularly. Last updated on 29 November
                 2024
@@ -10,8 +12,10 @@
         </div>
         @if ($os !== 'Windows')
             <div
-                class="py-2 px-4 flex-col md:flex-row inline-flex gap-2.5 md:items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-                <x-icons.info color="orange" size="18" />
+                class="py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
+                <div>
+                    <x-icons.info size="18" class="size-8 md:size-5" />
+                </div>
                 <span>
                     This guide was created for Windows users. Some tools recommended here may not be available for
                     Linux or Mac users.
@@ -74,17 +78,21 @@
         <h2 class="text-xl font-medium text-gray-700">4. Setting up the project</h2>
         <p class="mt-2 text-base text-gray-500">Once the cloning process is complete, you need to install the project's
             dependencies. You can do this by running the following commands:</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>cd gazisocial</code></pre>
-            <pre class="text-sm text-purple-500"><code>composer install</code></pre>
-            <pre class="text-sm text-purple-500"><code>npm install</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>cd gazisocial</code>
+                <code>composer install</code>
+                <code>npm install</code>
+            </pre>
         </div>
         <p class="mt-2 text-base text-gray-500">After installing the dependencies, you need to create your own .env
             file. You can use the .env.example file to copy and fill the blanks.</p>
         <p class="mt-2 text-base text-gray-500">You need to generate an application key by running the following
             command:</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>php artisan key:generate</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>php artisan key:generate</code>
+            </pre>
         </div>
         <p class="mt-2 text-base text-gray-500">After that, you need to set up <a target="_blank"
                 class="text-blue-400 hover:underline" href="https://mailtrap.io/">Mailtrap</a> and <a target="_blank"
@@ -98,8 +106,10 @@
             Laravel Herd</p>
         <p class="mt-2 text-base text-gray-500">And then you can execute this command to start queue worker, reverb
             server and vite:</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>composer run dev</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>composer run dev</code>
+            </pre>
         </div>
         <p class="mt-2 text-base text-gray-500">After running the command, you can access the forum by visiting <a
                 href="http://gazisocial.test" class="text-blue-400 hover:underline"
@@ -110,10 +120,12 @@
         <h2 class="text-xl font-medium text-gray-700">Migrating and seeding the database</h2>
         <p class="mt-1 text-base text-gray-500">If everything is correct, you can now run the migrations and seed the
             database.</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>php artisan migrate:fresh --seed</code></pre>
-            <pre class="text-sm text-purple-500"><code>php artisan db:seed --class=FacultySeeder</code></pre>
-            <pre class="text-sm text-purple-500"><code>php artisan db:seed --class=ContactMessagesSeeder</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>php artisan migrate:fresh --seed</code>
+                <code>php artisan db:seed --class=FacultySeeder</code>
+                <code>php artisan db:seed --class=ContactMessagesSeeder</code>
+            </pre>
         </div>
         <p class="mt-2 text-base text-gray-500">Seeding process may take a while. Please be patient.</p>
     </div>
@@ -121,23 +133,27 @@
         <h2 class="text-xl font-medium text-gray-700">Creating a new branch</h2>
         <p class="mt-1 text-base text-gray-500">Before making changes to the project, you need to create a new branch.
             You can do this by running the following command:</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>git checkout -b fix-bug</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>git checkout -b fix-bug</code>
+            </pre>
         </div>
     </div>
     <div class="m-6">
         <h2 class="text-xl font-medium text-gray-700">Creating a pull request</h2>
         <p class="mt-1 text-base text-gray-500">When you are done with implementing your changes, you need to create a
             pull request. You can do this by running the following command:</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500"><code>git push origin fix-bug</code></pre>
+        <div class="p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
+                <code>git push origin fix-bug</code>
+            </pre>
         </div>
         <p class="mt-1 text-base text-gray-500">Open your forked repository
             (<code>https://github.com/&lt;your-username&gt;/gazisocial</code>). You will see a new notification:
             "<strong>fix-bug had recent pushes 1 minute ago</strong>" along with a button that
             says "<strong>Compare &amp; pull request</strong>." Click the button to open the pull request form.</p>
-        <div class="mt-2 p-4 bg-gray-50 rounded-md">
-            <pre class="text-sm text-purple-500 whitespace-pre-line">
+        <div class="mt-2 p-2 md:p-4 bg-gray-50 rounded-md">
+            <pre class="text-sm text-purple-500 whitespace-pre-line break-all">
                 <code>
                     Review the contribution guide first at: https://gazisocial.com/dev-center/contribution-guide
  
@@ -160,10 +176,10 @@
                 </code>
             </pre>
         </div>
-        <p class="mt-1 text-base text-gray-500">Fill out the form with the necessary information and click the "Create
-            pull request" button. Now you just have to wait for yout pull request to be reviewed. If everything is ok,
-            your PR
-            will be merged.</p>
+        <p class="mt-1 text-base text-gray-500">
+            Fill out the form with the necessary information and click the "Create pull request" button. Now you just
+            have to wait for yout pull request to be reviewed. If everything is ok, your PR will be merged.
+        </p>
     </div>
     <div class="m-6">
         <h2 class="text-xl font-medium text-gray-700">Congratulations!</h2>

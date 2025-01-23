@@ -11,7 +11,7 @@
                 }"
                     wire:navigate.hover href="{{ route('home') }}"
                     class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
-                    Giriş
+                    Ana Sayfa
                 </a>
                 <a :class="{
                     'text-primary bg-blue-300 bg-opacity-30': false,

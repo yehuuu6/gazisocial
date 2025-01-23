@@ -62,7 +62,7 @@ Route::get('/contact', ContactPage::class)->name('contact');
 
 Route::get('/about', ReportBug::class)->name('about');
 
-Route::get('/bug-report', ReportBug::class)->name('bugs')->middleware('auth');
+Route::get('/bug-report', ReportBug::class)->name('report-a-bug')->middleware('auth');
 
 Route::get('/reported-bugs', ReportedBugsList::class)->name('reported-bugs');
 
