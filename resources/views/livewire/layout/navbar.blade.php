@@ -1,4 +1,6 @@
-<nav x-data="{ navbarDropdown: false }" id="navbar"
+<nav x-data="{
+    navbarDropdown: false,
+}" id="navbar"
     class="bg-opacity-85 sticky top-0 z-30 border-b border-gray-200 bg-white py-4 shadow-sm backdrop-blur md:py-5">
     <div class="relative" x-ref="navbar">
         <div class="flex items-center justify-between mx-[3%] md:mx-[6%] lg:mx-[12%]">
@@ -80,12 +82,8 @@
                 </div>
                 <button x-on:click="navbarDropdown = !navbarDropdown"
                     class="flex items-center rounded-md p-1 hover:bg-gray-100 text-primary md:hidden" title="Menüyü Aç">
-                    <template x-if="navbarDropdown">
-                        <x-icons.close size="36" />
-                    </template>
-                    <template x-if="!navbarDropdown">
-                        <x-icons.menu size="36" />
-                    </template>
+                    <x-icons.close size="36" x-cloak x-show="navbarDropdown" />
+                    <x-icons.menu size="36" x-cloak x-show="!navbarDropdown" />
                 </button>
             </div>
         </div>
