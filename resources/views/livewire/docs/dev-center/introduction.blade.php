@@ -62,7 +62,7 @@
             </x-dev-center.introduction-card>
             <x-dev-center.introduction-card>
                 <x-slot name="icon">
-                    <x-icons.bug size="36" />
+                    <x-icons.heart size="36" />
                 </x-slot>
                 <x-slot name="title">
                     Contributors

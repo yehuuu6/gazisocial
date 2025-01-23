@@ -46,8 +46,8 @@
             @endforeach
         </div>
         <div x-cloak x-show="foundTagCount == 0"
-            class="flex items-center gap-4 px-4 py-2.5 md:px-5 md:py-4 text-sm font-medium text-gray-500 cursor-default select-none">
-            <x-icons.sorry size="20" />
+            class="flex items-center gap-4 px-4 py-2.5 md:px-5 md:py-4 text-xs md:text-sm font-medium text-gray-500 cursor-default select-none">
+            <x-icons.sorry size="18" />
             <span>
                 Etiket bulunamadı.
             </span>
