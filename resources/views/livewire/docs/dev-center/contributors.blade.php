@@ -11,10 +11,10 @@
             <x-contributor avatar="{{ asset('gazi-logo.png') }}" name="Melek Selihan Güleç" username="melekisnotthere"
                 role="Contributor" />
         </div>
-        <span class=" mx-6 text-sm text-gray-400">
+        <p class="mx-6 text-sm text-gray-400">
             Want to showcase your name here? <x-link href="{{ route('how-to-contribute') }} "
                 class="text-blue-400">Contribution Guide</x-link> will help you.
-        </span>
+        </p>
     </div>
     <div class="m-6">
         <h1 class="text-xl font-medium text-gray-700">Tech Stack</h1>
