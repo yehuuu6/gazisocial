@@ -9,7 +9,7 @@
                     'text-primary bg-blue-300 bg-opacity-30': isHome,
                     'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !isHome
                 }"
-                    wire:navigate.hover href="/"
+                    wire:navigate.hover href="{{ route('home') }}"
                     class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     Giriş
                 </a>
@@ -17,7 +17,7 @@
                     'text-primary bg-blue-300 bg-opacity-30': false,
                     'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !false
                 }"
-                    wire:navigate.hover href="/"
+                    wire:navigate.hover href="{{ route('posts.index') }}"
                     class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     En Yeni
                 </a>
@@ -25,7 +25,7 @@
                     'text-primary bg-blue-300 bg-opacity-30': false,
                     'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !false
                 }"
-                    wire:navigate.hover href="/"
+                    wire:navigate.hover href="{{ route('posts.index') }}"
                     class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     Popüler
                 </a>
