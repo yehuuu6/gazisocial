@@ -46,10 +46,6 @@ class NotificationLister extends Component
     public function markAsRead(int $notificationId)
     {
 
-        if (!$this->hasUnreadNotifications) {
-            return;
-        }
-
         /**
          * @var \App\Models\User $user
          */
@@ -60,7 +56,10 @@ class NotificationLister extends Component
         }
 
         // Redirect to the notification's action
-        // TODO: Implement this
+
+        if (($notification->type == 'post_comment' || $notification->type == 'comment_reply') && isset($notification->data['action_url'])) {
+            return $this->redirect($notification->data['action_url'], navigate: true);
+        }
     }
 
     #[Computed]

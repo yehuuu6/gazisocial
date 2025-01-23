@@ -43,7 +43,7 @@ class CommentsList extends Component
         return $this->sortBy === 'newest' || $this->sortBy === 'oldest' ? 'created_at' : 'popularity';
     }
 
-    public function createNotification(int $commentId): void
+    public function createNotification(string $url): void
     {
 
         if ($this->post->user_id === Auth::id()) {
@@ -57,7 +57,7 @@ class CommentsList extends Component
                 'data' => [
                     'sender_id' => Auth::id(),
                     'post_id' => $this->post->id,
-                    'comment_id' => $commentId,
+                    'action_url' => $url,
                     'text' => Auth::user()->name . ' gönderinize yorum yaptı'
                 ],
             ]
@@ -144,7 +144,7 @@ class CommentsList extends Component
             'commentable_type' => $this->post->getMorphClass()
         ]);
 
-        $this->createNotification($comment->id);
+        $this->createNotification($comment->showRoute());
 
         $this->resetPage();
 

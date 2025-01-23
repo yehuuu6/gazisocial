@@ -32,8 +32,7 @@
                 @forelse ($this->notifications as $notification)
                     <button x-data="{
                         isRead: {{ $notification->read ? 'true' : 'false' }},
-                    }" :disabled="isRead" type="button"
-                        x-on:notification-all-read.window="isRead = true"
+                    }" x-on:notification-all-read.window="isRead = true"
                         wire:click="markAsRead({{ $notification->id }})" x-on:click="isRead = true"
                         wire:key='notification-{{ $notification->id }}'
                         :class="{ 'bg-white hover:bg-gray-100': isRead, 'bg-blue-50 hover:bg-blue-100': !isRead }"
@@ -61,7 +60,7 @@
                                     class="text-xs md:text-sm">
                                     {{ $this->getNotificationTitle($notification->type) }}</h3>
                                 <span class="text-xs text-gray-500 font-light">
-                                    {{ $notification->created_at->diffForHumans() }}
+                                    {{ $notification->created_at->locale('tr')->diffForHumans() }}
                                 </span>
                             </div>
                             <div class="mt-1">

@@ -141,7 +141,7 @@ class CommentItem extends Component
         ]);
     }
 
-    public function createNotification(int $replyId): void
+    public function createNotification(string $url): void
     {
 
         if ($this->comment->user_id === Auth::id()) {
@@ -155,7 +155,7 @@ class CommentItem extends Component
                 'data' => [
                     'sender_id' => Auth::id(),
                     'comment_id' => $this->comment->id,
-                    'reply_id' => $replyId,
+                    'action_url' => $url,
                     'post_id' => $this->post->id,
                     'text' => Auth::user()->name . ' yorumunuza yanıt verdi'
                 ],
@@ -217,7 +217,7 @@ class CommentItem extends Component
             'depth' => $this->comment->depth + 1
         ]);
 
-        $this->createNotification($reply->id);
+        $this->createNotification($reply->showRoute());
 
         $this->alert('success', 'Yanıtınız başarıyla eklendi.');
 
