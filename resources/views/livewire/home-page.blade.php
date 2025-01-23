@@ -68,10 +68,10 @@
             </section>
         @endguest
         <section :class="{ 'p-6': !isGuest, 'mt-5 md:mt-12 mx-6 md:mx-24': isGuest }">
-            <div class="flex items-center justify-between">
+            <div class="hidden md:flex items-center justify-between">
                 <div>
                     <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
-                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal w-3/4 md:w-full">
+                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
                         Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
                     </p>
                 </div>
@@ -79,6 +79,20 @@
                     class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
                     Tümünü Gör
                 </x-link>
+            </div>
+            <div class="md:hidden">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
+                    <x-link href="{{ route('posts.index') }}"
+                        class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
+                        Tümünü Gör
+                    </x-link>
+                </div>
+                <div class="mt-1">
+                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
+                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
+                    </p>
+                </div>
             </div>
             <div class="mt-3 space-y-4">
                 @foreach ($this->pinnedPosts as $post)

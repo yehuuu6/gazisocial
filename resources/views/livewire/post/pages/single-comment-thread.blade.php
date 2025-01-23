@@ -6,7 +6,7 @@
         <div x-init="() => {
             $el.scrollIntoView();
         }"
-            class="flex items-center justify-between gap-1 md:gap-4 mx-1.5 mt-1 mb-3 py-2 px-4 md:mx-6 md:mb-3 md:py-3 md:px-5 rounded-full border border-gray-200">
+            class="flex items-center justify-between gap-1 md:gap-4 mx-2.5 mt-1 mb-3 py-2 px-4 md:mb-5 md:py-3 md:px-5 rounded-full border border-gray-200">
             @if ($parent::class === 'App\Models\Post')
                 <span class="text-gray-600 min-w-fit font-normal text-xs md:text-sm">Tek yorum gösteriliyor</span>
             @else
@@ -20,7 +20,7 @@
                 Tüm yorumları gör
             </a>
         </div>
-        <div class="px-2">
+        <div class="px-2 pb-2">
             @if (!$this->comments->isNotEmpty())
                 <div class="flex gap-3 items-center">
                     <div>

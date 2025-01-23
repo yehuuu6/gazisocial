@@ -24,7 +24,7 @@
 }" x-on:comment-added.window="commentCount++"
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
-        <div class="flex">
+        <div class="md:flex">
             <div class="flex-grow">
                 <div class="flex w-full flex-col py-4 px-6 gap-2 md:gap-4 md:px-10 md:py-6">
                     <div>

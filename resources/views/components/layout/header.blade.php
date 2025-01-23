@@ -4,29 +4,29 @@
     <header class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-0">
         <div class="flex justify-between gap-1 md:justify-start">
             <livewire:tag.tags-lister lazy="on-load" :displayName="request()->route('tag')->name ?? null" :displayColor="request()->route('tag')->color ?? null" />
-            <div class="flex gap-1 items-center justify-end flex-wrap">
+            <div class="flex gap-1 items-center justify-end flex-wrap ml-2.5">
                 <a :class="{
                     'text-primary bg-blue-300 bg-opacity-30': isHome,
                     'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !isHome
                 }"
                     wire:navigate.hover href="/"
-                    class="rounded ml-2.5 px-4 py-2 font-medium text-sm hover:no-underline">
+                    class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     Giriş
                 </a>
                 <a :class="{
                     'text-primary bg-blue-300 bg-opacity-30': false,
-                    'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': true
+                    'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !false
                 }"
-                    wire:navigate.hover href="{{ route('posts.index') }}"
-                    class="rounded px-4 py-2 font-medium text-sm hover:no-underline">
+                    wire:navigate.hover href="/"
+                    class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     En Yeni
                 </a>
                 <a :class="{
                     'text-primary bg-blue-300 bg-opacity-30': false,
-                    'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': true
+                    'text-gray-700 bg-gray-200 bg-opacity-0 hover:bg-opacity-65': !false
                 }"
-                    wire:navigate.hover href="{{ route('posts.index') }}"
-                    class="rounded px-4 py-2 font-medium text-sm hover:no-underline">
+                    wire:navigate.hover href="/"
+                    class="rounded px-3 text-xs md:px-4 py-2 font-medium md:text-sm hover:no-underline">
                     Popüler
                 </a>
             </div>

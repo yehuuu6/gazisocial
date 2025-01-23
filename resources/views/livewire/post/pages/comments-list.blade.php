@@ -36,7 +36,7 @@
                 </button>
             </div>
         </div>
-        <div class="px-2">
+        <div class="px-2 pb-2">
             @if (!$this->comments->isNotEmpty())
                 <div class="flex gap-3 md:items-center flex-col md:flex-row">
                     <div>

@@ -13,12 +13,12 @@
                 }, 750);
             });
     "
-        class="flex w-full items-center gap-1.5 px-2.5 py-2 md:gap-2.5 md:px-4 md:py-3 text-xs md:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:no-underline">
+        class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-xs md:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:no-underline">
         <x-icons.copy size="18" />
         <span x-text="copyFeedback">Bağlantıyı kopyala</span>
     </button>
     <x-link href="{{ $url }}"
-        class="flex w-full items-center gap-1.5 px-2.5 py-2 md:gap-2.5 md:px-4 md:py-3 text-xs md:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:no-underline">
+        class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-xs md:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:no-underline">
         <x-icons.fork-right size="18" />
         <span>Yoruma git</span>
     </x-link>
