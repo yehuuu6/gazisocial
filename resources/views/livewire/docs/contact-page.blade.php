@@ -25,8 +25,10 @@
         </div>
     </div>
     <div
-        class="mx-6 mb-6 py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-        <x-icons.info color="orange" size="18" />
+        class="mx-6 mb-6 py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
+        <div>
+            <x-icons.info size="18" class="size-8 md:size-5" />
+        </div>
         <span>
             Gönderilen mesajlar, yalnızca forum yöneticileri tarafından incelenir ve en kısa sürede geri dönüş yapılır.
         </span>
