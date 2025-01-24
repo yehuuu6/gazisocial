@@ -3,7 +3,9 @@
 }" class="mx-[3%] mt-4 md:mx-[6%] md:mt-8 lg:mx-[12%]">
     <header class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-0">
         <div class="flex justify-between gap-1 md:justify-start">
-            <livewire:tag.tags-lister lazy="on-load" :displayName="request()->route('tag')->name ?? null" :displayColor="request()->route('tag')->color ?? null" />
+            @persist('tags-lister')
+                <livewire:tag.tags-lister lazy="on-load" :displayName="request()->route('tag')->name ?? null" :displayColor="request()->route('tag')->color ?? null" />
+            @endpersist
             <div class="flex gap-1 items-center justify-end flex-wrap ml-2.5">
                 <a :class="{
                     'text-primary bg-blue-300 bg-opacity-30': isHome,

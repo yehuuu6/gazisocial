@@ -12,7 +12,9 @@
             </x-link>
             <div class="flex items-center gap-2">
                 @auth
-                    <livewire:user.notification-lister />
+                    @persist('notifications')
+                        <livewire:user.notification-lister />
+                    @endpersist
                 @endauth
                 <div class="hidden md:block">
                     @guest

@@ -8,16 +8,10 @@
     @livewireStyles
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
+    @stack('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <script>
-        if (navigator.userAgent.match(/samsung/i)) {
-            alert("Tarayıcınız (Samsung Internet) bu siteyi doğru göstermeyebilir. " +
-                "Lütfen koyu temayı kapatın (açıksa) veya farklı bir tarayıcı kullanın.\n\n" +
-                "Firefox, Microsoft Edge, ya da Google Chrome önerebiliriz.");
-        }
-    </script>
 </head>
 
 <body class="min-h-screen w-full overflow-x-hidden bg-slate-100 font-inter antialiased">

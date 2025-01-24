@@ -1,6 +1,9 @@
 @section('canonical')
     <link rel="canonical" href="{{ $post->showRoute() }}">
 @endsection
+@push('scripts')
+    @vite('resources/js/syntax-highlight.js')
+@endpush
 <div x-data="{
     shareModal: false,
     isSingleThread: $wire.isSingleCommentThread,
@@ -34,7 +37,7 @@
                                 {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
                         </div>
                     </div>
-                    <article
+                    <article x-data="highlightCode"
                         class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-xl ProseMirror">
                         {!! $post->html !!}
                     </article>
@@ -179,8 +182,3 @@
     </div>
     <x-post.share-modal :url="$post->showRoute()" />
 </div>
-@script
-    <script>
-        hljs.highlightAll();
-    </script>
-@endscript

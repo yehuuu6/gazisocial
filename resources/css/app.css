@@ -30,16 +30,21 @@ html {
     transition: all 0.3s ease;
 }
 
-.ProseMirror pre {
-    white-space: pre-wrap;
-}
-
 .tiptap p.is-editor-empty:first-child::before {
     color: #adb5bd;
     content: attr(data-placeholder);
     float: left;
     height: 0;
     pointer-events: none;
+}
+
+.ProseMirror pre {
+    white-space: pre-wrap;
+    padding-inline-start: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
 }
 
 .spinner_V8m1 {

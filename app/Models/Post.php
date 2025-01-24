@@ -17,7 +17,8 @@ class Post extends Model
     use HasFactory, ConvertsMarkdownToHtml;
 
     protected $guarded = [
-        'id'
+        'id',
+        'is_pinned'
     ];
 
     public function toggleLike()

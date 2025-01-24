@@ -1,3 +1,6 @@
+@push('scripts')
+    @vite('resources/js/editor.js')
+@endpush
 <div class="flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
     <form wire:submit="createPost" class="flex h-full flex-col">
         <div class="flex-grow">
@@ -20,7 +23,8 @@
                             <button
                                 x-on:click="selectedTags.includes({{ $tag->id }}) ? selectedTags.splice(selectedTags.indexOf({{ $tag->id }}), 1) : selectedTags.push({{ $tag->id }})"
                                 type="button"
-                                x-bind:class="selectedTags.includes({{ $tag->id }}) ? 'bg-{{ $tag->color }}-500 text-white' :
+                                x-bind:class="selectedTags.includes({{ $tag->id }}) ?
+                                    'bg-{{ $tag->color }}-500 text-white' :
                                     'bg-gray-100 hover:bg-gray-200 text-gray-700'"
                                 class="flex items-center gap-1 rounded-full px-3 py-1 shadow-sm focus:outline-none sm:text-sm">
                                 <template x-if="selectedTags.includes({{ $tag->id }})">

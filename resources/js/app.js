@@ -1,5 +1,4 @@
 import "./bootstrap";
-import "./editor";
 
 import {
     Livewire,
@@ -10,8 +9,6 @@ import anchor from "@alpinejs/anchor";
 import focus from "@alpinejs/focus";
 import AutoAnimate from "@marcreichel/alpine-auto-animate";
 import Clipboard from "@ryangjchandler/alpine-clipboard";
-import hljs from "highlight.js";
-import "highlight.js/styles/atom-one-light.css";
 
 Alpine.plugin(collapse);
 Alpine.plugin(anchor);
