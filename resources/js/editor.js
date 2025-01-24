@@ -27,6 +27,9 @@ document.addEventListener("alpine:init", () => {
                         }),
                         CodeBlockLowlight.configure({
                             lowlight: createLowlight(common),
+                            HTMLAttributes: {
+                                class: "theme-atom-one-light",
+                            },
                         }),
                         Placeholder.configure({
                             // Use a placeholder:

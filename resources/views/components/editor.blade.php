@@ -77,8 +77,8 @@
                 <x-ui.tooltip text="Kod Bloğu Ekle">
                     <button x-on:click="toggleCodeBlock()" type="button" title="Kod Bloğu Ekle"
                         :class="{
-                            'bg-blue-500 text-white': isActive('link', updatedAt),
-                            'hover:bg-gray-200': !isActive('link', updatedAt)
+                            'bg-blue-500 text-white': isActive('codeBlock', updatedAt),
+                            'hover:bg-gray-200': !isActive('codeBlock', updatedAt)
                         }"
                         class="px-4 py-3 flex item-center justify-center">
                         <x-icons.code size='20' />

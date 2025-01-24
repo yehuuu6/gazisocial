@@ -179,3 +179,8 @@
     </div>
     <x-post.share-modal :url="$post->showRoute()" />
 </div>
+@script
+    <script>
+        hljs.highlightAll();
+    </script>
+@endscript
