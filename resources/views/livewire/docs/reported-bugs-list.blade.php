@@ -1,17 +1,13 @@
 <div class="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md">
     <div class="flex items-center justify-between m-6 mb-0">
-        <h1 class="text-3xl font-bold text-gray-900">Rapor Edilmiş Hatalar</h1>
+        <h1 class="text-xl md:text-3xl font-bold text-gray-900">Rapor Edilmiş Hatalar</h1>
         <div class="flex items-center gap-1 relative" x-data="{ open: false }">
             <button x-ref="bugFilterToggle" @click="open = !open"
                 class="rounded-md px-3 py-2 border-gray-200 text-gray-700 text-sm border flex items-center gap-0.5">
                 <x-icons.filter size="14" />
                 <span class="mx-1">Filtrele</span>
-                <template x-if="open">
-                    <x-icons.arrow-up size="12" />
-                </template>
-                <template x-if="!open">
-                    <x-icons.arrow-down size="12" />
-                </template>
+                <x-icons.arrow-up size="12" x-cloak x-show="open" />
+                <x-icons.arrow-down size="12" x-cloak x-show="!open" />
             </button>
             <div x-cloak x-show="open" @click.away="open = false" x-transition.origin.top.right.duration.200ms
                 x-anchor.bottom-start="$refs.bugFilterToggle"
@@ -35,7 +31,8 @@
     </div>
     <div class="flex flex-col gap-2 p-4">
         @forelse ($bugs as $bug)
-            <div class="flex justify-between md:items-center rounded-md border border-gray-200 bg-gray-50 p-4 gap-10">
+            <div
+                class="flex justify-between md:items-center rounded-md border border-gray-200 bg-white shadow p-4 gap-10">
                 <div class="flex flex-col gap-1">
                     <x-link href="{{ route('show-bug', $bug) }}"
                         class="text-lg font-medium">{{ $bug->title }}</x-link>

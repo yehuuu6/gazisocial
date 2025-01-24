@@ -46,6 +46,7 @@ export default {
             fontFamily: {
                 inter: ["Inter", "sans-serif"],
                 ginto: ["ABC Ginto Nord Unlicensed Trial", "sans-serif"],
+                satisfy: ["Satisfy", "cursive"],
             },
             animation: {
                 wiggle: "wiggle 1s ease-in-out infinite",
