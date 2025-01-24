@@ -10,7 +10,7 @@
                 </div>
                 <div class="flex flex-col gap-2 px-4">
                     <h4 class="block font-medium text-gray-700">İçerik</h4>
-                    <x-editor wire:model="content"></x-editor>
+                    <x-editor spellcheck="false"></x-editor>
                 </div>
                 <div x-data="{ selectedTags: $wire.selectedTags }" class="flex flex-col gap-2 px-4">
                     <h4 class="block cursor-default font-medium text-gray-700">Etiketler</h4>

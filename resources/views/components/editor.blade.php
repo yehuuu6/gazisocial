@@ -1,9 +1,7 @@
-@props([
-    'class' => '',
-    'editorClass' => 'bg-gray-50',
-])
-<div x-data="{ content: $wire.entangle('content'), ...setupEditor() }" x-init="() => init($refs.editor)" wire:ignore {{ $attributes->whereDoesntStartWith('wire:model') }}>
-    <div class="border border-gray-200 rounded-md {{ $class }}">
+<div {{ $attributes }} wire:ignore x-data="{
+    content: $wire.entangle('content'),
+}">
+    <div x-data="editor(content)" class="border border-gray-200 rounded-md">
         <template x-if="isLoaded()">
             <menu class="bg-gray-100 text-gray-700 flex flex-wrap divide-x border-b">
                 <x-ui.tooltip text="Kalın">
@@ -76,6 +74,16 @@
                         <x-icons.link size='20' />
                     </button>
                 </x-ui.tooltip>
+                <x-ui.tooltip text="Kod Bloğu Ekle">
+                    <button x-on:click="toggleCodeBlock()" type="button" title="Kod Bloğu Ekle"
+                        :class="{
+                            'bg-blue-500 text-white': isActive('link', updatedAt),
+                            'hover:bg-gray-200': !isActive('link', updatedAt)
+                        }"
+                        class="px-4 py-3 flex item-center justify-center">
+                        <x-icons.code size='20' />
+                    </button>
+                </x-ui.tooltip>
                 <x-ui.tooltip text="Başlık 1">
                     <button x-on:click="toggleHeading({ level: 2 })" type="button"
                         :class="{
@@ -108,8 +116,8 @@
                 </x-ui.tooltip>
             </menu>
         </template>
-        <div class="{{ $editorClass }}" x-ref="editor">
 
-        </div>
+        <div x-ref="element"></div>
     </div>
+
 </div>
