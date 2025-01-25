@@ -19,8 +19,8 @@
         </div>
         <div class="max-h-[200px] overflow-y-auto md:max-h-[225px] lg:max-h-[250px]">
             @foreach ($this->tags as $tag)
-                <button type="button" data-slug="{{ $tag->slug }}" wire:key="tag-{{ $tag->id }}"
-                    x-on:click="updateSelectedTag('{{ $tag->slug }}')"
+                <button type="button" data-search-key="{{ Str::replace('-', ' ', $tag->slug) }}"
+                    wire:key="tag-{{ $tag->id }}" x-on:click="updateSelectedTag('{{ $tag->slug }}')"
                     class="flex items-center gap-4 w-full px-4 py-2.5 md:px-5 md:py-4 text-xs md:text-sm font-medium text-gray-700 hover:bg-gray-100 hover:no-underline">
                     <x-icons.tag size="18" />
                     <span>{{ $tag->name }}</span>

@@ -64,7 +64,7 @@ Alpine.data("tagsLister", (tags, count) => {
             const tags = this.$refs.tagsLister.querySelectorAll("button");
             let count = 0;
             tags.forEach((tag) => {
-                let condition1 = tag.dataset.slug
+                let condition1 = tag.dataset.searchKey
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
                 let condition2 = tag.innerText

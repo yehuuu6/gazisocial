@@ -1,8 +1,4 @@
 <div class="mt-7 md:mt-14">
-    <button onclick="window.scrollTo(0, 0)" type="button"
-        class="w-full py-4 bg-blue-900 text-sm hover:bg-blue-800 font-medium text-gray-200">
-        Başa dön
-    </button>
     <footer class="py-12 px-[3%] md:px-[6%] lg:px-[12%] bg-blue-950">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="mb-4 md:mb-0">
