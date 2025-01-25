@@ -9,6 +9,11 @@ class SearchBar extends Component
 {
     public string $search = '';
 
+    public function resetSearch()
+    {
+        $this->reset();
+    }
+
     public function getSearchResults()
     {
         if (strlen($this->search) < 3) {
