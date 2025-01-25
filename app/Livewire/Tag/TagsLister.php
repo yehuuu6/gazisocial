@@ -8,21 +8,18 @@ use Livewire\Attributes\Computed;
 
 class TagsLister extends Component
 {
-    public ?string $displayName = null;
-    public ?string $displayColor = null;
-
-    #[Computed(cache: true)]
+    #[Computed(cache: false)]
     public function tags()
     {
-        return Tag::all();
+        return Tag::all('slug', 'name', 'color', 'id');
     }
 
-    public function mount()
+    public function test()
     {
-        $this->displayName = $this->displayName ? $this->displayName : 'Etiketler';
-        $this->displayColor = $this->displayColor ? "border-l-4 border-$this->displayColor-500" : '';
+        unset($this->tags);
     }
 
+    // Not used if not lazy loading
     public function placeholder()
     {
         return view('components.tag.tag-placeholder');

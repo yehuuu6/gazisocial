@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./tags-lister";
 
 import {
     Livewire,
