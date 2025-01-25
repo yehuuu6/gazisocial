@@ -12,7 +12,7 @@
                     </div>
                     @can('join', App\Models\Faculty::class)
                         <button wire:click="joinFaculty({{ $faculty->id }})"
-                            class="w-[75px] hidden group-hover:flex items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none hover:bg-blue-900">
+                            class="w-[75px] flex items-center justify-center rounded bg-primary px-6 py-2 font-medium text-white outline-none hover:bg-blue-900">
                             <span class="flex items-center justify-center" wire:loading.remove
                                 wire:target="joinFaculty({{ $faculty->id }})">
                                 Katıl
