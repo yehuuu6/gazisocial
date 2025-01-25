@@ -4,13 +4,18 @@
     class="bg-opacity-85 sticky top-0 z-30 border-b border-gray-200 bg-white py-4 shadow-sm backdrop-blur md:py-5">
     <div class="relative" x-ref="navbar">
         <div class="flex items-center justify-between mx-[3%] md:mx-[6%] lg:mx-[12%]">
-            <x-link href="/" class="group flex items-center gap-1.5 hover:no-underline hover:opacity-90 md:gap-2.5">
-                <div class="h-12">
-                    <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social Logo"
-                        class="object-contain h-full w-full">
-                </div>
-            </x-link>
+            @persist('logo')
+                <x-link href="/" class="group flex items-center gap-1.5 hover:no-underline hover:opacity-90 md:gap-2.5">
+                    <div class="h-12">
+                        <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social Logo"
+                            class="object-contain h-full w-full">
+                    </div>
+                </x-link>
+            @endpersist
             <div class="flex items-center gap-2">
+                @persist('search-bar')
+                    <livewire:post.search.search-bar />
+                @endpersist
                 @auth
                     @persist('notifications')
                         <livewire:user.notification-lister lazy />
@@ -30,56 +35,58 @@
                         </div>
                     @endguest
                     @auth
-                        <div x-data="{ userDropdown: false }">
-                            <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
-                                class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">
-                                <img src="{{ Auth::user()->avatar }}" alt="profil resmi"
-                                    class="size-9 rounded-full object-cover">
-                                <div class="ml-1 flex flex-col">
-                                    <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
-                                    <span class="text-xs font-light text-gray-500">{{ '@' . Auth::user()->username }}</span>
+                        @persist('user-dropdown')
+                            <div x-data="{ userDropdown: false }">
+                                <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
+                                    class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">
+                                    <img src="{{ Auth::user()->avatar }}" alt="profil resmi"
+                                        class="size-9 rounded-full object-cover">
+                                    <div class="ml-1 flex flex-col">
+                                        <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
+                                        <span class="text-xs font-light text-gray-500">{{ '@' . Auth::user()->username }}</span>
+                                    </div>
+                                    <div class="ml-0.5">
+                                        <x-icons.arrow-up-down size="20" />
+                                    </div>
                                 </div>
-                                <div class="ml-0.5">
-                                    <x-icons.arrow-up-down size="20" />
+                                <div class="flex w-[225px] max-w-lg flex-col gap-1 rounded-md border border-gray-200 bg-white text-sm text-gray-800 shadow-lg"
+                                    x-anchor.offset.5.bottom-end="$refs.userMenu" x-cloak x-show="userDropdown"
+                                    x-on:click.away="userDropdown = false" x-transition.scale.origin.top>
+                                    <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
+                                    <x-seperator />
+                                    <x-link href="{{ route('users.show', Auth::user()->username) }}"
+                                        class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                        <x-icons.user size="20" />
+                                        <span>Profili Gör</span>
+                                    </x-link>
+                                    <x-link href="{{ route('users.edit', Auth::user()->username) }}"
+                                        class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                        <x-icons.cog size="20" />
+                                        <span>Ayarlar</span>
+                                    </x-link>
+                                    <a href="https://github.com/yehuuu6/gazisocial" target="_blank"
+                                        class="mx-1 flex items-center justify-between gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                        <div class="flex items-center gap-3">
+                                            <x-icons.github size="20" />
+                                            <span>GitHub Repo</span>
+                                        </div>
+                                        <div class="text-yellow-400">
+                                            <x-icons.star size="20" />
+                                        </div>
+                                    </a>
+                                    <x-seperator />
+                                    <form method="POST" action="{{ route('logout') }}" class="flex">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="mx-1 flex-1 mb-1 flex items-center gap-3.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                            <x-icons.logout size="16" />
+                                            <span>Çıkış Yap</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="flex w-[225px] max-w-lg flex-col gap-1 rounded-md border border-gray-200 bg-white text-sm text-gray-800 shadow-lg"
-                                x-anchor.offset.5.bottom-end="$refs.userMenu" x-cloak x-show="userDropdown"
-                                x-on:click.away="userDropdown = false" x-transition.scale.origin.top>
-                                <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
-                                <x-seperator />
-                                <x-link href="{{ route('users.show', Auth::user()->username) }}"
-                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.user size="20" />
-                                    <span>Profili Gör</span>
-                                </x-link>
-                                <x-link href="{{ route('users.edit', Auth::user()->username) }}"
-                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.cog size="20" />
-                                    <span>Ayarlar</span>
-                                </x-link>
-                                <a href="https://github.com/yehuuu6/gazisocial" target="_blank"
-                                    class="mx-1 flex items-center justify-between gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <div class="flex items-center gap-3">
-                                        <x-icons.github size="20" />
-                                        <span>GitHub Repo</span>
-                                    </div>
-                                    <div class="text-yellow-400">
-                                        <x-icons.star size="20" />
-                                    </div>
-                                </a>
-                                <x-seperator />
-                                <form method="POST" action="{{ route('logout') }}" class="flex">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="mx-1 flex-1 mb-1 flex items-center gap-3.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                        <x-icons.logout size="16" />
-                                        <span>Çıkış Yap</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        @endpersist
                     @endauth
                 </div>
                 <button x-on:click="navbarDropdown = !navbarDropdown"
