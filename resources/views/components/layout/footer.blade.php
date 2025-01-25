@@ -96,7 +96,9 @@
             <span> | </span>
             <a href="https://github.com/yehuuu6/gazisocial" target="_blank" class="hover:underline">GitHub</a>
             <span> | </span>
-            <span>Copyright © Gazi Social 2025 All rights reserved.</span>
+            <span>Copyright © Gazi Social <span x-data="{ date: '2025' }" x-init="date = new Date().getFullYear()" x-text="date"></span>
+                All rights
+                reserved.</span>
         </div>
     </footer>
 </div>
