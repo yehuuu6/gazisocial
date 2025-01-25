@@ -1,7 +1,13 @@
 <div>
-    <input x-trap="gifSelector" type="text" spellcheck="false"
-        class="w-full border border-gray-100 rounded outline-none focus:border-gray-300 p-2 bg-gray-50"
-        placeholder="GIPHY'de Ara" wire:model.live.debounce.500ms="query" />
+    <div class="flex items-center gap-1 justify-between w-full border focus:border-gray-300 rounded border-gray-100">
+        <input x-trap="gifSelector" type="text" spellcheck="false" class="outline-none w-full p-2"
+            placeholder="🔎 GIPHY'de Ara" wire:model.live.debounce.500ms="query" />
+        <div class="flex items-end justify-end">
+            <a target="_blank" href="https://www.algolia.com/developers">
+                <img src="{{ asset('logos/giphy.png') }}" alt="Powered by GIPHY" class="w-16 md:w-20" />
+            </a>
+        </div>
+    </div>
 
     @if (!empty($this->gifs))
         <div class="grid gap-1 grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2">

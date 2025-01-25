@@ -99,8 +99,12 @@
                             </div>
                         @endif
                         @if ($comment->gif_url)
-                            <img src="{{ asset($comment->gif_url) }}" alt="GIF"
-                                class="h-32 md:h-64 max-w-fit object-cover rounded-lg pr-1 mt-1">
+                            <div class="relative h-32 md:h-64 max-w-fit rounded-lg overflow-hidden pr-1">
+                                <img src="{{ asset($comment->gif_url) }}" alt="GIF"
+                                    class="object-cover w-full h-full">
+                                <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"
+                                    class="absolute bottom-2 rounded left-2 m-auto w-20" />
+                            </div>
                         @endif
                         <div class="relative flex items-center gap-2 md:gap-0.5 md:mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
