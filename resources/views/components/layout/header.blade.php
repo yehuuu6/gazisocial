@@ -46,10 +46,16 @@
                     </x-link>
                 @endif
             @endcan
-            <button x-on:click="alert('Not implemented yet!')" type="button"
-                class="rounded-full p-3 hover:bg-white hover:shadow">
-                <x-icons.search size="24" class="text-primary" />
-            </button>
+            <div x-data="{ searchOpen: false }">
+                <button x-on:click="searchOpen = !searchOpen" x-ref="searchButton" type="button"
+                    class="rounded-full p-3 hover:bg-white hover:shadow">
+                    <x-icons.search size="24" class="text-primary" />
+                </button>
+                <div x-cloak x-show="searchOpen" x-on:click.away="searchOpen = false" x-transition.origin.top.right
+                    x-anchor.offset.5.bottom-end="$refs.searchButton" class="z-10">
+                    <livewire:post.search.search-bar />
+                </div>
+            </div>
         </div>
     </header>
 </div>
