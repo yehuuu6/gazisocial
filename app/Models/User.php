@@ -40,6 +40,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         static::created(function ($user) {
             $user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=random';
             $user->save();
+
+            // Assign the 'member' role to the user
+            $user->assignRole(['member']);
         });
     }
 
@@ -80,6 +83,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function faculty(): BelongsTo
     {
         return $this->belongsTo(Faculty::class);
+    }
+
+    public function assignRole(array $slugs)
+    {
+        foreach ($slugs as $slug) {
+            $role = Role::where('slug', $slug)->first();
+            if ($role) $this->roles()->attach($role);
+        }
     }
 
     public function roles(): BelongsToMany

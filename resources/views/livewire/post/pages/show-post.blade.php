@@ -151,13 +151,10 @@
                     <div class="p-6">
                         <h4 class="text-sm text-gray-700 font-light uppercase">KULLANICI ROZETLERİ</h4>
                         <div class="flex items-center flex-wrap gap-1 mt-2 mb-3">
-                            @forelse ($post->user->roles as $role)
+                            @foreach ($post->user->roles as $role)
                                 <span
                                     class="{{ $colorVariants[$role->color] }} cursor-default rounded-full px-2 py-1 text-xs font-medium capitalize text-white">{{ $role->name }}</span>
-                            @empty
-                                <span
-                                    class="rounded-full bg-orange-500 px-2 py-1 text-xs font-medium capitalize text-white">Üye</span>
-                            @endforelse
+                            @endforeach
                         </div>
                     </div>
                     <x-seperator />

@@ -9,6 +9,7 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/editor.js",
                 "resources/js/syntax-highlight.js",
+                "resources/js/tags-lister.js",
             ],
             refresh: true,
         }),

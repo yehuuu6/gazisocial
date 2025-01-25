@@ -37,9 +37,8 @@ class Verify extends Component
         // if user has @gazi.edu.tr email, assign gazili role
         if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
             // Check if user already has gazili role
-            if ($this->user->roles()->where('slug', 'student')->count() === 0) {
-                $role = Role::where('slug', 'student')->first();
-                $this->user->roles()->attach($role);
+            if (!$this->user->isStudent()) {
+                $this->user->assignRole(['student']);
             }
         }
 

@@ -2,18 +2,49 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
+use App\Models\Role;
+use App\Models\Tag;
 use App\Models\Faculty;
 use Illuminate\Support\Str;
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class FacultySeeder extends Seeder
+class ProductionDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+        // Create Roles.
+        $contributor = Role::create(['slug' => 'contributor', 'name' => 'Contributor', 'color' =>
+        'purple', 'level' => 0]);
+        $member = Role::create(['slug' => 'member', 'name' => 'Üye', 'color' => 'orange', 'level' => 0]);
+        $gazili = Role::create(['slug' => 'student', 'name' => 'Öğrenci', 'color' => 'green', 'level' => 1]);
+        $admin = Role::create(['slug' => 'moderator', 'name' => 'Moderatör', 'color' => 'red', 'level' => 2]);
+        $gazisocial = Role::create(['slug' => 'gazisocial', 'name' => 'Gazi Social', 'color' => 'blue', 'level' => 3]);
+
+        // Create Tags.
+        $tags = collect();
+
+        $tags->push(Tag::create(['name' => 'Staj', 'color' => 'red']));
+        $tags->push(Tag::create(['name' => 'Soru', 'color' => 'orange']));
+        $tags->push(Tag::create(['name' => 'İtiraf', 'color' => 'amber']));
+        $tags->push(Tag::create(['name' => 'Etkinlik', 'color' => 'yellow']));
+        $tags->push(Tag::create(['name' => 'Erasmus', 'color' => 'lime']));
+        $tags->push(Tag::create(['name' => 'Burs', 'color' => 'green']));
+        $tags->push(Tag::create(['name' => 'Proje', 'color' => 'emerald']));
+        $tags->push(Tag::create(['name' => 'Ulaşım', 'color' => 'teal']));
+        $tags->push(Tag::create(['name' => 'Kampüs', 'color' => 'cyan']));
+        $tags->push(Tag::create(['name' => 'İş İlanı', 'color' => 'sky']));
+        $tags->push(Tag::create(['name' => 'Dev Center', 'color' => 'blue']));
+        $tags->push(Tag::create(['name' => 'Spor', 'color' => 'indigo']));
+        $tags->push(Tag::create(['name' => 'Yurt', 'color' => 'violet']));
+        $tags->push(Tag::create(['name' => 'Yazılım', 'color' => 'purple']));
+        $tags->push(Tag::create(['name' => 'Gündem', 'color' => 'fuchsia']));
+        $tags->push(Tag::create(['name' => 'Arkadaşlık', 'color' => 'pink']));
+        $tags->push(Tag::create(['name' => 'Duyuru', 'color' => 'rose']));
+
+        // Create faculties
         $faculties = [
             [
                 'type' => 'faculty',

@@ -33,6 +33,8 @@ class ShowPost extends Component
         'red' => 'bg-red-700',
         'green' => 'bg-green-700',
         'yellow' => 'bg-yellow-500',
+        'orange' => 'bg-orange-500',
+        'purple' => 'bg-purple-500',
     ];
 
     public $userBio;

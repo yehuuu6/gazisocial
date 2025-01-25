@@ -81,6 +81,15 @@
         <div class="my-8 opacity-30">
             <x-seperator />
         </div>
+        @if (request()->is('dev-center*'))
+            <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center font-light">
+                <span>
+                    You are currently on the <a wire:navigate class="text-blue-200 hover:underline"
+                        href="{{ route('dev-center') }}">Dev Center</a>
+                    pages.
+                </span>
+            </div>
+        @endif
         <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center font-light">
             <span>Made with 🧠 by contributors and </span>
             <a href="https://github.com/yehuuu6" target="_blank"
