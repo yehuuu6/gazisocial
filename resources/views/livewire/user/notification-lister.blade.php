@@ -33,7 +33,8 @@
                     <button x-data="{
                         isRead: {{ $notification->read ? 'true' : 'false' }},
                     }" x-on:notification-all-read.window="isRead = true"
-                        wire:click="markAsRead({{ $notification->id }})" x-on:click="isRead = true"
+                        wire:click="markAsRead({{ $notification->id }})"
+                        x-on:click="isRead = true; notificationsDropdown = false"
                         wire:key='notification-{{ $notification->id }}'
                         :class="{ 'bg-white hover:bg-gray-100': isRead, 'bg-blue-50 hover:bg-blue-100': !isRead }"
                         class="flex text-left items-center gap-1.5 md:gap-3 p-1.5 md:p-3 cursor-pointer">

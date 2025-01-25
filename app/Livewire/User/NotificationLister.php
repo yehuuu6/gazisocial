@@ -55,6 +55,9 @@ class NotificationLister extends Component
             $notification->update(['read' => true]);
         }
 
+        // If there are no unread notifications, set the flag to false
+        $this->setUnreadBool();
+
         // Redirect to the notification's action
 
         if (($notification->type == 'post_comment' || $notification->type == 'comment_reply') && isset($notification->data['action_url'])) {
