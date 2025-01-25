@@ -1,4 +1,5 @@
-<tr class="transition-all duration-200 hover:bg-gray-50">
+<tr class="transition-all duration-200 hover:bg-gray-50 cursor-pointer"
+    x-on:click="Livewire.navigate('{{ $post->showRoute() }}')">
     <td class="p-4 text-left">
         <div class="flex items-center gap-4">
             <x-link class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden" title="{{ $post->user->name }}"
@@ -11,10 +12,9 @@
                         <x-post.post-tag :tag="$tag" :key="'post-tag-' . $tag->id" />
                     @endforeach
                 </div>
-                <x-link href="{{ $post->showRoute() }}"
-                    class="flex md:items-center gap-2 w-full break-all text-base font-medium text-gray-700 md:text-lg">
+                <h1 class="flex md:items-center gap-2 w-full break-all text-base font-medium text-gray-700 md:text-lg">
                     <span>{{ $post->title }}</span>
-                </x-link>
+                </h1>
                 <div class="md:hidden">
                     <x-link href="{{ route('users.show', $post->user->username) }}"
                         class="text-xs font-normal text-blue-500">

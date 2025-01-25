@@ -96,7 +96,8 @@
             </div>
             <div class="mt-3 space-y-4">
                 @foreach ($this->pinnedPosts as $post)
-                    <div class="bg-white rounded-lg shadow border border-gray-100"
+                    <div class="bg-white rounded-lg shadow border border-gray-100 hover:bg-gray-50 cursor-pointer"
+                        x-on:click="Livewire.navigate('{{ $post->showRoute() }}')"
                         wire:key="pinned-post-{{ $post->id }}">
                         <div class="p-4">
                             <div class="flex items-center justify-between">
@@ -147,7 +148,7 @@
                 @endforeach
             </div>
         </section>
-        <section :class="{ 'rounded-b-xl': !isGuest }" class="dev-center mt-7 md:mt-20 relative bg-blue-600">
+        <section :class="{ 'rounded-b-xl': !isGuest }" class="dev-center mt-7 md:mt-20 relative bg-blue-700">
             <div class="py-8 pb-12 md:py-12 px-10 md:px-24">
                 <div class="flex flex-col items-center justify-center text-center">
                     <h3 class="text-xl md:text-3xl font-semibold text-white">Geliştirici Merkezi</h3>

@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <article x-data="highlightCode"
-                        class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-xl ProseMirror">
+                        class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-lg ProseMirror">
                         {!! $post->html !!}
                     </article>
                     <div class="flex items-center gap-3.5 mt-3" x-data="{ isDisabled: false }">
