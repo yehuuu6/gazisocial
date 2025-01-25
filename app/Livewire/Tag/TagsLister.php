@@ -8,7 +8,7 @@ use Livewire\Attributes\Computed;
 
 class TagsLister extends Component
 {
-    #[Computed(cache: false)]
+    #[Computed(cache: true)]
     public function tags()
     {
         return Tag::all('slug', 'name', 'color', 'id');
