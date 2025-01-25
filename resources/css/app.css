@@ -38,6 +38,10 @@ html {
     pointer-events: none;
 }
 
+.ProseMirror {
+    white-space: normal;
+}
+
 .ProseMirror pre {
     white-space: pre-wrap;
     padding-inline-start: 0 !important;
