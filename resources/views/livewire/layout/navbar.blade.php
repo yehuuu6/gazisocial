@@ -13,7 +13,7 @@
             <div class="flex items-center gap-2">
                 @auth
                     @persist('notifications')
-                        <livewire:user.notification-lister />
+                        <livewire:user.notification-lister lazy />
                     @endpersist
                 @endauth
                 <div class="hidden md:block">

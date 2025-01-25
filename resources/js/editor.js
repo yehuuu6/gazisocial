@@ -3,6 +3,7 @@ import { Alpine } from "../../vendor/livewire/livewire/dist/livewire.esm";
 import { Editor } from "@tiptap/core";
 import { Link } from "@tiptap/extension-link";
 import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
 import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { createLowlight } from "lowlight";
@@ -33,6 +34,7 @@ Alpine.data("editor", (content) => {
 
             editor = new Editor({
                 element: this.$refs.element,
+                autofocus: true,
                 extensions: [
                     StarterKit.configure({
                         heading: {
@@ -65,10 +67,11 @@ Alpine.data("editor", (content) => {
                     }),
                     Link,
                     Markdown,
+                    Underline,
                 ],
                 editorProps: {
                     attributes: {
-                        class: "prose prose-base sm:prose-sm md:prose-base lg:prose-lg max-w-none min-h-[312px] px-3 py-2 focus:outline-indigo-500",
+                        class: "prose prose-base sm:prose-sm md:prose-base lg:prose-lg max-w-none h-[312px] md:h-[486px] overflow-y-auto px-3 py-2 outline-none",
                     },
                 },
                 content: content,
@@ -95,6 +98,9 @@ Alpine.data("editor", (content) => {
         },
         toggleItalic() {
             editor.chain().toggleItalic().focus().run();
+        },
+        toggleUnderline() {
+            editor.chain().focus().toggleUnderline().run();
         },
         toggleStrike() {
             editor.chain().focus().toggleStrike().run();

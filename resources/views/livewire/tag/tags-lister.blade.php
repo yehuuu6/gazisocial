@@ -39,6 +39,7 @@
         <div class="max-h-[200px] overflow-y-auto md:max-h-[225px] lg:max-h-[250px]">
             @foreach ($this->tags as $tag)
                 <a wire:navigate href="{{ route('tags.show', $tag->slug) }}" data-slug="{{ $tag->slug }}"
+                    x-on:click="tagsDropdown = false"
                     class="flex items-center gap-4 px-4 py-2.5 md:px-5 md:py-4 text-xs md:text-sm font-medium text-gray-700 hover:bg-gray-100 hover:no-underline">
                     <x-icons.tag size="18" />
                     <span>{{ $tag->name }}</span>
