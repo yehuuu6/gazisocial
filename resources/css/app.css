@@ -39,7 +39,7 @@ html {
 }
 
 .ProseMirror {
-    white-space: normal;
+    white-space: normal !important;
 }
 
 .ProseMirror pre {

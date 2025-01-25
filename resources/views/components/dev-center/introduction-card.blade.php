@@ -1,7 +1,7 @@
 @props(['bgClass'])
 <div
     class="hover:shadow-md shadow rounded-md {{ $bgClass }} transition duration-200 flex flex-col items-center justify-center gap-2 md:gap-4 px-3 py-8">
-    <div class="rounded-full bg-white p-2.5 text-blue-400">
+    <div class="rounded-full bg-gradient-to-tl from-indigo-800 to-sky-400 p-3 text-blue-50 shadow">
         {{ $icon }}
     </div>
     <span class="text-sm md:text-lg font-medium text-gray-800">
