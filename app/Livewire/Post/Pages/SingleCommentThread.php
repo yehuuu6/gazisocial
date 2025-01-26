@@ -20,9 +20,19 @@ class SingleCommentThread extends Component
     public int $selectedCommentId;
     public $parent; // Post or Comment (commentable)
 
-    public function mount(Post $post, int $selectedCommentId)
+    public $renderedReplyId;
+
+    public function mount(Post $post, int $selectedCommentId, $renderedReplyId = null)
     {
         $this->post = $post;
+
+        $this->setParent($selectedCommentId);
+
+        $this->renderedReplyId = $renderedReplyId;
+    }
+
+    private function setParent(int $selectedCommentId)
+    {
         $this->selectedCommentId = $selectedCommentId;
         $mainComment = Comment::findOrFail($selectedCommentId);
         $this->parent = $mainComment->commentable;

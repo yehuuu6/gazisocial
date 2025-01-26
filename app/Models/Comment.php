@@ -72,7 +72,7 @@ class Comment extends Model
         $this->user->heartbeat();
     }
 
-    public function loadReplies(int $limit = 3)
+    public function loadReplies(int $limit = 3, ?int $renderedReplyId = null)
     {
         $newReply = null;
 
@@ -90,19 +90,31 @@ class Comment extends Model
             $replies = $this->replies()
                 ->with('user')
                 ->withCount('replies')
-                ->where('id', '!=', $newReply->id)
-                ->orderBy('created_at', 'asc')
+                ->where('id', '!=', $newReply->id);
+
+            if ($renderedReplyId !== null) {
+                $replies->where('id', '=', $renderedReplyId);
+            }
+
+            $replies = $replies->orderBy('created_at', 'asc')
                 ->limit($limit - 1)
                 ->get();
 
             return $replies->prepend($newReply);
         } else {
-            return $this->replies()
+            $replies = $this->replies()
                 ->with('user')
-                ->withCount('replies')
-                ->orderBy('created_at', 'asc')
+                ->withCount('replies');
+
+            if ($renderedReplyId !== null) {
+                $replies->where('id', '=', $renderedReplyId);
+            }
+
+            $replies = $replies->orderBy('created_at', 'asc')
                 ->limit($limit)
                 ->get();
+
+            return $replies;
         }
     }
 

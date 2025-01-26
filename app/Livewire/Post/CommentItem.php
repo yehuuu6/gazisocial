@@ -29,6 +29,7 @@ class CommentItem extends Component
     public int $replyIncrementCount; // The number of replies to show when the user clicks the "Load more replies" button.
 
     public bool $isSingleCommentThread;
+    public $renderedReplyId;
 
     public int $depth;
 
@@ -36,6 +37,25 @@ class CommentItem extends Component
     public int $likesCount;
 
     public bool $isAuthenticated;
+
+    public function mount(bool $isSingleCommentThread = false, int $depth = 0, $renderedReplyId = null): void
+    {
+        $this->isSingleCommentThread = $isSingleCommentThread;
+
+        $this->setInitialMaxReplyCount();
+
+        $this->depth = $depth;
+        $this->comment->depth = $depth;
+
+        $this->setMaxRenderedReplyCount();
+
+        $this->renderedReplyId = $renderedReplyId;
+
+        $this->isLiked = $this->comment->isLiked();
+        $this->likesCount = $this->comment->likes_count;
+
+        $this->isAuthenticated = Auth::check();
+    }
 
     /**
      * Load more replies.
@@ -80,23 +100,6 @@ class CommentItem extends Component
 
         // Set the replyIncrementCount to the maxReplyCount.
         $this->replyIncrementCount = $this->maxReplyCount;
-    }
-
-    public function mount(bool $isSingleCommentThread = false, int $depth = 0): void
-    {
-        $this->isSingleCommentThread = $isSingleCommentThread;
-
-        $this->setInitialMaxReplyCount();
-
-        $this->depth = $depth;
-        $this->comment->depth = $depth;
-
-        $this->setMaxRenderedReplyCount();
-
-        $this->isLiked = $this->comment->isLiked();
-        $this->likesCount = $this->comment->likes_count;
-
-        $this->isAuthenticated = Auth::check();
     }
 
     public function toggleLike()
@@ -154,7 +157,6 @@ class CommentItem extends Component
                 'type' => 'comment_reply',
                 'data' => [
                     'sender_id' => Auth::id(),
-                    'comment_id' => $this->comment->id,
                     'action_url' => $url,
                     'post_id' => $this->post->id,
                     'text' => Auth::user()->name . ' yorumunuza yanıt verdi'
@@ -217,7 +219,7 @@ class CommentItem extends Component
             'depth' => $this->comment->depth + 1
         ]);
 
-        $this->createNotification($reply->showRoute());
+        $this->createNotification($this->comment->showRoute(['reply' => $reply->id]));
 
         $this->alert('success', 'Yanıtınız başarıyla eklendi.');
 

@@ -43,6 +43,16 @@
             return false;
         },
     }" x-init="showReplies = setShowReplies();
+    // Get the url params
+    const urlParams = new URLSearchParams(window.location.search);
+    const replyId = urlParams.get('reply');
+    if (replyId != undefined) {
+        const comment = document.getElementById('comment-' + replyId);
+        if (comment != null) {
+            comment.classList.add('highlight');
+            setTimeout(() => comment.classList.remove('highlight'), 2000);
+        }
+    }
     $wire.on('view-replies.{{ $comment->id }}', () => {
         // If the client is mobile, and the depth is more than 2, go to the comments page
         // To prevent the screen from beign over-crowded by replies in mobile devices
@@ -53,7 +63,8 @@
         showReplies = true;
     })">
         <div :class="{ 'mt-2.5': {{ $comment->depth }} > 0 }">
-            <div class="flex items-center gap-1 md:gap-2 w-fit pr-1" x-ref="comment{{ $comment->id }}">
+            <div id='comment-{{ $comment->id }}' class="flex items-center gap-1 md:gap-2 w-fit pr-1"
+                x-ref="comment{{ $comment->id }}">
                 <div class="relative">
                     <div class="size-7 md:size-8 relative md:static shadow rounded-full overflow-hidden">
                         <img x-ref="avatar" class="absolute md:static z-[1] w-full h-full object-cover"
@@ -71,9 +82,8 @@
                 @if ($comment->replies_count > 0)
                     <div x-on:click="
                       $refs.avatar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      const comment = $refs.comment{{ $comment->id }};
-                      comment.classList.add('highlight');
-                      setTimeout(() => comment.classList.remove('highlight'), 2000);"
+                      $refs.comment{{ $comment->id }}.classList.add('highlight');
+                      setTimeout(() => $refs.comment{{ $comment->id }}.classList.remove('highlight'), 2000);"
                         class="absolute top-0 bottom-0 left-4 w-4 mb-5 z-[1] group">
                         <div
                             class="w-full h-full border-l border-gray-200 group-hover:border-l-2 group-hover:border-gray-500 cursor-pointer">
@@ -99,7 +109,7 @@
                             </div>
                         @endif
                         @if ($comment->gif_url)
-                            <div class="relative h-32 md:h-64 max-w-fit rounded-lg overflow-hidden pr-1">
+                            <div class="relative h-32 md:h-64 max-w-fit overflow-hidden pr-1">
                                 <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                     class="object-cover w-full h-full">
                                 <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"
@@ -143,9 +153,11 @@
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
                                 x-ref="shareButton">
                                 <x-icons.send size="20" />
-                                <span class="hidden md:inline-block">Paylaş</span>
+                                <span class="hidden md:inline-block">
+                                    Paylaş
+                                </span>
                             </x-comment.comment-button>
-                            <x-comment.comment-share-dropdown :url="$comment->showRoute()" />
+                            <x-comment.comment-share-dropdown :comment_url="$comment->showRoute()" :reply_url="$comment->commentable->showRoute(['reply' => $comment->id])" :commentable="$comment->commentable_type" />
                             <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
                                 x-ref="moreButton">
                                 <x-icons.dots size="20" />
@@ -160,7 +172,7 @@
                 {{-- Recursive component for replies --}}
                 <div x-cloak x-show="showReplies" class="flex flex-col gap-0 pl-7 md:pl-10">
                     @if ($comment->depth <= 10)
-                        @foreach ($comment->loadReplies($maxReplyCount) as $reply)
+                        @foreach ($comment->loadReplies($maxReplyCount, $renderedReplyId) as $reply)
                             <livewire:post.comment-item :$isSingleCommentThread :depth="$depth + 1" :$post
                                 :comment="$reply" :key="'reply-' . $reply->id" lazy />
                         @endforeach
@@ -170,6 +182,9 @@
                     <x-comment.load-more-replies :moreRepliesCount="$comment->replies_count - $maxReplyCount" />
                 @elseif($comment->replies_count > $maxReplyCount && !$isSingleCommentThread)
                     <x-comment.continue-thread :url="$comment->showRoute()" :moreRepliesCount="$comment->replies_count - $maxReplyCount" />
+                @endif
+                @if ($isSingleCommentThread && $renderedReplyId !== null && $comment->replies_count > 1)
+                    <x-comment.continue-thread :url="$comment->showRoute()" :moreRepliesCount="$comment->replies_count - 1" />
                 @endif
                 @if ($comment->depth > 10)
                     <x-comment.continue-thread :url="$comment->showRoute()" :moreRepliesCount="$comment->replies_count" />

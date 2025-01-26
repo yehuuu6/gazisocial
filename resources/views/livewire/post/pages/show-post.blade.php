@@ -98,7 +98,8 @@
                     @if (!$isSingleCommentThread)
                         <livewire:post.pages.comments-list :$post lazy="on-load" />
                     @else
-                        <livewire:post.pages.single-comment-thread :$selectedCommentId :$post lazy="on-load" />
+                        <livewire:post.pages.single-comment-thread :$renderedReplyId :$selectedCommentId :$post
+                            lazy="on-load" />
                     @endif
                 </div>
             </div>

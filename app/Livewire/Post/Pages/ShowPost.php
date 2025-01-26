@@ -22,6 +22,7 @@ class ShowPost extends Component
     public Post $post;
     public bool $isLiked = false;
     public bool $isSingleCommentThread;
+    public $renderedReplyId;
     public $selectedCommentId;
     public int $likesCount;
     public int $commentsCount;
@@ -39,8 +40,20 @@ class ShowPost extends Component
 
     public $userBio;
 
+    private function validateReply($replyId)
+    {
+        // If the post does not have a comment with the given id, or the id is null, give an error.
+        if ($replyId !== null && Comment::where('id', $replyId)->where('post_id', $this->post->id)->doesntExist()) {
+            $this->alert('error', 'Yanıt bulunamadı, silinmiş olabilir.');
+        }
+    }
+
     public function mount(Post $post, Request $request, $comment = null,)
     {
+        // Set the renredReplyId using the route
+        $this->renderedReplyId = request()->query('reply') ?? null;
+        $this->validateReply($this->renderedReplyId);
+
         $this->post = $post;
         $this->controlRoute($request);
 
@@ -61,10 +74,8 @@ class ShowPost extends Component
             return false;
         }
         // If the post does not have a comment with the given ID, return false.
-        // GOING TO THE REPLY THREAD GIVES 404 ERROR IDK WHY
-        // I THINK ITS NOT FOUND IN THE RELATION OF THE POST
         if (Comment::where('id', $comment)->where('post_id', $this->post->id)->doesntExist()) {
-            abort(404, 'Yorum bulunamadı.');
+            abort(404);
         }
         if (!is_numeric($comment)) {
             // If the comment is not integer, return false.
