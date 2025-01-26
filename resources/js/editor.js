@@ -122,7 +122,7 @@ Alpine.data("editor", (content) => {
                 return editor.chain().focus().unsetLink().run();
             }
 
-            const href = window.prompt("Enter the URL");
+            const href = window.prompt("Bağlantı adresini girin:");
             if (!href) return editor.chain().focus().run();
             editor
                 .chain()
