@@ -64,6 +64,11 @@
                                         <x-icons.cog size="20" />
                                         <span>Ayarlar</span>
                                     </x-link>
+                                    <x-link href="{{ route('users.notifications') }}"
+                                        class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                        <x-icons.notification size="20" />
+                                        <span>Bildirimler</span>
+                                    </x-link>
                                     <a href="https://github.com/yehuuu6/gazisocial" target="_blank"
                                         class="mx-1 flex items-center justify-between gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                                         <div class="flex items-center gap-3">

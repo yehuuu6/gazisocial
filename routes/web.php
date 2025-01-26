@@ -28,6 +28,7 @@ use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
 use App\Livewire\Docs\DevCenter\Introduction;
 use App\Livewire\Post\Pages\ListPosts;
+use App\Livewire\User\Pages\UserNotifications;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -96,6 +97,7 @@ Route::get('/p/{post}/{slug}/comments/{comment}', ShowPost::class)->name('posts.
 
 // User routes START
 
+Route::get('/u/notifications', UserNotifications::class)->name('users.notifications')->middleware('auth');
 Route::get('/u/search/{query?}', SearchUser::class)->name('users.search');
 Route::get('/u/{user:username}', function (\App\Models\User $user) {
     return "User: {$user->username}";

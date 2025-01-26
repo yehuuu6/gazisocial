@@ -78,14 +78,13 @@
                     </div>
                 @endforelse
             </div>
-            @if ($this->notifications->isNotEmpty())
-                <x-seperator />
-                <x-link href="{{ route('home') }}"
-                    class="flex items-center justify-center gap-1.5 md:gap-2 px-1.5 py-3 md:px-3 md:py-5 hover:bg-gray-100 hover:no-underline">
-                    <x-icons.notification size="18" class="text-blue-600" />
-                    <span class="font-medium text-xs md:text-sm text-gray-700">Tüm bildirimleri görüntüle</span>
-                </x-link>
-            @endif
+            <x-seperator />
+            <button type="button"
+                x-on:click="notificationsDropdown = false; Livewire.navigate('{{ route('users.notifications') }}')"
+                class="flex items-center justify-center gap-1.5 md:gap-2 w-full px-1.5 py-3 md:px-3 md:py-5 hover:bg-gray-100 hover:no-underline">
+                <x-icons.notification size="18" class="text-blue-600" />
+                <span class="font-medium text-xs md:text-sm text-gray-700">Tüm bildirimleri görüntüle</span>
+            </button>
         </div>
     </div>
 </div>
