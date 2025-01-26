@@ -20,6 +20,7 @@ Alpine.data("tagsLister", (tags, count) => {
             });
         },
         detectIfNotTagsPage() {
+            if (this.$refs.tagsLister == null) return;
             // If the pathname does not start with /tags/ then clear the selected tag
             if (!window.location.pathname.startsWith("/tags/")) {
                 this.displayText = "Etiketler";
@@ -31,6 +32,7 @@ Alpine.data("tagsLister", (tags, count) => {
             }
         },
         removeIndicatorClass() {
+            if (this.$refs.tagsLister == null) return;
             const tagsButton = document.getElementById("tags-button");
             tagsButton.classList.remove("border-l-4");
             tagsButton.classList.forEach((className) => {
@@ -43,6 +45,7 @@ Alpine.data("tagsLister", (tags, count) => {
             });
         },
         updateSelectedTag(givenSlug, redirect = true) {
+            if (this.$refs.tagsLister == null) return;
             this.tagsDropdown = false;
             const tag = this.loadedTags.find((tag) => tag.slug === givenSlug);
             if (!tag) return;
@@ -61,6 +64,7 @@ Alpine.data("tagsLister", (tags, count) => {
             }
         },
         searchTags() {
+            if (this.$refs.tagsLister == null) return;
             const tags = this.$refs.tagsLister.querySelectorAll("button");
             let count = 0;
             tags.forEach((tag) => {
@@ -81,9 +85,11 @@ Alpine.data("tagsLister", (tags, count) => {
             this.foundTagCount = count;
         },
         resetSearchResults() {
+            if (this.$refs.tagsLister == null) return;
+            const buttons = this.$refs.tagsLister.querySelectorAll("button");
             this.search = "";
             this.foundTagCount = this.loadedTags.length;
-            this.$refs.tagsLister.querySelectorAll("button").forEach((tag) => {
+            buttons.forEach((tag) => {
                 tag.classList.remove("hidden");
             });
         },
