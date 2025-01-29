@@ -15,7 +15,7 @@
 </head>
 
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden bg-slate-100 font-inter antialiased">
-    <livewire:layout.navbar />
+    <x-layout.navbar />
     <x-layout.header />
     <main class="mx-[3%] mt-4 md:mx-[6%] md:mt-8 mb-7 md:mb-14 lg:mx-[12%]">
         {{ $slot }}
