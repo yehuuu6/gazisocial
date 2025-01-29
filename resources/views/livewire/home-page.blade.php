@@ -10,13 +10,13 @@
                     Gazi öğrencilerinin fikirlerini paylaştığı ve bir araya geldiği dijital topluluk.
                 </p>
                 <div class="flex items-center justify-center gap-2.5 mt-7 md:gap-4 md:mt-10">
-                    <x-link href="{{ route('posts.create') }}"
+                    <x-link href="{{ route('posts.index', 'popular') }}"
                         class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-gray-900 bg-opacity-90 hover:bg-opacity-100 transition duration-300 hover:no-underline">
-                        Yeni Konu Oluştur
+                        Konuları Keşfet
                     </x-link>
                     <x-link href="{{ route('posts.create') }}"
                         class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
-                        Nasıl Başlarım?
+                        Tanıtımı Gör
                     </x-link>
                 </div>
             </section>
@@ -57,7 +57,7 @@
                         </div>
                         <div>
                             <h2 class="text-base md:text-lg font-semibold text-gray-700">
-                                Açık Kaynak
+                                Open Source
                             </h2>
                             <p class="text-xs md:text-sm text-gray-500">
                                 Geliştirme sürecine katkıda bulunun.
