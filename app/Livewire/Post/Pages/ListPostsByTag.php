@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Post\Pages;
 
-use Livewire\Component;
+use App\Models\Tag;
 use App\Traits\OrderByManager;
+use Livewire\Component;
 
-class ListPosts extends Component
+class ListPostsByTag extends Component
 {
     use OrderByManager;
 
+    public Tag $tag;
     public string $order;
 
     public function mount(string $order = 'latest')
@@ -19,6 +21,6 @@ class ListPosts extends Component
 
     public function render()
     {
-        return view('livewire.post.pages.list-posts');
+        return view('livewire.post.pages.list-posts-by-tag');
     }
 }

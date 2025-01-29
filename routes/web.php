@@ -22,12 +22,12 @@ use App\Livewire\User\Pages\SearchUser;
 use App\Livewire\Admin\Pages\ShowMessage;
 use App\Livewire\Auth\Pages\ResetPassword;
 use App\Livewire\Auth\Pages\ForgotPassword;
-use App\Livewire\Post\Pages\ShowPostsByTag;
 use App\Livewire\Admin\Pages\MessagesIndexer;
 use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
 use App\Livewire\Docs\DevCenter\Introduction;
 use App\Livewire\Post\Pages\ListPosts;
+use App\Livewire\Post\Pages\ListPostsByTag;
 use App\Livewire\User\Pages\UserNotifications;
 
 // Auth routes START
@@ -89,8 +89,8 @@ Route::get('/p/create', CreatePost::class)->name('posts.create')->middleware('au
 Route::get('/p/edit/{post}', EditPost::class)
     ->name('posts.edit')
     ->middleware('auth', 'verified');
-Route::get('/posts', ListPosts::class)->name('posts.index');
-Route::get('/p/{post}/{slug}', ShowPost::class)->name('posts.show');
+Route::get('/posts/{order?}', ListPosts::class)->name('posts.index');
+Route::get('/p/{post}/{slug}/{order?}', ShowPost::class)->name('posts.show');
 Route::get('/p/{post}/{slug}/comments/{comment}', ShowPost::class)->name('posts.show.comment');
 
 // Post Routes END
@@ -114,7 +114,7 @@ Route::get('/faculties', ShowFaculties::class)->name('faculties')->middleware('c
 
 // Tags routes START
 
-Route::get('/tags/{tag:slug}', ShowPostsByTag::class)->name('tags.show');
+Route::get('/tags/{tag:slug}/{order?}', ListPostsByTag::class)->name('tags.show');
 
 // Tags routes END
 
