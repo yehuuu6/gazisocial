@@ -37,7 +37,7 @@
                                 {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
                         </div>
                     </div>
-                    <article x-data="highlightCode"
+                    <article x-data="highlightCode" wire:ignore
                         class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-lg ProseMirror">
                         {!! $post->html !!}
                     </article>

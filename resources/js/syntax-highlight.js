@@ -17,6 +17,7 @@ import rust from "highlight.js/lib/languages/rust";
 import yaml from "highlight.js/lib/languages/yaml";
 
 Alpine.data("highlightCode", () => {
+    window.hljs = hljs;
     hljs.registerLanguage("javascript", javascript);
     hljs.registerLanguage("cpp", cpp);
     hljs.registerLanguage("python", python);
