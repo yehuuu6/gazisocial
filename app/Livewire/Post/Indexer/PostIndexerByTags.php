@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Computed;
 use App\Traits\OrderByManager;
@@ -17,10 +18,21 @@ class PostIndexerByTags extends Component
     public Tag $tag;
 
     public string $order;
-    private string $timeSpan = 'all';
+
+    #[Url(as: 'time')]
+    public string $timeSpan = 'all';
+
+    private function validateTimeSpan(string $spanToValidate)
+    {
+        return in_array($spanToValidate, ['today', 'this_week', 'this_month', 'six_months', 'one_year', 'all']);
+    }
 
     public function mount(Tag $tag, string $order)
     {
+        if (!$this->validateTimeSpan($this->timeSpan)) {
+            $this->timeSpan = 'all';
+        }
+
         $this->tag = $tag;
         $this->order = $order;
     }

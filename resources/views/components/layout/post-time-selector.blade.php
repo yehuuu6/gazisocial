@@ -1,4 +1,12 @@
-<div class="mt-4 md:mt-8 w-fit" x-data="{ displayText: 'Tüm Zamanlar', timeSelectorDropdown: false }">
+<div class="mt-4 md:mt-8 w-fit" x-data="{ displayText: 'Tüm Zamanlar', timeSelectorDropdown: false }" x-init="let timeSpanValues = {
+    all: 'Tüm Zamanlar',
+    one_year: 'Son bir yıl',
+    six_months: 'Son altı ay',
+    this_month: 'Son bir ay',
+    this_week: 'Son bir hafta',
+    today: 'Bugün',
+};
+displayText = timeSpanValues['{{ request('time') }}'] ?? 'Tüm Zamanlar';">
     <div x-ref="timeSpanAnchor">
         <x-ui.tooltip text="Zaman Aralığı" position="right" delay="500">
             <button type="button" x-on:click="timeSelectorDropdown = !timeSelectorDropdown"

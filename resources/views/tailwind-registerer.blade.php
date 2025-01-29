@@ -17,6 +17,7 @@
 <div class="border-amber-500">border-amber-500</div>
 <div class="border-l-4">border-l-4</div>
 <div class="bg-blue-500">bg-blue-500</div>
+<div class="bg-pink-500">bg-pink-500</div>
 <div class="bg-blue-700">bg-blue-700</div>
 <div class="bg-green-700">bg-green-700</div>
 <div class="bg-green-700">bg-green-700</div>

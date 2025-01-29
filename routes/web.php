@@ -9,7 +9,6 @@ use App\Livewire\Docs\ContactPage;
 use App\Livewire\Auth\Pages\Verify;
 use App\Livewire\Docs\Terms\Privacy;
 use App\Livewire\Auth\Pages\Register;
-use App\Livewire\Post\Pages\EditPost;
 use App\Livewire\Post\Pages\ShowPost;
 use App\Livewire\User\Pages\EditUser;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +22,7 @@ use App\Livewire\Admin\Pages\ShowMessage;
 use App\Livewire\Auth\Pages\ResetPassword;
 use App\Livewire\Auth\Pages\ForgotPassword;
 use App\Livewire\Admin\Pages\MessagesIndexer;
+use App\Livewire\AdvancedSearch;
 use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
 use App\Livewire\Docs\DevCenter\Introduction;
@@ -86,19 +86,17 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/p/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
-Route::get('/p/edit/{post}', EditPost::class)
-    ->name('posts.edit')
-    ->middleware('auth', 'verified');
 Route::get('/posts/{order?}', ListPosts::class)->name('posts.index');
 Route::get('/p/{post}/{slug}/{order?}', ShowPost::class)->name('posts.show');
 Route::get('/p/{post}/{slug}/comments/{comment}', ShowPost::class)->name('posts.show.comment');
 
 // Post Routes END
 
+Route::get('/search/{query?}', AdvancedSearch::class)->name('search');
+
 // User routes START
 
 Route::get('/u/notifications', UserNotifications::class)->name('users.notifications')->middleware('auth');
-Route::get('/u/search/{query?}', SearchUser::class)->name('users.search');
 Route::get('/u/{user:username}', function (\App\Models\User $user) {
     return "User: {$user->username}";
 })->name('users.show');

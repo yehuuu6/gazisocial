@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use App\Traits\OrderByManager;
 
 class PostIndexer extends Component
@@ -14,10 +15,19 @@ class PostIndexer extends Component
     use WithPagination, OrderByManager;
 
     public string $order;
-    private string $timeSpan = 'all';
+    #[Url(as: 'time')]
+    public string $timeSpan = 'all';
+
+    private function validateTimeSpan(string $spanToValidate)
+    {
+        return in_array($spanToValidate, ['today', 'this_week', 'this_month', 'six_months', 'one_year', 'all']);
+    }
 
     public function mount(string $order)
     {
+        if (!$this->validateTimeSpan($this->timeSpan)) {
+            $this->timeSpan = 'all';
+        }
         // No need for validation here because it was already done in the parent component
         $this->order = $order;
     }

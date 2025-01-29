@@ -12,8 +12,8 @@
                     class="bg-gray-50 text-sm md:text-base px-3 rounded-md py-3 text-gray-700 w-full h-full outline-none"
                     placeholder="🔎 Konu ara" />
                 <button type="button" class="rounded p-2 pr-0 opacity-70 hover:opacity-100"
-                    x-on:click="alert('Not implemented yet!')">
-                    <x-ui.tooltip text="Gelişmiş Arama" delay="500">
+                    x-on:click="Livewire.navigate('{{ route('search') }}'); searchOpen = false;">
+                    <x-ui.tooltip text="Gelişmiş Arama" delay="500" position="left">
                         <x-icons.advanced size="24" class="text-primary" />
                     </x-ui.tooltip>
                 </button>
