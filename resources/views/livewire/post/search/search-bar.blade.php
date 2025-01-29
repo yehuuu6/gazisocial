@@ -18,6 +18,20 @@
                     </x-ui.tooltip>
                 </button>
             </div>
+            @if (!$posts->isNotEmpty() && strlen($search) < 3)
+                <div class="mt-2 ml-1 flex items-center gap-2 flex-wrap">
+                    <span class="text-gray-600 font-semibold text-xs mr-1">
+                        Popüler etiketler:
+                    </span>
+                    @foreach ($this->tags as $tag)
+                        <button type="button"
+                            x-on:click="Livewire.navigate('{{ route('tags.show', ['tag' => $tag->slug, 'order' => 'popular']) }}'); searchOpen = false;"
+                            class="hover:bg-opacity-90 font-medium transition duration-300 text-xs bg-{{ $tag->color }}-500 text-white rounded-full px-2 py-1">
+                            #{{ $tag->name }}
+                        </button>
+                    @endforeach
+                </div>
+            @endif
             <div class="flex flex-col overflow-y-auto max-h-[300px]">
                 @if ($posts->isNotEmpty() && strlen($search) > 2)
                     <div class="mt-2"></div>
@@ -42,7 +56,10 @@
                 @endforelse
             </div>
             @if ($posts->isNotEmpty())
-                <div class="mt-4 mr-1 flex items-end justify-end">
+                <div class="mt-4 mr-1 flex items-center gap-2 justify-end">
+                    <span class="text-gray-500 text-xs">
+                        Search by
+                    </span>
                     <a target="_blank" href="https://www.algolia.com/developers">
                         <img src="{{ asset('logos/Algolia-logo-blue.png') }}" alt="Search by Algolia"
                             class="w-16 md:w-20" />

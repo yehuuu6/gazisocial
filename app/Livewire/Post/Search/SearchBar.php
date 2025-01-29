@@ -3,11 +3,20 @@
 namespace App\Livewire\Post\Search;
 
 use App\Models\Post;
+use App\Models\Tag;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class SearchBar extends Component
 {
     public string $search = '';
+
+    #[Computed(persist: true)]
+    public function tags()
+    {
+        // Get most popular 4 tags
+        return Tag::withCount('posts')->orderBy('posts_count', 'desc')->take(4)->get();
+    }
 
     public function resetSearch()
     {
