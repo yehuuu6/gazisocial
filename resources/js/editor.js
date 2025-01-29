@@ -71,7 +71,7 @@ Alpine.data("editor", (content) => {
                 ],
                 editorProps: {
                     attributes: {
-                        class: "prose prose-sm sm:prose-sm md:prose-base lg:prose-xl max-w-none h-[312px] md:h-[486px] overflow-y-auto px-3 py-2 outline-none",
+                        class: "prose prose-sm sm:prose-sm md:prose-base lg:prose-lg max-w-none h-[312px] md:h-[486px] overflow-y-auto px-3 py-2 outline-none",
                     },
                 },
                 content: content,
