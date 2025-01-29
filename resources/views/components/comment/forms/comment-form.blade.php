@@ -5,15 +5,17 @@
                 wire:model="content" id="content" name="content" rows="2" maxlength="1000" required x-trap="commentForm"></textarea>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-1 flex-wrap">
-                    <button x-on:click="gifSelector = !gifSelector" x-ref="gifOpener"
-                        class="text-gray-600 p-2 hover:bg-gray-100 rounded-full" type="button">
-                        <x-icons.gif size="20" />
-                    </button>
-                    <div x-cloak x-show="gifSelector" x-anchor.bottom-start="$refs.gifOpener"
-                        x-on:click.away="gifSelector = false"
-                        class="w-[250px] md:w-[500px] max-h-[450px] p-2 border border-gray-200 rounded-lg shadow-md bg-white z-20">
-                        <livewire:giphy-search :key="'search-gif'" />
-                    </div>
+                    @auth
+                        <button x-on:click="gifSelector = !gifSelector" x-ref="gifOpener"
+                            class="text-gray-600 p-2 hover:bg-gray-100 rounded-full" type="button">
+                            <x-icons.gif size="20" />
+                        </button>
+                        <div x-cloak x-show="gifSelector" x-anchor.bottom-start="$refs.gifOpener"
+                            x-on:click.away="gifSelector = false"
+                            class="w-[250px] md:w-[500px] max-h-[450px] p-2 border border-gray-200 rounded-lg shadow-md bg-white z-20">
+                            <livewire:giphy-search lazy :key="'search-gif'" />
+                        </div>
+                    @endauth
                     <span
                         :class="{
                             'text-red-500': message.length >= 1000,
