@@ -18,6 +18,12 @@
                         class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
                         Tanıtımı Gör
                     </x-link>
+                    <button type="button" wire:click="test">
+                        Test
+                    </button>
+                    <button type="button" wire:click="test2">
+                        Test2
+                    </button>
                 </div>
             </section>
             <section class="mt-8 md:mt-16 mx-6 md:mx-24">
