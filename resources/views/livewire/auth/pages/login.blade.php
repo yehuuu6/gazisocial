@@ -1,4 +1,4 @@
-<div class="flex items-center flex-col mt-6 p-6">
+<div class="flex items-center flex-col pt-16 p-6">
     <a href="/" class="h-20 mb-6 hover:opacity-90">
         <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
     </a>
@@ -13,13 +13,20 @@
                 id="email" type="email" name="email" value="{{ old('email') }}" required wire:model="email"
                 autocomplete="mail">
         </div>
-        <div class="mb-4">
+        <div>
             <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
                 Şifre
             </label>
             <input
                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                 id="password" type="password" name="password" required wire:model="password">
+        </div>
+        <div class="mb-4 flex items-center gap-1">
+            <input id="remember" type="checkbox" value="0" wire:model="remember"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="remember" class="ms-2 text-sm font-normal text-gray-600">
+                Beni hatırla
+            </label>
         </div>
         <div class="flex items-center justify-between flex-col gap-3">
             <button wire:loading.class="bg-gray-200 cursor-not-allowed"

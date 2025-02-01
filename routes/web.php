@@ -11,6 +11,7 @@ use App\Livewire\Docs\Terms\Privacy;
 use App\Livewire\Auth\Pages\Register;
 use App\Livewire\Post\Pages\ShowPost;
 use App\Livewire\User\Pages\EditUser;
+use App\Livewire\User\Pages\ShowUser;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Docs\Terms\UserTerms;
 use App\Http\Middleware\CheckAdminRole;
@@ -97,9 +98,7 @@ Route::get('/search/{query?}', AdvancedSearch::class)->name('search');
 // User routes START
 
 Route::get('/u/notifications', UserNotifications::class)->name('users.notifications')->middleware('auth');
-Route::get('/u/{user:username}', function (\App\Models\User $user) {
-    return "User: {$user->username}";
-})->name('users.show');
+Route::get('/u/{user:username}', ShowUser::class)->name('users.show');
 Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->middleware('auth');
 
 // User routes END

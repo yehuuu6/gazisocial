@@ -38,8 +38,6 @@ class ShowPost extends Component
         'purple' => 'bg-purple-500',
     ];
 
-    public $userBio;
-
     public function mount(Post $post, Request $request, $comment = null,)
     {
         $this->post = $post;
@@ -55,8 +53,6 @@ class ShowPost extends Component
         $this->commentsCount = $this->post->getCommentsCount();
 
         $this->isSingleCommentThread = $this->determineIfSingleCommentThread($comment);
-
-        $this->setBio();
     }
 
     private function determineIfSingleCommentThread($comment): bool
@@ -76,15 +72,6 @@ class ShowPost extends Component
         $this->selectedCommentId = $comment;
 
         return true;
-    }
-
-    private function setBio()
-    {
-        if ($this->post->user->bio === null || empty($this->post->user->bio)) {
-            $this->userBio = 'Herhangi bir bilgi verilmemiş.';
-        } else {
-            $this->userBio = $this->post->user->bio;
-        }
     }
 
     private function controlRoute(Request $request)

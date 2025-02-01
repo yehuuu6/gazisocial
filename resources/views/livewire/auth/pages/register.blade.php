@@ -1,4 +1,4 @@
-<div class="flex items-center flex-col mt-6 p-6">
+<div class="flex items-center flex-col pt-16 p-6">
     <a href="/" class="h-20 mb-6 hover:opacity-90">
         <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
     </a>

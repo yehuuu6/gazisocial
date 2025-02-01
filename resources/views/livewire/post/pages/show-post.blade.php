@@ -121,12 +121,12 @@
                             </div>
                             <div>
                                 <x-link href="{{ route('users.show', $post->user) }}"
-                                    class="text-white px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 hover:no-underline text-xs font-medium">
+                                    class="text-white px-4 py-2 rounded bg-primary transition duration-300 hover:bg-opacity-90 hover:no-underline text-xs font-medium">
                                     Profili Gör
                                 </x-link>
                             </div>
                         </div>
-                        <p class="text-sm mt-4 text-gray-600">{{ $userBio }}</p>
+                        <p class="text-sm mt-4 text-gray-600">{{ $post->user->bio }}</p>
                         <div class="mt-2 space-y-1.5">
                             @if ($post->user->faculty)
                                 <div class="flex items-center gap-1.5 text-gray-500 font-light">

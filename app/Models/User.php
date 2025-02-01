@@ -33,6 +33,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'last_activity',
     ];
 
+    protected $attributes = [
+        'bio' => 'Herhangi bir bilgi verilmedi.'
+    ];
+
     protected static function booted()
     {
 
@@ -73,11 +77,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new QueuedResetPassword($token));
-    }
-
-    public function getCommentsCount(): int
-    {
-        return $this->comments_count + $this->replies_count;
     }
 
     public function faculty(): BelongsTo

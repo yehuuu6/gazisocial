@@ -19,6 +19,7 @@ class Login extends Component
 
     public $email;
     public $password;
+    public $remember;
 
     public function logout()
     {
@@ -58,7 +59,7 @@ class Login extends Component
             'password' => $this->password,
         ];
 
-        if (! Auth::attempt($attributes)) {
+        if (! Auth::attempt($attributes, $this->remember)) {
             Toaster::error('Giriş bilgileri hatalı. Lütfen kontrol edip tekrar deneyin.');
             return;
         }
