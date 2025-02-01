@@ -258,7 +258,7 @@ class CommentItem extends Component
 
         $comment->delete();
 
-        Toaster::success('Yorum başarıyla silindi.');
+        Toaster::info('Yorum silindi.');
 
         $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }
