@@ -5,13 +5,11 @@ namespace App\Livewire;
 use Livewire\Component;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use Livewire\Attributes\Computed;
 
 class GiphySearch extends Component
 {
-
-    use LivewireAlert;
 
     public string $query = '';
 
@@ -41,7 +39,7 @@ class GiphySearch extends Component
                 ],
             ]);
         } catch (ClientException $e) {
-            $this->alert('error', 'GIPHY API Hatası. Büyük ihtimalle limit doldu...');
+            Toaster::error('GIPHY API Hatası. Büyük ihtimalle limit doldu...');
             return [];
         }
 
@@ -62,7 +60,7 @@ class GiphySearch extends Component
                 ],
             ]);
         } catch (ClientException $e) {
-            $this->alert('error', 'GIPHY API Hatası. Büyük ihtimalle limit doldu...');
+            Toaster::error('GIPHY API Hatası. Büyük ihtimalle limit doldu...');
             return [];
         }
 

@@ -11,14 +11,11 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 
 #[Title('Şifremi Sıfırla')]
 class ResetPassword extends Component
 {
-
-    use LivewireAlert;
-
     public $token = '';
     public $email = '';
     public $password = '';
@@ -33,7 +30,7 @@ class ResetPassword extends Component
                 'token' => 'required',
             ]);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->validator->errors()->first());
+            Toaster::error($e->validator->errors()->first());
             return;
         }
 
@@ -52,9 +49,9 @@ class ResetPassword extends Component
 
 
         if ($status === Password::PASSWORD_RESET) {
-            $this->flash('success', 'Şifreniz başarıyla sıfırlandı!', redirect: route('login'));
+            return redirect(route('login'))->success('Şifrenizi sıfırladınız. Yeni şifreniz ile giriş yapabilirsiniz.');
         } else {
-            $this->alert('error', 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+            Toaster::error('Şifre sıfırlama işlemi başarısız oldu!');
         }
     }
 

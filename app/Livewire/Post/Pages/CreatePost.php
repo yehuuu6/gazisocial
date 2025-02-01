@@ -8,15 +8,14 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class CreatePost extends Component
 {
-
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public $title;
     public $content;
@@ -34,14 +33,14 @@ class CreatePost extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
         $response = Gate::inspect('create', Post::class);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Konu açmak e-posta onaylı bir hesap gerektirir.');
+            Toaster::error('Konu oluşturmak için onaylı bir hesap gereklidir.');
             return;
         }
 
@@ -61,16 +60,16 @@ class CreatePost extends Component
             ], $messages);
 
             if (count($this->selectedTags) < 1) {
-                $this->alert('error', 'En az bir etiket seçmelisiniz.');
+                Toaster::error('En az 1 etiket seçmelisiniz.');
                 return;
             } elseif (count($this->selectedTags) > 4) {
-                $this->alert('error', 'En fazla 4 etiket seçebilirsiniz.');
+                Toaster::error('En fazla 4 etiket seçebilirsiniz.');
                 return;
             }
         } catch (ValidationException $e) {
             $errors = $e->validator->errors()->all();
             $errorMessage = implode('<br>', $errors);
-            $this->alert('error', $errorMessage);
+            Toaster::error($errorMessage);
             return;
         }
 
@@ -87,7 +86,7 @@ class CreatePost extends Component
         // Attach tags to the post
         $post->tags()->attach($this->selectedTags);
 
-        $this->flash('success', 'Konu başarıyla oluşturuldu.', redirect: $post->showRoute());
+        return redirect($post->showRoute())->success('Konu başarıyla oluşturuldu.');
     }
 
     public function render()

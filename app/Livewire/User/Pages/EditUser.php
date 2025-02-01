@@ -5,17 +5,16 @@ namespace App\Livewire\User\Pages;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Livewire\Attributes\Title;
+use Masmerise\Toaster\Toast;
 
 #[Title('Hesap ayarları - Gazi Social')]
 class EditUser extends Component
 {
-
-    use LivewireAlert;
-
     public User $user;
 
     // Profile Info
@@ -49,7 +48,7 @@ class EditUser extends Component
         $user = Auth::user();
 
         if (!$user->faculty) {
-            $this->alert('error', 'Bir fakülteden ayrılmak için öncelikle bir fakülteye katılmalısınız.');
+            Toaster::error('Zaten bir fakülteye kayıtlı değilsiniz.');
             return;
         }
 
@@ -58,7 +57,7 @@ class EditUser extends Component
          */
         $user->faculty()->dissociate();
         $user->save();
-        $this->alert('success', 'Fakülteden başarıyla ayrıldınız.');
+        Toaster::success('Fakülte kaydınız başarıyla silindi.');
     }
 
     public function updateProfileInfo()
@@ -83,7 +82,7 @@ class EditUser extends Component
                 'bio' => 'max:255',
             ], $messages);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->getMessage());
             return;
         }
 
@@ -95,20 +94,19 @@ class EditUser extends Component
 
         // If name is updated, update the avatar
         if ($result && $this->user->wasChanged('name')) {
-            $this->flash('success', 'Profil bilgileriniz başarıyla güncellendi.', redirect: route('users.edit', $this->user->username));
-            return;
+            return redirect()->route('users.edit', $this->user->username)->success('Profil bilgileriniz başarıyla güncellendi.');
         }
 
         // If the username is updated, update the page URL
         if ($result && $this->user->wasChanged('username')) {
-            $this->flash('success', 'Profil bilgileriniz başarıyla güncellendi.', redirect: route('users.edit', $this->user->username));
+            return redirect()->route('users.edit', $this->username)->success('Profil bilgileriniz başarıyla güncellendi.');
             return;
         }
 
         if ($result) {
-            $this->alert('success', 'Profil bilgileriniz başarıyla güncellendi.');
+            Toaster::success('Profil bilgileriniz başarıyla güncellendi.');
         } else {
-            $this->alert('error', 'Profil bilgileriniz güncellenirken bir hata oluştu.');
+            Toaster::error('Profil bilgileriniz güncellenirken bir hata oluştu.');
         }
     }
 
@@ -129,12 +127,12 @@ class EditUser extends Component
                 'password' => 'required|min:8|confirmed',
             ], $messages);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->getMessage());
             return;
         }
 
         if (!Hash::check($this->current_password, $this->user->password)) {
-            $this->alert('error', 'Mevcut şifrenizi yanlış girdiniz.');
+            Toaster::error('Mevcut şifrenizi yanlış girdiniz.');
             return;
         }
 
@@ -143,9 +141,9 @@ class EditUser extends Component
         ]);
 
         if ($result) {
-            $this->alert('success', 'Şifreniz başarıyla güncellendi.');
+            return Redirect::route('users.edit', $this->user->username)->success('Şifreniz başarıyla güncellendi.');
         } else {
-            $this->alert('error', 'Şifreniz güncellenirken bir hata oluştu.');
+            Toaster::error('Şifreniz güncellenirken bir hata oluştu.');
         }
 
         $this->reset();
@@ -161,12 +159,13 @@ class EditUser extends Component
                 'profileVisibility' => 'required|in:public,private',
             ]);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->getMessage());
+            return;
         }
 
         // If there is no change in the privacy settings, return
         if ($this->profileVisibility === ($this->user->is_private ? 'private' : 'public')) {
-            $this->alert('info', 'Değişiklik yapmadınız.');
+            Toaster::warning('Değişiklik yapmadınız.');
             return;
         }
 
@@ -175,9 +174,9 @@ class EditUser extends Component
         ]);
 
         if ($result) {
-            $this->alert('success', 'Tercihler başarıyla kaydedildi.');
+            Toaster::success('Tercihleriniz başarıyla kaydedildi.');
         } else {
-            $this->alert('error', 'Tercihler kaydedilirken bir hata oluştu.');
+            Toaster::error('Tercihler kaydedilirken bir hata oluştu.');
         }
     }
 

@@ -6,14 +6,13 @@ use Livewire\Component;
 use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class ShowFaculties extends Component
 {
-
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public $faculties;
     public $vocationals;
@@ -30,14 +29,14 @@ class ShowFaculties extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
         $user = Auth::user();
 
         if (!$user->faculty) {
-            $this->alert('error', 'Bir fakülteden ayrılmak için öncelikle bir fakülteye katılmalısınız.');
+            Toaster::error('Bir fakülteden ayrılmak için öncelikle bir fakülteye katılmalısınız.');
             return;
         }
 
@@ -46,7 +45,7 @@ class ShowFaculties extends Component
          */
         $user->faculty()->dissociate();
         $user->save();
-        $this->alert('success', 'Fakülteden başarıyla ayrıldınız.');
+        Toaster::info('Fakülteden ayrıldınız.');
     }
 
     public function joinFaculty($facultyId)
@@ -55,13 +54,13 @@ class ShowFaculties extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
         $response = Gate::inspect('join', Faculty::class);
         if (!$response->allowed()) {
-            $this->alert('error', 'Bir fakülteye katılmak için gerekli izinlere sahip değilsiniz.');
+            Toaster::error('Bir fakülteye katılmak için gerekli izinlere sahip değilsiniz.');
             return;
         }
         $faculty = $this->faculties->find($facultyId) ?? $this->vocationals->find($facultyId);
@@ -72,23 +71,18 @@ class ShowFaculties extends Component
         $user->faculty()->associate($faculty);
         $user->save();
 
-        $this->alert('info', 'Yönlendiriliyorsunuz...');
-
         if ($faculty->type === 'faculty') {
-            $msg = 'ne başarıyla katıldınız.';
+            $msg = 'ne katıldınız.';
         } else {
-            $msg = 'na başarıyla katıldınız.';
+            $msg = 'na katıldınız.';
         }
 
-        $this->flash('success', $faculty->name . $msg, redirect: route('users.edit', $user->username));
+        return redirect(route('users.edit', $user->username))
+            ->info($faculty->name . $msg);
     }
 
     public function render()
     {
-        // If there is a session message, show it
-        if (session()->has('emailVerifiedStudent')) {
-            $this->alert('success', session('emailVerifiedStudent'));
-        }
         return view('livewire.faculty.show-faculties');
     }
 }

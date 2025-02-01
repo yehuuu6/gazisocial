@@ -7,7 +7,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\ValidationException;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Livewire\Attributes\Layout;
@@ -17,7 +17,7 @@ use Livewire\Attributes\Title;
 class Register extends Component
 {
 
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public $name;
     public $username;
@@ -32,7 +32,7 @@ class Register extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -67,7 +67,7 @@ class Register extends Component
             ], $messages);
         } catch (ValidationException $e) {
             $message = $e->getMessage();
-            $this->alert('error', $message);
+            Toaster::error($message);
             return;
         }
 
@@ -86,7 +86,9 @@ class Register extends Component
 
         event(new Registered($user));
 
-        $this->flash('success', 'Başarıyla kayıt oldunuz.', redirect: route('verification.notice'));
+        return redirect(route('verification.notice'))->info(
+            'Kayıt oldunuz, e-posta doğrulaması için lütfen postanızı kontrol edin.'
+        );
     }
 
     #[Layout('layout.auth')]

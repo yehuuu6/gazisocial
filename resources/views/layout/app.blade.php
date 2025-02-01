@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('canonical')
     @livewireStyles
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <x-livewire-alert::scripts />
     @stack('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
@@ -21,6 +19,9 @@
         {{ $slot }}
     </main>
     <x-layout.footer />
+    @persist('toaster')
+        <x-toaster-hub />
+    @endpersist
     @livewireScriptConfig
 </body>
 

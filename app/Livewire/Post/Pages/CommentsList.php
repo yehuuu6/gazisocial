@@ -11,15 +11,15 @@ use Livewire\Attributes\Computed;
 use App\Events\NotificationReceived;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Masmerise\Toaster\Toast;
 
 class CommentsList extends Component
 {
-
-    use WithPagination, LivewireAlert, WithRateLimiting;
+    use WithPagination, WithRateLimiting;
 
     public Post $post;
 
@@ -101,7 +101,7 @@ class CommentsList extends Component
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Yorum yapmak e-posta onaylı bir hesap gerektirir.');
+            Toaster::warning('Yorum yapmak için onaylı bir hesap gereklidir.');
             return;
         }
 
@@ -109,7 +109,7 @@ class CommentsList extends Component
         try {
             $this->rateLimit(50, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
         */
@@ -127,7 +127,7 @@ class CommentsList extends Component
                     'content' => 'required|string|min:3|max:1000',
                 ], $messages);
             } catch (ValidationException $e) {
-                $this->alert('error', $e->getMessage());
+                Toaster::error($e->validator->errors()->first());
                 return;
             }
         } else {
@@ -148,7 +148,7 @@ class CommentsList extends Component
 
         $this->resetPage();
 
-        $this->alert('success', 'Yorumunuz başarıyla eklendi.');
+        Toaster::success('Yorumunuz başarıyla eklendi.');
 
         $this->reset('content');
         $this->dispatch('comment-added');
@@ -206,7 +206,7 @@ class CommentsList extends Component
         $response = Gate::inspect('delete', $comment);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Bu yorumu silme izniniz yok.');
+            Toaster::error('Bu işlemi yapmak için yetkiniz yok.');
             return;
         }
 
@@ -215,7 +215,7 @@ class CommentsList extends Component
         try {
             $this->rateLimit(30, decaySeconds: 1200);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -228,7 +228,7 @@ class CommentsList extends Component
 
         $comment->delete();
 
-        $this->alert('success', 'Yorum başarıyla silindi.');
+        Toaster::success('Yorum başarıyla silindi.');
 
         $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }

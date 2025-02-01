@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Validation\ValidationException;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 #[Title('Hata bildir - Gazi Social')]
 class ReportBug extends Component
 {
-
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public string $title = '';
     public string $description = '';
@@ -26,7 +25,7 @@ class ReportBug extends Component
         try {
             $this->rateLimit(5, decaySeconds: 180);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -45,7 +44,7 @@ class ReportBug extends Component
                 'description' => 'required|min:10|max:1000',
             ], $messages);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->validator->errors()->first());
             return;
         }
 
@@ -59,7 +58,7 @@ class ReportBug extends Component
             'user_id' => Auth::id(),
         ]);
 
-        $this->alert('success', 'Hata başarıyla bildirildi. Teşekkür ederiz.');
+        Toaster::success('Hata başarıyla bildirildi. Teşekkür ederiz!');
 
         $this->title = '';
         $this->description = '';

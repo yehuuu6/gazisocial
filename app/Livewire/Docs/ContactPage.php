@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Validation\ValidationException;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 #[Title('İletişime geç - Gazi Social')]
 class ContactPage extends Component
 {
-
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public string $name = '';
     public string $email = '';
@@ -35,7 +34,7 @@ class ContactPage extends Component
         try {
             $this->rateLimit(5, decaySeconds: 180);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -57,7 +56,7 @@ class ContactPage extends Component
                 'message' => ['required', 'min:10', 'max:5000'],
             ], $messages);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->validator->errors()->first());
             return;
         }
 
@@ -71,7 +70,7 @@ class ContactPage extends Component
             ...$validated
         ]);
 
-        $this->alert('success', 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.');
+        Toaster::success('Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.');
 
         $this->message = '';
     }

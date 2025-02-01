@@ -8,13 +8,13 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class SingleCommentThread extends Component
 {
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public Post $post;
     public int $selectedCommentId;
@@ -29,6 +29,16 @@ class SingleCommentThread extends Component
         $this->setParent($selectedCommentId);
 
         $this->renderedReplyId = $renderedReplyId;
+
+        $this->validateReply($renderedReplyId);
+    }
+
+    private function validateReply($replyId)
+    {
+        // If the post does not have a comment with the given id, or the id is null, give an error.
+        if ($replyId !== null && Comment::where('id', $replyId)->where('post_id', $this->post->id)->doesntExist()) {
+            Toaster::error('Yanıt bulunamadı, silinmiş olabilir.');
+        }
     }
 
     private function setParent(int $selectedCommentId)
@@ -55,7 +65,7 @@ class SingleCommentThread extends Component
         $response = Gate::inspect('delete', $comment);
 
         if (!$response->allowed()) {
-            $this->alert('error', 'Bu yorumu silme izniniz yok.');
+            Toaster::error('Bu yorumu silmek için yetkiniz yok.');
             return;
         }
 
@@ -64,7 +74,7 @@ class SingleCommentThread extends Component
         try {
             $this->rateLimit(30, decaySeconds: 1200);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -77,7 +87,7 @@ class SingleCommentThread extends Component
 
         $comment->delete();
 
-        $this->alert('success', 'Yorum başarıyla silindi.');
+        Toaster::info('Yorum silindi.');
 
         $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }

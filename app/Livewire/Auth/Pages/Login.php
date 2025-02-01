@@ -6,15 +6,16 @@ use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Illuminate\Support\Facades\Redirect;
 
 #[Title('Giriş Yap')]
 class Login extends Component
 {
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public $email;
     public $password;
@@ -23,9 +24,7 @@ class Login extends Component
     {
         Auth::logout();
 
-        session()->flash('loggedOut', 'Hesabınızdan çıkış yaptınız.');
-
-        return redirect(route('login'));
+        return redirect(route('login'))->info('Hesabınızdan çıkış yaptınız.');
     }
 
     public function login()
@@ -34,7 +33,7 @@ class Login extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -50,7 +49,7 @@ class Login extends Component
                 'password' => 'required',
             ], $messages);
         } catch (ValidationException $e) {
-            $this->alert('error', $e->getMessage());
+            Toaster::error($e->getMessage());
             return;
         }
 
@@ -60,23 +59,20 @@ class Login extends Component
         ];
 
         if (! Auth::attempt($attributes)) {
-            $this->alert('error', 'Üzgünüz, bu bilgilerle hesap bulunamadı.');
+            Toaster::error('Giriş bilgileri hatalı. Lütfen kontrol edip tekrar deneyin.');
             return;
         }
 
         session()->regenerate();
 
-        $this->redirect(route('home'));
+        return Redirect::route('home')->success(
+            'Giriş yapıldı, hoş geldin ' . Auth::user()->name . '! 🎉'
+        );
     }
 
     #[Layout('layout.auth')]
     public function render()
     {
-
-        if (session()->has('loggedOut')) {
-            $this->alert('info', session('loggedOut'));
-        }
-
         return view('livewire.auth.pages.login');
     }
 }

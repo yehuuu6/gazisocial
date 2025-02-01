@@ -10,14 +10,14 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class ShowPost extends Component
 {
 
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     public Post $post;
     public bool $isLiked = false;
@@ -40,22 +40,13 @@ class ShowPost extends Component
 
     public $userBio;
 
-    private function validateReply($replyId)
-    {
-        // If the post does not have a comment with the given id, or the id is null, give an error.
-        if ($replyId !== null && Comment::where('id', $replyId)->where('post_id', $this->post->id)->doesntExist()) {
-            $this->alert('error', 'Yanıt bulunamadı, silinmiş olabilir.');
-        }
-    }
-
     public function mount(Post $post, Request $request, $comment = null,)
     {
-        // Set the renredReplyId using the route
-        $this->renderedReplyId = request()->query('reply') ?? null;
-        $this->validateReply($this->renderedReplyId);
-
         $this->post = $post;
         $this->controlRoute($request);
+
+        // Set the renredReplyId using the route
+        $this->renderedReplyId = request()->query('reply') ?? null;
 
         $this->isAuthenticated = Auth::check();
 
@@ -122,7 +113,7 @@ class ShowPost extends Component
             $this->rateLimit(50, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
             $this->dispatch('blocked-from-liking');
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
@@ -131,13 +122,13 @@ class ShowPost extends Component
         if ($this->post->isLiked()) {
             $response = Gate::inspect('delete', [Like::class, $this->post]);
             if (!$response->allowed()) {
-                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                Toaster::error('Bu işlemi yapmak için yetkiniz yok.');
                 return;
             }
         } else {
             $response = Gate::inspect('create', [Like::class, $this->post]);
             if (!$response->allowed()) {
-                $this->alert('error', 'Bu işlemi yapmak için yetkiniz yok.');
+                Toaster::error('Bu işlemi yapmak için yetkiniz yok.');
                 return;
             }
         }

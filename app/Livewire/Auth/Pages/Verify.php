@@ -9,16 +9,14 @@ use Livewire\Attributes\Title;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Role;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Masmerise\Toaster\Toaster;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 #[Title('E-posta Adresinizi Doğrulayın')]
 class Verify extends Component
 {
-
-    use LivewireAlert, WithRateLimiting;
+    use WithRateLimiting;
 
     #[Layout('layout.auth')]
 
@@ -31,7 +29,6 @@ class Verify extends Component
 
     public function verifyUser(EmailVerificationRequest $request)
     {
-
         $request->fulfill();
         $this->user = Auth::user();
         // if user has @gazi.edu.tr email, assign gazili role
@@ -43,13 +40,15 @@ class Verify extends Component
         }
 
         if ($this->user->isStudent()) {
-            $this->flash('info', 'E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.');
+            $msg = "E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.";
         } else {
-            $this->flash('info', 'E-posta adresiniz doğrulandı.');
+            $msg = "E-posta adresiniz doğrulandı.";
         }
 
         // Update user's last activity
-        $this->user->update(['last_activity' => now()]);
+        $this->user->heartbeat();
+
+        return redirect(route('home'))->success($msg);
     }
 
     public function sendVerifyMail(Request $request)
@@ -57,13 +56,13 @@ class Verify extends Component
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
-            $this->alert('error', "Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
             return;
         }
 
         $request->user()->sendEmailVerificationNotification();
 
-        $this->alert('info', 'Doğrulama e-postası gönderildi.');
+        Toaster::info('Doğrulama e-postası gönderildi.');
     }
 
     protected function returnHomeIfVerified()
@@ -71,7 +70,7 @@ class Verify extends Component
         $this->user = Auth::user();
         // If user is verified, redirect to home page
         if ($this->user->hasVerifiedEmail()) {
-            return redirect(route('home'));
+            return redirect(route('home'))->warning('E-posta adresiniz zaten doğrulanmış.');
         }
     }
 
