@@ -32,6 +32,15 @@ Alpine.data("editor", (content) => {
         init() {
             const _this = this;
 
+            // Get the dom element with the attribute contenteditable="true"
+            const editorInstance = this.$refs.element.querySelector(
+                "[contenteditable='true']"
+            );
+
+            if (editorInstance) {
+                editorInstance.remove();
+            }
+
             editor = new Editor({
                 element: this.$refs.element,
                 autofocus: true,
