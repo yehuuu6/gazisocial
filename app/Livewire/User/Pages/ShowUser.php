@@ -3,10 +3,15 @@
 namespace App\Livewire\User\Pages;
 
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 use Livewire\Component;
 
 class ShowUser extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+
     public User $user;
 
     public array $colorVariants = [
@@ -21,6 +26,12 @@ class ShowUser extends Component
     public function mount(User $user)
     {
         $this->user = $user;
+    }
+
+    #[Computed]
+    public function posts()
+    {
+        return $this->user->posts()->with('user', 'likes', 'comments', 'tags')->simplePaginate(10);
     }
 
     public function render()

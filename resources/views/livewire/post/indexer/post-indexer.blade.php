@@ -3,7 +3,7 @@
         <x-post.indexer-placeholder />
     </div>
     <table class="w-full" wire:loading.table.remove>
-        <thead id ="post-index">
+        <thead id="post-index">
             <tr class="border-b border-b-gray-200 text-xs text-gray-400">
                 <th class="p-4 text-left font-normal" width="60%">
                     KONU

@@ -7,6 +7,7 @@ use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Masmerise\Toaster\Toaster;
+use Livewire\Attributes\Renderless;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
@@ -48,6 +49,7 @@ class ShowFaculties extends Component
         Toaster::info('Fakülteden ayrıldınız.');
     }
 
+    #[Renderless]
     public function joinFaculty($facultyId)
     {
 

@@ -10,11 +10,11 @@ use App\Models\Notification;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Renderless;
 use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
-use Masmerise\Toaster\Toast;
 
 class CommentItem extends Component
 {
@@ -103,6 +103,7 @@ class CommentItem extends Component
         $this->replyIncrementCount = $this->maxReplyCount;
     }
 
+    #[Renderless]
     public function toggleLike()
     {
 

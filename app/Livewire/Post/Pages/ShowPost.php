@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Masmerise\Toaster\Toaster;
+use Livewire\Attributes\Renderless;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
@@ -88,6 +89,7 @@ class ShowPost extends Component
         }
     }
 
+    #[Renderless]
     public function toggleLike()
     {
 
