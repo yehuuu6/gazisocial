@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('polls', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Post::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->boolean('is_draft')->default(true);
+            $table->timestamp('end_date')->nullable();
             $table->string('question');
             $table->timestamps();
         });

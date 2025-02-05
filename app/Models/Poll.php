@@ -13,6 +13,8 @@ class Poll extends Model
         'user_id',
         'post_id',
         'question',
+        'end_date',
+        'is_draft',
     ];
 
     protected $withCount = ['votes'];
@@ -31,4 +33,8 @@ class Poll extends Model
     {
         return $this->hasMany(PollVote::class);
     }
+
+    protected $casts = [
+        'end_date' => 'datetime',
+    ];
 }

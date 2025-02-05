@@ -3,6 +3,8 @@
 namespace App\Livewire\Post\Pages;
 
 use App\Models\Tag;
+use App\Models\PollOption;
+use App\Models\Poll;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
@@ -17,14 +19,89 @@ class CreatePost extends Component
 {
     use WithRateLimiting;
 
-    public $title;
-    public $content;
-    public $selectedTags = [];
+    public string $title;
+    public string $content;
+    public array $selectedTags = [];
+    public string $question = "";
+    public string $end_date = "";
+    public int $optionsCount = 2;
+    public array $options = [];
 
     #[Computed(cache: true)]
     public function tags()
     {
         return Tag::all();
+    }
+
+    #[Computed()]
+    public function polls()
+    {
+        return Poll::with('options')->where('user_id', Auth::id())->where('is_draft', true)->get();
+    }
+
+    public function deletePoll($pollId)
+    {
+        $poll = Poll::find($pollId);
+        $poll->delete();
+        Toaster::success('Anket başarıyla silindi.');
+    }
+
+    public function createPoll()
+    {
+        if (count($this->options) < 2) {
+            Toaster::error('En az 2 seçenek eklemelisiniz.');
+            return;
+        }
+
+        if (count($this->options) > 10) {
+            Toaster::error('En fazla 10 seçenek ekleyebilirsiniz.');
+            return;
+        }
+
+        // Validate using laravel validation
+        $messages = [
+            'question.required' => 'Anket sorusu zorunludur.',
+            'question.min' => 'Anket sorusu en az :min karakter olmalıdır.',
+            'question.max' => 'Anket sorusu en fazla :max karakter olabilir.',
+            'end_date.date' => 'Anket bitiş tarihi geçerli bir tarih olmalıdır.',
+            'options.*.required' => 'Anketinize seçenek eklemelisiniz.',
+            'options.*.min' => 'Seçenekler en az :min karakter olmalıdır.',
+            'options.*.max' => 'Seçenekler en fazla :max karakter olabilir.',
+        ];
+
+        try {
+            $this->validate([
+                'question' => 'bail|required|min:6|max:100',
+                'end_date' => 'bail|date',
+                'options' => 'bail|required|array|min:2|max:10',
+                'options.*' => 'bail|required|min:2|max:100',
+            ], $messages);
+        } catch (ValidationException $e) {
+            Toaster::error($e->validator->errors()->first());
+            return;
+        }
+
+        // Create the poll.
+        $poll = Poll::create([
+            'question' => $this->question,
+            'user_id' => Auth::id(),
+            'is_draft' => true,
+            'end_date' => $this->end_date,
+        ]);
+
+        // Create poll options
+        foreach ($this->options as $option) {
+            PollOption::create([
+                'poll_id' => $poll->id,
+                'option' => $option,
+            ]);
+        }
+
+        unset($this->polls);
+
+        $this->dispatch('poll-draft-created');
+
+        Toaster::success('Anketiniz taslak olarak kaydedildi.');
     }
 
     public function createPost()

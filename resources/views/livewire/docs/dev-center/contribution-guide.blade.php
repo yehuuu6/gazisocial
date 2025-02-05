@@ -1,25 +1,17 @@
 <div class="bg-white overflow-hidden shadow-md rounded-xl border border-gray-100">
     <div class="m-6 mb-0 flex flex-col gap-3">
-        <div
-            class="py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-            <div>
-                <x-icons.info size="18" class="size-8 md:size-5" />
-            </div>
-            <span>
+        <div class="w-fit">
+            <x-alerts.warning>
                 This guide might get updated in the future. Please check back regularly. Last updated on 29 November
                 2024
-            </span>
+            </x-alerts.warning>
         </div>
         @if ($os !== 'Windows')
-            <div
-                class="py-2 px-4 flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-                <div>
-                    <x-icons.info size="18" class="size-8 md:size-5" />
-                </div>
-                <span>
+            <div class="w-fit">
+                <x-alerts.warning>
                     This guide was created for Windows users. Some tools recommended here may not be available for
                     Linux or Mac users.
-                </span>
+                </x-alerts.warning>
             </div>
         @endif
     </div>

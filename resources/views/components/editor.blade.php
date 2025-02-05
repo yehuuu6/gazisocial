@@ -1,9 +1,9 @@
 <div {{ $attributes }} wire:ignore x-data="{
     content: $wire.entangle('content'),
-}"> <div class="hey"></div>
-    <div x-data="editor(content)" class="border border-gray-200 rounded-md">
+}">
+    <div x-data="editor(content)" class="rounded-md">
         <template x-if="isLoaded()">
-            <menu class="bg-gray-100 text-gray-600 flex flex-wrap divide-x border-b">
+            <menu class="bg-white border border-gray-200 text-gray-800 flex flex-wrap divide-x rounded-t-md">
                 <x-ui.tooltip text="Başlık 1">
                     <button x-on:click="toggleHeading({ level: 2 })" type="button"
                         :class="{

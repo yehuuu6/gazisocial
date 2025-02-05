@@ -43,7 +43,6 @@ Alpine.data("editor", (content) => {
 
             editor = new Editor({
                 element: this.$refs.element,
-                autofocus: true,
                 extensions: [
                     StarterKit.configure({
                         heading: {
@@ -80,7 +79,7 @@ Alpine.data("editor", (content) => {
                 ],
                 editorProps: {
                     attributes: {
-                        class: "prose prose-sm sm:prose-sm md:prose-base lg:prose-lg max-w-none h-[312px] md:h-[486px] overflow-y-auto px-3 py-2 outline-none",
+                        class: "prose text-gray-800 rounded-b-md prose-sm bg-gray-50 sm:prose-sm md:prose-base lg:prose-lg max-w-none resize-y min-h-[212px] md:min-h-[356px] overflow-y-auto px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-80",
                     },
                 },
                 content: content,

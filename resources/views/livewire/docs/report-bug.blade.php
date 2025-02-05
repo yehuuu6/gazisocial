@@ -20,14 +20,12 @@
                     rows="4"></textarea>
             </div>
         </div>
-        <div
-            class="mx-6 mb-6 py-2 px-4 inline-flex gap-2.5 items-center rounded-md border border-orange-200 bg-orange-50 text-orange-400 text-sm font-normal self-start">
-            <x-icons.info color="orange" size="18" />
-            <span>
+        <div class="mx-6 mb-6 w-fit">
+            <x-alerts.warning>
                 Laravel (Livewire) teknik bilginiz var ise, doğrudan <a
                     href="https://github.com/yehuuu6/gazisocial/issues" target="_blank" class="hover:underline">GitHub
                     Issues</a> sayfasına hata bildirimi yapabilirsiniz.
-            </span>
+            </x-alerts.warning>
         </div>
         <x-seperator />
         <div class="bg-gray-50 p-6 flex justify-end items-center gap-3">
@@ -48,7 +46,7 @@
     </form>
     <x-modal wire:modal='exampleBugModal'>
         <x-slot name="title">
-            <h3 class="bg-white px-6 py-4 text-xl font-medium text-gray-700">Örnek Hata Bildirimi</h3>
+            <h3 class="px-6 py-4 text-xl font-medium text-gray-700">Örnek Hata Bildirimi</h3>
         </x-slot>
         <x-slot name="body">
             <div class="flex flex-col gap-1 mt-6 mx-6 mb-6">

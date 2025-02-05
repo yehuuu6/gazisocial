@@ -11,7 +11,7 @@
     </div>
     <div x-cloak x-show="tagsDropdown" x-anchor.offset.5.bottom-start="$refs.tagsAnchor" x-transition.origin.top.left
         x-on:click.away="tagsDropdown = false" x-ref="tagsLister"
-        class="bg-white border border-gray-200 rounded-md z-[1] shadow w-[240px] overflow-hidden">
+        class="bg-white border border-gray-200 rounded-md z-[2] shadow w-[240px] overflow-hidden">
         <div>
             <input type="text" placeholder="🔎    Etiket Ara" spellcheck="false"
                 class="w-full px-5 py-4 text-sm outline-none placeholder:font-normal font-medium text-gray-700 border-b border-gray-200"
