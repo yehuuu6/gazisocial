@@ -21,7 +21,6 @@
         "@alpinejs/anchor": "^3.14.1",
         "@alpinejs/collapse": "^3.14.1",
         "@alpinejs/focus": "^3.14.1",
-        "@marcreichel/alpine-auto-animate": "^1.1.0",
         "@ryangjchandler/alpine-clipboard": "^2.3.0",
         "@tiptap/core": "^2.6.6",
         "@tiptap/extension-code-block-lowlight": "^2.11.3",
