@@ -10,8 +10,8 @@
                             'bg-blue-500 text-white': isActive('heading', { level: 2 }, updatedAt),
                             'hover:bg-gray-200': !isActive('heading', { level: 2 }, updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.heading-1 size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.heading-1 size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Başlık 2">
@@ -20,8 +20,8 @@
                             'bg-blue-500 text-white': isActive('heading', { level: 3 }, updatedAt),
                             'hover:bg-gray-200': !isActive('heading', { level: 3 }, updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.heading-2 size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.heading-2 size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Başlık 3">
@@ -30,8 +30,8 @@
                             'bg-blue-500 text-white': isActive('heading', { level: 4 }, updatedAt),
                             'hover:bg-gray-200': !isActive('heading', { level: 4 }, updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.heading-3 size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.heading-3 size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Kalın">
@@ -40,8 +40,8 @@
                             'bg-blue-500 text-white': isActive('bold', updatedAt),
                             'hover:bg-gray-200': !isActive('bold', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.bold size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.bold size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="İtalik">
@@ -50,8 +50,8 @@
                             'bg-blue-500 text-white': isActive('italic', updatedAt),
                             'hover:bg-gray-200': !isActive('italic', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.italic size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.italic size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Altı Çizili">
@@ -60,8 +60,8 @@
                             'bg-blue-500 text-white': isActive('underline', updatedAt),
                             'hover:bg-gray-200': !isActive('underline', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.underline size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.underline size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Üstü Çizili">
@@ -70,8 +70,8 @@
                             'bg-blue-500 text-white': isActive('strike', updatedAt),
                             'hover:bg-gray-200': !isActive('strike', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.strike size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.strike size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Alıntı">
@@ -80,8 +80,8 @@
                             'bg-blue-500 text-white': isActive('blockquote', updatedAt),
                             'hover:bg-gray-200': !isActive('blockquote', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.quote size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.quote size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Madde İşaretli Liste">
@@ -90,8 +90,8 @@
                             'bg-blue-500 text-white': isActive('bulletList', updatedAt),
                             'hover:bg-gray-200': !isActive('bulletList', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.bullet-list size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.bullet-list size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Numaralandırılmış Liste">
@@ -100,8 +100,8 @@
                             'bg-blue-500 text-white': isActive('orderedList', updatedAt),
                             'hover:bg-gray-200': !isActive('orderedList', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.ordered-list size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.ordered-list size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Bağlantı Ekle">
@@ -110,8 +110,8 @@
                             'bg-blue-500 text-white': isActive('link', updatedAt),
                             'hover:bg-gray-200': !isActive('link', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.link size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.link size="20" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip text="Kod Bloğu Ekle">
@@ -120,8 +120,8 @@
                             'bg-blue-500 text-white': isActive('codeBlock', updatedAt),
                             'hover:bg-gray-200': !isActive('codeBlock', updatedAt)
                         }"
-                        class="px-4 py-3 flex item-center justify-center">
-                        <x-icons.code size="24" />
+                        class="p-3 flex item-center justify-center">
+                        <x-icons.code size="20" />
                     </button>
                 </x-ui.tooltip>
             </menu>
