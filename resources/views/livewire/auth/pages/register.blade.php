@@ -44,6 +44,20 @@
                     autocomplete="mail" required>
             </div>
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-normal mb-2" for="gender">
+                    Cinsiyet
+                </label>
+                <select
+                    class="border rounded bg-white w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="gender" wire:model="gender" required>
+                    <option value="belirtilmemiş" selected>
+                        Belirtilmemiş
+                    </option>
+                    <option value="erkek">Erkek</option>
+                    <option value="kadın">Kadın</option>
+                </select>
+            </div>
+            <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-normal mb-2" for="password">
                     Şifre
                 </label>

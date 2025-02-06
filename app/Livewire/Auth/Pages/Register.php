@@ -22,6 +22,7 @@ class Register extends Component
     public $name;
     public $username;
     public $email;
+    public $gender;
     public $password;
     public $password_confirmation;
     public $accept_terms = false;
@@ -55,6 +56,9 @@ class Register extends Component
             'password.confirmed' => 'Şifreler uyuşmuyor.',
             'accept_terms.required' => 'Kullanıcı sözleşmesini kabul etmelisiniz.',
             'accept_terms.accepted' => 'Kullanıcı sözleşmesini kabul etmelisiniz.',
+            'gender.required' => 'Cinsiyet alanı boş bırakılamaz.',
+            'gender.string' => 'Cinsiyet alanı metin tipinde olmalıdır.',
+            'gender.in' => 'Cinsiyet alanı sadece :values değerlerinden biri olabilir.',
         ];
 
         try {
@@ -64,6 +68,7 @@ class Register extends Component
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'accept_terms' => 'required|accepted',
+                'gender' => 'required|string|in:erkek,kadın,belirtilmemiş',
             ], $messages);
         } catch (ValidationException $e) {
             $message = $e->getMessage();
@@ -74,6 +79,7 @@ class Register extends Component
         $attributes = [
             'name' => $this->name,
             'username' => $this->username,
+            'gender' => $this->gender,
             'email' => $this->email,
             'password' => bcrypt($this->password),
         ];

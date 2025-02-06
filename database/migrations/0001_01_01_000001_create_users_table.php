@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->text('bio')->nullable();
             $table->boolean('is_private')->default(false);
+            $table->string('gender')->nullable();
             $table->string('avatar')->nullable();
             $table->foreignId('faculty_id')->nullable()->constrained()->nullOnDelete();
             $table->string('email')->unique();

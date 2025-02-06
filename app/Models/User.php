@@ -28,13 +28,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'avatar',
         'bio',
         'email',
+        'gender',
         'password',
         'is_private',
         'last_activity',
     ];
 
     protected $attributes = [
-        'bio' => 'Herhangi bir bilgi verilmedi.'
+        'bio' => 'Herhangi bir bilgi verilmedi.',
+        'gender' => 'Belirtilmedi',
     ];
 
     protected static function booted()

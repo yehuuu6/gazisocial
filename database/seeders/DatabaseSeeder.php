@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $user1 = User::create([
             'name' => 'Eren Aydın',
             'username' => 'yehuuu6',
+            'gender' => 'erkek',
             'email' => 'eren.aydin@gazi.edu.tr',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder
         $user2 = User::create([
             'name' => 'Ahmet Kandaz',
             'username' => 'KaNEX',
+            'gender' => 'Erkek',
             'email' => 'kanex@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
@@ -53,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Melek Güleç',
             'username' => 'melekisnothere',
             'email' => 'melek.gulec@gazi.edu.tr',
+            'gender' => 'kadın',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
         ]);
