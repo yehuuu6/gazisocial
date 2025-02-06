@@ -21,7 +21,7 @@
             @foreach ($this->tags as $tag)
                 <button type="button" data-search-key="{{ Str::replace('-', ' ', $tag->slug) }}"
                     wire:key="tag-{{ $tag->id }}" x-on:click="updateSelectedTag('{{ $tag->slug }}')"
-                    class="flex items-center gap-4 w-full px-5 py-4 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:no-underline">
+                    class="flex items-center gap-4 w-full px-5 py-4 text-sm font-medium text-gray-700 hover:bg-gray-100">
                     <x-icons.tag size="20" />
                     <span>{{ $tag->name }}</span>
                 </button>

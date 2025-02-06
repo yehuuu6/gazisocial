@@ -28,26 +28,26 @@
             <div wire:ignore x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
             $el.style.top = navbarHeight + 'px';"
                 class="flex items-center justify-between gap-4 sticky z-[1] bg-white px-6 rounded-t-xl py-4 border-b border-gray-200">
-                <h1 class="text-xl flex items-center gap-2 font-bold text-gray-800">
-                    <div class="size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300">
+                <h1 class="text-base md:text-xl flex items-center gap-2 font-bold text-gray-800">
+                    <div class="size-4 md:size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300">
                     </div>
                     Yeni Konu Oluştur
                 </h1>
                 <div class="flex items-center gap-3">
                     <button type="button"
-                        class="px-4 py-2 rounded bg-gray-200 text-gray-800 font-medium hover:bg-gray-300">
+                        class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-gray-200 text-gray-800 font-medium hover:bg-gray-300">
                         Önizleme
                     </button>
                     <button type="button"
-                        class="px-4 py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
+                        class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
                         Oluştur
                     </button>
                 </div>
             </div>
-            <div class="flex flex-col gap-7 p-6">
-                <div class="flex gap-6">
-                    <div class="w-[300px]">
-                        <label for="title" class="block text-xl font-medium text-gray-700">
+            <div class="flex flex-col gap-5 md:gap-7 p-6">
+                <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+                    <div class="w-full md:w-[300px]">
+                        <label for="title" class="block text-lg md:text-xl font-medium text-gray-700">
                             Konu Başlığı
                         </label>
                         <p class="text-sm text-gray-500">
@@ -61,9 +61,10 @@
                 </div>
                 <div x-data="{
                     selectedTags: $wire.selectedTags,
-                }" class="flex gap-6">
-                    <div class="w-[300px] shrink-0">
-                        <h4 class="block cursor-default font-medium text-xl
+                }" class="flex flex-col md:flex-row gap-3 md:gap-6">
+                    <div class="w-full md:w-[300px] shrink-0">
+                        <h4
+                            class="block cursor-default font-medium text-lg md:text-xl
                         text-gray-700">
                             Etiketler
                         </h4>
@@ -89,7 +90,7 @@
                 </div>
                 <div>
                     <div class="mb-4">
-                        <h4 class="block cursor-default font-medium text-xl text-gray-700">
+                        <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">
                             İçeriğiniz
                         </h4>
                         <p class="text-sm text-gray-500">
@@ -101,9 +102,9 @@
                     </div>
                     <x-editor spellcheck="false"></x-editor>
                 </div>
-                <div class="flex gap-6">
-                    <div class="w-[300px] shrink-0">
-                        <h3 class="block cursor-default text-xl  font-medium text-gray-700">
+                <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+                    <div class="w-full md:w-[300px] shrink-0">
+                        <h3 class="block cursor-default text-lg md:text-xl font-medium text-gray-700">
                             Anketler
                         </h3>
                         <p class="text-sm text-gray-500">
@@ -112,7 +113,7 @@
                         </p>
                     </div>
                     <div
-                        class="border border-transparent active:border-blue-500 active:border-opacity-80 bg-gray-50 p-4 rounded-md min-h-64 grid gap-4 md:[grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] flex-grow">
+                        class="border-2 border-transparent active:border-blue-500 active:border-opacity-80 bg-gray-50 p-4 rounded-md min-h-64 grid gap-4 md:[grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] flex-grow">
                         @forelse ($this->polls as $poll)
                             <div class="bg-white border border-gray-200 rounded-md px-6 py-4">
                                 <div class="flex items-center gap-2 justify-between">
@@ -143,7 +144,7 @@
                                             Taslak bulunamadı.
                                         </span>
                                     </div>
-                                    <p class="text-sm text-gray-400">
+                                    <p class="text-sm text-gray-400 font-normal">
                                         Anket eklemek için <button type="button"
                                             class="text-teal-500 hover:underline">tıklayın.</button>
                                     </p>

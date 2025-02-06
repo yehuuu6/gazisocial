@@ -1,5 +1,5 @@
 <div class="bg-gradient-to-bl from-lime-50 to-green-100 rounded px-8 py-6 mb-6 select-none">
-    <div class="flex justify-between items-center gap-5">
+    <div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-5">
         <div>
             <h1 class="text-lg text-teal-950 font-bold">
                 Araştırmalarınıza anketler ile seviye atlatın!
@@ -12,25 +12,25 @@
                 Daha fazla bilgi edinin <x-icons.arrow-right-alt size="16" />
             </x-link>
         </div>
-        <div class="relative bg-white mr-20 w-44 rounded-md shadow-lg flex items-center gap-4 p-5">
-            <span class="absolute -top-3 -left-12 px-3 text-sm font-bold py-1 rounded text-white bg-teal-500">
+        <div class="relative bg-white md:mr-20 w-full md:w-44 rounded-md shadow-lg flex items-center gap-4 p-5">
+            <span class="absolute left-36 -top-3 md:-left-12 px-3 text-sm font-bold py-1 rounded text-white bg-teal-500">
                 Anketler
             </span>
             <div class="flex flex-col gap-1.5 flex-grow">
                 <div class="flex items-center gap-1.5">
-                    <div class="size-2 rounded-full bg-teal-400"></div>
+                    <div class="size-3 md:size-2 rounded-full bg-teal-400"></div>
                     <hr class="flex-grow border-2 border-gray-100">
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <div class="size-2 rounded-full bg-red-400"></div>
+                    <div class="size-3 md:size-2 rounded-full bg-red-400"></div>
                     <hr class="flex-grow border-2 border-gray-100">
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <div class="size-2 rounded-full bg-orange-400"></div>
+                    <div class="size-3 md:size-2 rounded-full bg-orange-400"></div>
                     <hr class="flex-grow border-2 border-gray-100">
                 </div>
             </div>
-            <div class="relative size-14 rounded-full overflow-hidden">
+            <div class="relative size-16 md:size-14 rounded-full overflow-hidden">
                 <div class="absolute inset-0"
                     style="
                             background: conic-gradient(
