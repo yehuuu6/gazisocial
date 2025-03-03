@@ -3,14 +3,15 @@
 namespace App\Livewire\Post\Pages;
 
 use App\Models\Tag;
-use App\Models\PollOption;
 use App\Models\Poll;
 use App\Models\Post;
 use Livewire\Component;
+use App\Models\PollOption;
+use Livewire\Attributes\On;
+use Masmerise\Toaster\Toaster;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
@@ -22,6 +23,7 @@ class CreatePost extends Component
     public string $title;
     public string $content;
     public array $selectedTags = [];
+    public array $selectedPolls = [];
     public string $question = "";
     public string $end_date = "";
     public int $optionsCount = 2;
@@ -36,6 +38,7 @@ class CreatePost extends Component
     #[Computed()]
     public function polls()
     {
+        // Get all the post user has that hasnt been attached to a post yet.
         return Poll::with('options')->where('user_id', Auth::id())->where('is_draft', true)->get();
     }
 
@@ -73,8 +76,8 @@ class CreatePost extends Component
             $this->validate([
                 'question' => 'bail|required|min:6|max:100',
                 'end_date' => 'bail|date',
-                'options' => 'bail|required|array|min:2|max:10',
-                'options.*' => 'bail|required|min:2|max:100',
+                'options' => 'bail|required|array|min:1|max:10',
+                'options.*' => 'bail|required|min:1|max:100',
             ], $messages);
         } catch (ValidationException $e) {
             Toaster::error($e->validator->errors()->first());
@@ -97,8 +100,6 @@ class CreatePost extends Component
             ]);
         }
 
-        unset($this->polls);
-
         $this->dispatch('poll-draft-created');
 
         Toaster::success('Anketiniz taslak olarak kaydedildi.');
@@ -106,7 +107,6 @@ class CreatePost extends Component
 
     public function createPost()
     {
-
         try {
             $this->rateLimit(10, decaySeconds: 300);
         } catch (TooManyRequestsException $exception) {
@@ -163,7 +163,32 @@ class CreatePost extends Component
         // Attach tags to the post
         $post->tags()->attach($this->selectedTags);
 
+        // Attach poll models to the post
+        $this->attachPolls($post);
+
         return redirect($post->showRoute())->success('Konu başarıyla oluşturuldu.');
+    }
+
+    private function attachPolls(Post $post)
+    {
+        $this->validatePolls();
+
+        foreach ($this->selectedPolls as $pollId) {
+            $poll = Poll::find($pollId);
+            $poll->update([
+                'is_draft' => false,
+            ]);
+        }
+
+        $post->polls()->attach($this->selectedPolls);
+    }
+
+    private function validatePolls()
+    {
+        // If the poll doesnt belong to the user, remove it from the selected polls.
+        $this->selectedPolls = array_filter($this->selectedPolls, function ($pollId) {
+            return Poll::where('user_id', Auth::id())->where('id', $pollId)->exists();
+        });
     }
 
     public function render()

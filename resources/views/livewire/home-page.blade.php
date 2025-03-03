@@ -116,7 +116,7 @@
                                 <h4 class="text-sm md:text-lg font-medium text-gray-700">
                                     {{ $post->title }}
                                 </h4>
-                                <p class="text-xs md:text-sm font-light text-gray-500 mt-1 md:mt-0">
+                                <p class="text-xs md:text-sm font-light text-gray-500 mt-1 md:mt-0 break-all">
                                     {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
                                 </p>
                             </div>

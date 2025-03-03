@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="mb-3.5">
-                                <p class="text-sm text-gray-500 mb-1">
+                                <p class="text-sm text-gray-500 mb-1 break-all">
                                     {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
                                 </p>
                             </div>

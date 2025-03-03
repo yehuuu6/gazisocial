@@ -11,18 +11,12 @@ class Poll extends Model
 
     protected $fillable = [
         'user_id',
-        'post_id',
         'question',
         'end_date',
         'is_draft',
     ];
 
     protected $withCount = ['votes'];
-
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
-    }
 
     public function options()
     {

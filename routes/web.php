@@ -1,9 +1,10 @@
 <?php
 
+use App\Livewire\HomePage;
 use App\Livewire\Docs\ShowBug;
+use App\Livewire\AdvancedSearch;
 use App\Livewire\Docs\ReportBug;
 use App\Livewire\Docs\Terms\FAQ;
-use App\Livewire\HomePage;
 use App\Livewire\Auth\Pages\Login;
 use App\Livewire\Docs\ContactPage;
 use App\Livewire\Auth\Pages\Verify;
@@ -14,22 +15,23 @@ use App\Livewire\User\Pages\EditUser;
 use App\Livewire\User\Pages\ShowUser;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Docs\Terms\UserTerms;
+use App\Livewire\Post\Pages\ListPosts;
 use App\Http\Middleware\CheckAdminRole;
 use App\Livewire\Docs\ReportedBugsList;
 use App\Livewire\Faculty\ShowFaculties;
 use App\Livewire\Post\Pages\CreatePost;
-use App\Livewire\User\Pages\SearchUser;
+use App\Livewire\ZalimKasaba\ShowLobby;
 use App\Livewire\Admin\Pages\ShowMessage;
+use App\Livewire\ZalimKasaba\CreateLobby;
+use App\Livewire\ZalimKasaba\LobbiesList;
 use App\Livewire\Auth\Pages\ResetPassword;
 use App\Livewire\Auth\Pages\ForgotPassword;
-use App\Livewire\Admin\Pages\MessagesIndexer;
-use App\Livewire\AdvancedSearch;
-use App\Livewire\Docs\DevCenter\Contributors;
-use App\Livewire\Docs\DevCenter\ContributionGuide;
-use App\Livewire\Docs\DevCenter\Introduction;
-use App\Livewire\Post\Pages\ListPosts;
 use App\Livewire\Post\Pages\ListPostsByTag;
+use App\Livewire\Admin\Pages\MessagesIndexer;
+use App\Livewire\Docs\DevCenter\Contributors;
+use App\Livewire\Docs\DevCenter\Introduction;
 use App\Livewire\User\Pages\UserNotifications;
+use App\Livewire\Docs\DevCenter\ContributionGuide;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -121,3 +123,13 @@ Route::get('/admin/contact-us-submissions', MessagesIndexer::class)->name('admin
 Route::get('/admin/contact-us-submissions/{message}', ShowMessage::class)->name('admin.contact.show')->middleware(CheckAdminRole::class);
 
 // Admin routes END
+
+// Zalim Kasaba routes START
+
+Route::middleware('auth')->group(function () {
+    Route::get('/games/zk', LobbiesList::class)->name('games.zk');
+    Route::get('/games/zk/create', CreateLobby::class)->name('games.zk.create');
+    Route::get('/games/zk/{lobby:uuid}', ShowLobby::class)->name('games.zk.show');
+});
+
+// Zalim Kasaba routes END

@@ -5,7 +5,7 @@
                 <div class="w-36 md:w-48 mb-3.5">
                     <img src="{{ asset('\logos/GS_LOGO_BLUE_WHITE.png') }}" alt="logo" class="size-full object-cover">
                 </div>
-                <p class="text-gray-100 text-lg md:text-xl italic font-satisfy font-light">
+                <p class="text-gray-100 text-lg md:text-xl italic font-satisfy">
                     Gazili olmak ayrıcalıktır
                 </p>
             </div>
@@ -78,7 +78,7 @@
             <x-seperator />
         </div>
         @if (request()->is('dev-center*'))
-            <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center font-light">
+            <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center">
                 <span>
                     You are currently on the <a wire:navigate class="text-blue-200 hover:underline"
                         href="{{ route('dev-center') }}">Dev Center</a>
@@ -86,12 +86,12 @@
                 </span>
             </div>
         @endif
-        <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center font-light">
+        <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center">
             <span>Made with 🧠 by contributors and </span>
             <a href="https://github.com/yehuuu6" target="_blank"
                 class="text-blue-200 font-normal hover:underline">@yehuuu6</a>
         </div>
-        <div class="w-full text-gray-300 md:text-center text-sm font-light">
+        <div class="w-full text-gray-300 md:text-center text-sm">
             <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" class="hover:underline">GPLv3</a>
             <span> | </span>
             <a href="https://github.com/yehuuu6/gazisocial" target="_blank" class="hover:underline">GitHub</a>

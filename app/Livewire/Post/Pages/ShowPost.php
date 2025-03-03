@@ -6,6 +6,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\Comment;
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,6 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class ShowPost extends Component
 {
-
     use WithRateLimiting;
 
     public Post $post;
@@ -38,6 +38,12 @@ class ShowPost extends Component
         'orange' => 'bg-orange-500',
         'purple' => 'bg-purple-500',
     ];
+
+    #[Computed]
+    public function polls()
+    {
+        return $this->post->polls()->with('options')->get();
+    }
 
     public function mount(Post $post, Request $request, $comment = null,)
     {

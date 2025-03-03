@@ -5,25 +5,27 @@
     @vite('resources/js/syntax-highlight.js')
 @endpush
 <div x-data="{
+    @foreach ($this->polls as $poll)
+        openPollModal{{ $poll->id }}: false, @endforeach
     shareModal: false,
-    isSingleThread: $wire.isSingleCommentThread,
-    commentForm: false,
-    commentCount: $wire.commentsCount,
-    likeCount: $wire.likesCount,
-    isLiked: $wire.isLiked,
-    toggleLike() {
-        $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
-        // If user is authenticated, update the like count and status on the client side
-        if ($wire.isAuthenticated) {
-            if (!this.isLiked) {
-                this.likeCount++;
-                this.isLiked = true;
-            } else {
-                this.likeCount--;
-                this.isLiked = false;
+        isSingleThread: $wire.isSingleCommentThread,
+        commentForm: false,
+        commentCount: $wire.commentsCount,
+        likeCount: $wire.likesCount,
+        isLiked: $wire.isLiked,
+        toggleLike() {
+            $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
+            // If user is authenticated, update the like count and status on the client side
+            if ($wire.isAuthenticated) {
+                if (!this.isLiked) {
+                    this.likeCount++;
+                    this.isLiked = true;
+                } else {
+                    this.likeCount--;
+                    this.isLiked = false;
+                }
             }
         }
-    }
 }" x-on:comment-added.window="commentCount++"
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
@@ -111,7 +113,7 @@
                         <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex gap-2.5 items-center">
-                                <div class="size-10 rounded-full overflow-hidden">
+                                <div class="size-10 shrink-0 rounded-full overflow-hidden">
                                     <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
                                 </div>
                                 <div class="flex flex-col">
@@ -119,7 +121,7 @@
                                     <span class="text-gray-500 text-xs">{{ '@' . $post->user->username }}</span>
                                 </div>
                             </div>
-                            <div>
+                            <div class="shrink-0">
                                 <x-link href="{{ route('users.show', $post->user) }}"
                                     class="text-white px-4 py-2 rounded bg-primary transition duration-300 hover:bg-opacity-90 hover:no-underline text-xs font-medium">
                                     Profili Gör
@@ -170,13 +172,24 @@
                     <x-seperator />
                     <div class="p-6">
                         <h4 class="text-sm text-gray-700 font-light uppercase">EKLENEN ANKETLER</h4>
-                        <div class="mt-2">
-                            <p class="text-gray-600 font-light text-sm">Bu gönderiye ait anket bulunmamaktadır.</p>
+                        <div class="mt-2 flex items-center flex-wrap gap-2">
+                            @forelse ($this->polls as $poll)
+                                <button wire:key="poll-button-{{ $poll->id }}" type="button"
+                                    x-on:click="openPollModal{{ $poll->id }} = true"
+                                    class="text-sm text-white font-medium py-1 px-2 bg-green-500 rounded">
+                                    {{ $poll->question }}
+                                </button>
+                            @empty
+                                <p class="text-gray-600 font-light text-sm">Bu gönderiye ait anket bulunmamaktadır.</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @foreach ($this->polls as $poll)
+        <livewire:poll.show-poll-modal :$poll :key="'poll-modal-' . $poll->id" />
+    @endforeach
     <x-post.share-modal :url="$post->showRoute()" />
 </div>

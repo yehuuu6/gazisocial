@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -60,7 +61,7 @@ class Post extends Model
         return $this->hasMany(Comment::class)->count();
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
@@ -70,9 +71,9 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function polls(): HasMany
+    public function polls(): BelongsToMany
     {
-        return $this->hasMany(Poll::class);
+        return $this->belongsToMany(Poll::class);
     }
 
     public function user()
