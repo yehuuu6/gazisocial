@@ -32,6 +32,8 @@ use App\Livewire\Docs\DevCenter\Contributors;
 use App\Livewire\Docs\DevCenter\Introduction;
 use App\Livewire\User\Pages\UserNotifications;
 use App\Livewire\Docs\DevCenter\ContributionGuide;
+use App\Livewire\Games\Pages\GamesList;
+use App\Livewire\ZalimKasaba\ZKGuide;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -124,10 +126,18 @@ Route::get('/admin/contact-us-submissions/{message}', ShowMessage::class)->name(
 
 // Admin routes END
 
+// Games routes START
+
+Route::get('/games', GamesList::class)->name('games.index');
+
+// Games routes END
+
 // Zalim Kasaba routes START
 
+Route::get('/games/zk', ZKGuide::class)->name('games.zk.guide');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/games/zk', LobbiesList::class)->name('games.zk');
+    Route::get('/games/zk/lobbies', LobbiesList::class)->name('games.zk.lobbies');
     Route::get('/games/zk/create', CreateLobby::class)->name('games.zk.create');
     Route::get('/games/zk/{lobby:uuid}', ShowLobby::class)->name('games.zk.show');
 });

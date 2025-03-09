@@ -64,7 +64,7 @@ class Register extends Component
         try {
             $this->validate([
                 'name' => 'required|string|max:30',
-                'username' => 'required|string|max:30|unique:users',
+                'username' => 'required|string|max:16|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'accept_terms' => 'required|accepted',

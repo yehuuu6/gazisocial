@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Role;
 use App\Models\Tag;
+use App\Models\Role;
 use App\Models\Faculty;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
+use App\Models\ZalimKasaba\GameRole;
 
 class ProductionDatabaseSeeder extends Seeder
 {
@@ -163,5 +164,69 @@ class ProductionDatabaseSeeder extends Seeder
         foreach ($faculties as $faculty) {
             Faculty::create($faculty);
         }
+
+        $godfather = GameRole::create([
+            'icon' => '⚜️',
+            'name' => 'Baron',
+            'enum' => 'godfather',
+        ]);
+
+        $mafioso = GameRole::create([
+            'icon' => '💀',
+            'name' => 'Tetikçi',
+            'enum' => 'mafioso',
+        ]);
+
+        $janitor = GameRole::create([
+            'icon' => '🧽',
+            'name' => 'Temizlikçi',
+            'enum' => 'janitor',
+            'ability_limit' => 3,
+        ]);
+
+        $doctor = GameRole::create([
+            'icon' => '🩺',
+            'name' => 'Doktor',
+            'enum' => 'doctor',
+        ]);
+
+        $lookout = GameRole::create([
+            'icon' => '👀',
+            'name' => 'Dikizci',
+            'enum' => 'lookout',
+        ]);
+
+        $guard = GameRole::create([
+            'icon' => '🔦',
+            'name' => 'Bekçi',
+            'enum' => 'guard',
+        ]);
+
+        $hunter = GameRole::create([
+            'icon' => '🏹',
+            'name' => 'Avcı',
+            'enum' => 'hunter',
+            'ability_limit' => 3,
+        ]);
+
+        $witch = GameRole::create([
+            'icon' => '🔮',
+            'name' => 'Cadı',
+            'enum' => 'witch',
+            'ability_limit' => 2,
+        ]);
+
+        $angel = GameRole::create([
+            'icon' => '🌟',
+            'name' => 'Melek',
+            'enum' => 'angel',
+            'ability_limit' => 3,
+        ]);
+
+        $jester = GameRole::create([
+            'icon' => '🤡',
+            'name' => 'Zibidi',
+            'enum' => 'jester',
+        ]);
     }
 }

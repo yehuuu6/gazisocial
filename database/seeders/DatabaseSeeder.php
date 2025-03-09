@@ -65,9 +65,23 @@ class DatabaseSeeder extends Seeder
             'contributor',
         ]);
 
+        $user4 = User::create([
+            'name' => 'Kaan Efe Karadaş',
+            'username' => 'PsGl',
+            'email' => 'kaan@gazi.edu.tr',
+            'gender' => 'erkek',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        $user4->assignRole([
+            'student',
+        ]);
+
         $users[] = $user2;
         $users[] = $user3;
         $users[] = $user1;
+        $users[] = $user4;
 
         // Create bug reports using users
         $users->each(function ($user) {
