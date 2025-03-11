@@ -1,11 +1,11 @@
 <div class="bg-white p-8 rounded">
     <div class="flex items-center justify-between gap-3 mb-4">
         <h1 class="text-2xl font-bold text-gray-700">
-            Oyun Odaları
+            Aktif Oyunlar
         </h1>
         <a href="{{ route('games.zk.create') }}"
-            class="bg-blue-500 font-medium hover:bg-blue-600 text-white px-4 py-2 rounded">
-            Oda Oluştur
+            class="bg-primary hover:bg-blue-950 font-medium text-white px-4 py-2 rounded">
+            Yeni Oyun
         </a>
     </div>
     <div class="flex flex-col gap-4">
@@ -22,7 +22,10 @@
                 </div>
             </a>
         @empty
-            <p class="text-gray-600">Henüz bir oda oluşturulmamış.</p>
+            <p class="text-gray-600">Henüz bir lobi oluşturulmamış.</p>
         @endforelse
     </div>
+    <a href="{{ route('games.zk.guide') }}" class="text-center text-blue-400 hover:underline mt-5 text-sm w-full block">
+        Rehbere dön
+    </a>
 </div>

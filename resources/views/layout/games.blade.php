@@ -13,7 +13,7 @@
 </head>
 
 <body x-data="{
-    fullscreen: true,
+    fullscreen: false,
 }"
     class="min-h-screen flex flex-col w-full overflow-x-hidden bg-slate-100 font-inter antialiased">
     <div x-show="!fullscreen">

@@ -2,7 +2,7 @@
     <section class="bg-white rounded-xl shadow-md border p-6 md:p-10 border-gray-100">
         <div class="text-center">
             <h3
-                class="text-6xl font-extrabold bg-gradient-to-bl from-violet-300 to-pink-800 bg-clip-text text-transparent leading-normal">
+                class="text-3xl lg:text-6xl font-extrabold bg-gradient-to-bl from-violet-300 to-pink-800 bg-clip-text text-transparent leading-normal">
                 Oyun Merkezi
             </h3>
             <p class="mt-1.5 text-gray-700 text-base md:text-lg font-semibold mx-5 md:mx-80">
