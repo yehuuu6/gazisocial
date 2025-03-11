@@ -1,8 +1,8 @@
 @props(['oldMessages', 'currentPlayer', 'selectedDayCount', 'lobby'])
 <div wire:show="chatHistoryModal" wire:transition.scale
-    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative w-[525px] h-[375px]">
-    <button type="button" class="absolute top-2 right-2 text-gray-700 hover:text-gray-500 p-1"
-        x-on:click="$wire.chatHistoryModal = false">
+    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full min-h-[250px] max-h-[350px]">
+    <button x-on:click="$wire.chatHistoryModal = false"
+        class="flex items-center justify-center p-1 md:p-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 absolute top-2 right-2">
         <x-icons.close size="20" />
     </button>
     <h3 class="text-xl pt-4 px-4 pb-1 text-center font-semibold text-gray-800">

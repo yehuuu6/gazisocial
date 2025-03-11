@@ -22,7 +22,7 @@
             class="duration-300 bg-gradient-to-r from-lime-500 to-emerald-500 hover:from-emerald-400 hover:to-lime-600 rounded-full p-2 text-white transition-all transform hover:scale-105">
             <x-icons.send-msg size="20" />
         </button>
-        <x-ui.tooltip text="Sohbet Geçmişi">
+        <x-ui.tooltip text="Sohbet Geçmişi" position="left">
             <button type="button" x-on:click="$wire.chatHistoryModal = true"
                 class="duration-300 bg-opacity-50 bg-gradient-to-r from-lime-500 to-emerald-500 hover:from-emerald-400 hover:to-lime-600 rounded-full p-2 text-white transition-all transform hover:scale-105">
                 <svg width="20" height="20" viewBox="0 0 15 15" fill="none"

@@ -1,40 +1,43 @@
 <div :class="{
-    'h-[calc(100vh-16rem)]': !fullscreen,
+    'h-[calc(100dvh-2rem)] lg:h-[calc(100dvh-16rem)]': !fullscreen,
     'h-full': fullscreen
-}" x-data="{
-    waitHostInterval: null,
-    closeTimerTimeout: null,
-    hostReturned() {
-        clearInterval(this.waitHostInterval);
-        clearTimeout(this.closeTimerTimeout);
-        Toaster.success('Yönetici geri döndü.');
-    },
-    waitForHost() {
-        let count = 30;
-        Toaster.warning(`Yönetici oyundan ayrıldı. Bekleniyor... ${count}`);
-        this.waitHostInterval = setInterval(() => {
-            count = count - 5;
-            Toaster.info(`Yönetici bekleniyor ${count}...`);
-        }, 5000);
-        this.closeTimerTimeout = setTimeout(() => {
-            clearInterval(this.waitHostInterval);
-            Toaster.error('Yönetici gelmedi. Oda kapatılıyor.');
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-        }, 30000);
-    },
 }"
-    x-on:host-left.window="waitForHost()" x-on:host-returned.window="hostReturned()">
-    <div class="flex h-full rounded-xl">
+    x-data="{
+        waitHostInterval: null,
+        closeTimerTimeout: null,
+        hostReturned() {
+            clearInterval(this.waitHostInterval);
+            clearTimeout(this.closeTimerTimeout);
+            Toaster.success('Yönetici geri döndü.');
+        },
+        waitForHost() {
+            let count = 30;
+            Toaster.warning(`Yönetici oyundan ayrıldı. Bekleniyor... ${count}`);
+            this.waitHostInterval = setInterval(() => {
+                count = count - 5;
+                Toaster.info(`Yönetici bekleniyor ${count}...`);
+            }, 5000);
+            this.closeTimerTimeout = setTimeout(() => {
+                clearInterval(this.waitHostInterval);
+                Toaster.error('Yönetici gelmedi. Oda kapatılıyor.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }, 30000);
+        },
+    }" x-on:host-left.window="waitForHost()" x-on:host-returned.window="hostReturned()">
+    <div class="flex h-full rounded-xl" x-data="{
+        leftPanel: false,
+        rightPanel: false,
+    }">
         <div :class="{
-            'w-72': !fullscreen,
-            'w-80': fullscreen
-        }"
-            class="hidden lg:flex flex-col flex-shrink-0 border-r border-gray-200">
+            '-left-80': !leftPanel,
+            'left-0': leftPanel,
+        }" x-cloak
+            class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-50 flex flex-col flex-shrink-0 border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="flex-grow-0 bg-white p-4 border-b border-gray-200">
-                    <h1 class="text-lg text-gray-800 font-semibold">
+                    <h1 class="text-base md:text-lg text-gray-800 font-semibold">
                         Mezarlık
                     </h1>
                     <ul class="mt-2 flex flex-col gap-2">
@@ -69,9 +72,14 @@
                     </ul>
                 </div>
             @endif
+            <button type="button"
+                class="lg:hidden absolute top-2 right-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded"
+                x-on:click="leftPanel = false">
+                <x-icons.close size="20" />
+            </button>
             <div class="flex flex-col flex-grow flex-shrink-0">
                 <div class="bg-white flex flex-col h-full p-4">
-                    <h1 class="text-lg text-gray-800 font-semibold">Rol Listesi</h1>
+                    <h1 class="text-base md:text-lg text-gray-800 font-semibold">Rol Listesi</h1>
                     <ul class="flex flex-col gap-2 mt-1.5 flex-grow overflow-y-auto h-0">
                         @foreach ($lobby->roles as $role)
                             <li class="flex items-center justify-between p-2 gap-1 rounded"
@@ -104,10 +112,14 @@
         <div class="flex flex-col flex-grow relative">
             <div class="flex bg-white items-center justify-between border-b border-gray-200 p-2" x-ref="gameHeader">
                 <div class="flex items-center gap-2">
+                    <button type="button" x-on:click="leftPanel = true; rightPanel = false;"
+                        class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded">
+                        <x-icons.arrow-right-alt size="20" />
+                    </button>
                     <x-ui.tooltip text="Tam Ekran" position="bottom">
                         <button type="button"
                             x-on:click="fullscreen = !fullscreen; Toaster.info('Tam ekran ' + (fullscreen ? 'moduna geçildi.' : 'modundan çıkıldı.'))"
-                            class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-2 rounded">
+                            class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded">
                             <x-icons.fullscreen x-show="!fullscreen" x-cloak size="20" />
                             <x-icons.exit-fullscreen x-show="fullscreen" size="20" />
                         </button>
@@ -117,15 +129,21 @@
                             $lobby->state !== App\Enums\ZalimKasaba\GameState::PREPARATION)
                         <x-ui.tooltip text="Vasiyetim" position="bottom">
                             <button type="button" x-on:click="$wire.showLastWill = true;"
-                                class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-2 rounded">
+                                class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded">
                                 <x-icons.notebook-pen size="20" />
                             </button>
                         </x-ui.tooltip>
                     @endif
                 </div>
-                <h1 class="text-gray-700 font-semibold text-sm md:text-xl" wire:text="gameTitle">
+                <h1 class="text-gray-700 font-semibold text-sm md:text-lg lg:text-xl" wire:text="gameTitle">
                 </h1>
-                <livewire:zalim-kasaba.show-game-timer :$lobby />
+                <div class="flex items-center gap-2">
+                    <livewire:zalim-kasaba.show-game-timer :$lobby />
+                    <button type="button" x-on:click="rightPanel = true; leftPanel = false;"
+                        class="bg-gray-100 hover:bg-gray-200 text-gray-700 lg:hidden flex items-center justify-center p-1 md:p-2 rounded">
+                        <x-icons.arrow-left-alt size="20" />
+                    </button>
+                </div>
             </div>
             <div x-anchor.bottom-center.offset.15="$refs.gameHeader" wire:show="judgeModal" wire:cloak wire:transition
                 class="shadow-lg rounded w-2/3 justify-between p-4 bg-white text-gray-600">
@@ -153,18 +171,14 @@
             <livewire:zalim-kasaba.chat-window :$lobby />
         </div>
         <div :class="{
-            'w-72': !fullscreen,
-            'w-96': fullscreen
-        }"
-            class="flex flex-col flex-shrink-0 border-l border-gray-200">
+            '-right-80': !rightPanel,
+            'right-0': rightPanel,
+        }" x-cloak
+            class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-50 flex flex-col flex-shrink-0 border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
-                <div x-data="{
-                    isExpanded: true,
-                    toggle() {
-                        this.isExpanded = !this.isExpanded;
-                    }
-                }" class="overflow-y-auto border-b border-gray-200 bg-white p-4">
-                    <h1 class="text-lg flex items-center justify-between gap-2 text-gray-800 font-semibold text-center">
+                <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">
+                    <h1
+                        class="text-base md:text-lg flex items-center justify-center gap-2 text-gray-800 font-semibold text-center">
                         {{ $this->currentPlayer->role->icon }}
                         <span
                             :class="{
@@ -176,20 +190,17 @@
                                     'Kaos 🌀',
                                 'text-yellow-500': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
                                     'Tarafsız 🕊️',
-                                'line-through': !{{ $this->currentPlayer->is_alive ? 'true' : 'false' }}
                             }"
                             class="font-bold">
-                            @if (!$this->currentPlayer->is_alive)
-                                👻
-                            @endif
                             {{ $this->currentPlayer->role->name }}
+                            @if (!$this->currentPlayer->is_alive)
+                                <span class="text-red-500 text-xs lg:text-sm font-normal">
+                                    (Ölü)
+                                </span>
+                            @endif
                         </span>
-                        <button type="button" x-on:click="toggle()" x-text="isExpanded ? '—' : '+'"
-                            class="bg-gray-200 size-7 hover:bg-gray-100 text-gray-700 font-semibold px-1.5 py-0.5 text-xs rounded">
-                            —
-                        </button>
                     </h1>
-                    <div x-show="isExpanded" x-collapse>
+                    <div>
                         <p class="mt-2">
                             <span class="font-medium text-gray-700 text-sm">Taraf:</span>
                             <span class="text-sm font-bold"
@@ -223,9 +234,17 @@
                     </div>
                 </div>
             @endif
+            <button type="button"
+                class="absolute lg:hidden top-2 left-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded"
+                x-on:click="rightPanel = false">
+                <x-icons.close size="20" />
+            </button>
             <div class="flex flex-col flex-grow flex-shrink-0 bg-white p-4">
                 <div class="flex items-center justify-between">
-                    <h1 class="text-lg text-gray-800 font-semibold">
+                    <h1 class="text-base md:text-lg text-gray-800 font-medium md:font-semibold">
+                        @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
+                            <div class="mt-5"></div>
+                        @endif
                         @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                             Oyuncular
                         @else
@@ -233,6 +252,9 @@
                         @endif
                     </h1>
                     <span class="text-gray-500 text-sm font-medium">
+                        @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
+                            <div class="mt-5"></div>
+                        @endif
                         {{ $lobby->players->count() }} / {{ $lobby->max_players }}
                     </span>
                 </div>
@@ -250,7 +272,7 @@
                                     class="flex items-center justify-center size-5 rounded-full text-white text-xs font-semibold">
                                     {{ $player->place }}
                                 </span>
-                                <span class="font-medium text-sm"
+                                <span class="font-medium text-xs md:text-sm"
                                     :class="{
                                         'text-blue-700': {{ $player->id }} === {{ $currentPlayer->id }},
                                     }">
@@ -279,12 +301,12 @@
                                     $currentPlayer->is_host &&
                                     $player->id !== $currentPlayer->id)
                                 <button type="button" wire:click="kickPlayer({{ $player->id }})"
-                                    class="bg-red-500 flex-shrink-0 hover:bg-red-600 text-white font-semibold px-1.5 py-0.5 text-xs rounded">
+                                    class="bg-red-500 flex-shrink-0 hover:bg-red-600 text-white font-semibold px-2 py-1 md:px-1.5 md:py-0.5 text-xs rounded">
                                     KOV
                                 </button>
                             @elseif ($this->canBeVoted($player))
                                 <button type="button" wire:click="votePlayer({{ $player->id }})"
-                                    class="bg-gray-100 flex-shrink-0 hover:bg-gray-200 text-gray-700 font-semibold px-1.5 py-0.5 text-xs rounded">
+                                    class="bg-gray-100 flex-shrink-0 hover:bg-gray-200 text-gray-700 font-semibold px-2 py-1 md:px-1.5 md:py-0.5 text-xs rounded">
                                     @if ($this->hasVoted($player))
                                         İPTAL
                                     @else
@@ -293,7 +315,7 @@
                                 </button>
                             @elseif ($this->canUseAbility($player))
                                 <button type="button" flex-shrink-0 wire:click="selectTarget({{ $player->id }})"
-                                    class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-1.5 py-0.5 text-xs rounded">
+                                    class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-2 py-1 md:px-1.5 md:py-0.5 text-xs rounded">
                                     @if ($this->hasUsedAbility($player))
                                         İPTAL
                                     @else
@@ -303,8 +325,10 @@
                             @endif
                         </li>
                     @empty
-                        <li class="flex items-center gap-2 p-2 hover:bg-gray-50 rounded">
-                            <span class="text-gray-800 font-semibold">Henüz kimse katılmadı.</span>
+                        <li>
+                            <span class="text-gray-600 text-xs lg:text-sm font-normal">
+                                Yaşayan oyuncu yok.
+                            </span>
                         </li>
                     @endforelse
                 </ul>

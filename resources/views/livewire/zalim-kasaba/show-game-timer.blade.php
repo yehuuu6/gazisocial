@@ -1,4 +1,4 @@
-<div class="text-gray-700 text-sm md:text-xl font-medium font-mono" x-data="{
+<div class="text-gray-700 text-sm md:text-lg lg:text-xl font-medium font-mono" x-data="{
     startTime: null,
     endTime: null,
     isStarted: null,
