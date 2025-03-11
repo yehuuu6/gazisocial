@@ -1,4 +1,4 @@
-<div class="text-gray-800 text-2xl font-semibold" x-data="{
+<div class="text-gray-700 text-sm md:text-xl font-medium font-mono" x-data="{
     startTime: null,
     endTime: null,
     isStarted: null,
@@ -56,6 +56,6 @@
             this.timerInterval = null;
         }
     },
-}" x-on:game-state-updated.window="init();">
-    <span class="font-normal text-xl text-gray-700 font-mono" x-text="countdownText"></span>
+}"
+    x-on:game-state-updated.window="init();" x-text="countdownText">
 </div>
