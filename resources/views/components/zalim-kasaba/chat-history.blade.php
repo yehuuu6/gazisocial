@@ -1,5 +1,6 @@
 @props(['oldMessages', 'currentPlayer', 'selectedDayCount', 'lobby'])
-<div class="flex flex-col gap-2 rounded bg-white relative w-[525px] h-[375px]">
+<div wire:show="chatHistoryModal" wire:transition.scale
+    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative w-[525px] h-[375px]">
     <button type="button" class="absolute top-2 right-2 text-gray-700 hover:text-gray-500 p-1"
         x-on:click="$wire.chatHistoryModal = false">
         <x-icons.close size="20" />
@@ -29,7 +30,7 @@
     <div class="py-2">
         <x-seperator />
     </div>
-    <div class="h-0 px-2 flex-1 overflow-y-auto">
+    <div class="h-0 px-2 flex-1 overflow-y-auto bg-gray-50">
         <x-zalim-kasaba.chat-box :key="'old-chat'" :messages="$oldMessages" :currentPlayer="$currentPlayer" />
     </div>
 </div>

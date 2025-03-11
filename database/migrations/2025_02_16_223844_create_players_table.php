@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('is_cleaned')->default(false);
             $table->boolean('can_haunt')->default(false);
             $table->boolean('is_executed')->default(false);
+            $table->longText('last_will')->nullable();
             $table->integer('ability_uses')->nullable();
             $table->foreignId('game_role_id')->nullable()->constrained('game_roles')->nullOnDelete();
             $table->timestamps();

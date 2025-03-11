@@ -31,6 +31,8 @@ class ShowLobby extends Component
     public Collection $deadPlayers;
 
     public bool $judgeModal;
+    public bool $showLastWill = false;
+    public bool $showPlayerLastWill = false;
 
     public function mount(Lobby $lobby)
     {

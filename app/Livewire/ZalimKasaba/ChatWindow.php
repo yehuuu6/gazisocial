@@ -18,17 +18,17 @@ class ChatWindow extends Component
 
     public $messages;
 
+    public Player $currentPlayer;
+
     public $oldMessages;
     public $selectedDayCount;
 
-    public Player $currentPlayer;
-
     public bool $chatHistoryModal = false;
 
-    public function mount(Lobby $lobby, Player $currentPlayer)
+    public function mount(Lobby $lobby)
     {
         $this->lobby = $lobby;
-        $this->currentPlayer = $currentPlayer;
+        $this->currentPlayer = $this->lobby->players()->where('user_id', Auth::id())->first();
         $this->messages = $this->fetchMessages($this->lobby->day_count);
         $this->selectedDayCount = $this->lobby->day_count;
         $this->oldMessages = $this->messages;

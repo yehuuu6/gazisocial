@@ -27,7 +27,11 @@
 }"
     x-on:host-left.window="waitForHost()" x-on:host-returned.window="hostReturned()">
     <div class="flex h-full rounded-xl">
-        <div class="hidden lg:flex flex-col w-72 flex-shrink-0 border-r border-gray-200">
+        <div :class="{
+            'w-72': !fullscreen,
+            'w-80': fullscreen
+        }"
+            class="hidden lg:flex flex-col flex-shrink-0 border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="flex-grow-0 bg-white p-4 border-b border-gray-200">
                     <h1 class="text-lg text-gray-800 font-semibold">
@@ -35,20 +39,25 @@
                     </h1>
                     <ul class="mt-2 flex flex-col gap-2">
                         @forelse ($deadPlayers as $deadPlayer)
-                            <li class="flex text-sm items-center justify-between w-full gap-2 rounded"
-                                wire:key="dead-player-{{ $deadPlayer->id }}">
-                                <span class="text-gray-600 font-medium"
-                                    :class="{ 'line-through': {{ !$deadPlayer->is_online ? 'true' : 'false' }} }">
-                                    🪦 {{ $deadPlayer->user->username }}
-                                </span>
-                                <span
-                                    class="text-gray-500 text-xs font-medium px-1.5 py-0.5 rounded-full border border-gray-200">
-                                    @if ($deadPlayer->is_cleaned)
-                                        🧼 Temizlendi
-                                    @else
-                                        {{ $deadPlayer->role->icon . ' ' . $deadPlayer->role->name }}
-                                    @endif
-                                </span>
+                            <li wire:key="dead-player-{{ $deadPlayer->id }}">
+                                <x-ui.tooltip text="Vasiyeti Gör" position="right">
+                                    <button type="button"
+                                        x-on:click="$dispatch('show-last-will', { playerId: {{ $deadPlayer->id }} }); $wire.showPlayerLastWill = true;"
+                                        class="flex text-sm hover:bg-gray-100 items-center justify-between w-full gap-2 px-2 py-1 rounded-md">
+                                        <span class="text-gray-600 font-medium"
+                                            :class="{ 'line-through': {{ !$deadPlayer->is_online ? 'true' : 'false' }} }">
+                                            🪦 {{ $deadPlayer->user->username }}
+                                        </span>
+                                        <span
+                                            class="text-gray-500 text-xs font-medium px-1.5 py-0.5 rounded-full border border-gray-200">
+                                            @if ($deadPlayer->is_cleaned)
+                                                🧼 Temizlendi
+                                            @else
+                                                {{ $deadPlayer->role->icon . ' ' . $deadPlayer->role->name }}
+                                            @endif
+                                        </span>
+                                    </button>
+                                </x-ui.tooltip>
                             </li>
                         @empty
                             <li class="flex items-center gap-2 p-2 rounded">
@@ -67,7 +76,7 @@
                         @foreach ($lobby->roles as $role)
                             <li class="flex items-center justify-between p-2 gap-1 rounded"
                                 wire:key="lobby-role-{{ $role->id }}">
-                                <div>
+                                <div class="text-sm">
                                     {{ $role->icon }}
                                     <span class="text-gray-800 font-normal ml-0.5">
                                         {{ $role->name }}
@@ -103,12 +112,16 @@
                             <x-icons.exit-fullscreen x-show="fullscreen" size="20" />
                         </button>
                     </x-ui.tooltip>
-                    <x-ui.tooltip text="Ayarlar" position="bottom">
-                        <button type="button"
-                            class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-2 rounded">
-                            <x-icons.cog size="20" />
-                        </button>
-                    </x-ui.tooltip>
+                    @if (
+                        $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
+                            $lobby->state !== App\Enums\ZalimKasaba\GameState::PREPARATION)
+                        <x-ui.tooltip text="Vasiyetim" position="bottom">
+                            <button type="button" x-on:click="$wire.showLastWill = true;"
+                                class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-2 rounded">
+                                <x-icons.notebook-pen size="20" />
+                            </button>
+                        </x-ui.tooltip>
+                    @endif
                 </div>
                 <h1 class="text-gray-700 font-semibold text-lg" wire:text="gameTitle">
                 </h1>
@@ -137,9 +150,13 @@
                     </button>
                 </div>
             </div>
-            <livewire:zalim-kasaba.chat-window :$lobby :$currentPlayer />
+            <livewire:zalim-kasaba.chat-window :$lobby />
         </div>
-        <div class="flex flex-col w-72 flex-shrink-0 border-l border-gray-200">
+        <div :class="{
+            'w-72': !fullscreen,
+            'w-96': fullscreen
+        }"
+            class="flex flex-col flex-shrink-0 border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div x-data="{
                     isExpanded: true,
@@ -300,4 +317,10 @@
             </div>
         </div>
     </div>
+    @if (
+        $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
+            $lobby->state !== App\Enums\ZalimKasaba\GameState::PREPARATION)
+        <livewire:zalim-kasaba.last-will-modal :$lobby />
+        <livewire:zalim-kasaba.show-last-will :$lobby />
+    @endif
 </div>

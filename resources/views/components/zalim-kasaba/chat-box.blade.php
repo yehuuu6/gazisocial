@@ -43,9 +43,9 @@
                 === 'warning',
                 'bg-green-500 text-white': '{{ $msg->type }}'
                 === 'success',
-                'italic text-red-600': '{{ $this->isDeadChat($msg) ? true : false }}'
+                '!text-gray-500 italic': {{ $this->isDeadChat($msg) ? 'true' : 'false' }}
             }"
-                class="rounded px-1 break-all text-sm">
+                class="rounded px-1 break-all text-sm self-start">
                 {{ $msg->message }}
             </p>
         </div>
