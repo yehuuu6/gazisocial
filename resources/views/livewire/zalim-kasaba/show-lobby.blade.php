@@ -123,7 +123,7 @@
                         </x-ui.tooltip>
                     @endif
                 </div>
-                <h1 class="text-gray-700 font-semibold text-lg" wire:text="gameTitle">
+                <h1 class="text-gray-700 font-semibold text-sm md:text-xl" wire:text="gameTitle">
                 </h1>
                 <livewire:zalim-kasaba.show-game-timer :$lobby />
             </div>
