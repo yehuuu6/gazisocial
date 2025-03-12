@@ -19,7 +19,7 @@ class Post extends Model
     use HasFactory, ConvertsMarkdownToHtml, Searchable;
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     public function toggleLike()

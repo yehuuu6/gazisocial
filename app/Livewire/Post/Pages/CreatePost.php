@@ -158,7 +158,6 @@ class CreatePost extends Component
         $post = Post::create([
             ...$validated,
             'user_id' => Auth::id(),
-            'is_pinned' => true,
         ]);
 
         // Attach tags to the post
