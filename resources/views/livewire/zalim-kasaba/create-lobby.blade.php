@@ -17,7 +17,7 @@
             removeRole(uuid) {
                 this.selectedRoles = this.selectedRoles.filter(role => role.uuid !== uuid);
             },
-        }" class="flex gap-4 w-full">
+        }" class="flex gap-4 w-full flex-col-reverse md:flex-row">
             <div class="w-1/2">
                 <h1 class="text-xl font-bold text-gray-700">
                     Seçilen Roller
