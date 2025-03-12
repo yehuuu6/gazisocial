@@ -136,7 +136,7 @@ class ShowLobby extends Component
 
         if ($this->lobby->players->count() < $this->lobby->max_players) {
             Toaster::error('Oyuncu sayısı yetersiz. Oyuna başlamak için ' . $this->lobby->max_players . ' oyuncu gereklidir.');
-            //return; DISABLE FOR NOW, FOR TESTING
+            return;
         }
 
         $this->randomizePlayerPlaces();
