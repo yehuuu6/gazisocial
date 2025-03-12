@@ -9,7 +9,9 @@
 
             if (isViewingLatestMessage || overrideCondition) {
                 requestAnimationFrame(() => {
-                    chatBox.scrollTop = chatBox.scrollHeight;
+                    setTimeout(() => {
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }, 300);
                 });
             }
         },
