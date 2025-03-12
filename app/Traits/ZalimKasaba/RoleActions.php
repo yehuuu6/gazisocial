@@ -197,7 +197,7 @@ trait RoleActions
 
             if ($healAction->actor_id === $healAction->target_id) {
                 $healer = $players->firstWhere('id', $healAction->actor_id);
-                //$healer->update(['self_healed' => true]);
+                $healer->update(['self_healed' => true]);
             }
         }
     }
