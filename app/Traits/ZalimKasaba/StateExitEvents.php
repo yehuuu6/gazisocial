@@ -90,6 +90,7 @@ trait StateExitEvents
         }
 
         $this->lobby->update(['accused_id' => null]);
+        $this->checkGameOver();
     }
 
     private function exitNight()
@@ -116,6 +117,7 @@ trait StateExitEvents
     private function exitReveal()
     {
         $this->validateEvent(GameState::REVEAL);
+        $this->checkGameOver();
     }
 
     private function exitPreparation()

@@ -35,13 +35,13 @@ trait StateManager
         // In seconds
         $timerValues = [
             GameState::PREPARATION->value => 15,
-            GameState::DAY->value => $currentDay === 0 ? 20 : 90,
-            GameState::VOTING->value => 60,
+            GameState::DAY->value => $currentDay === 0 ? 20 : 60,
+            GameState::VOTING->value => 30,
             GameState::DEFENSE->value => 20,
             GameState::JUDGMENT->value => 30,
             GameState::LAST_WORDS->value => 10,
             GameState::NIGHT->value => 60,
-            GameState::REVEAL->value => 10,
+            GameState::REVEAL->value => 15,
             GameState::GAME_OVER->value => 20
         ];
 

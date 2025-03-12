@@ -14,7 +14,6 @@ trait StateEnterEvents
         // Delete all actions
         $this->lobby->actions()->delete();
         $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
-        $this->checkGameOver();
     }
 
     private function enterVoting()
@@ -102,7 +101,12 @@ trait StateEnterEvents
 
         foreach ($deadPlayers as $deadPlayer) {
             $username = $deadPlayer->user->username;
-            $roleName = $deadPlayer->is_cleaned ? 'Temizlendi' : $deadPlayer->role->name;
+            if ($this->currentPlayer->role->enum !== PlayerRole::JANITOR && $deadPlayer->is_cleaned) {
+                $roleName = 'Temizlendi';
+            } else {
+                $roleName = $deadPlayer->role->name;
+            }
+
             $this->sendSystemMessage(
                 "{$username} dün gece evinde ölü bulundu. Oyuncunun rolü: {$roleName}."
             );

@@ -37,13 +37,20 @@ class ShowLastWill extends Component
             $this->title = 'Oyuncu Bulunamadı';
             Toaster::error('Oyuncu bulunamadı.');
             return;
-        } elseif ($this->author->last_will === null) {
-            $this->title = $this->author->user->username . ' Vasiyeti';
+        }
+
+        $this->title = $this->author->user->username . ' Vasiyeti';
+
+        if ($this->author->last_will === null) {
             $this->lastWill = 'Bu kişi vasiyet bırakmamış.';
             return;
         }
 
-        $this->title = $this->author->user->username . ' Vasiyeti';
+        if ($this->author->is_cleaned) {
+            $this->lastWill = 'Bu kişinin vasiyeti temizlendi.';
+            return;
+        }
+
         $this->lastWill = $this->author->last_will;
     }
 

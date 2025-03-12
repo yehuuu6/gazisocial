@@ -198,6 +198,10 @@ trait VoteManager
 
     private function setJudgeModalState()
     {
+        if (!$this->currentPlayer->is_alive) {
+            $this->judgeModal = false;
+            return;
+        }
         if ($this->lobby->state === GameState::JUDGMENT && $this->currentPlayer->id !== $this->lobby->accused_id) {
             $this->judgeModal = true;
         } else {
