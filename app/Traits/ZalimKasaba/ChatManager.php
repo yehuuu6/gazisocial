@@ -153,6 +153,8 @@ trait ChatManager
         // Broadcast message
         broadcast(new NewChatMessage($this->lobby->id, $message->id))->toOthers();
 
+        $this->dispatch('chat-message-received');
+
         $this->message = '';
     }
 }

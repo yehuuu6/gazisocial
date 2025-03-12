@@ -2,6 +2,7 @@
 
 namespace App\Traits\ZalimKasaba;
 
+use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Enums\ZalimKasaba\GameState;
 use App\Enums\ZalimKasaba\PlayerRole;
 use App\Events\ZalimKasaba\GameStateUpdated;
@@ -76,14 +77,14 @@ trait StateManager
         if ($mafiaRoles->isEmpty() && !$townRoles->isEmpty()) {
             // Merge the winnerUsernameArray with the townRoles
             $winnerUsernameArray = array_merge($winnerUsernameArray, $townRoles->map(fn($player) => $player->user->username)->toArray());
-            $this->sendSystemMessage('Kasaba kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray));
+            $this->sendSystemMessage('Kasaba kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray), type: ChatMessageType::SUCCESS);
             $lobby->update(['state' => GameState::GAME_OVER]);
             return;
         }
         if ($townRoles->isEmpty() && !$mafiaRoles->isEmpty()) {
             // Merge the winnerUsernameArray with the mafiaRoles
             $winnerUsernameArray = array_merge($winnerUsernameArray, $mafiaRoles->map(fn($player) => $player->user->username)->toArray());
-            $this->sendSystemMessage('Mafya kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray));
+            $this->sendSystemMessage('Mafya kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray), type: ChatMessageType::SUCCESS);
             $lobby->update(['state' => GameState::GAME_OVER]);
             return;
         }
