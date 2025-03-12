@@ -5,11 +5,12 @@
         },
         showLatestMessage(overrideCondition = false) {
             const chatBox = document.querySelector('#chat-box');
-            let isViewingLatestMessage = chatBox.scrollHeight - chatBox.scrollTop === chatBox.clientHeight;
+            let isViewingLatestMessage = chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 1;
+
             if (isViewingLatestMessage || overrideCondition) {
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     chatBox.scrollTop = chatBox.scrollHeight;
-                }, 100);
+                });
             }
         },
 }" class="flex flex-col flex-1 h-0">
