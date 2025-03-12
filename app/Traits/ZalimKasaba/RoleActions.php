@@ -409,7 +409,6 @@ trait RoleActions
 
             foreach ($deathActions as $deathAction) {
                 if ($deathAction->target_id === $revealAction->target_id) {
-                    $deathAction->delete();
                     $this->sendMessageToPlayer($deathAction->actor, 'Öldürmek için gittiğin evde bir meleğin göz kamaştıran güzelliği seni durdurdu.', ChatMessageType::WARNING);
                     $this->sendMessageToPlayer($deathAction->target, 'Biri sana saldırmaya çalıştı, ama güzelliğin onu durdurdu!', ChatMessageType::SUCCESS);
                     return;
