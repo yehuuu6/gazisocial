@@ -48,8 +48,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             $user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=random';
             $user->save();
 
-            $user->update(['email_verified_at' => now()]);
-
             // Assign the 'member' role to the user
             $user->assignRole(['member']);
         });
