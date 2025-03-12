@@ -34,7 +34,7 @@
             '-left-80': !leftPanel,
             'left-0': leftPanel,
         }" x-cloak
-            class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-50 flex flex-col flex-shrink-0 border-r border-gray-200">
+            class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-30 flex flex-col flex-shrink-0 border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="flex-grow-0 bg-white p-4 border-b border-gray-200">
                     <h1 class="text-base md:text-lg text-gray-800 font-semibold">
@@ -174,7 +174,7 @@
             '-right-80': !rightPanel,
             'right-0': rightPanel,
         }" x-cloak
-            class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-50 flex flex-col flex-shrink-0 border-l border-gray-200">
+            class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-30 flex flex-col flex-shrink-0 border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">
                     <h1

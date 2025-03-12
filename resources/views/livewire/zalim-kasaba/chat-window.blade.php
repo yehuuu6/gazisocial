@@ -1,19 +1,12 @@
 <div x-data="{
     sendMessage() {
             $wire.sendMessage();
-            this.showLatestMessage(true);
         },
-        showLatestMessage(overrideCondition = false) {
+        showLatestMessage() {
             const chatBox = document.querySelector('#chat-box');
-            let isViewingLatestMessage = chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 1;
-
-            if (isViewingLatestMessage || overrideCondition) {
-                requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    }, 300);
-                });
-            }
+            $nextTick(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
         },
 }" class="flex flex-col flex-1 h-0">
     <x-zalim-kasaba.chat-box :$messages :$currentPlayer />
@@ -38,7 +31,7 @@
         </x-ui.tooltip>
     </div>
     <div wire:show="chatHistoryModal" wire:transition.opacity x-cloak
-        class="fixed inset-0 bg-black bg-opacity-60 z-30 grid place-items-center">
+        class="fixed inset-0 bg-black bg-opacity-60 z-50 grid place-items-center">
         <x-zalim-kasaba.chat-history :$currentPlayer :$oldMessages :$selectedDayCount :$lobby />
     </div>
 </div>
