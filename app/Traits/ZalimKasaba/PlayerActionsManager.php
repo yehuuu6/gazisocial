@@ -119,6 +119,7 @@ trait PlayerActionsManager
             case PlayerRole::HUNTER:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
+                if ($this->currentPlayer->guilt()->exists()) return false;
                 break;
             case PlayerRole::WITCH:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;

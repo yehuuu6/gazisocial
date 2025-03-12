@@ -332,6 +332,15 @@ trait RoleActions
 
             $this->killPlayer($shootAction->target);
             $this->sendMessageToPlayer($shootAction->target, 'Biri evine girdi, öldürüldün!', ChatMessageType::WARNING);
+
+            // If the target player is a townie, the hunter will die as well
+            if (in_array($shootAction->target->role->enum, PlayerRole::getTownRoles())) {
+                // Create a guilt model
+                $this->lobby->guilts()->create([
+                    'player_id' => $hunter->id,
+                    'night' => $this->lobby->day_count + 1,
+                ]);
+            }
         }
     }
 
@@ -429,6 +438,29 @@ trait RoleActions
 
             $this->killPlayer($hauntAction->target);
             $this->sendMessageToPlayer($hauntAction->target, 'Zibidi tarafından lanetlendin!', ChatMessageType::WARNING);
+        }
+    }
+
+    // BUG ALERT!
+    // IF DEAD PLAYERS USE CHAT AT NIGHT, THE REVEAL STATE DOES NOT
+    // WORK PROPERLY, AND THE CHAT GOES DIRECTLY INTO THE NEW DAY CHAT.
+    private function processGuilts()
+    {
+        $guilts = $this->lobby->guilts()->with('player')->get();
+
+        if ($guilts->count() === 0) return;
+
+        foreach ($guilts as $guilt) {
+            // If the guilt was not applied last night, skip
+            if ($this->lobby->day_count !== $guilt->night) continue;
+
+            $guiltyPlayer = $guilt->player;
+
+            if (!$guiltyPlayer) continue;
+
+            $this->killPlayer($guiltyPlayer);
+            $this->sendMessageToPlayer($guiltyPlayer, 'Vicdan azabından intihar ettin!', ChatMessageType::WARNING);
+            $guilt->delete();
         }
     }
 

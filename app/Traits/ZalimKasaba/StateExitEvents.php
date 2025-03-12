@@ -108,6 +108,7 @@ trait StateExitEvents
         $this->hunterActions();
 
         $this->processPoisons();
+        $this->processGuilts();
 
         $this->informAbiltyWasted();
     }
