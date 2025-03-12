@@ -241,7 +241,7 @@ trait RoleActions
                 $this->sendMessageToPlayer(
                     $watcher,
                     'Hedefin ' . $visitorNames->implode(', ') . ' tarafından ziyaret edildi.',
-                    ChatMessageType::DEFAULT
+                    ChatMessageType::SUCCESS
                 );
             } else {
                 $this->sendMessageToPlayer(

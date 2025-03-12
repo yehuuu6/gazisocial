@@ -108,7 +108,8 @@ trait StateEnterEvents
             }
 
             $this->sendSystemMessage(
-                "{$username} dün gece evinde ölü bulundu. Oyuncunun rolü: {$roleName}."
+                "{$username} dün gece evinde ölü bulundu. Oyuncunun rolü: {$roleName}.",
+                ChatMessageType::WARNING
             );
         }
     }
