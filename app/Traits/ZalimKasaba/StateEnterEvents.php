@@ -14,6 +14,7 @@ trait StateEnterEvents
         // Delete all actions
         $this->lobby->actions()->delete();
         $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
+        $this->checkGameOver();
     }
 
     private function enterVoting()

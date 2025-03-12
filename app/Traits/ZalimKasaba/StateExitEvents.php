@@ -123,6 +123,14 @@ trait StateExitEvents
         $this->validateEvent(GameState::PREPARATION);
     }
 
+    private function exitGameOver()
+    {
+        if ($this->lobby->state !== GameState::GAME_OVER) return false;
+
+        // Redirect to lobbies list
+        return redirect()->route('games.zk.lobbies')->success('Oyun bitti!');
+    }
+
     // FUNCTIONS START
 
     /**
