@@ -31,7 +31,7 @@
                     </template>
                 </div>
             </div>
-            <div class="w-1/2">
+            <div class="w-full md:w-1/2">
                 <h1 class="text-xl font-bold text-gray-700 mb-1">
                     Roller <span class="text-gray-600 font-normal text-sm">
                         (Özel roller sadece bir defa seçilebilir.)
