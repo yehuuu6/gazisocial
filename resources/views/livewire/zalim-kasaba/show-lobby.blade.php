@@ -243,7 +243,7 @@
                 <div class="flex items-center justify-between">
                     <h1 class="text-base md:text-lg text-gray-800 font-medium md:font-semibold">
                         @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
-                            <div class="mt-5"></div>
+                            <div class="lg:hidden mt-5"></div>
                         @endif
                         @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                             Oyuncular
