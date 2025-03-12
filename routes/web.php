@@ -136,7 +136,7 @@ Route::get('/games', GamesList::class)->name('games.index');
 
 Route::get('/games/zk', ZKGuide::class)->name('games.zk.guide');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/games/zk/lobbies', LobbiesList::class)->name('games.zk.lobbies');
     Route::get('/games/zk/create', CreateLobby::class)->name('games.zk.create');
     Route::get('/games/zk/{lobby:uuid}', ShowLobby::class)->name('games.zk.show');

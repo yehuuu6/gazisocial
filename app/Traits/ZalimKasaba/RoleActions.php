@@ -409,6 +409,9 @@ trait RoleActions
 
             foreach ($deathActions as $deathAction) {
                 if ($deathAction->target_id === $revealAction->target_id) {
+                    // DELETING THIS CAUSES THE LOOKOUT TO NOT SEE THE ATTACKER
+                    // ALSO SOMETIMES MESSAGES DONT GO TO PLAYERS ON EXIT NIGHT.
+                    $deathAction->delete();
                     $this->sendMessageToPlayer($deathAction->actor, 'Öldürmek için gittiğin evde bir meleğin göz kamaştıran güzelliği seni durdurdu.', ChatMessageType::WARNING);
                     $this->sendMessageToPlayer($deathAction->target, 'Biri sana saldırmaya çalıştı, ama güzelliğin onu durdurdu!', ChatMessageType::SUCCESS);
                     return;
