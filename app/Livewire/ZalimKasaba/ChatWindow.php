@@ -56,11 +56,10 @@ class ChatWindow extends Component
                     ->orWhere('receiver_id', Auth::id());
             })
             ->oldest()
-            ->limit(500)
             ->get();
     }
 
-    public function handleNewChatMessage()
+    public function handleNewChatMessage($payload)
     {
         $this->messages = $this->fetchMessages($this->lobby->day_count);
         $this->dispatch('chat-message-received');
