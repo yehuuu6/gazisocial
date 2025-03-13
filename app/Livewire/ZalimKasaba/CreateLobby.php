@@ -29,6 +29,21 @@ class CreateLobby extends Component
 
     public function createLobby()
     {
+        $messages = [
+            'lobbyName.required' => 'Lobi adı zorunludur.',
+            'lobbyName.min' => 'Lobi adı en az :min karakter olmalıdır.',
+            'lobbyName.max' => 'Lobi adı en fazla :max karakter olmalıdır.',
+        ];
+
+        try {
+            $this->validate([
+                'lobbyName' => 'required|min:3|max:35',
+            ], $messages);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Toaster::error($e->validator->errors()->first());
+            return;
+        }
+
         // Only get the ids of the selected roles
         $roleIds = collect($this->selectedRoles)->map(fn($role) => $role['id']);
 
