@@ -27,6 +27,7 @@ class ShowPost extends Component
     public $selectedCommentId;
     public int $likesCount;
     public int $commentsCount;
+    public bool $showPollModal;
 
     public bool $isAuthenticated;
 

@@ -3,7 +3,6 @@
 namespace App\Livewire\Poll;
 
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Masmerise\Toaster\Toaster;
 use App\Models\PollVote;
 use App\Models\PollOption;
@@ -11,23 +10,53 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Poll;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PollVoted;
+use App\Models\Post;
 
 class ShowPollModal extends Component
 {
+    public Post $post;
     public Poll $poll;
     public $selectedOption;
 
-    public function mount(Poll $poll)
+    public function mount(Post $post)
     {
-        $this->poll = $poll;
-
-        $this->poll->load('options', 'votes');
+        $this->post = $post;
+        $this->poll = new Poll();
 
         // Check if the user has already voted
         if (Auth::check()) {
             $this->selectedOption = $this->poll->votes->where('user_id', Auth::id())->first();
             $this->selectedOption = $this->selectedOption ? $this->selectedOption->poll_option_id : null;
         }
+    }
+
+    public function getListeners()
+    {
+        return [
+            "load-poll-data" => 'loadPollData',
+            "echo:polls.{$this->post->id},.poll.voted" => '$refresh',
+        ];
+    }
+
+    public function loadPollData(int $pollId)
+    {
+        $this->poll = Poll::find($pollId);
+
+        if (!$this->poll) {
+            Toaster::error('Anket bulunamadı.');
+            return;
+        }
+
+        if (Auth::check()) {
+            $this->selectedOption = $this->poll->votes->where('user_id', Auth::id())->first();
+            $this->selectedOption = $this->selectedOption ? $this->selectedOption->poll_option_id : null;
+        }
+    }
+
+    public function unloadPollData()
+    {
+        $this->poll = new Poll();
+        $this->selectedOption = null;
     }
 
     public function vote($optionId)
@@ -86,7 +115,7 @@ class ShowPollModal extends Component
         Toaster::success($msg);
 
         // Broadcast the event
-        broadcast(new PollVOted($poll))->toOthers();
+        broadcast(new PollVOted($this->post))->toOthers();
     }
 
     public function getPollPercentage(Poll $poll, PollOption $option)
@@ -103,7 +132,6 @@ class ShowPollModal extends Component
         return round(($optionVotesCount / $votesCount) * 100);
     }
 
-    #[On('echo:polls.{poll.id},PollVoted')]
     public function render()
     {
         return view('livewire.poll.show-poll-modal');

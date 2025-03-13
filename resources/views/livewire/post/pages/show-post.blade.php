@@ -5,27 +5,25 @@
     @vite('resources/js/syntax-highlight.js')
 @endpush
 <div x-data="{
-    @foreach ($this->polls as $poll)
-        openPollModal{{ $poll->id }}: false, @endforeach
     shareModal: false,
-        isSingleThread: $wire.isSingleCommentThread,
-        commentForm: false,
-        commentCount: $wire.commentsCount,
-        likeCount: $wire.likesCount,
-        isLiked: $wire.isLiked,
-        toggleLike() {
-            $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
-            // If user is authenticated, update the like count and status on the client side
-            if ($wire.isAuthenticated) {
-                if (!this.isLiked) {
-                    this.likeCount++;
-                    this.isLiked = true;
-                } else {
-                    this.likeCount--;
-                    this.isLiked = false;
-                }
+    isSingleThread: $wire.isSingleCommentThread,
+    commentForm: false,
+    commentCount: $wire.commentsCount,
+    likeCount: $wire.likesCount,
+    isLiked: $wire.isLiked,
+    toggleLike() {
+        $wire.toggleLike(); // Call the wire method to toggle the like status behind the scenes
+        // If user is authenticated, update the like count and status on the client side
+        if ($wire.isAuthenticated) {
+            if (!this.isLiked) {
+                this.likeCount++;
+                this.isLiked = true;
+            } else {
+                this.likeCount--;
+                this.isLiked = false;
             }
         }
+    }
 }" x-on:comment-added.window="commentCount++"
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
@@ -175,7 +173,7 @@
                         <div class="mt-2 flex items-center flex-wrap gap-2">
                             @forelse ($this->polls as $poll)
                                 <button wire:key="poll-button-{{ $poll->id }}" type="button"
-                                    x-on:click="openPollModal{{ $poll->id }} = true"
+                                    x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
                                     class="text-sm text-white font-medium py-1 px-2 bg-green-500 rounded">
                                     {{ $poll->question }}
                                 </button>
@@ -188,8 +186,6 @@
             </div>
         </div>
     </div>
-    @foreach ($this->polls as $poll)
-        <livewire:poll.show-poll-modal :$poll :key="'poll-modal-' . $poll->id" />
-    @endforeach
+    <livewire:poll.show-poll-modal :$post />
     <x-post.share-modal :url="$post->showRoute()" />
 </div>

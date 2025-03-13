@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->boolean('is_draft')->default(true);
-            $table->timestamp('end_date')->nullable();
             $table->string('question');
             $table->timestamps();
         });

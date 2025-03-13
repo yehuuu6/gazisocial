@@ -25,9 +25,9 @@ class CreatePost extends Component
     public array $selectedTags = [];
     public array $selectedPolls = [];
     public string $question = "";
-    public string $end_date = "";
     public int $optionsCount = 2;
     public array $options = [];
+    public bool $showCreatePollModal;
 
     #[Computed(cache: true)]
     public function tags()
@@ -66,7 +66,6 @@ class CreatePost extends Component
             'question.required' => 'Anket sorusu zorunludur.',
             'question.min' => 'Anket sorusu en az :min karakter olmalıdır.',
             'question.max' => 'Anket sorusu en fazla :max karakter olabilir.',
-            'end_date.date' => 'Anket bitiş tarihi geçerli bir tarih olmalıdır.',
             'options.*.required' => 'Anketinize seçenek eklemelisiniz.',
             'options.*.min' => 'Seçenekler en az :min karakter olmalıdır.',
             'options.*.max' => 'Seçenekler en fazla :max karakter olabilir.',
@@ -75,7 +74,6 @@ class CreatePost extends Component
         try {
             $this->validate([
                 'question' => 'bail|required|min:6|max:100',
-                'end_date' => 'bail|date',
                 'options' => 'bail|required|array|min:1|max:10',
                 'options.*' => 'bail|required|min:1|max:100',
             ], $messages);
@@ -89,7 +87,6 @@ class CreatePost extends Component
             'question' => $this->question,
             'user_id' => Auth::id(),
             'is_draft' => true,
-            'end_date' => $this->end_date,
         ]);
 
         // Create poll options
@@ -100,7 +97,10 @@ class CreatePost extends Component
             ]);
         }
 
-        $this->dispatch('poll-draft-created');
+        $this->question = "";
+        $this->options = [];
+        $this->optionsCount = 2;
+        $this->showCreatePollModal = false;
 
         Toaster::success('Anketiniz taslak olarak kaydedildi.');
     }

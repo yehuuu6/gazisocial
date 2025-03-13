@@ -3,7 +3,6 @@
     @vite('resources/js/poll-creator.js')
 @endpush
 <div x-data="{
-    openPollCreator: false,
     optionsCount: $wire.entangle('optionsCount'),
     options: $wire.entangle('options'),
     saveOptions() {
@@ -81,9 +80,9 @@
                                 x-on:click="selectedTags.includes({{ $tag->id }}) ? selectedTags.splice(selectedTags.indexOf({{ $tag->id }}), 1) : selectedTags.push({{ $tag->id }})"
                                 type="button"
                                 :class="selectedTags.includes({{ $tag->id }}) ?
-                                    'bg-opacity-100' :
-                                    'bg-opacity-40'"
-                                class="rounded-full hover:bg-opacity-80 px-2.5 py-1 text-white bg-{{ $tag->color }}-500 shadow-sm focus:outline-none text-sm active:scale-90 transition-transform duration-100">
+                                    'bg-{{ $tag->color }}-500 text-white' :
+                                    'bg-gray-200 text-gray-700'"
+                                class="rounded-full hover:bg-opacity-80 px-2.5 py-1 shadow-sm focus:outline-none text-sm active:scale-90 transition-transform duration-100">
                                 {{ $tag->name }}
                             </button>
                         @endforeach
@@ -95,26 +94,26 @@
                             İçeriğiniz
                         </h4>
                         <p class="text-sm text-gray-500">
-                            Konunuzun detaylarını buraya yazabilirsiniz. <button type="button"
-                                class="outline-none hover:underline border-none bg-transparent text-blue-500"
-                                x-on:click="alert('Not implemented yet!')">Markdown</button> desteği bulunmaktadır.
+                            Konunuzun detaylarını buraya yazabilirsiniz. Markdown desteği bulunmaktadır.
                             Dilerseniz editörün üstündeki butonları kullanarak içeriğinizi zenginleştirebilirsiniz.
                         </p>
                     </div>
                     <x-editor spellcheck="false"></x-editor>
                 </div>
                 <div class="flex flex-col gap-6">
-                    <div class="w-full">
-                        <h3 class="block cursor-default text-lg md:text-xl font-medium text-gray-700">
-                            Anketler
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            Gazi Üniversitesi öğrencilerinin fikirlerini almak için konuya özel anketler oluşturun.
-                            Taslaklarınız burada görüntülenir.
-                        </p>
-                        <button type="button" x-on:click="openPollCreator = true"
+                    <div class="flex justfiy-between gap-2 items-center w-full">
+                        <div class="flex-grow">
+                            <h3 class="block cursor-default text-lg md:text-xl font-medium text-gray-700">
+                                Anketler
+                            </h3>
+                            <p class="text-sm text-gray-500">
+                                Gazi Üniversitesi öğrencilerinin fikirlerini almak için konuya özel anketler oluşturun.
+                                Taslaklarınız burada görüntülenir.
+                            </p>
+                        </div>
+                        <button type="button" x-on:click="$wire.showCreatePollModal = true"
                             class="mt-2 px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
-                            Anket Oluştur
+                            Anket Ekle
                         </button>
                     </div>
                     <div x-ref="mainContainer" x-data="pollContainer($wire)" wire:ignore.self
@@ -166,7 +165,7 @@
                         @empty
                             <div
                                 class="absolute inset-0 rounded-md font-medium w-full grid place-items-center text-gray-600 ">
-                                <div x-on:click="openPollCreator = true"
+                                <div x-on:click="$wire.showCreatePollModal = true"
                                     class="flex flex-col hover:border-teal-300 hover:bg-teal-50 transition duration-300 cursor-pointer justify-center items-center gap-2 p-6 bg-white rounded-md border-2 border-dashed border-gray-400">
                                     <div class="flex items-center gap-2">
                                         <x-icons.survey size="26" />
@@ -191,5 +190,5 @@
             </div>
         </div>
     </form>
-    <x-poll.create-poll-modal wire:modal="openPollCreator" x-on:poll-draft-created.window="openPollCreator = false" />
+    <x-poll.create-poll-modal />
 </div>

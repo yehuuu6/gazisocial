@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
 
         $tags = Tag::all();
 
-        $posts = Post::factory(30)
+        $posts = Post::factory(10)
             ->withFixture()
             ->recycle($users)
             ->create()
@@ -146,11 +146,6 @@ class DatabaseSeeder extends Seeder
         $posts->take(5)->each(function ($post) {
             $post->update(['is_pinned' => true]);
         });
-
-        // Run additional seeders
-        $this->call([
-            ContactMessagesSeeder::class,
-        ]);
     }
 
     private function createReplies(Comment $comment, int $depth = 0, $users): void
