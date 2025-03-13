@@ -197,7 +197,7 @@ trait RoleActions
 
             if ($healAction->actor_id === $healAction->target_id) {
                 $healer = $players->firstWhere('id', $healAction->actor_id);
-                //$healer->update(['self_healed' => true]);
+                $healer->update(['self_healed' => true]);
             }
         }
     }
@@ -332,6 +332,15 @@ trait RoleActions
 
             $this->killPlayer($shootAction->target);
             $this->sendMessageToPlayer($shootAction->target, 'Biri evine girdi, öldürüldün!', ChatMessageType::WARNING);
+
+            // If the target player is a townie, the hunter will die as well
+            if (in_array($shootAction->target->role->enum, PlayerRole::getTownRoles())) {
+                // Create a guilt model
+                $this->lobby->guilts()->create([
+                    'player_id' => $hunter->id,
+                    'night' => $this->lobby->day_count + 1,
+                ]);
+            }
         }
     }
 
@@ -400,6 +409,8 @@ trait RoleActions
 
             foreach ($deathActions as $deathAction) {
                 if ($deathAction->target_id === $revealAction->target_id) {
+                    // DELETING THIS CAUSES THE LOOKOUT TO NOT SEE THE ATTACKER
+                    // ALSO SOMETIMES MESSAGES DONT GO TO PLAYERS ON EXIT NIGHT.
                     $deathAction->delete();
                     $this->sendMessageToPlayer($deathAction->actor, 'Öldürmek için gittiğin evde bir meleğin göz kamaştıran güzelliği seni durdurdu.', ChatMessageType::WARNING);
                     $this->sendMessageToPlayer($deathAction->target, 'Biri sana saldırmaya çalıştı, ama güzelliğin onu durdurdu!', ChatMessageType::SUCCESS);
@@ -429,6 +440,29 @@ trait RoleActions
 
             $this->killPlayer($hauntAction->target);
             $this->sendMessageToPlayer($hauntAction->target, 'Zibidi tarafından lanetlendin!', ChatMessageType::WARNING);
+        }
+    }
+
+    // BUG ALERT!
+    // IF DEAD PLAYERS USE CHAT AT NIGHT, THE REVEAL STATE DOES NOT
+    // WORK PROPERLY, AND THE CHAT GOES DIRECTLY INTO THE NEW DAY CHAT.
+    private function processGuilts()
+    {
+        $guilts = $this->lobby->guilts()->with('player')->get();
+
+        if ($guilts->count() === 0) return;
+
+        foreach ($guilts as $guilt) {
+            // If the guilt was not applied last night, skip
+            if ($this->lobby->day_count !== $guilt->night) continue;
+
+            $guiltyPlayer = $guilt->player;
+
+            if (!$guiltyPlayer) continue;
+
+            $this->killPlayer($guiltyPlayer);
+            $this->sendMessageToPlayer($guiltyPlayer, 'Vicdan azabından intihar ettin!', ChatMessageType::WARNING);
+            $guilt->delete();
         }
     }
 

@@ -96,7 +96,7 @@ enum PlayerRole: string
         } elseif (in_array($this, PlayerRole::getTownRoles())) {
             return 'Kasabadaki bütün kötüleri yok et.';
         } elseif (in_array($this, PlayerRole::getChaosRoles())) {
-            return 'Kasaba halkını yok etmek için mafya ile işbirliği yap.';
+            return 'Kasaba halkını yok etmek için mafya ile iş birliği yap.';
         } elseif ($this === PlayerRole::JESTER) {
             return 'İdam edilmek.';
         } elseif ($this === PlayerRole::ANGEL) {

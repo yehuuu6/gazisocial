@@ -20,7 +20,6 @@ class Post extends Model
 
     protected $guarded = [
         'id',
-        'is_pinned'
     ];
 
     public function toggleLike()

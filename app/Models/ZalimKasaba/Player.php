@@ -47,6 +47,11 @@ class Player extends Model
         return $this->hasOne(WitchPoison::class, 'target_id');
     }
 
+    public function guilt()
+    {
+        return $this->hasOne(GuiltThoughts::class);
+    }
+
     public function isMafia(): bool
     {
         return in_array($this->role->enum, PlayerRole::getMafiaRoles());

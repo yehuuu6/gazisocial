@@ -90,6 +90,7 @@ trait StateExitEvents
         }
 
         $this->lobby->update(['accused_id' => null]);
+        $this->checkGameOver();
     }
 
     private function exitNight()
@@ -108,6 +109,7 @@ trait StateExitEvents
         $this->hunterActions();
 
         $this->processPoisons();
+        $this->processGuilts();
 
         $this->informAbiltyWasted();
     }
@@ -115,11 +117,20 @@ trait StateExitEvents
     private function exitReveal()
     {
         $this->validateEvent(GameState::REVEAL);
+        $this->checkGameOver();
     }
 
     private function exitPreparation()
     {
         $this->validateEvent(GameState::PREPARATION);
+    }
+
+    private function exitGameOver()
+    {
+        if ($this->lobby->state !== GameState::GAME_OVER) return false;
+
+        // Redirect to lobbies list
+        return redirect()->route('games.zk.lobbies')->success('Oyun bitti!');
     }
 
     // FUNCTIONS START

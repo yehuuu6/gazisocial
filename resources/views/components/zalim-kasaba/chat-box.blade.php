@@ -9,29 +9,29 @@
         @endif
         <div wire:key="{{ $key }}-{{ $msg->id }}"
             class="flex flex-col gap-1 border border-gray-200 bg-white rounded-md py-2 px-3">
-            <div class="flex items-center gap-1 text-xs font-semibold">
-                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+            <div class="flex items-center gap-1 text-xs font-medium md:font-semibold">
+                <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
                     {{ $msg->created_at->format('H:i') }}
                 </span>
                 @if ($this->isDeadChat($msg))
-                    <span class="bg-red-500 text-white px-3 py-1 rounded-full italic">
+                    <span class="bg-red-500 text-white px-2 py-1 rounded-full italic">
                         ÖLÜLER
                     </span>
                 @elseif ($this->isMafiaChat($msg))
-                    <span class="bg-red-500 text-white px-3 py-1 rounded-full">
+                    <span class="bg-red-500 text-white px-2 py-1 rounded-full">
                         MAFYA
                     </span>
                 @endif
                 @if ($msg->user === null && $msg->receiver_id === null)
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full">
+                    <span class="bg-blue-500 text-white px-2 py-1 rounded-full">
                         SİSTEM
                     </span>
                 @elseif ($msg->user === null && $msg->receiver_id !== null)
-                    <span class="bg-indigo-500 text-white px-3 py-1 rounded-full">
-                        SANA ÖZEL
+                    <span class="bg-purple-500 text-white px-2 py-1 rounded-full">
+                        ÖZEL
                     </span>
                 @else
-                    <span class="bg-amber-500 text-white px-3 py-1 rounded-full">
+                    <span class="bg-amber-500 text-white px-2 py-1 rounded-full">
                         {{ $msg->user->username }}
                     </span>
                 @endif
@@ -43,9 +43,9 @@
                 === 'warning',
                 'bg-green-500 text-white': '{{ $msg->type }}'
                 === 'success',
-                'italic text-red-600': '{{ $this->isDeadChat($msg) ? true : false }}'
+                '!text-gray-500 italic': {{ $this->isDeadChat($msg) ? 'true' : 'false' }}
             }"
-                class="rounded px-1 break-all text-sm">
+                class="rounded px-1 break-all text-xs md:text-sm self-start">
                 {{ $msg->message }}
             </p>
         </div>

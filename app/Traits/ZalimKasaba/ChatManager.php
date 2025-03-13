@@ -56,6 +56,24 @@ trait ChatManager
         broadcast(new NewChatMessage($this->lobby->id, $message->id));
     }
 
+    private function sendMessageAsPlayer(Player $player, string $msg, ChatMessageType $type = ChatMessageType::DEFAULT, ChatMessageFaction $faction = ChatMessageFaction::ALL)
+    {
+        // Validate authority
+        if ($player->id !== $this->currentPlayer->id) {
+            Toaster::error('Bu işlemi yapmaya yetkiniz yok.');
+            return;
+        }
+
+        $message = $this->lobby->messages()->create([
+            'user_id' => $player->user->id,
+            'message' => $msg,
+            'type' => $type,
+            'faction' => $faction,
+        ]);
+
+        broadcast(new NewChatMessage($this->lobby->id, $message->id));
+    }
+
     private function canSendMessages(): bool
     {
         $statesAllowedToChat = [
@@ -68,6 +86,11 @@ trait ChatManager
 
         $gameState = $this->lobby->state;
         $myPlayer = $this->currentPlayer;
+
+        if (!$myPlayer->is_alive) {
+            // Dead chat
+            return true;
+        }
 
         if ($gameState === GameState::DEFENSE && $myPlayer->id === $this->lobby->accused_id) {
             return true;
@@ -129,6 +152,8 @@ trait ChatManager
 
         // Broadcast message
         broadcast(new NewChatMessage($this->lobby->id, $message->id))->toOthers();
+
+        $this->dispatch('chat-message-received');
 
         $this->message = '';
     }

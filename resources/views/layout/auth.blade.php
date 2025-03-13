@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen w-full bg-white font-inter antialiased">
+<body class="min-h-svh w-full bg-white font-inter antialiased">
     {{ $slot }}
     <x-toaster-hub />
     @livewireScriptConfig

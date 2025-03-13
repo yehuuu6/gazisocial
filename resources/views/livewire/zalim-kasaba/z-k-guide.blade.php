@@ -1,21 +1,21 @@
 <div class="bg-white rounded-xl shadow-md border border-gray-100">
-    <div class="mx-[5%] md:mx-[16%] p-6 md:p-10">
+    <div class="mx-[2%] md:mx-[16%] p-6 md:p-10">
         <section class="mb-10">
             <div class="flex items-center justify-center flex-col gap-2">
                 <h1
-                    class="text-5xl font-ginto font-extrabold bg-gradient-to-bl from-orange-300 to-red-800 bg-clip-text text-transparent leading-normal">
+                    class="text-3xl lg:text-5xl font-ginto font-extrabold bg-gradient-to-bl from-orange-300 to-red-800 bg-clip-text text-transparent leading-normal">
                     Zalim Kasaba
                 </h1>
-                <p class="text-gray-700 text-center font-medium text-lg w-2/3">
+                <p class="text-gray-700 text-center font-medium md:text-lg w-5/6 md:w-2/3">
                     Town of Salem ve Vampir Köyü oyunlarından esinlenerek geliştirdiğimiz, rol yapma oyunu.
                 </p>
-                <div class="mt-2 flex items-center gap-10 justify-center">
+                <div class="mt-3 flex items-center gap-4 md:gap-10 justify-center">
                     <a href="{{ route('games.zk.create') }}"
-                        class="text-white px-4 md:px-5 py-2.5 text-center text-lg mt-2 font-semibold bg-gradient-to-r from-amber-500 to-red-500 border-2 border-amber-500 hover:from-amber-600 hover:to-red-600 rounded-md hover:no-underline">
+                        class="text-white px-3 md:px-5 py-2 md:py-2.5 text-center text-base md:text-lg font-semibold bg-gradient-to-r from-amber-500 to-red-500 border-2 border-amber-500 hover:from-amber-600 hover:to-red-600 rounded-md hover:no-underline">
                         <x-icons.show size="24" class="inline-block mr-1" /> Oyun Oluştur
                     </a>
                     <a href="{{ route('games.zk.lobbies') }}"
-                        class="border-2 border-amber-500 hover:bg-amber-50 hover:text-amber-700 px-4 md:px-5 py-2.5 text-center text-lg mt-2 font-semibold bg-gradient-to-r bg-white text-amber-500 rounded-md hover:no-underline">
+                        class="border-2 border-amber-500 hover:bg-amber-50 hover:text-amber-700 px-3 md:px-5 py-2 md:py-2.5 text-center text-base md:text-lg font-semibold bg-gradient-to-r bg-white text-amber-500 rounded-md hover:no-underline">
                         Aktif Oyunlar <x-icons.arrow-right-alt size="24" class="inline-block" />
                     </a>
                 </div>

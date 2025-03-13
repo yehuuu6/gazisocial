@@ -1,28 +1,24 @@
 <div x-data="{
     sendMessage() {
             $wire.sendMessage();
-            this.showLatestMessage(true);
         },
-        showLatestMessage(overrideCondition = false) {
+        showLatestMessage() {
             const chatBox = document.querySelector('#chat-box');
-            let isViewingLatestMessage = chatBox.scrollHeight - chatBox.scrollTop === chatBox.clientHeight;
-            if (isViewingLatestMessage || overrideCondition) {
-                setTimeout(() => {
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }, 100);
-            }
+            $nextTick(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
         },
 }" class="flex flex-col flex-1 h-0">
     <x-zalim-kasaba.chat-box :$messages :$currentPlayer />
     <div class="flex items-center gap-1 px-2 py-3 bg-white border-t border-gray-200">
         <input x-on:keydown.enter="sendMessage()" type="text" wire:model="message"
-            class="flex-grow px-4 py-2 bg-gray-50 text-sm border border-gray-200 rounded-full"
+            class="flex-grow px-4 py-2 bg-gray-50 text-sm border border-gray-200 rounded-full outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
             placeholder="Mesajınızı yazın...">
         <button type="button" x-on:click="sendMessage()"
             class="duration-300 bg-gradient-to-r from-lime-500 to-emerald-500 hover:from-emerald-400 hover:to-lime-600 rounded-full p-2 text-white transition-all transform hover:scale-105">
             <x-icons.send-msg size="20" />
         </button>
-        <x-ui.tooltip text="Sohbet Geçmişi">
+        <x-ui.tooltip text="Sohbet Geçmişi" position="left">
             <button type="button" x-on:click="$wire.chatHistoryModal = true"
                 class="duration-300 bg-opacity-50 bg-gradient-to-r from-lime-500 to-emerald-500 hover:from-emerald-400 hover:to-lime-600 rounded-full p-2 text-white transition-all transform hover:scale-105">
                 <svg width="20" height="20" viewBox="0 0 15 15" fill="none"
@@ -34,15 +30,8 @@
             </button>
         </x-ui.tooltip>
     </div>
-    <div wire:show="chatHistoryModal" wire:transition.opacity x-cloak x-init="// Stop body from scrolling when modal is open
-    $watch('$wire.chatHistoryModal', value => {
-        if (value) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    });"
-        class="fixed inset-0 bg-black bg-opacity-60 z-30 grid place-items-center">
+    <div wire:show="chatHistoryModal" wire:transition.opacity x-cloak
+        class="fixed inset-0 bg-black bg-opacity-60 z-50 grid place-items-center">
         <x-zalim-kasaba.chat-history :$currentPlayer :$oldMessages :$selectedDayCount :$lobby />
     </div>
 </div>

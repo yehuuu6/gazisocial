@@ -10,7 +10,7 @@
 </head>
 
 <body
-    class="flex flex-col items-center justify-center min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-cyan-100 to-blue-100 font-inter antialiased">
+    class="flex flex-col items-center justify-center min-h-svh w-full overflow-x-hidden bg-gradient-to-br from-cyan-100 to-blue-100 font-inter antialiased">
     <main class="mx-[6%] md:mx-[12%] flex flex-col items-center justify-center w-full">
         <h1 class="text-9xl text-center font-extrabold text-primary animate-bounce">
             @yield('code')

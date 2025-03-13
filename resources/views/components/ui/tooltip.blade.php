@@ -23,7 +23,7 @@ $refs.content.addEventListener('mouseleave', () => {
                 'bottom',
             'top-1/2 -translate-y-1/2 -mr-0.5 right-0 translate-x-full': tooltipPosition == 'right'
         }"
-        class="absolute w-auto text-sm" x-cloak>
+        class="absolute w-auto text-sm z-50" x-cloak>
         <div x-show="tooltipVisible" x-transition class="relative px-2 py-1 text-white bg-black rounded bg-opacity-90">
             <p x-text="tooltipText" class="flex-shrink-0 block text-xs whitespace-nowrap"></p>
             <div x-ref="tooltipArrow" x-show="tooltipArrow"
@@ -37,7 +37,7 @@ $refs.content.addEventListener('mouseleave', () => {
                     'left-0 -translate-y-1/2 top-1/2 h-2.5 -mt-px -translate-x-full': tooltipPosition ==
                         'right'
                 }"
-                class="absolute inline-flex items-center justify-center overflow-hidden">
+                class="absolute inline-flex items-center justify-center overflow-hidden z-40">
                 <div :class="{
                     'origin-top-left -rotate-45': tooltipPosition ==
                         'top',
