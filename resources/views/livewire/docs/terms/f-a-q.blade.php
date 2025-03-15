@@ -23,7 +23,7 @@
             </x-slot>
             <x-slot name="text">
                 Gazi Üniversitesinde okuyan bir öğrenci tarafından Laravel (Livewire) frameworkü kullanılarak
-                geliştirilmektedir. Merak edenler sitenin kaynak koduna GitHub sayfasından erişebilir.
+                geliştirilmektedir.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
@@ -89,16 +89,6 @@
         </x-ui.accordion>
         <x-ui.accordion>
             <x-slot name="title">
-                Moderatör olabilir miyim?
-            </x-slot>
-            <x-slot name="text">
-                Evet. Moderatör olmak için forumda aktif bir şekilde içerik üretmeniz ve diğer kullanıcılara yardımcı
-                olmanız gerekmektedir. Moderatör olmak için <x-link href="{{ route('contact') }}"
-                    class="text-blue-600">iletişim</x-link> sayfasından bize ulaşabilirsiniz.
-            </x-slot>
-        </x-ui.accordion>
-        <x-ui.accordion>
-            <x-slot name="title">
                 Nasıl içerik paylaşabilirim?
             </x-slot>
             <x-slot name="text">
@@ -123,16 +113,6 @@
                     <li>Diğer kullanıcıları kışkırtmak</li>
                     <li>Diğer kullanıcıların gizliliğini ihlal etmek</li>
                 </ul>
-            </x-slot>
-        </x-ui.accordion>
-        <x-ui.accordion>
-            <x-slot name="title">
-                Geliştirme sürecine nasıl katkıda bulunabilirim?
-            </x-slot>
-            <x-slot name="text">
-                Gazi Social'in geliştirme sürecine katkıda bulunmak için GitHub sayfasından projeyi forklayarak
-                geliştirmeler yapabilir, pull request gönderebilirsiniz. İlk iş olarak <x-link class="text-blue-600"
-                    href="{{ route('reported-bugs') }}">rapor edilmiş hatalar</x-link> sayfasına göz atabilirsiniz.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>

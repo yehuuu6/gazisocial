@@ -17,6 +17,8 @@ class SingleCommentThread extends Component
     use WithRateLimiting;
 
     public Post $post;
+    public bool $showRegisterModal = false;
+
     public int $selectedCommentId;
     public $parent; // Post or Comment (commentable)
 
@@ -52,6 +54,16 @@ class SingleCommentThread extends Component
     {
         // Redirect to the login page with the intended route
         return redirect()->setIntendedUrl($this->post->showRoute())->route($route);
+    }
+
+
+    protected $listeners = [
+        'auth-required' => 'showModal',
+    ];
+
+    public function showModal()
+    {
+        $this->showRegisterModal = true;
     }
 
     public function placeholder()

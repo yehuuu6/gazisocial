@@ -15,16 +15,16 @@
         </div>
     </button>
     <div x-anchor.offset.5.bottom-end="$refs.notificationMenu" x-transition.origin.top.right x-cloak
-        x-show="notificationsDropdown" x-on:click.away="notificationsDropdown = false">
+        x-show="notificationsDropdown" x-on:click.outside="notificationsDropdown = false">
         <div class="bg-white rounded-md w-72 md:w-96 shadow-md border border-gray-200">
             <div class="flex items-center justify-between p-3">
                 <h1 class="font-semibold text-sm md:text-base text-gray-800">Bildirimler</h1>
                 <button
                     x-on:click="hasUnreadNotifications = false; notificationsDropdown = false; $dispatch('notification-all-read')"
                     wire:click="markAllAsRead"
-                    class="p-2 text-gray-800 text-xs flex items-center gap-1 md:gap-3 font-medium rounded-md hover:bg-gray-100">
+                    class="p-2 text-gray-800 text-xs flex items-center gap-1 md:gap-1.5 font-medium rounded-md hover:bg-gray-100">
                     <x-icons.check-check size="18" class="text-blue-600" />
-                    Tümünü okundu işaretle
+                    Okundu işaretle
                 </button>
             </div>
             <x-seperator />
@@ -43,11 +43,7 @@
                             'bg-gray-100 text-gray-600': isRead
                         }"
                             class="p-1.5 md:p-2 rounded-full">
-                            @if ($notification->type == 'friend_request')
-                                <x-icons.user-plus size="18" />
-                            @elseif ($notification->type == 'friend_accept')
-                                <x-icons.user-check size="18" />
-                            @elseif ($notification->type == 'post_comment')
+                            @if ($notification->type == 'post_comment')
                                 <x-icons.new-comment size="18" />
                             @elseif ($notification->type == 'comment_reply')
                                 <x-icons.new-reply size="18" />
@@ -79,12 +75,13 @@
                 @endforelse
             </div>
             <x-seperator />
-            <button type="button"
-                x-on:click="notificationsDropdown = false; Livewire.navigate('{{ route('users.notifications') }}')"
+            <x-link href="#"
                 class="flex items-center justify-center gap-1.5 md:gap-2 w-full px-1.5 py-3 md:px-3 md:py-5 hover:bg-gray-100 hover:no-underline">
                 <x-icons.notification size="18" class="text-blue-600" />
-                <span class="font-medium text-xs md:text-sm text-gray-700">Tüm bildirimleri görüntüle</span>
-            </button>
+                <span class="font-medium text-xs md:text-sm text-gray-700">
+                    Tüm bildirimler
+                </span>
+            </x-link>
         </div>
     </div>
 </div>

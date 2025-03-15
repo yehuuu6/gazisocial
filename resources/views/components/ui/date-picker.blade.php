@@ -89,7 +89,7 @@ datePickerCalculateDays();" x-cloak>
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
             </div>
-            <div x-show="datePickerOpen" x-transition @click.away="datePickerOpen = false"
+            <div x-show="datePickerOpen" x-transition @click.outside="datePickerOpen = false"
                 class="absolute top-0 left-0 max-w-lg z-10 p-4 mt-12 antialiased bg-white border rounded-lg shadow w-[17rem] border-neutral-200/70">
                 <div class="flex items-center justify-between mb-2">
                     <div x-data="{ showYearInput: false }">
@@ -99,7 +99,7 @@ datePickerCalculateDays();" x-cloak>
                             class="ml-1 text-lg font-normal text-gray-600"></span>
                         <input x-cloak x-show="showYearInput" x-model="datePickerYear" type="number"
                             class="ml-1 w-20 h-8 px-2 py-1 text-sm text-center text-gray-800 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            x-on:click.away="showYearInput = false" x-on:keydown.escape="showYearInput = false"
+                            x-on:click.outside="showYearInput = false" x-on:keydown.escape="showYearInput = false"
                             x-on:keydown.enter="showYearInput = false; datePickerCalculateDays()" />
                     </div>
                     <div>

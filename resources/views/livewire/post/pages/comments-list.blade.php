@@ -5,7 +5,7 @@
 }" x-on:auth-required.window="registerModal = true; message = $event.detail.msg">
     <div class="p-1 md:p-6">
         <div class="p-3 md:p-0">
-            <div x-ref="commentForm" class="scroll-mt-24" x-on:click.away="commentForm = false"
+            <div x-ref="commentForm" class="scroll-mt-24" x-on:click.outside="commentForm = false"
                 x-on:updating-comments-page.window="$refs.commentForm.scrollIntoView({ behavior: 'smooth' })">
                 <div x-show="!commentForm">
                     <button x-on:click="commentForm = true"
@@ -28,12 +28,6 @@
             }" class="my-2 md:my-4 flex gap-1.5 items-center flex-wrap">
                 <span class="text-gray-600 font-normal text-xs">Sıralama Ölçütü:</span>
                 <x-comment.comment-sort />
-                <button x-on:click="alert('Not implemented yet!')"
-                    class="text-gray-600 font-light text-xs md:text-sm px-2 md:px-4 py-2 flex items-center gap-2.5 rounded-full border border-gray-300 hover:border-gray-400"
-                    type="button">
-                    <x-icons.search size="17" />
-                    <span>Yorumlarda Ara</span>
-                </button>
             </div>
         </div>
         <div class="px-2 pb-2">
@@ -61,5 +55,5 @@
         </div>
     </div>
     {{ $this->comments->links('livewire.pagination.simple') }}
-    <x-user.register-modal wire:modal="registerModal" />
+    <x-user.register-modal />
 </div>

@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
 
         $user1->assignRole([
             'gazisocial',
-            'contributor',
             'pistoltim',
             'student'
         ]);
@@ -62,7 +61,6 @@ class DatabaseSeeder extends Seeder
 
         $user3->assignRole([
             'student',
-            'contributor',
         ]);
 
         $user4 = User::create([

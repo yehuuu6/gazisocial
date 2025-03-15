@@ -6,6 +6,7 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
+use Masmerise\Toaster\Toaster;
 
 class NotificationLister extends Component
 {
@@ -32,7 +33,6 @@ class NotificationLister extends Component
         ]);
     }
 
-    // Not working on client side
     public function markAllAsRead()
     {
         /**
@@ -78,10 +78,6 @@ class NotificationLister extends Component
     public function getNotificationTitle(string $notificationType)
     {
         switch ($notificationType) {
-            case 'friend_request':
-                return 'Arkadaşlık isteği';
-            case 'friend_accept':
-                return 'Artık arkadaşsınız';
             case 'post_comment':
                 return 'Yeni yorum';
             case 'comment_reply':

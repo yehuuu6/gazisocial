@@ -108,7 +108,7 @@ class CommentItem extends Component
     {
 
         if (!Auth::check()) {
-            $this->dispatch('auth-required', msg: 'Yorumları beğenebilmek için');
+            $this->dispatch('auth-required');
             return;
         }
 
@@ -169,6 +169,27 @@ class CommentItem extends Component
         broadcast(new NotificationReceived(receiver: $this->comment->user))->toOthers();
     }
 
+    function limitLineBreaks(string $text, int $maxBreaks = 3): string
+    {
+        // Replace multiple line breaks with a placeholder
+        $parts = preg_split('/(\r\n|\r|\n)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        $count = 0;
+        $result = '';
+
+        foreach ($parts as $part) {
+            if (preg_match('/\r\n|\r|\n/', $part)) {
+                $count++;
+                if ($count > $maxBreaks) {
+                    continue; // Skip extra line breaks
+                }
+            }
+            $result .= $part;
+        }
+
+        return $result;
+    }
+
     public function addReply()
     {
 
@@ -199,6 +220,8 @@ class CommentItem extends Component
             'max' => 'Yorum içeriği en fazla :max karakter olabilir.',
             'string' => 'Yorum içeriği metin olmalıdır.',
         ];
+
+        $this->content = $this->limitLineBreaks($this->content);
 
         try {
             $validated = $this->validate([

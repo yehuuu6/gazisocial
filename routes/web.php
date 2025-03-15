@@ -1,12 +1,9 @@
 <?php
 
 use App\Livewire\HomePage;
-use App\Livewire\Docs\ShowBug;
 use App\Livewire\AdvancedSearch;
-use App\Livewire\Docs\ReportBug;
 use App\Livewire\Docs\Terms\FAQ;
 use App\Livewire\Auth\Pages\Login;
-use App\Livewire\Docs\ContactPage;
 use App\Livewire\Auth\Pages\Verify;
 use App\Livewire\Docs\Terms\Privacy;
 use App\Livewire\Auth\Pages\Register;
@@ -16,22 +13,14 @@ use App\Livewire\User\Pages\ShowUser;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Docs\Terms\UserTerms;
 use App\Livewire\Post\Pages\ListPosts;
-use App\Http\Middleware\CheckAdminRole;
-use App\Livewire\Docs\ReportedBugsList;
 use App\Livewire\Faculty\ShowFaculties;
 use App\Livewire\Post\Pages\CreatePost;
 use App\Livewire\ZalimKasaba\ShowLobby;
-use App\Livewire\Admin\Pages\ShowMessage;
 use App\Livewire\ZalimKasaba\CreateLobby;
 use App\Livewire\ZalimKasaba\LobbiesList;
 use App\Livewire\Auth\Pages\ResetPassword;
 use App\Livewire\Auth\Pages\ForgotPassword;
 use App\Livewire\Post\Pages\ListPostsByTag;
-use App\Livewire\Admin\Pages\MessagesIndexer;
-use App\Livewire\Docs\DevCenter\Contributors;
-use App\Livewire\Docs\DevCenter\Introduction;
-use App\Livewire\User\Pages\UserNotifications;
-use App\Livewire\Docs\DevCenter\ContributionGuide;
 use App\Livewire\Games\Pages\GamesList;
 use App\Livewire\ZalimKasaba\ZKGuide;
 
@@ -64,27 +53,9 @@ Route::get('/privacy-policy', Privacy::class)->name('privacy');
 
 Route::get('/frequently-asked-questions', FAQ::class)->name('faq');
 
-Route::get('/contact', ContactPage::class)->name('contact');
-
-Route::get('/about', ReportBug::class)->name('about');
-
-Route::get('/bug-report', ReportBug::class)->name('report-a-bug')->middleware('auth');
-
-Route::get('/reported-bugs', ReportedBugsList::class)->name('reported-bugs');
-
-Route::get('/reported-bug/{bug}', ShowBug::class)->name('show-bug');
+Route::get('/about', FAQ::class)->name('about');
 
 // DOC routes END
-
-// Dev Center Routes START
-
-Route::get('/dev-center', Introduction::class)->name('dev-center');
-
-Route::get('/dev-center/contributors', Contributors::class)->name('contributors');
-
-Route::get('/dev-center/contribution-guide', ContributionGuide::class)->name('how-to-contribute');
-
-// Dev Center Routes END
 
 Route::get('/', HomePage::class)->name('home');
 
@@ -101,7 +72,6 @@ Route::get('/search/{query?}', AdvancedSearch::class)->name('search');
 
 // User routes START
 
-Route::get('/u/notifications', UserNotifications::class)->name('users.notifications')->middleware('auth');
 Route::get('/u/{user:username}', ShowUser::class)->name('users.show');
 Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->middleware('auth');
 
@@ -118,13 +88,6 @@ Route::get('/faculties', ShowFaculties::class)->name('faculties')->middleware('c
 Route::get('/tags/{tag:slug}/{order?}', ListPostsByTag::class)->name('tags.show');
 
 // Tags routes END
-
-// Admin routes START
-
-Route::get('/admin/contact-us-submissions', MessagesIndexer::class)->name('admin.contacts')->middleware(CheckAdminRole::class);
-Route::get('/admin/contact-us-submissions/{message}', ShowMessage::class)->name('admin.contact.show')->middleware(CheckAdminRole::class);
-
-// Admin routes END
 
 // Games routes START
 

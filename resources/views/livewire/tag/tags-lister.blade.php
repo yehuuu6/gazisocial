@@ -10,7 +10,7 @@
         </x-ui.tooltip>
     </div>
     <div x-cloak x-show="tagsDropdown" x-anchor.offset.5.bottom-start="$refs.tagsAnchor" x-transition.origin.top.left
-        x-on:click.away="tagsDropdown = false" x-ref="tagsLister"
+        x-on:click.outside="tagsDropdown = false" x-ref="tagsLister"
         class="bg-white border border-gray-200 rounded-md z-[3] shadow w-[240px] overflow-hidden">
         <div>
             <input type="text" placeholder="🔎    Etiket Ara" spellcheck="false"

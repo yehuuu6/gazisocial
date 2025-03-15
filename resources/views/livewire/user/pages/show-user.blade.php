@@ -13,17 +13,6 @@
                         <span class="text-sm text-gray-600">{{ '@' . $user->username }}</span>
                     </div>
                 </div>
-                <div class="flex items-center flex-wrap font-semibold text-sm gap-5 px-6 py-3">
-                    <x-link href="#" class="text-gray-800 rounded-full bg-slate-300 py-2 px-3">
-                        Konular
-                    </x-link>
-                    <x-link href="#" class="text-gray-800 rounded-full py-2 px-3">
-                        Yorumlar & Yanıtlar
-                    </x-link>
-                    <x-link href="#" class="text-gray-800 rounded-full py-2 px-3">
-                        Beğenilenler
-                    </x-link>
-                </div>
                 <div class="px-6 py-3 flex flex-col gap-2 h-full">
                     @forelse ($this->posts as $post)
                         <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
@@ -50,20 +39,18 @@
                             </div>
                             <div class="mt-3.5 flex items-center justify-between gap-5">
                                 <div class="flex items-center gap-3.5">
-                                    <button type="button"
-                                        class="flex items-center gap-1 text-gray-500 hover:text-primary transition duration-300">
-                                        <x-icons.heart size="24" />
+                                    <div class="flex items-center gap-1 text-pink-400">
+                                        <x-icons.heart-off size="20" />
                                         <span class="text-sm font-medium">
-                                            {{ $post->likes->count() }}
+                                            {{ $post->likes_count }}
                                         </span>
-                                    </button>
-                                    <button type="button"
-                                        class="flex items-center gap-1 text-gray-500 hover:text-primary transition duration-300">
-                                        <x-icons.comment size="24" />
+                                    </div>
+                                    <div class="flex items-center gap-1 text-blue-400">
+                                        <x-icons.comment size="20" />
                                         <span class="text-sm font-medium">
-                                            {{ $post->comments->count() }}
+                                            {{ $post->getCommentsCount() }}
                                         </span>
-                                    </button>
+                                    </div>
                                 </div>
                                 <div class="flex items-center">
                                     <x-link href="{{ $post->showRoute() }}" class="text-xs text-blue-500">
@@ -99,17 +86,13 @@
                         @endif
                     @endauth
                 </div>
-                <button type="button"
-                    class="w-full mb-3.5 hover:bg-opacity-90 transition duration-300 text-xs mt-2 p-2 rounded bg-primary text-white font-semibold">
-                    Arkadaşlık İsteği Gönder
-                </button>
                 <div class="mb-3.5">
                     <p class="text-sm text-gray-500 mb-1">
                         {{ $user->bio }}
                     </p>
                     <x-seperator />
                 </div>
-                <div class="my-3.5 flex items-center justify-between gap-5">
+                <div class="my-3.5 flex items-center gap-5">
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-800 text-sm">
                             {{ $user->posts->count() }}
@@ -124,12 +107,6 @@
                         </span>
                         <span class="text-xs text-gray-500">
                             Yorum
-                        </span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-bold text-gray-800 text-sm">15</span>
-                        <span class="text-xs text-gray-500">
-                            Arkadaş
                         </span>
                     </div>
                 </div>
@@ -166,9 +143,6 @@
                                 class="{{ $colorVariants[$role->color] }} cursor-default rounded-full px-2 py-1 text-xs font-medium capitalize text-white">{{ $role->name }}</span>
                         @endforeach
                     </div>
-                    <x-link href="#" class="text-blue-600 text-xs font-medium">
-                        Nasıl Rozet Kazanırım?
-                    </x-link>
                 </div>
                 <x-seperator />
                 <div class="my-3.5">

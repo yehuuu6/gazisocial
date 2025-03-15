@@ -17,7 +17,7 @@
         </button>
         <div class="max-h-40 overflow-y-auto bg-white border border-gray-300 rounded shadow-md" x-show="historyDropdown"
             x-anchor.bottom-center.offset.5="$refs.historyDaySelector" x-cloak
-            x-on:click.away="historyDropdown = false">
+            x-on:click.outside="historyDropdown = false">
             @for ($i = 0; $i <= $lobby->day_count; $i++)
                 <button type="button" wire:click="loadChatHistory({{ $i }})"
                     x-on:click="historyDropdown = false"

@@ -6,7 +6,7 @@
     <div x-cloak x-show="searchOpen" x-transition.origin.top.center x-anchor.offset.5.bottom-center="$refs.searchButton"
         class="z-10">
         <div class="bg-white shadow-md rounded-md py-2 px-2.5 w-[350px] md:w-[500px]"
-            x-on:click.away="searchOpen = false">
+            x-on:click.outside="searchOpen = false">
             <div class="flex items-center gap-0.5 justify-between">
                 <input spellcheck="false" type="text" wire:model.live.debounce.250ms="search"
                     class="bg-gray-50 text-sm md:text-base px-3 rounded-md py-3 text-gray-700 w-full h-full outline-none"

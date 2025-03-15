@@ -24,6 +24,10 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .highlight {
     background-color: #b2e4ff4a;
     border-radius: 999px;
@@ -59,25 +63,6 @@ html {
 .spinner_V8m1 circle {
     stroke-linecap: round;
     animation: spinner_YpZS 1.5s ease-in-out infinite;
-}
-
-.dev-center::before {
-    -webkit-mask-image: url(/public/seperator.svg);
-    mask-image: url(/public/seperator.svg);
-    background-color: inherit;
-    content: "";
-    height: 5vw;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: auto 100%;
-    mask-size: auto 100%;
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-    background-position: bottom;
-    -webkit-mask-position: bottom;
-    mask-position: bottom;
-    top: calc(-5vw + 2px);
 }
 
 @keyframes spinner_zKoa {

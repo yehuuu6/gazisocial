@@ -11,7 +11,7 @@
                             <x-icons.gif size="20" />
                         </button>
                         <div x-cloak x-show="gifSelector" x-anchor.bottom-start="$refs.gifOpener"
-                            x-on:click.away="gifSelector = false"
+                            x-on:click.outside="gifSelector = false"
                             class="w-[250px] md:w-[500px] max-h-[450px] p-2 border border-gray-200 rounded-lg shadow-md bg-white z-20">
                             <livewire:giphy-search lazy :key="'search-gif'" />
                         </div>

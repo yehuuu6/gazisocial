@@ -29,34 +29,28 @@
             $el.style.top = navbarHeight + 'px';"
                 class="flex items-center justify-between gap-4 sticky z-[2] bg-white px-6 rounded-t-xl py-4 border-b border-gray-200">
                 <h1 class="text-base md:text-xl flex items-center gap-2 font-bold text-gray-800">
-                    <div class="size-4 md:size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300">
+                    <div class="size-4 md:size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300 flex-shrink-0">
                     </div>
-                    Yeni Konu Oluştur
+                    Yeni Konu
                 </h1>
-                <div class="flex items-center gap-3">
-                    <button type="button"
-                        class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-gray-200 text-gray-800 font-medium hover:bg-gray-300">
-                        Önizleme
-                    </button>
-                    <button type="button" wire:click="createPost"
-                        class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
-                        Oluştur
-                    </button>
-                </div>
+                <button type="button" wire:click="createPost"
+                    class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
+                    Oluştur
+                </button>
             </div>
-            <div class="flex flex-col gap-5 md:gap-7 p-6">
+            <div class="flex flex-col gap-5 md:gap-7 p-4 lg:p-6">
                 <div class="flex flex-col md:flex-row gap-3 md:gap-6">
                     <div class="w-full md:w-[300px]">
-                        <label for="title" class="block text-lg md:text-xl font-medium text-gray-700">
+                        <label for="title" class="block text-lg lg:text-xl font-medium text-gray-700">
                             Konu Başlığı
                         </label>
-                        <p class="text-sm text-gray-500">
+                        <p class="text-xs lg:text-sm text-gray-500">
                             Dikkat çekici ve anlaşılır bir başlık kullanıcıların konunuza daha fazla ilgi göstermesini
                             sağlar.
                         </p>
                     </div>
                     <textarea wire:model="title" id="title" name="title" rows="1" spellcheck="false"
-                        class="flex-grow px-4 py-2 text-lg font-medium text-gray-800 bg-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-80 resize-none"
+                        class="flex-grow px-4 py-2 text-base lg:text-lg font-medium text-gray-800 bg-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-80 resize-none"
                         placeholder="Konu başlığınızı buraya yazın..."></textarea>
                 </div>
                 <div x-data="{
@@ -68,7 +62,7 @@
                         text-gray-700">
                             Etiketler
                         </h4>
-                        <p class="text-sm text-gray-500">
+                        <p class="text-xs lg:text-sm text-gray-500">
                             Konunuzun kategorilendirilmesi için en az 2, en fazla ise 4
                             etiket olacak şekilde seçim yapabilirsiniz.
                         </p>
@@ -82,7 +76,7 @@
                                 :class="selectedTags.includes({{ $tag->id }}) ?
                                     'bg-{{ $tag->color }}-500 text-white' :
                                     'bg-gray-200 text-gray-700'"
-                                class="rounded-full hover:bg-opacity-80 px-2.5 py-1 shadow-sm focus:outline-none text-sm active:scale-90 transition-transform duration-100">
+                                class="rounded-full hover:bg-opacity-80 px-2.5 py-1 shadow-sm focus:outline-none text-xs lg:text-sm active:scale-90 transition-transform duration-100">
                                 {{ $tag->name }}
                             </button>
                         @endforeach
@@ -93,7 +87,7 @@
                         <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">
                             İçeriğiniz
                         </h4>
-                        <p class="text-sm text-gray-500">
+                        <p class="text-xs lg:text-sm text-gray-500">
                             Konunuzun detaylarını buraya yazabilirsiniz. Markdown desteği bulunmaktadır.
                             Dilerseniz editörün üstündeki butonları kullanarak içeriğinizi zenginleştirebilirsiniz.
                         </p>
@@ -101,7 +95,7 @@
                     <x-editor spellcheck="false"></x-editor>
                 </div>
                 <div class="flex flex-col gap-6">
-                    <div class="flex justfiy-between gap-2 items-center w-full">
+                    <div class="flex justfiy-between flex-col md:flex-row gap-2 items-center w-full">
                         <div class="flex-grow">
                             <h3 class="block cursor-default text-lg md:text-xl font-medium text-gray-700">
                                 Anketler
@@ -112,7 +106,7 @@
                             </p>
                         </div>
                         <button type="button" x-on:click="$wire.showCreatePollModal = true"
-                            class="mt-2 px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
+                            class="mt-2 w-full md:w-fit px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
                             Anket Ekle
                         </button>
                     </div>

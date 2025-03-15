@@ -1,7 +1,7 @@
 @props(['comment_url', 'reply_url', 'commentable'])
 <div class="rounded-md border w-min border-gray-100 overflow-hidden bg-white text-sm text-gray-800 shadow-lg z-10"
     x-anchor.offset.3.bottom-start="$refs.shareButton" x-cloak x-show="openShareDropdown"
-    x-on:click.away="openShareDropdown = false" x-transition.scale.origin.top>
+    x-on:click.outside="openShareDropdown = false" x-transition.scale.origin.top>
     <button x-data="{ copyFeedback: 'Yorum olarak kopyala' }"
         x-on:click="
                 $clipboard('{{ $comment_url }}');

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ZalimKasaba\ChatMessage;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\SendEmailVerification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

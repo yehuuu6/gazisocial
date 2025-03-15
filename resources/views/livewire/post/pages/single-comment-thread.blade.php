@@ -47,5 +47,5 @@
             @endif
         </div>
     </div>
-    <x-user.register-modal wire:modal="registerModal" />
+    <x-user.register-modal />
 </div>

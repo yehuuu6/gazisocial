@@ -91,9 +91,9 @@
                     </div>
                 @endif
                 <div class="pl-8 md:pl-10 pr-1">
-                    <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1" x-on:click.away="replyForm = false;">
+                    <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1" x-on:click.outside="replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all whitespace-pre-line"
+                            <p class="text-xs sm:text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all whitespace-pre-line"
                                 x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
                             </p>
                             <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">

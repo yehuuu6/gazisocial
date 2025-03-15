@@ -21,13 +21,14 @@ class ShowPost extends Component
     use WithRateLimiting;
 
     public Post $post;
-    public bool $isLiked = false;
     public bool $isSingleCommentThread;
     public $renderedReplyId;
     public $selectedCommentId;
+    public bool $isLiked = false;
     public int $likesCount;
     public int $commentsCount;
-    public bool $showPollModal;
+    public bool $showPollModal = false;
+    public bool $showShareModal = false;
 
     public bool $isAuthenticated;
 
@@ -101,7 +102,7 @@ class ShowPost extends Component
     {
 
         if (!Auth::check()) {
-            $this->dispatch('auth-required', msg: 'Gönderileri beğenebilmek için');
+            $this->dispatch('auth-required');
             return;
         }
 
@@ -128,7 +129,6 @@ class ShowPost extends Component
                 return;
             }
         }
-
         $this->post->toggleLike();
     }
 

@@ -17,11 +17,9 @@ class ProductionDatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create Roles.
-        $contributor = Role::create(['slug' => 'contributor', 'name' => 'Contributor', 'color' =>
-        'purple', 'level' => 0]);
         $member = Role::create(['slug' => 'member', 'name' => 'Üye', 'color' => 'orange', 'level' => 0]);
         $gazili = Role::create(['slug' => 'student', 'name' => 'Öğrenci', 'color' => 'green', 'level' => 1]);
-        $admin = Role::create(['slug' => 'moderator', 'name' => 'Moderatör', 'color' => 'red', 'level' => 2]);
+        $moderator = Role::create(['slug' => 'moderator', 'name' => 'Moderatör', 'color' => 'red', 'level' => 2]);
         $gazisocial = Role::create(['slug' => 'gazisocial', 'name' => 'Gazi Social', 'color' => 'blue', 'level' => 3]);
 
         // Create Tags.

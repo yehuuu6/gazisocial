@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->string('type'); // Notification type eg. 'friend_request', 'comment_reply'
+            $table->string('type'); // Notification type eg 'comment_reply'
             $table->json('data');
             $table->boolean('read')->default(false);
             $table->timestamps();

@@ -21,10 +21,6 @@ Gazi Social is a modern, interactive forum platform designed for Gazi University
 -   **Backend**: PHP (Laravel 11)
 -   **Frontend**: Livewire 3, Alpine.js, Tailwind CSS
 
-## 🤝 Contributing
-
-We welcome contributions to enhance Gazi Social. You can read the contribution guide [here](https://gazisocial.test/dev-center/contribution-guide)
-
 ## 🛡️ License
 
 Gazi Social is open-source software licensed under the [GNU General Public License v3.0](LICENSE).

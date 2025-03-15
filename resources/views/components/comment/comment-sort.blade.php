@@ -18,7 +18,7 @@
         </x-ui.tooltip>
     </div>
     <div x-anchor.bottom-center.offset.5="$refs.sortComments" x-cloak x-show="sortDropdown"
-        x-on:click.away="sortDropdown = false" x-transition.scale.origin.top x-on:click="sortDropdown = false"
+        x-on:click.outside="sortDropdown = false" x-transition.scale.origin.top x-on:click="sortDropdown = false"
         class="bg-white shadow-lg text-xs md:text-sm text-gray-600 rounded-lg z-10 border-t border-gray-100 max-v-[50vh] overflow-y-auto w-[150px]">
         <button wire:click="setSortMethod('popularity')" type="button" x-on:click="selectedSort = 'popularity'"
             class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-5 md:py-4 hover:bg-gray-100">

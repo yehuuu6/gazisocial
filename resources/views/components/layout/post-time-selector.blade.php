@@ -18,7 +18,7 @@ displayText = timeSpanValues['{{ request('time') }}'] ?? 'Tüm Zamanlar';">
         </x-ui.tooltip>
     </div>
     <div x-cloak x-show="timeSelectorDropdown" x-anchor.offset.5.bottom-start="$refs.timeSpanAnchor"
-        x-transition.origin.top.left x-on:click.away="timeSelectorDropdown = false;"
+        x-transition.origin.top.left x-on:click.outside="timeSelectorDropdown = false;"
         class="overflow-y-auto flex text-left flex-col w-44 max-h-72 md:w-64 md:max-h-96 bg-white rounded-md shadow">
         <x-layout.post-time-selector-button timeSpan="all" displayText="Tüm Zamanlar" />
         <x-layout.post-time-selector-button timeSpan="one_year" displayText="Son bir yıl" />

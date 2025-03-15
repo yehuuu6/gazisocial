@@ -9,20 +9,12 @@ class NotificationFactory extends Factory
 {
     public function definition(): array
     {
-        $types = ['friend_request', 'comment_reply', 'post_comment', 'friend_accept'];
+        $types = ['comment_reply', 'post_comment'];
         $type = $this->faker->randomElement($types);
 
         $sender = User::inRandomOrder()->first();
 
         $data = match ($type) {
-            'friend_request' => [
-                'sender_id' => $sender->id,
-                'text' => "{$sender->name} size bir arkadaşlık isteği gönderdi"
-            ],
-            'friend_accept' => [
-                'sender_id' => $sender->id,
-                'text' => "{$sender->name} arkadaşlık isteğinizi kabul etti"
-            ],
             'post_comment' => [
                 'sender_id' => $sender->id,
                 'post_id' => rand(1, 30), // Assuming you have posts

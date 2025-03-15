@@ -15,7 +15,7 @@ class CheckAdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && ($request->user()->hasRole('admin') || $request->user()->hasRole('gazisocial'))) {
+        if ($request->user() && ($request->user()->hasRole('moderator') || $request->user()->hasRole('gazisocial'))) {
             return $next($request);
         }
 

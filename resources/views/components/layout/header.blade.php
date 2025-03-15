@@ -44,7 +44,7 @@
         <div class="hidden items-center gap-2 md:flex">
             <x-link href="{{ route('posts.create') }}"
                 class="rounded bg-primary border border-primary px-3 py-2 text-sm font-medium text-white bg-opacity-90 hover:bg-opacity-100 hover:no-underline">
-                Yeni Konu Oluştur
+                Yeni Konu
             </x-link>
             @can('join', App\Models\Faculty::class)
                 @if (!Auth::user()->faculty)

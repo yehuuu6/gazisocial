@@ -32,16 +32,16 @@
                 </div>
             </div>
             <div class="flex gap-2 flex-col text-gray-200">
-                <h6 class="text-white font-semibold mb-1 text-lg">İletişim</h6>
+                <h6 class="text-white font-semibold mb-1 text-lg">Oyun Merkezi</h6>
                 <div class="flex flex-col gap-2">
-                    <x-link href="{{ route('contact') }}" class="font-normal text-sm self-start">
-                        Mesaj Gönder
+                    <x-link href="{{ route('games.index') }}" class="font-normal text-sm self-start">
+                        Oyunlar
                     </x-link>
-                    <x-link href="{{ route('report-a-bug') }}" class="font-normal text-sm self-start">
-                        Hata Bildir
+                    <x-link href="{{ route('games.zk.guide') }}" class="font-normal text-sm self-start">
+                        Zalim Kasaba
                     </x-link>
-                    <x-link href="{{ route('reported-bugs') }}" class="font-normal text-sm self-start">
-                        Bildirilen Hatalar
+                    <x-link href="games/cb" class="font-normal text-sm self-start">
+                        Çiz Bil
                     </x-link>
                 </div>
             </div>
@@ -60,16 +60,16 @@
                 </div>
             </div>
             <div class="flex gap-2 flex-col text-gray-200">
-                <h6 class="text-white font-semibold mb-1 text-lg">Dev Center</h6>
+                <h6 class="text-white font-semibold mb-1 text-lg">İletişim</h6>
                 <div class="flex flex-col gap-2">
-                    <x-link href="{{ route('dev-center') }}" class="font-normal text-sm self-start">
-                        Introduction
+                    <x-link href="#" class="font-normal text-sm self-start">
+                        Mesaj Gönder
                     </x-link>
-                    <x-link href="{{ route('how-to-contribute') }}" class="font-normal text-sm self-start">
-                        Contribution Guide
+                    <x-link href="#" class="font-normal text-sm self-start">
+                        Hata Bildir
                     </x-link>
-                    <x-link href="{{ route('contributors') }}" class="font-normal text-sm self-start">
-                        Contributors
+                    <x-link href="#" class="font-normal text-sm self-start">
+                        Bilinen Hatalar
                     </x-link>
                 </div>
             </div>
@@ -77,25 +77,12 @@
         <div class="my-8 opacity-30">
             <x-seperator />
         </div>
-        @if (request()->is('dev-center*'))
-            <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center">
-                <span>
-                    You are currently on the <a wire:navigate class="text-blue-200 hover:underline"
-                        href="{{ route('dev-center') }}">Dev Center</a>
-                    pages.
-                </span>
-            </div>
-        @endif
         <div class="w-full text-gray-300 mb-1.5 text-sm md:text-center">
-            <span>Made with 🧠 by contributors and </span>
+            <span>Made with 🧠 by </span>
             <a href="https://github.com/yehuuu6" target="_blank"
                 class="text-blue-200 font-normal hover:underline">@yehuuu6</a>
         </div>
         <div class="w-full text-gray-300 md:text-center text-sm">
-            <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" class="hover:underline">GPLv3</a>
-            <span> | </span>
-            <a href="https://github.com/yehuuu6/gazisocial" target="_blank" class="hover:underline">GitHub</a>
-            <span> | </span>
             <span>Copyright © Gazi Social <span x-data="{ date: '2025' }" x-init="date = new Date().getFullYear()" x-text="date"></span>
                 All rights
                 reserved.</span>

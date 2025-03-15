@@ -2,14 +2,14 @@
     <section class="bg-white rounded-xl shadow-md border p-6 md:p-10 border-gray-100">
         <div class="text-center">
             <h3
-                class="text-3xl lg:text-6xl font-extrabold bg-gradient-to-bl from-violet-300 to-pink-800 bg-clip-text text-transparent leading-normal">
+                class="text-4xl lg:text-6xl font-extrabold bg-gradient-to-bl from-sky-300 to-blue-800 bg-clip-text text-transparent leading-normal">
                 Oyun Merkezi
             </h3>
-            <p class="mt-1.5 text-gray-700 text-base md:text-lg font-semibold mx-5 md:mx-80">
+            <p class="mt-1.5 text-gray-700 text-base md:text-lg font-semibold mx-5">
                 Gazi Social oyun merkezinde arkadaşlarınızla ister uzaktan, ister yan yana oyunlar oynayabilirsiniz.
             </p>
         </div>
-        <div class="mt-6 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:mx-28">
+        <div class="mt-6 md:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mx-20 lg:mx-28">
             <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200 transition-all hover:shadow-md">
                 <a href="/games/zk" class="relative group">
                     <img alt="Zalim Kasaba" width="400" height="200"
@@ -27,15 +27,10 @@
                         maksimum 15 kişilik oyun.
                     </p>
                 </div>
-                <div class="items-center p-4 pt-0 flex justify-between">
-                    <a href="/games/1" class="text-sm font-medium text-primary hover:underline">
-                        Detaylar
-                    </a>
-                    <a href="/forum/games/1"
-                        class="text-sm font-medium text-gray-600 hover:text-text-gray-700 hover:underline">
-                        Tartışmalar
-                    </a>
-                </div>
+                <a href="{{ route('games.zk.guide') }}"
+                    class="flex items-center gap-0.5 px-4 mb-4 text-sm font-medium text-primary hover:underline">
+                    Detaylar <x-icons.arrow-right-alt size="16" class="inline-block" />
+                </a>
             </div>
             <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200 transition-all hover:shadow-md">
                 <a href="/games/cb" class="relative group">
@@ -61,15 +56,10 @@
                         bir oyun.
                     </p>
                 </div>
-                <div class="items-center p-4 pt-0 flex justify-between">
-                    <a href="/games/1" class="text-sm font-medium text-primary hover:underline">
-                        Detaylar
-                    </a>
-                    <a href="/forum/games/1"
-                        class="text-sm font-medium text-gray-600 hover:text-text-gray-700 hover:underline">
-                        Tartışmalar
-                    </a>
-                </div>
+                <a href="/games/cb/guide"
+                    class="flex items-center gap-0.5 px-4 mb-4 text-sm font-medium text-primary hover:underline">
+                    Detaylar <x-icons.arrow-right-alt size="16" class="inline-block" />
+                </a>
             </div>
         </div>
     </section>
