@@ -8,7 +8,6 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\ReportedBug;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $users = User::factory(10)->create();
+        $users = User::factory(30)->create();
 
         // Create a user with custom attributes
         $user1 = User::create([
@@ -81,14 +80,9 @@ class DatabaseSeeder extends Seeder
         $users[] = $user1;
         $users[] = $user4;
 
-        // Create bug reports using users
-        $users->each(function ($user) {
-            ReportedBug::factory(rand(0, 5))->create(['user_id' => $user->id]);
-        });
-
         $tags = Tag::all();
 
-        $posts = Post::factory(10)
+        $posts = Post::factory(100)
             ->withFixture()
             ->recycle($users)
             ->create()
