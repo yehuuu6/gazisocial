@@ -62,6 +62,11 @@ class PostIndexerByTags extends Component
             ->simplePaginate(20);
     }
 
+    public function updatedPage($page)
+    {
+        $this->dispatch('scroll-to-top');
+    }
+
     // Helper function to determine time range
     private function getTimeSpanDate()
     {

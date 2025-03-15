@@ -68,6 +68,11 @@ class PostIndexer extends Component
         };
     }
 
+    public function updatedPage($page)
+    {
+        $this->dispatch('scroll-to-top');
+    }
+
     public function placeholder()
     {
         return view('components.post.indexer-placeholder');

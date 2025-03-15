@@ -9,7 +9,7 @@ use Livewire\Attributes\Computed;
 
 class HomePage extends Component
 {
-    #[Computed(persist: true)]
+    #[Computed()]
     public function popularTags()
     {
         // Get most popular 4 tags
