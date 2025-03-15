@@ -30,7 +30,7 @@
                 <div class="mt-3 2xl:mt-0 flex items-center justify-center 2xl:justify-end gap-2 flex-wrap">
                     @foreach ($this->popularTags as $tag)
                         <x-link href="{{ route('tags.show', $tag->slug) }}" wire:key="tag-{{ $tag->id }}"
-                            class="bg-white rounded-full px-2 py-0.5 md:px-2.5 md:py-1 text-xs font-semibold capitalize text-gray-800 border border-gray-200 transition-all duration-100 hover:bg-opacity-90 hover:no-underline">
+                            class="bg-white hover:bg-gray-50 rounded-full px-2 py-0.5 md:px-2.5 md:py-1 text-xs font-semibold capitalize text-gray-800 border border-gray-200 transition-all duration-100 hover:bg-opacity-90 hover:no-underline">
                             {{ $tag->name }} <span class="text-gray-500 font-medium">({{ $tag->posts_count }})</span>
                         </x-link>
                     @endforeach

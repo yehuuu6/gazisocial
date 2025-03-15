@@ -1,4 +1,4 @@
-<div>
+<div x-init="$wire.on('scroll-to-top', () => window.scrollTo({ top: 0, behavior: 'smooth' }))">
     <div wire:loading class="w-full">
         <x-post.indexer-placeholder />
     </div>
