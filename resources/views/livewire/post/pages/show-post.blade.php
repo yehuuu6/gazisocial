@@ -117,6 +117,16 @@
                     class="absolute top-0 right-0 z-10 p-2 text-gray-700 hover:text-gray-500">
                     <x-icons.close size="24" />
                 </button>
+                @can('update', $post)
+                    <div class="p-4 lg:p-6">
+                        <a href="{{ route('posts.edit', $post) }}"
+                            class="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
+                            <x-icons.edit size="14" />
+                            Düzenle
+                        </a>
+                    </div>
+                    <x-seperator />
+                @endcan
                 <div class="p-4 lg:p-6">
                     <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
                     <div class="flex lg:items-center justify-between gap-3 flex-col lg:flex-row">
@@ -162,7 +172,7 @@
                     <div class="flex items-center flex-wrap gap-1 mt-2">
                         @foreach ($post->user->roles as $role)
                             <span
-                                class="{{ $colorVariants[$role->color] }} rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
+                                class="{{ $colorVariants[$role->color] }} cursor-default select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
                         @endforeach
                     </div>
                 </div>
@@ -182,7 +192,8 @@
                         @forelse ($this->polls as $poll)
                             <button wire:key="poll-button-{{ $poll->id }}" type="button"
                                 x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
-                                class="text-sm text-white font-medium py-1 px-2 bg-green-500 rounded">
+                                class="text-xs text-teal-500 flex items-center gap-1 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
+                                <x-icons.survey size="18" />
                                 {{ $poll->question }}
                             </button>
                         @empty

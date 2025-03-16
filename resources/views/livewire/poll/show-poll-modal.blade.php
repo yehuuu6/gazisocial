@@ -20,7 +20,7 @@
                     @foreach ($poll->options as $option)
                         <button
                             :class="{
-                                'border-green-500': selectedOption == {{ $option->id }},
+                                'border-teal-300': selectedOption == {{ $option->id }},
                                 'border-gray-200': selectedOption != {{ $option->id }}
                             }"
                             type="button" wire:click="vote({{ $option->id }})"
@@ -32,7 +32,7 @@
                                 </span>
                             </h3>
                             <div class="h-2 bg-gray-200 rounded-full mt-1">
-                                <div class="h-full bg-green-500 rounded-full transition-all duration-300"
+                                <div class="h-full bg-teal-300 rounded-full transition-all duration-300"
                                     style="width: {{ $this->getPollPercentage($poll, $option) }}%">
                                 </div>
                             </div>

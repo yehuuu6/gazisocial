@@ -199,7 +199,7 @@
             </div>
             <div class="pb-6 w-fit px-6">
                 <x-alerts.warning>
-                    Konu oluşturduktan sonra yeni anket oluşturamaz ve mevcut anketleri düzenleyemezsiniz.
+                    Konu oluşturduktan sonra yeni anket oluşturamaz veya mevcut anketleri düzenleyemezsiniz.
                 </x-alerts.warning>
             </div>
         </div>
