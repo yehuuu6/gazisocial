@@ -9,6 +9,7 @@ use App\Models\Reply;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Http\Controllers\GiphyController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(GiphyController::class, function ($app) {
+            return new GiphyController();
+        });
     }
 
     /**

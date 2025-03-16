@@ -1,19 +1,17 @@
 <div x-data="{
-    registerModal: false,
-    message: '',
     gifSelector: false,
-}" x-on:auth-required.window="registerModal = true; message = $event.detail.msg">
+}" x-on:toggle-comment-form.window="$wire.commentForm = true;">
     <div class="p-1 md:p-6">
         <div class="p-3 md:p-0">
-            <div x-ref="commentForm" class="scroll-mt-24" x-on:click.outside="commentForm = false"
-                x-on:updating-comments-page.window="$refs.commentForm.scrollIntoView({ behavior: 'smooth' })">
-                <div x-show="!commentForm">
-                    <button x-on:click="commentForm = true"
+            <div x-ref="addCommentForm" class="scroll-mt-24" x-on:click.outside="$wire.commentForm = false"
+                x-on:updating-comments-page.window="$refs.addCommentForm.scrollIntoView({ behavior: 'smooth' })">
+                <div wire:show="!commentForm">
+                    <button x-on:click="$wire.commentForm = true"
                         class="rounded-3xl w-full py-2 md:py-3 px-3 md:px-4 border border-gray-300 hover:border-gray-400 text-sm text-gray-500 font-normal cursor-text text-left">
                         Yorum ekle
                     </button>
                 </div>
-                <div x-cloak x-show="commentForm" x-on:comment-added.window="commentForm = false">
+                <div x-cloak wire:show="commentForm">
                     <x-comment.forms.comment-form />
                 </div>
             </div>

@@ -14,7 +14,7 @@
             @foreach ($this->gifs as $gif)
                 <img src="{{ $gif['images']['fixed_height']['url'] }}" alt="GIF" x-on:click="gifSelector = false"
                     class="h-16 md:h-32 object-cover rounded-md cursor-pointer"
-                    wire:click="selectGif('{{ $gif['images']['original']['url'] }}')" loading="lazy" />
+                    wire:click="$parent.sendGif('{{ $gif['images']['original']['url'] }}')" loading="lazy" />
             @endforeach
         </div>
     @endif

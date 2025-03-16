@@ -31,6 +31,7 @@ class CommentItem extends Component
 
     public bool $isSingleCommentThread;
     public $renderedReplyId;
+    public bool $replyForm; // Reply form visibility
 
     public int $depth;
 
@@ -169,7 +170,7 @@ class CommentItem extends Component
         broadcast(new NotificationReceived(receiver: $this->comment->user))->toOthers();
     }
 
-    function limitLineBreaks(string $text, int $maxBreaks = 3): string
+    private function limitLineBreaks(string $text, int $maxBreaks = 3): string
     {
         // Replace multiple line breaks with a placeholder
         $parts = preg_split('/(\r\n|\r|\n)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -190,69 +191,79 @@ class CommentItem extends Component
         return $result;
     }
 
-    public function addReply()
+    private function handleReplyCreation(?string $content = null, ?string $gifUrl = null)
     {
-
         if (!Auth::check()) {
-            $this->dispatch('auth-required', msg: 'Yanıt yazabilmek için');
-            return;
+            $this->dispatch('auth-required');
+            return false;
         }
 
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
             Toaster::warning('Yorum yapmak için onaylı bir hesap gereklidir.');
-            return;
+            return false;
         }
 
-        /*
-        try {
-            $this->rateLimit(50, decaySeconds: 300);
-        } catch (TooManyRequestsException $exception) {
-            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
-            return;
+        if ($content) {
+            $content = $this->limitLineBreaks($content);
+
+            $messages = [
+                'required' => 'Yorum içeriği boş olamaz.',
+                'min' => 'Yorum içeriği en az :min karakter olmalıdır.',
+                'max' => 'Yorum içeriği en fazla :max karakter olabilir.',
+                'string' => 'Yorum içeriği metin olmalıdır.',
+            ];
+
+            try {
+                $validated = $this->validate([
+                    'content' => 'required|string|min:3|max:1000',
+                ], $messages);
+                $replyData = [...$validated];
+            } catch (ValidationException $e) {
+                Toaster::error($e->validator->errors()->first());
+                return false;
+            }
+        } else {
+            $replyData = [];
         }
-        */
 
-        $messages = [
-            'required' => 'Yorum içeriği boş olamaz.',
-            'min' => 'Yorum içeriği en az :min karakter olmalıdır.',
-            'max' => 'Yorum içeriği en fazla :max karakter olabilir.',
-            'string' => 'Yorum içeriği metin olmalıdır.',
-        ];
-
-        $this->content = $this->limitLineBreaks($this->content);
-
-        try {
-            $validated = $this->validate([
-                'content' => 'required|string|min:3|max:1000',
-            ], $messages);
-        } catch (ValidationException $e) {
-            Toaster::error($e->validator->errors()->first());
-            return;
+        if ($gifUrl) {
+            $replyData['gif_url'] = $gifUrl;
         }
 
         $parentId = $this->comment->parent_id ?? $this->comment->id;
 
-        $reply = $this->comment->replies()->create([
-            ...$validated,
+        $replyData = [
+            ...$replyData,
             'post_id' => $this->post->id,
             'parent_id' => $parentId,
             'user_id' => Auth::id(),
             'commentable_id' => $this->comment->id,
             'commentable_type' => $this->comment->getMorphClass(),
             'depth' => $this->comment->depth + 1
-        ]);
+        ];
+
+        $reply = $this->comment->replies()->create($replyData);
 
         $this->createNotification($this->comment->showRoute(['reply' => $reply->id]));
-
         Toaster::success('Yorumunuz başarıyla eklendi.');
-
         $this->dispatch("view-replies.{$this->comment->id}");
-
         $this->dispatch('comment-added');
-
+        $this->replyForm = false;
         $this->reset('content');
+
+        return true;
+    }
+
+    public function sendGif(string $gifUrl)
+    {
+        return $this->handleReplyCreation(gifUrl: $gifUrl);
+    }
+
+    public function addReply()
+    {
+        return $this->handleReplyCreation($this->content);
     }
 
     public function deleteComment(Comment $comment)

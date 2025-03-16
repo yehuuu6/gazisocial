@@ -1,7 +1,6 @@
 <div>
     <div x-data="{
         showReplies: true,
-        replyForm: false,
         openMoreCommentButtons: false,
         openShareDropdown: false,
         likeCount: $wire.likesCount,
@@ -91,7 +90,8 @@
                     </div>
                 @endif
                 <div class="pl-8 md:pl-10 pr-1">
-                    <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1" x-on:click.outside="replyForm = false;">
+                    <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
+                        x-on:click.outside="$wire.replyForm = false;">
                         @if ($comment->content)
                             <p class="text-xs sm:text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all whitespace-pre-line"
                                 x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
@@ -146,7 +146,7 @@
                                     0
                                 </span>
                             </x-comment.comment-button>
-                            <x-comment.comment-button x-on:click="replyForm = !replyForm;">
+                            <x-comment.comment-button x-on:click="$wire.replyForm = !$wire.replyForm">
                                 <x-icons.comment size="20" />
                                 <span>{{ Number::abbreviate($comment->replies_count) }}</span>
                             </x-comment.comment-button>
@@ -164,9 +164,9 @@
                             </x-comment.comment-button>
                             <x-comment.comment-more-dropdown :$comment />
                         </div>
-                        <template x-if="replyForm" x-on:comment-added.window="replyForm = false">
+                        <div x-cloak wire:show="replyForm">
                             <x-comment.forms.reply-form :$comment />
-                        </template>
+                        </div>
                     </div>
                 </div>
                 {{-- Recursive component for replies --}}

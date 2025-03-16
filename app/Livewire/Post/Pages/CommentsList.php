@@ -23,13 +23,13 @@ class CommentsList extends Component
     public Post $post;
 
     public bool $showRegisterModal = false;
+    public bool $commentForm = false; // Comment form visibility
 
     public string $sortBy = 'popularity';
 
     public $content;
 
     protected $listeners = [
-        'gif-selected' => 'addComment',
         'auth-required' => 'showModal',
     ];
 
@@ -97,7 +97,7 @@ class CommentsList extends Component
         return view('components.post.comment-list-placeholder');
     }
 
-    function limitLineBreaks(string $text, int $maxBreaks = 3): string
+    private function limitLineBreaks(string $text, int $maxBreaks = 3): string
     {
         // Replace multiple line breaks with a placeholder
         $parts = preg_split('/(\r\n|\r|\n)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -118,69 +118,76 @@ class CommentsList extends Component
         return $result;
     }
 
-    public function addComment(string | null $gifUrl = null)
+    private function handleCommentCreation(?string $content = null, ?string $gifUrl = null)
     {
-
         if (!Auth::check()) {
-            $this->dispatch('auth-required', msg: 'Yorum yapabilmek için');
-            return;
+            $this->dispatch('auth-required');
+            return false;
         }
 
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
             Toaster::warning('Yorum yapmak için onaylı bir hesap gereklidir.');
-            return;
+            return false;
         }
 
-        /*
-        try {
-            $this->rateLimit(50, decaySeconds: 300);
-        } catch (TooManyRequestsException $exception) {
-            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
-            return;
-        }
-        */
+        if ($content) {
+            $content = $this->limitLineBreaks($content);
 
-        $messages = [
-            'required' => 'Yorum içeriği boş olamaz.',
-            'min' => 'Yorum içeriği en az :min karakter olmalıdır.',
-            'max' => 'Yorum içeriği en fazla :max karakter olabilir.',
-            'string' => 'Yorum içeriği metin olmalıdır.',
-        ];
+            $messages = [
+                'required' => 'Yorum içeriği boş olamaz.',
+                'min' => 'Yorum içeriği en az :min karakter olmalıdır.',
+                'max' => 'Yorum içeriği en fazla :max karakter olabilir.',
+                'string' => 'Yorum içeriği metin olmalıdır.',
+            ];
 
-        if (!$gifUrl) {
-            $this->content = $this->limitLineBreaks($this->content);
             try {
                 $validated = $this->validate([
                     'content' => 'required|string|min:3|max:1000',
                 ], $messages);
+                $commentData = [...$validated];
             } catch (ValidationException $e) {
                 Toaster::error($e->validator->errors()->first());
-                return;
+                return false;
             }
         } else {
-            $validated = [];
+            $commentData = [];
         }
 
-        $comment = $this->post->comments()->create([
-            ...$validated,
+        if ($gifUrl) {
+            $commentData['gif_url'] = $gifUrl;
+        }
+
+        $commentData = [
+            ...$commentData,
             'post_id' => $this->post->id,
             'parent_id' => null,
             'user_id' => Auth::id(),
-            'gif_url' => $gifUrl,
             'commentable_id' => $this->post->id,
             'commentable_type' => $this->post->getMorphClass()
-        ]);
+        ];
+
+        $comment = $this->post->comments()->create($commentData);
 
         $this->createNotification($comment->showRoute());
-
         $this->resetPage();
-
         Toaster::success('Yorumunuz başarıyla eklendi.');
-
         $this->reset('content');
         $this->dispatch('comment-added');
+        $this->commentForm = false;
+
+        return true;
+    }
+
+    public function sendGif(string $gifUrl)
+    {
+        return $this->handleCommentCreation(gifUrl: $gifUrl);
+    }
+
+    public function addComment()
+    {
+        return $this->handleCommentCreation($this->content);
     }
 
     public function updatingPage()

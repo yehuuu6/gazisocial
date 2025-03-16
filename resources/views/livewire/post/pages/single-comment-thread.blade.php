@@ -1,7 +1,6 @@
 <div x-data="{
-    registerModal: false,
-    message: '',
-}" x-on:auth-required.window="registerModal = true; message = $event.detail.msg">
+    gifSelector: false,
+}">
     <div class="px-1 py-3 md:p-6">
         <div x-init="() => {
             $el.scrollIntoView();

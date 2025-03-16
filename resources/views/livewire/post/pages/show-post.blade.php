@@ -7,7 +7,6 @@
 <div x-data="{
     userPanel: false,
     isSingleThread: $wire.isSingleCommentThread,
-    commentForm: false,
     commentCount: $wire.commentsCount,
     isLiked: $wire.isLiked,
     toggleLike() {
@@ -68,7 +67,7 @@
                         </button>
                         <button :disabled="isSingleThread"
                             x-on:click="$nextTick(() => {
-                                commentForm = true;
+                                $dispatch('toggle-comment-form');
                                 setTimeout(() => {
                                     document.getElementById('comment-form').scrollIntoView({ behavior: 'smooth', block: 'center'});
                                 }, 100);
