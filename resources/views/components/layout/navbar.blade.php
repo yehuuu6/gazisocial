@@ -47,16 +47,6 @@
                                 x-on:click.outside="userDropdown = false" x-transition.scale.origin.top.right>
                                 <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
                                 <x-seperator />
-                                <x-link href="{{ route('users.show', Auth::user()->username) }}"
-                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.user size="20" />
-                                    <span>Profili Gör</span>
-                                </x-link>
-                                <x-link href="{{ route('users.edit', Auth::user()->username) }}"
-                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.cog size="20" />
-                                    <span>Ayarlar</span>
-                                </x-link>
                                 @if (Auth::user()->hasRole('moderator') || Auth::user()->hasRole('gazisocial'))
                                     <x-link href="{{ route('home') }}"
                                         class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
@@ -64,13 +54,28 @@
                                         <span>Yönetim Paneli</span>
                                     </x-link>
                                 @endif
+                                <x-link href="{{ route('users.show', Auth::user()->username) }}"
+                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                    <x-icons.user size="20" />
+                                    <span>Profili Gör</span>
+                                </x-link>
+                                <x-link href="{{ route('users.show', Auth::user()->username) }}"
+                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                    <x-icons.notification size="20" />
+                                    <span>Bildirimler</span>
+                                </x-link>
+                                <x-link href="{{ route('users.edit', Auth::user()->username) }}"
+                                    class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                    <x-icons.cog size="20" />
+                                    <span>Ayarlar</span>
+                                </x-link>
                                 <x-seperator />
                                 <form method="POST" action="{{ route('logout') }}" class="flex">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
                                         class="mx-1 flex-1 mb-1 flex items-center gap-3.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                        <x-icons.logout size="16" />
+                                        <x-icons.logout size="16" class="text-black ml-0.5" />
                                         <span>Çıkış Yap</span>
                                     </button>
                                 </form>
