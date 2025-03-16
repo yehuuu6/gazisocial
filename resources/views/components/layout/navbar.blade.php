@@ -59,7 +59,7 @@
                                     <x-icons.user size="20" />
                                     <span>Profili Gör</span>
                                 </x-link>
-                                <x-link href="{{ route('users.show', Auth::user()->username) }}"
+                                <x-link href="{{ route('notifications.index') }}"
                                     class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                                     <x-icons.notification size="20" />
                                     <span>Bildirimler</span>
