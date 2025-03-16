@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <article x-data="highlightCode" wire:ignore
-                        class="prose prose-sm max-w-none break-all sm:prose-sm md:prose-base lg:prose-lg ProseMirror">
+                        class="prose prose-sm max-w-none break-words overflow-x-auto sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
                         {!! $post->html !!}
                     </article>
                     <div class="flex items-center gap-3.5 mt-3" x-data="{ isDisabled: false }">
