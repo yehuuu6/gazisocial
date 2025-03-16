@@ -76,7 +76,7 @@
                 @endforelse
             </div>
             <x-seperator />
-            <x-link href="#"
+            <x-link href="{{ route('notifications.index') }}"
                 class="flex items-center justify-center gap-1.5 md:gap-2 w-full px-1.5 py-3 md:px-3 md:py-5 hover:bg-gray-100 hover:no-underline">
                 <x-icons.notification size="18" class="text-blue-600" />
                 <span class="font-medium text-xs md:text-sm text-gray-700">
