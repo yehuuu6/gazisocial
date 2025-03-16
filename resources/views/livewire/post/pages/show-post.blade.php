@@ -28,7 +28,7 @@
         <div class="flex relative">
             <button x-on:click="userPanel = !userPanel" x-show="!userPanel"
                 class="lg:hidden absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md">
-                <x-icons.arrow-left-alt size="24" />
+                <x-icons.info size="24" class="text-gray-600" />
             </button>
             <div class="flex-grow">
                 <div class="flex w-full flex-col py-4 px-6 gap-2 md:gap-4 md:px-10 md:py-6">
@@ -116,7 +116,7 @@
                 <div class="p-4 lg:p-6 flex items-center gap-2">
                     <button x-on:click="userPanel = !userPanel" x-cloak x-show="userPanel"
                         class="lg:hidden bg-gray-50 rounded-full p-2 text-gray-700 hover:bg-gray-100">
-                        <x-icons.arrow-right-alt size="18" />
+                        <x-icons.close size="18" />
                     </button>
                     @auth
                         @can('update', $post)

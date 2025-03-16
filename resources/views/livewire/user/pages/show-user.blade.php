@@ -41,7 +41,7 @@
                         <div class="mt-2 flex flex-wrap gap-1.5">
                             @foreach ($user->roles as $role)
                                 <span
-                                    class="{{ $colorVariants[$role->color] }} cursor-default select-none rounded-full px-2 py-0.5 text-xs font-medium capitalize text-white">
+                                    class="{{ $colorVariants[$role->color] }} select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">
                                     {{ $role->name }}
                                 </span>
                             @endforeach
@@ -92,13 +92,13 @@
 
             <!-- Sekmeler - Yapışkan -->
             <div class="grid grid-cols-2 border-b border-gray-100 bg-white shadow-sm">
-                <button @click="activeTab = 'posts'"
+                <button x-on:click="activeTab = 'posts'; window.scrollTo({ top: 0, behavior: 'smooth' });"
                     :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'posts', 'text-gray-500 font-normal': activeTab !== 'posts' }"
                     class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
                     <x-icons.document size="16" class="hidden sm:block" />
                     <span>Gönderiler</span>
                 </button>
-                <button @click="activeTab = 'comments'"
+                <button x-on:click="activeTab = 'comments'; window.scrollTo({ top: 0, behavior: 'smooth' });"
                     :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'comments', 'text-gray-500 font-normal': activeTab !== 'comments' }"
                     class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
                     <x-icons.comment size="16" class="hidden sm:block" />
