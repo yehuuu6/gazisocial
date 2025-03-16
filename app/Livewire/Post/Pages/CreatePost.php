@@ -27,7 +27,9 @@ class CreatePost extends Component
     public string $question = "";
     public int $optionsCount = 2;
     public array $options = [];
-    public bool $showCreatePollModal;
+    public bool $showCreatePollModal = false;
+    public bool $showEditPollModal = false;
+    public ?Poll $editingPoll = null;
 
     #[Computed(cache: true)]
     public function tags()
@@ -49,8 +51,32 @@ class CreatePost extends Component
         Toaster::success('Anket başarıyla silindi.');
     }
 
+    public function mount()
+    {
+        $this->optionsCount = 2;
+    }
+
+    public function deleteOption($index)
+    {
+        if ($this->optionsCount <= 2) {
+            Toaster::warning('En az 2 seçenek olmalı.');
+            return;
+        }
+
+        // Remove the option at the specified index
+        array_splice($this->options, $index, 1);
+        $this->optionsCount--;
+    }
+
     public function createPoll()
     {
+        try {
+            $this->rateLimit(10, decaySeconds: 300);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return;
+        }
+
         if (count($this->options) < 2) {
             Toaster::error('En az 2 seçenek eklemelisiniz.');
             return;
@@ -101,8 +127,76 @@ class CreatePost extends Component
         $this->options = [];
         $this->optionsCount = 2;
         $this->showCreatePollModal = false;
+        $this->dispatch('clear-options');
 
         Toaster::success('Anketiniz taslak olarak kaydedildi.');
+    }
+
+    public function editPoll($pollId)
+    {
+        $this->editingPoll = Poll::with('options')->find($pollId);
+        $this->question = $this->editingPoll->question;
+        $this->options = $this->editingPoll->options->pluck('option')->toArray();
+        $this->optionsCount = count($this->options);
+        $this->showEditPollModal = true;
+    }
+
+    public function updatePoll()
+    {
+        if (count($this->options) < 2) {
+            Toaster::error('En az 2 seçenek eklemelisiniz.');
+            return;
+        }
+
+        if (count($this->options) > 10) {
+            Toaster::error('En fazla 10 seçenek ekleyebilirsiniz.');
+            return;
+        }
+
+        // Validate using laravel validation
+        $messages = [
+            'question.required' => 'Anket sorusu zorunludur.',
+            'question.min' => 'Anket sorusu en az :min karakter olmalıdır.',
+            'question.max' => 'Anket sorusu en fazla :max karakter olabilir.',
+            'options.*.required' => 'Anketinize seçenek eklemelisiniz.',
+            'options.*.min' => 'Seçenekler en az :min karakter olmalıdır.',
+            'options.*.max' => 'Seçenekler en fazla :max karakter olabilir.',
+        ];
+
+        try {
+            $this->validate([
+                'question' => 'bail|required|min:6|max:100',
+                'options' => 'bail|required|array|min:1|max:10',
+                'options.*' => 'bail|required|min:1|max:100',
+            ], $messages);
+        } catch (ValidationException $e) {
+            Toaster::error($e->validator->errors()->first());
+            return;
+        }
+
+        // Update the poll
+        $this->editingPoll->update([
+            'question' => $this->question,
+        ]);
+
+        // Delete existing options
+        $this->editingPoll->options()->delete();
+
+        // Create new poll options
+        foreach ($this->options as $option) {
+            PollOption::create([
+                'poll_id' => $this->editingPoll->id,
+                'option' => $option,
+            ]);
+        }
+
+        $this->question = "";
+        $this->options = [];
+        $this->optionsCount = 2;
+        $this->showEditPollModal = false;
+        $this->editingPoll = null;
+
+        Toaster::success('Anket başarıyla güncellendi.');
     }
 
     public function createPost()
@@ -143,9 +237,13 @@ class CreatePost extends Component
                 Toaster::error('En fazla 4 etiket seçebilirsiniz.');
                 return;
             }
+
+            if (count($this->selectedPolls) > 3) {
+                Toaster::error('En fazla 3 anket seçebilirsiniz.');
+                return;
+            }
         } catch (ValidationException $e) {
-            $errors = $e->validator->errors()->all();
-            $errorMessage = implode('<br>', $errors);
+            $errorMessage = $e->validator->errors()->first();
             Toaster::error($errorMessage);
             return;
         }
