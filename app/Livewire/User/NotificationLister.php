@@ -29,7 +29,7 @@ class NotificationLister extends Component
     {
         return view('components.placeholders.generic-spinner', [
             'size' => 33,
-            'class' => 'text-blue-600'
+            'class' => 'text-primary'
         ]);
     }
 
