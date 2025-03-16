@@ -7,11 +7,19 @@
     options: $wire.entangle('options'),
     saveOptions() {
         this.options = [];
-        const optionValues = document.querySelectorAll('[data-option]');
-        optionValues.forEach((option) => {
-            this.options.push(option.value);
+        this.$nextTick(() => {
+            const optionValues = document.querySelectorAll('[data-option]');
+            optionValues.forEach((option) => {
+                if (option.value.trim() !== '') {
+                    this.options.push(option.value.trim());
+                }
+            });
+            if (this.options.length >= 2) {
+                $wire.call('createPoll');
+            } else {
+                Toaster.error('En az 2 seçenek eklemelisiniz.');
+            }
         });
-        $wire.call('createPoll');
     },
     addOption() {
         if (this.optionsCount >= 10) Toaster.warning('En fazla 10 seçenek ekleyebilirsiniz.');
@@ -27,14 +35,14 @@
         <div class="flex-grow">
             <div wire:ignore x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
             $el.style.top = navbarHeight + 'px';"
-                class="flex items-center justify-between gap-4 sticky z-[2] bg-white px-6 rounded-t-xl py-4 border-b border-gray-200">
+                class="flex items-center justify-between gap-4 sticky z-[2] bg-white px-4 lg:px-6 rounded-t-xl py-2.5 lg:py-4 border-b border-gray-200">
                 <h1 class="text-base md:text-xl flex items-center gap-2 font-bold text-gray-800">
                     <div class="size-4 md:size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300 flex-shrink-0">
                     </div>
                     Yeni Konu
                 </h1>
                 <button type="button" wire:click="createPost"
-                    class="px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
+                    class="px-3 py-1.5 text-xs lg:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
                     Oluştur
                 </button>
             </div>
@@ -106,12 +114,12 @@
                             </p>
                         </div>
                         <button type="button" x-on:click="$wire.showCreatePollModal = true"
-                            class="mt-2 w-full md:w-fit px-3 py-1.5 text-sm md:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
+                            class="mt-2 w-full md:w-fit px-3 py-1.5 text-sm md:text-base hover:bg-teal-500 hover:bg-opacity-5 md:px-4 md:py-2 rounded border border-teal-500 bg-white text-teal-500 font-semibold">
                             Anket Ekle
                         </button>
                     </div>
                     <div x-ref="mainContainer" x-data="pollContainer($wire)" wire:ignore.self
-                        class="select-none relative border-2 border-transparent flex flex-col md:flex-row resize-y overflow-auto active:border-blue-500 active:border-opacity-80 bg-gray-50 rounded-md min-h-[750px] md:min-h-[500px] flex-grow">
+                        class="select-none relative border-2 border-transparent flex flex-col md:flex-row resize-y overflow-hidden active:border-blue-500 active:border-opacity-80 bg-gray-50 rounded-md min-h-[750px] md:min-h-[500px] flex-grow">
                         <div x-ref="activePollsContainer"
                             class="transition-colors duration-200 md:w-1/2 w-full md:border-b-transparent border-b-2 md:border-r-2 border-dashed border-gray-400 flex-grow grid place-items-center">
                             <h1 class="text-lg md:text-xl text-gray-400 font-bold">
@@ -127,30 +135,42 @@
                         <x-ui.dotted-grid />
                         @forelse ($this->polls as $poll)
                             <div wire:key="poll-{{ $poll->id }}" wire:ignore.self x-ref="poll{{ $poll->id }}"
-                                x-data="pollCreator({{ $poll->is_draft ? 'true' : 'false' }})" x-on:mousedown="mouseDown(event)" x-on:mouseup="mouseUp()"
-                                x-on:mousemove="mouseMove(event)" data-poll="{{ $poll->id }}"
-                                class="bg-white select-none shadow transition-opacity duration-500 border-2 cursor-grab rounded-md px-2 py-1 w-40 absolute top-0 left-0"
+                                x-data="pollCreator({{ $poll->is_draft ? 'true' : 'false' }})" x-on:mousedown="mouseDown(event)"
+                                data-poll="{{ $poll->id }}"
+                                class="bg-white select-none shadow-lg transition-opacity duration-300 border-2 cursor-grab rounded-2xl px-4 py-3 w-56 absolute top-0 left-0"
                                 :class="{
-                                    'animate-wiggle opacity-80 cursor-grabbing': isDragging,
-                                    'border-solid border-blue-300': !isDraft,
+                                    'animate-wiggle opacity-90 cursor-grabbing scale-105 rotate-2': isDragging,
+                                    'border-solid !border-blue-200': !isDraft,
                                     'border-dashed border-gray-200': isDraft
                                 }">
-                                <div class="flex items-center mb-1 justify-between">
-                                    <h3 class="text-gray-800 text-sm font-bold" x-text="pollTitleText">
-
+                                <div class="flex items-center mb-1.5 justify-between">
+                                    <h3 class="text-sm font-bold flex items-center gap-1.5"
+                                        :class="{ 'text-blue-500': !isDraft, 'text-amber-600': isDraft }">
+                                        <span x-text="pollTitleText"></span>
+                                        <div class="size-1.5 rounded-full"
+                                            :class="{ 'bg-blue-400': !isDraft, 'bg-amber-400': isDraft }"></div>
                                     </h3>
-                                    <button type="button" wire:click="deletePoll({{ $poll->id }})"
-                                        class="text-red-500 hover:text-red-600">
-                                        <x-icons.trash size="12" />
-                                    </button>
+                                    <div x-on:mousedown.stop x-on:touchstart.stop class="flex items-center gap-0.5">
+                                        <button type="button" x-on:click.stop x-on:touchstart.stop x-on:mousedown.stop
+                                            wire:click="editPoll({{ $poll->id }})"
+                                            class="text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1.5 rounded-lg transition-colors">
+                                            <x-icons.edit size="14" />
+                                        </button>
+                                        <button type="button" x-on:click.stop x-on:touchstart.stop x-on:mousedown.stop
+                                            wire:click="deletePoll({{ $poll->id }})"
+                                            class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors">
+                                            <x-icons.trash size="14" />
+                                        </button>
+                                    </div>
                                 </div>
-                                <h5 class="text-gray-700 mb-2 text-xs font-medium">
+                                <h5 class="text-gray-700 mb-2 text-sm font-semibold line-clamp-2 leading-relaxed">
                                     {{ $poll->question }}
                                 </h5>
-                                <div class="flex flex-col gap-2.5 max-h-24 overflow-y-auto">
-                                    @foreach ($poll->options as $option)
+                                <div
+                                    class="flex flex-col gap-2 max-h-36 overflow-y-auto pr-1.5 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+                                    @foreach ($poll->options as $index => $option)
                                         <div
-                                            class="rounded border border-gray-200 px-1 py-0.5 text-gray-700 font-normal">
+                                            class="rounded-xl bg-gray-50/80 border border-gray-100 px-3 py-1 text-gray-600 font-medium hover:border-gray-200 transition-colors">
                                             <span class="text-xs">{{ $option->option }}</span>
                                         </div>
                                     @endforeach
@@ -185,4 +205,5 @@
         </div>
     </form>
     <x-poll.create-poll-modal />
+    <x-poll.edit-poll-modal :options="$options" :options-count="$optionsCount" :question="$question" />
 </div>

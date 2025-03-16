@@ -32,15 +32,20 @@ Alpine.data("pollContainer", ($wire) => {
         placePollOnCanvas(poll, isDraft) {
             const activePollsContainer = this.$refs.activePollsContainer;
             const draftPollsContainer = this.$refs.draftPollsContainer;
+            const mainContainer = this.$refs.mainContainer;
 
             const activeRect = activePollsContainer.getBoundingClientRect();
             const draftRect = draftPollsContainer.getBoundingClientRect();
+            const mainRect = mainContainer.getBoundingClientRect();
 
-            // Calculate the available width for each section
+            // Check if we're in mobile view (flex-col)
+            const isMobileView =
+                window.getComputedStyle(mainContainer).flexDirection ===
+                "column";
+
+            // Calculate the available width and height for each section
             const activeWidth = activeRect.width;
             const draftWidth = draftRect.width;
-
-            // Calculate the available height for each section
             const activeHeight = activeRect.height;
             const draftHeight = draftRect.height;
 
@@ -53,13 +58,23 @@ Alpine.data("pollContainer", ($wire) => {
                 poll.style.left = `${randomX}px`;
                 poll.style.top = `${randomY}px`;
             } else {
-                const randomX =
-                    Math.random() * (draftWidth - poll.offsetWidth) +
-                    activeWidth;
-                const randomY =
-                    Math.random() * (draftHeight - poll.offsetHeight);
-                poll.style.left = `${randomX}px`;
-                poll.style.top = `${randomY}px`;
+                if (isMobileView) {
+                    const randomX =
+                        Math.random() * (draftWidth - poll.offsetWidth);
+                    const randomY =
+                        Math.random() * (draftHeight - poll.offsetHeight) +
+                        activeHeight;
+                    poll.style.left = `${randomX}px`;
+                    poll.style.top = `${randomY}px`;
+                } else {
+                    const randomX =
+                        Math.random() * (draftWidth - poll.offsetWidth) +
+                        activeWidth;
+                    const randomY =
+                        Math.random() * (draftHeight - poll.offsetHeight);
+                    poll.style.left = `${randomX}px`;
+                    poll.style.top = `${randomY}px`;
+                }
             }
         },
     };
@@ -80,6 +95,104 @@ Alpine.data("pollCreator", (isDraft) => {
             });
             this.inserIntoPolls(this.$el, isDraft);
             this.placePollOnCanvas(this.$el, isDraft);
+
+            // Add touch event listeners
+            this.$el.addEventListener("touchstart", (e) => this.touchStart(e), {
+                passive: false,
+            });
+
+            // Global mouse event listeners
+            window.addEventListener("mousemove", (e) => {
+                if (this.isDragging) {
+                    this.mouseMove(e);
+                }
+            });
+
+            window.addEventListener("mouseup", () => {
+                if (this.isDragging) {
+                    this.mouseUp();
+                }
+            });
+
+            window.addEventListener(
+                "touchmove",
+                (e) => {
+                    if (this.isDragging) {
+                        this.touchMove(e);
+                    }
+                },
+                { passive: false }
+            );
+
+            window.addEventListener("touchend", () => {
+                if (this.isDragging) {
+                    this.touchEnd();
+                }
+            });
+        },
+        touchStart(e) {
+            e.preventDefault();
+            if (this.isDragging) return;
+            const touch = e.touches[0];
+            this.startX = touch.pageX;
+            this.startY = touch.pageY;
+            this.isDragging = true;
+            this.arrangeDivs();
+        },
+        touchMove(e) {
+            e.preventDefault();
+            if (!this.isDragging) return;
+            const touch = e.touches[0];
+            this.newX = this.startX - touch.pageX;
+            this.newY = this.startY - touch.pageY;
+
+            this.startX = touch.pageX;
+            this.startY = touch.pageY;
+
+            const mainContainer = this.$refs.mainContainer;
+            const mainRect = mainContainer.getBoundingClientRect();
+            const pollRect = this.$el.getBoundingClientRect();
+
+            // Calculate new position
+            let newTop = this.$el.offsetTop - this.newY;
+            let newLeft = this.$el.offsetLeft - this.newX;
+
+            // Apply boundaries
+            newTop = Math.max(
+                0,
+                Math.min(newTop, mainRect.height - pollRect.height)
+            );
+            newLeft = Math.max(
+                0,
+                Math.min(newLeft, mainRect.width - pollRect.width)
+            );
+
+            this.$el.style.top = `${newTop}px`;
+            this.$el.style.left = `${newLeft}px`;
+
+            const draftRect =
+                this.$refs.draftPollsContainer.getBoundingClientRect();
+            const activeRect =
+                this.$refs.activePollsContainer.getBoundingClientRect();
+
+            if (this.isInside(pollRect, activeRect)) {
+                this.isDraft = false;
+                this.$refs.draftPollsContainer.style.backgroundColor = "";
+                this.$refs.activePollsContainer.style.backgroundColor =
+                    "#d1fae5";
+            } else if (this.isInside(pollRect, draftRect)) {
+                this.isDraft = true;
+                this.$refs.activePollsContainer.style.backgroundColor = "";
+                this.$refs.draftPollsContainer.style.backgroundColor =
+                    "#fef3c7";
+            } else {
+                this.isDraft = false;
+                this.$refs.activePollsContainer.style.backgroundColor = "";
+                this.$refs.draftPollsContainer.style.backgroundColor = "";
+            }
+        },
+        touchEnd() {
+            this.mouseUp();
         },
         arrangeDivs() {
             this.allPolls.forEach((poll) => {
@@ -92,7 +205,7 @@ Alpine.data("pollCreator", (isDraft) => {
             this.startX = e.pageX;
             this.startY = e.pageY;
             this.isDragging = true;
-            this.arrangeDivs(e.target.dataset.poll);
+            this.arrangeDivs();
         },
         mouseMove(e) {
             if (!this.isDragging) return;
@@ -102,32 +215,48 @@ Alpine.data("pollCreator", (isDraft) => {
             this.startX = e.pageX;
             this.startY = e.pageY;
 
-            this.$el.style.top = this.$el.offsetTop - this.newY + "px";
-            this.$el.style.left = this.$el.offsetLeft - this.newX + "px";
+            const mainContainer = this.$refs.mainContainer;
+            const mainRect = mainContainer.getBoundingClientRect();
+            const pollRect = this.$el.getBoundingClientRect();
+
+            // Calculate new position
+            let newTop = this.$el.offsetTop - this.newY;
+            let newLeft = this.$el.offsetLeft - this.newX;
+
+            // Apply boundaries
+            newTop = Math.max(
+                0,
+                Math.min(newTop, mainRect.height - pollRect.height)
+            );
+            newLeft = Math.max(
+                0,
+                Math.min(newLeft, mainRect.width - pollRect.width)
+            );
+
+            this.$el.style.top = `${newTop}px`;
+            this.$el.style.left = `${newLeft}px`;
 
             const draftRect =
                 this.$refs.draftPollsContainer.getBoundingClientRect();
             const activeRect =
                 this.$refs.activePollsContainer.getBoundingClientRect();
-            const pollRect = this.$el.getBoundingClientRect();
 
             if (this.isInside(pollRect, activeRect)) {
-                this.isDraft = false; // Mark as active
+                this.isDraft = false;
                 this.$refs.draftPollsContainer.style.backgroundColor = "";
                 this.$refs.activePollsContainer.style.backgroundColor =
-                    "#d1fae5"; // Light green highlight
+                    "#d1fae5";
             } else if (this.isInside(pollRect, draftRect)) {
-                this.isDraft = true; // Mark as draft
+                this.isDraft = true;
                 this.$refs.activePollsContainer.style.backgroundColor = "";
                 this.$refs.draftPollsContainer.style.backgroundColor =
-                    "#fef3c7"; // Light yellow highlight
+                    "#fef3c7";
             } else {
-                this.isDraft = false; // Not inside any section
+                this.isDraft = false;
                 this.$refs.activePollsContainer.style.backgroundColor = "";
                 this.$refs.draftPollsContainer.style.backgroundColor = "";
             }
         },
-
         pushToActiveArray(pollId) {
             // If not already in the array
             if (!this.activePolls.includes(pollId)) {
@@ -139,7 +268,6 @@ Alpine.data("pollCreator", (isDraft) => {
                 this.draftPolls.splice(this.draftPolls.indexOf(pollId), 1);
             }
         },
-
         pushToDraftArray(pollId) {
             // If not already in the array
             if (!this.draftPolls.includes(pollId)) {
@@ -151,17 +279,17 @@ Alpine.data("pollCreator", (isDraft) => {
                 this.activePolls.splice(this.activePolls.indexOf(pollId), 1);
             }
         },
-
         setPollActive(pollId) {
+            if (this.activePolls.length >= 3) {
+                Toaster.warning("En fazla 3 anket seçebilirsiniz.");
+            }
             if (this.activePolls.includes(pollId)) return;
             this.pushToActiveArray(pollId);
         },
-
         setPollDraft(pollId) {
             if (this.draftPolls.includes(pollId)) return;
             this.pushToDraftArray(pollId);
         },
-
         mouseUp() {
             this.isDragging = false;
 
