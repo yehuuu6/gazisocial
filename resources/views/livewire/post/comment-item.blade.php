@@ -75,7 +75,7 @@
                         </div>
                     @endif
                 </div>
-                <x-comment.comment-details :$comment :user_id="$post->user_id" />
+                <x-comment.comment-details :$comment :user_id="$post->user_id" :is_anonim="$post->isAnonim()" />
             </div>
             <div class="relative">
                 @if ($comment->replies_count > 0)

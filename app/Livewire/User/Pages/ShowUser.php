@@ -7,6 +7,7 @@ use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class ShowUser extends Component
 {
@@ -29,9 +30,22 @@ class ShowUser extends Component
     }
 
     #[Computed]
+    public function isOwnProfile()
+    {
+        return Auth::check() && Auth::id() === $this->user->id;
+    }
+
+    #[Computed]
     public function posts()
     {
-        return $this->user->posts()->with('user', 'likes', 'comments', 'tags')->simplePaginate(10);
+        $query = $this->user->posts();
+        
+        // Eğer kullanıcı kendi profilini görüntülemiyorsa, anonim gönderileri filtreliyoruz
+        if (!$this->isOwnProfile()) {
+            $query->where('is_anonim', false);
+        }
+        
+        return $query->with('user', 'likes', 'comments', 'tags')->simplePaginate(10);
     }
 
     public function render()
