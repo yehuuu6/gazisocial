@@ -96,10 +96,16 @@
                             <x-seperator class="my-2 md:hidden" />
                             <div
                                 class="mt-1.5 md:mt-3 flex items-end md:items-center justify-between gap-2.5 flex-wrap">
-                                <x-link href="{{ route('users.show', $post->user->username) }}"
-                                    class="text-xs md:text-sm text-blue-500">
-                                    {{ $post->user->name }} tarafından
-                                </x-link>
+                                @if ($post->isAnonim())
+                                    <div class="text-xs md:text-sm text-gray-600">
+                                        Anonim tarafından
+                                    </div>
+                                @else
+                                    <x-link href="{{ route('users.show', $post->user->username) }}"
+                                        class="text-xs md:text-sm text-blue-500">
+                                        {{ $post->user->name }} tarafından
+                                    </x-link>
+                                @endif
                                 <div>
                                     <x-link href="{{ $post->showRoute() }}" class="text-primary text-xs font-normal">
                                         Devamını oku

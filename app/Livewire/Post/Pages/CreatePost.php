@@ -30,6 +30,7 @@ class CreatePost extends Component
     public bool $showCreatePollModal = false;
     public bool $showEditPollModal = false;
     public ?Poll $editingPoll = null;
+    public bool $is_anonim = false;
 
     #[Computed(cache: true)]
     public function tags()
@@ -256,6 +257,7 @@ class CreatePost extends Component
         $post = Post::create([
             ...$validated,
             'user_id' => Auth::id(),
+            'is_anonim' => $this->is_anonim,
         ]);
 
         // Attach tags to the post

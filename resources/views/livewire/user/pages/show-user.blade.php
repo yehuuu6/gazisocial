@@ -19,8 +19,19 @@
                             <div>
                                 <div class="flex items-center justify-between gap-10">
                                     <x-link href="{{ $post->showRoute() }}"
-                                        class="text-gray-900 font-bold">{{ $post->title }}</x-link>
-                                    <div>
+                                        class="text-gray-900 font-bold flex items-center gap-1.5">
+                                        @if ($post->isAnonim())
+                                            <div class="font-normal">
+                                                <x-ui.tooltip text="Anonim Gönderi">
+                                                    <span class="text-amber-500">
+                                                        <x-icons.mask size="24" />
+                                                    </span>
+                                                </x-ui.tooltip>
+                                            </div>
+                                        @endif
+                                        {{ $post->title }}
+                                    </x-link>
+                                    <div class="flex-shrink-0">
                                         <span class="text-xs text-gray-500">
                                             {{ $post->created_at->diffForHumans() }}
                                         </span>
@@ -95,7 +106,11 @@
                 <div class="my-3.5 flex items-center gap-5">
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-800 text-sm">
-                            {{ $user->posts->count() }}
+                            @if ($this->isOwnProfile())
+                                {{ $user->posts->count() }}
+                            @else
+                                {{ $user->nonAnonymousPosts()->count() }}
+                            @endif
                         </span>
                         <span class="text-xs text-gray-500">
                             Gönderi

@@ -132,51 +132,99 @@
                     <div class="flex lg:items-center justify-between gap-3 flex-col lg:flex-row">
                         <div class="flex gap-2.5 items-center">
                             <div class="size-10 shrink-0 rounded-full overflow-hidden">
-                                <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
+                                @if ($this->isAnonim)
+                                    <div class="size-10 bg-gray-300 grid place-items-center">
+                                        <x-icons.user size="24" class="text-gray-500" />
+                                    </div>
+                                @else
+                                    <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
+                                @endif
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-gray-700 font-medium text-sm">{{ $post->user->name }}</span>
-                                <span class="text-gray-500 text-xs">{{ '@' . $post->user->username }}</span>
+                                <span class="text-gray-700 font-medium text-sm">{{ $this->displayName }}</span>
+                                @if (!$this->isAnonim)
+                                    <span class="text-gray-500 text-xs">{{ '@' . $post->user->username }}</span>
+                                @endif
                             </div>
                         </div>
-                        <x-link href="{{ route('users.show', $post->user) }}"
-                            class="text-white w-full text-center lg:w-fit flex-shrink-0 px-4 py-2 rounded bg-primary transition duration-300 hover:bg-opacity-90 hover:no-underline text-xs font-medium">
-                            Profili Gör
-                        </x-link>
+                        @if (!$this->isAnonim)
+                            <x-link href="{{ route('users.show', $post->user) }}"
+                                class="text-white w-full text-center lg:w-fit flex-shrink-0 px-4 py-2 rounded bg-primary transition duration-300 hover:bg-opacity-90 hover:no-underline text-xs font-medium">
+                                Profili Gör
+                            </x-link>
+                        @endif
                     </div>
-                    <p class="text-sm mt-4 text-gray-600">{{ $post->user->bio }}</p>
-                    <div class="mt-2 space-y-1.5">
-                        @if ($post->user->faculty)
+                    @if (!$this->isAnonim)
+                        <p class="text-sm mt-4 text-gray-600">{{ $post->user->bio }}</p>
+                        <div class="mt-2 space-y-1.5">
+                            @if ($post->user->faculty)
+                                <div class="flex items-center gap-1.5 text-gray-500 font-light">
+                                    <x-icons.graduate size="18" />
+                                    <span class="text-xs text-gray-700">{{ $post->user->faculty->name }}</span>
+                                </div>
+                            @endif
                             <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                                <x-icons.graduate size="18" />
-                                <span class="text-xs text-gray-700">{{ $post->user->faculty->name }}</span>
+                                <x-icons.cake size="18" />
+                                <span
+                                    class="text-xs text-gray-700">{{ $post->user->created_at->locale('tr')->diffForHumans() }}
+                                    Gazi Social'a katıldı</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-gray-500 font-light">
+                                <x-icons.activity size="18" />
+                                <span class="text-xs text-gray-700">
+                                    Son aktivite {{ $post->user->last_activity->locale('tr')->diffForHumans() }}
+                                </span>
+                            </div>
+                        </div>
+                    @else
+                        <p class="text-sm mt-4 text-gray-600 italic">Bu gönderi anonim olarak paylaşılmıştır.</p>
+                        @if ($this->canSeeRealUser)
+                            <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md">
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <h5 class="text-xs font-medium text-amber-600 flex items-center gap-0.5">
+                                        <x-icons.mask size="18" />
+                                        Gönderi Sahibi
+                                    </h5>
+                                    <x-link href="{{ route('users.show', $post->user) }}"
+                                        class="text-xs text-amber-600 hover:text-amber-700 font-medium">
+                                        Profili Görüntüle
+                                    </x-link>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="size-8 shrink-0 rounded-full overflow-hidden">
+                                        <img class="object-cover" src="{{ asset($post->user->avatar) }}"
+                                            alt="avatar">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-gray-700 font-medium text-sm">{{ $post->user->name }}</span>
+                                        <span class="text-gray-500 text-xs">{{ '@' . $post->user->username }}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    @if ($this->isOwnPost)
+                                        <span class="text-xs text-amber-500">Bu senin anonim gönderin.</span>
+                                    @else
+                                        <span class="text-xs text-amber-500">(Yönetici olduğun için
+                                            görüyorsun.)</span>
+                                    @endif
+                                </div>
                             </div>
                         @endif
-                        <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                            <x-icons.cake size="18" />
-                            <span
-                                class="text-xs text-gray-700">{{ $post->user->created_at->locale('tr')->diffForHumans() }}
-                                Gazi Social'a katıldı</span>
-                        </div>
-                        <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                            <x-icons.activity size="18" />
-                            <span class="text-xs text-gray-700">
-                                Son aktivite {{ $post->user->last_activity->locale('tr')->diffForHumans() }}
-                            </span>
-                        </div>
-                    </div>
+                    @endif
                 </div>
                 <x-seperator />
-                <div class="p-4 lg:p-6">
-                    <h4 class="text-sm text-gray-700 font-light uppercase">KULLANICI ROZETLERİ</h4>
-                    <div class="flex items-center flex-wrap gap-1 mt-2">
-                        @foreach ($post->user->roles as $role)
-                            <span
-                                class="{{ $colorVariants[$role->color] }} cursor-default select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
-                        @endforeach
+                @if (!$this->isAnonim)
+                    <div class="p-4 lg:p-6">
+                        <h4 class="text-sm text-gray-700 font-light uppercase">KULLANICI ROZETLERİ</h4>
+                        <div class="flex items-center flex-wrap gap-1 mt-2">
+                            @foreach ($post->user->roles as $role)
+                                <span
+                                    class="{{ $colorVariants[$role->color] }} cursor-default select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                <x-seperator />
+                    <x-seperator />
+                @endif
                 <div class="p-4 lg:p-6">
                     <h4 class="text-sm text-gray-700 font-light uppercase mb-1">GÖNDERİ ETİKETLERİ</h4>
                     <div class="flex flex-wrap items-center gap-1.5 mt-2">

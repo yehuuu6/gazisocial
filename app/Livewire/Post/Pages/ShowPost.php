@@ -42,6 +42,38 @@ class ShowPost extends Component
     ];
 
     #[Computed]
+    public function isAnonim()
+    {
+        return $this->post->isAnonim();
+    }
+
+    #[Computed]
+    public function displayName()
+    {
+        return $this->post->getDisplayName();
+    }
+
+    #[Computed]
+    public function canSeeRealUser()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+        return $user->hasRole('gazisocial') || $user->hasRole('moderator') || $this->isOwnPost();
+    }
+
+    #[Computed]
+    public function isOwnPost()
+    {
+        return Auth::check() && Auth::id() === $this->post->user_id;
+    }
+
+    #[Computed]
     public function polls()
     {
         return $this->post->polls()->with('options')->get();

@@ -78,10 +78,16 @@
                                     <span class="text-xs text-gray-500 font-light">
                                         {{ $post->created_at->locale('tr')->diffForHumans() }},
                                     </span>
-                                    <x-link href="{{ route('users.show', $post->user->username) }}"
-                                        class="text-xs text-blue-400 font-normal">
-                                        {{ $post->user->name }} tarafından
-                                    </x-link>
+                                    @if ($post->isAnonim())
+                                        <span class="text-xs text-gray-600 font-semibold">
+                                            Anonim
+                                        </span>
+                                    @else
+                                        <x-link href="{{ route('users.show', $post->user->username) }}"
+                                            class="text-xs text-blue-400 font-normal">
+                                            {{ $post->user->name }} tarafından
+                                        </x-link>
+                                    @endif
                                 </div>
                             </div>
                             <p class="text-xs md:text-sm text-gray-700 mt-3">

@@ -2,10 +2,18 @@
     x-on:click="Livewire.navigate('{{ $post->showRoute() }}')">
     <td class="p-4 text-left">
         <div class="flex items-center gap-4">
-            <x-link class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden" title="{{ $post->user->name }}"
-                href="{{ route('users.show', $post->user->username) }}">
-                <img class="w-full h-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
-            </x-link>
+            @if ($post->isAnonim())
+                <div class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden">
+                    <div class="w-full h-full bg-gray-300 grid place-items-center">
+                        <x-icons.user size="24" class="text-gray-500" />
+                    </div>
+                </div>
+            @else
+                <x-link class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden"
+                    title="{{ $post->user->name }}" href="{{ route('users.show', $post->user->username) }}">
+                    <img class="w-full h-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
+                </x-link>
+            @endif
             <div class="flex flex-col gap-2 md:gap-0 w-full">
                 <div class="item-center flex flex-wrap gap-2">
                     @foreach ($post->tags as $tag)
@@ -16,10 +24,14 @@
                     <span>{{ $post->title }}</span>
                 </h1>
                 <div class="md:hidden">
-                    <x-link href="{{ route('users.show', $post->user->username) }}"
-                        class="text-xs font-normal text-blue-500">
-                        <span>{{ $post->user->name }}</span>
-                    </x-link>
+                    @if ($post->isAnonim())
+                        <span class="text-xs font-normal text-gray-500">Anonim</span>
+                    @else
+                        <x-link href="{{ route('users.show', $post->user->username) }}"
+                            class="text-xs font-normal text-blue-500">
+                            <span>{{ $post->user->name }}</span>
+                        </x-link>
+                    @endif
                     <span class="text-xs font-light text-gray-600"> tarafından</span>
                 </div>
             </div>

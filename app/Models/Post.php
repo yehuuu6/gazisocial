@@ -22,6 +22,10 @@ class Post extends Model
         'id',
     ];
 
+    protected $casts = [
+        'is_anonim' => 'boolean',
+    ];
+
     public function toggleLike()
     {
         DB::transaction(function () {
@@ -58,6 +62,20 @@ class Post extends Model
     public function getCommentsCount(): int
     {
         return $this->hasMany(Comment::class)->count();
+    }
+
+    public function isAnonim(): bool
+    {
+        return $this->is_anonim;
+    }
+
+    public function getDisplayName(): string
+    {
+        if ($this->isAnonim()) {
+            return 'Anonim';
+        }
+
+        return $this->user->name;
     }
 
     public function tags(): BelongsToMany

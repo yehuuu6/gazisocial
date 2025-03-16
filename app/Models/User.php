@@ -115,6 +115,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(Post::class);
     }
 
+    public function nonAnonymousPosts()
+    {
+        return $this->hasMany(Post::class)->where('is_anonim', false);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
