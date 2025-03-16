@@ -245,7 +245,7 @@ Alpine.data("pollCreator", (isDraft) => {
                 this.isDraft = false;
                 this.$refs.draftPollsContainer.style.backgroundColor = "";
                 this.$refs.activePollsContainer.style.backgroundColor =
-                    "#d1fae5";
+                    "#d1e7fa";
             } else if (this.isInside(pollRect, draftRect)) {
                 this.isDraft = true;
                 this.$refs.activePollsContainer.style.backgroundColor = "";

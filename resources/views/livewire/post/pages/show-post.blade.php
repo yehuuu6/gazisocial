@@ -119,7 +119,7 @@
                 </button>
                 <div class="p-4 lg:p-6">
                     <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
-                    <div class="flex items-center justify-between gap-3 flex-col lg:flex-row">
+                    <div class="flex lg:items-center justify-between gap-3 flex-col lg:flex-row">
                         <div class="flex gap-2.5 items-center">
                             <div class="size-10 shrink-0 rounded-full overflow-hidden">
                                 <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
@@ -162,7 +162,7 @@
                     <div class="flex items-center flex-wrap gap-1 mt-2">
                         @foreach ($post->user->roles as $role)
                             <span
-                                class="{{ $colorVariants[$role->color] }} cursor-default rounded-full px-2 py-1 text-xs font-medium capitalize text-white">{{ $role->name }}</span>
+                                class="{{ $colorVariants[$role->color] }} rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
                         @endforeach
                     </div>
                 </div>
