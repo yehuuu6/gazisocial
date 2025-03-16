@@ -36,7 +36,12 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        // Check if the user is the owner of the post
+        // Admin veya gazisocial rolüne sahip kullanıcılar tüm postları düzenleyebilir
+        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+            return true;
+        }
+
+        // Kullanıcı postun sahibi ise düzenleyebilir
         return $user->id === $post->user_id;
     }
 
@@ -45,6 +50,11 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
+        // Admin veya gazisocial rolüne sahip kullanıcılar tüm postları silebilir
+        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+            return true;
+        }
+
         return $user->id === $post->user_id;
     }
 }

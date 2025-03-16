@@ -15,6 +15,7 @@ use App\Livewire\Docs\Terms\UserTerms;
 use App\Livewire\Post\Pages\ListPosts;
 use App\Livewire\Faculty\ShowFaculties;
 use App\Livewire\Post\Pages\CreatePost;
+use App\Livewire\Post\Pages\EditPost;
 use App\Livewire\ZalimKasaba\ShowLobby;
 use App\Livewire\ZalimKasaba\CreateLobby;
 use App\Livewire\ZalimKasaba\LobbiesList;
@@ -62,6 +63,7 @@ Route::get('/', HomePage::class)->name('home');
 // Post routes START
 
 Route::get('/p/create', CreatePost::class)->name('posts.create')->middleware('auth', 'verified');
+Route::get('/p/{post}/edit', EditPost::class)->name('posts.edit')->middleware('auth', 'verified');
 Route::get('/posts/{order?}', ListPosts::class)->name('posts.index');
 Route::get('/p/{post}/{slug}/{order?}', ShowPost::class)->name('posts.show');
 Route::get('/p/{post}/{slug}/comments/{comment}', ShowPost::class)->name('posts.show.comment');
