@@ -8,14 +8,20 @@
             </a>
         </div>
     </div>
+    <div class="grid gap-1 grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2" wire:loading.grid>
+        @for ($i = 0; $i < 12; $i++)
+            <div class="flex items-center justify-center">
+                <img src="{{ asset('placeholder.svg') }}" alt="Loading..."
+                    class="h-16 md:h-32 object-cover rounded-md" />
+            </div>
+        @endfor
+    </div>
+    <div class="grid gap-1 grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2" wire:loading.remove>
+        @foreach ($this->gifs as $gif)
+            <img src="{{ $gif['images']['fixed_height']['url'] }}" alt="GIF" x-on:click="gifSelector = false"
+                class="h-16 md:h-32 object-cover rounded-md cursor-pointer"
+                wire:click="$parent.sendGif('{{ $gif['images']['original']['url'] }}')" loading="lazy" />
+        @endforeach
+    </div>
 
-    @if (!empty($this->gifs))
-        <div class="grid gap-1 grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2">
-            @foreach ($this->gifs as $gif)
-                <img src="{{ $gif['images']['fixed_height']['url'] }}" alt="GIF" x-on:click="gifSelector = false"
-                    class="h-16 md:h-32 object-cover rounded-md cursor-pointer"
-                    wire:click="$parent.sendGif('{{ $gif['images']['original']['url'] }}')" loading="lazy" />
-            @endforeach
-        </div>
-    @endif
 </div>

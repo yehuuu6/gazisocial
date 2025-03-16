@@ -16,6 +16,11 @@ class GiphySearch extends Component
         $this->giphyController = $giphyController;
     }
 
+    public function placeholder()
+    {
+        return view('components.post.giphy-placeholder');
+    }
+
     #[Computed]
     public function gifs(): array
     {
