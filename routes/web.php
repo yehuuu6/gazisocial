@@ -79,6 +79,12 @@ Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->midd
 
 // User routes END
 
+// Notifications routes START
+
+Route::get('/notifications', \App\Livewire\User\Pages\AllNotifications::class)->name('notifications.index')->middleware('auth');
+
+// Notifications routes END
+
 // Faculties routes START
 
 Route::get('/faculties', ShowFaculties::class)->name('faculties')->middleware('can:join,App\Models\Faculty');

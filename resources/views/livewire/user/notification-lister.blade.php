@@ -1,7 +1,8 @@
 <div x-data="{
     notificationsDropdown: false,
     hasUnreadNotifications: $wire.entangle('hasUnreadNotifications'),
-}" class="flex items-center gap-2 text-primary">
+}" class="flex items-center gap-2 text-primary"
+    x-on:notification-updated.window="$wire.$refresh()">
     <button x-on:click="notificationsDropdown = !notificationsDropdown" x-ref="notificationMenu"
         class="p-2 hover:bg-gray-100 rounded-md relative">
         <div x-cloak x-show="hasUnreadNotifications">

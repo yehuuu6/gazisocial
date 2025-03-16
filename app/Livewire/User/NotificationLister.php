@@ -65,6 +65,20 @@ class NotificationLister extends Component
         }
     }
 
+    public function deleteNotification(int $notificationId)
+    {
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id', $notificationId)->first();
+        
+        if ($notification) {
+            $notification->delete();
+            $this->setUnreadBool();
+        }
+    }
+
     #[Computed]
     public function notifications()
     {
