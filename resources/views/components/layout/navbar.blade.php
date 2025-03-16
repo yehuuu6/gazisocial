@@ -3,7 +3,7 @@
 }" id="navbar"
     class="bg-opacity-85 sticky top-0 z-30 border-b border-gray-200 bg-white py-4 shadow-sm backdrop-blur md:py-5">
     <div class="relative" x-ref="navbar">
-        <div class="flex items-center justify-between mx-[3%] md:mx-[6%] lg:mx-[12%]">
+        <div class="flex items-center justify-between mx-[3%] xl:mx-[6%] 2xl:mx-[12%]">
             <x-link href="/" class="group flex items-center gap-1.5 hover:no-underline hover:opacity-90 md:gap-2.5">
                 <div class="h-12">
                     <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social Logo"

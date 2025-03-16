@@ -1,5 +1,5 @@
 <div class="mt-auto">
-    <footer class="py-12 px-[3%] md:px-[6%] lg:px-[12%] bg-blue-950">
+    <footer class="py-12 px-[3%] xl:px-[6%] 2xl:px-[12%] bg-blue-950">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="mb-4 md:mb-0">
                 <div class="w-36 md:w-48 mb-3.5">

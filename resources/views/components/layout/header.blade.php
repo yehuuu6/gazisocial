@@ -4,7 +4,7 @@
     isTagsShowPopular: '{{ request()->routeIs('tags.show') && request('order') === 'popular' }}',
     isPostsIndexLatest: '{{ request()->routeIs('posts.index') && (request('order') === 'latest' || request('order') === null) }}',
     isPostsIndexPopular: '{{ request()->routeIs('posts.index') && request('order') === 'popular' }}',
-}" class="mx-[3%] mt-4 md:mx-[6%] md:mt-8 lg:mx-[12%]">
+}" class="mx-[3%] mt-4 xl:mx-[6%] md:mt-8 2xl:mx-[12%]">
     <header class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-0">
         <div class="flex justify-between gap-1 md:justify-start">
             @persist('tags-lister')
