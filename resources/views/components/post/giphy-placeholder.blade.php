@@ -1,6 +1,7 @@
 <div>
     <div class="flex items-center gap-1 justify-between w-full border focus:border-gray-300 rounded border-gray-100">
-        <input type="text" spellcheck="false" class="outline-none w-full p-2" placeholder="🔎 GIPHY'de Ara" readonly />
+        <input id="giphy-search-placeholder-input" type="text" spellcheck="false" class="outline-none w-full p-2"
+            placeholder="🔎 GIPHY'de Ara" readonly />
         <div class="flex items-end justify-end">
             <a target="_blank" href="https://giphy.com/">
                 <img src="{{ asset('logos/giphy.png') }}" alt="Powered by GIPHY" class="w-16 md:w-20" />

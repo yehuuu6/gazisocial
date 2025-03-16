@@ -8,7 +8,7 @@
         <div class="bg-white shadow-md rounded-md py-2 px-2.5 w-[350px] md:w-[500px]"
             x-on:click.outside="searchOpen = false">
             <div class="flex items-center gap-0.5 justify-between">
-                <input spellcheck="false" type="text" wire:model.live.debounce.250ms="search"
+                <input spellcheck="false" type="text" wire:model.live.debounce.250ms="search" id="search-posts"
                     class="bg-gray-50 text-sm md:text-base px-3 rounded-md py-3 text-gray-700 w-full h-full outline-none"
                     placeholder="🔎 Konu ara" />
                 <button type="button" class="rounded p-2 pr-0 opacity-70 hover:opacity-100"
