@@ -44,12 +44,18 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
         // Set user's default avatar
         static::created(function ($user) {
-            $user->avatar = 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=random';
-            $user->save();
-
             // Assign the 'member' role to the user
             $user->assignRole(['member']);
         });
+    }
+
+    public function getAvatar(): string
+    {
+        if ($this->avatar) {
+            return '/storage' . $this->avatar;
+        } else {
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=random';
+        }
     }
 
     public function notifications(): HasMany

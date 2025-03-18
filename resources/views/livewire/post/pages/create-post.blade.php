@@ -43,7 +43,7 @@
                 </h1>
                 <button type="button" wire:click="createPost"
                     class="px-3 py-1.5 text-xs lg:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
-                    Oluştur
+                    Yayınla
                 </button>
             </div>
             <div class="flex flex-col gap-5 md:gap-7 p-4 lg:p-6">
@@ -96,9 +96,7 @@
                             Anonim Paylaşım
                         </h4>
                         <p class="text-xs lg:text-sm text-gray-500">
-                            Konunuzu anonim olarak paylaşmak için bu seçeneği etkinleştirebilirsiniz.
-                            Anonim paylaşımlarda kullanıcı adınız gizlenir, ancak yöneticiler gerçek kimliğinizi
-                            görebilir.
+                            Anonim konularda yöneticiler kimliğinizi her zaman görebilir.
                         </p>
                     </div>
                     <div

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $users = User::factory(30)->create();
+        $users = User::factory(10)->create();
 
         // Create a user with custom attributes
         $user1 = User::create([
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
 
         $tags = Tag::all();
 
-        $posts = Post::factory(100)
+        $posts = Post::factory(10)
             ->withFixture()
             ->recycle($users)
             ->create()

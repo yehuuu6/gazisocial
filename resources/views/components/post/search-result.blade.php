@@ -7,7 +7,7 @@
                 <x-icons.user size="16" class="text-gray-500" />
             </div>
         @else
-            <img class="h-8 w-8 rounded-full" src="{{ $post->user->avatar }}" alt="avatar">
+            <img class="h-8 w-8 rounded-full" src="{{ $post->user->getAvatar() }}" alt="avatar">
         @endif
         <h3 class="text-sm font-medium text-blue-800">{{ $post->title }}</h3>
     </x-link>
