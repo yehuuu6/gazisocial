@@ -13,47 +13,56 @@
         });
     }
 }" x-init="initOptions"
-    class="fixed inset-0 bg-black bg-opacity-60 z-50 grid place-items-center">
+    class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 grid place-items-center transition-all duration-300 ease-in-out">
     <div wire:show="showEditPollModal" wire:transition.scale
-        class="rounded-xl overflow-hidden shadow-xl bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full h-fit">
-        <div>
-            <h3 class="px-6 py-4 text-xl font-medium text-gray-700 border-b border-gray-100">
+        class="rounded-xl overflow-hidden shadow-lg bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full h-fit transform transition-all duration-300">
+        <div class="bg-gradient-to-r from-teal-500 to-teal-400 text-white">
+            <h3 class="px-6 py-4 text-lg font-semibold text-white flex items-center gap-2">
+                <x-icons.survey size="24" />
                 Anketi Düzenle
             </h3>
         </div>
         <div>
             <form wire:submit.prevent="updatePoll">
-                <div class="px-6 py-3">
-                    <div class="mb-2">
-                        <label for="question" class="font-medium text-gray-700">
+                <div class="px-6 py-4">
+                    <div class="mb-4">
+                        <label for="question" class="font-medium text-gray-700 block mb-1.5">
                             Soru
                         </label>
                         <input wire:model="question" type="text" id="question" name="question" required
-                            class="outline-none border border-gray-200 rounded-md p-2 text-sm text-gray-700 w-full"
+                            class="outline-none border border-gray-300 rounded-lg p-2.5 text-sm text-gray-700 w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all duration-200"
                             placeholder="Anket sorusu" autocomplete="off" spellcheck="false" />
                     </div>
-                    <div class="flex items-center justify-between gap-5">
-                        <h4 class="font-medium text-gray-700">
+                    <div class="flex items-center justify-between gap-5 mb-3">
+                        <h4 class="font-medium text-gray-700 flex items-center gap-1.5">
+                            <x-icons.bullet-list size="18" />
                             Seçenekler
                         </h4>
                         <div class="flex items-center gap-2">
                             <button type="button" wire:click="$set('optionsCount', Math.min(optionsCount + 1, 10))"
-                                class="text-blue-400 text-sm font-medium hover:text-blue-500">
+                                class="text-teal-500 text-sm font-medium hover:text-teal-600 transition-colors duration-200 flex items-center gap-1">
+                                <x-icons.show size="16" />
                                 Ekle
                             </button>
                         </div>
                     </div>
-                    <div class="max-h-44 overflow-y-auto overflow-x-hidden">
+                    <div class="max-h-44 overflow-y-auto overflow-x-hidden rounded-lg border border-gray-200 p-2">
                         <ul class="space-y-2">
                             @for ($i = 0; $i < $optionsCount; $i++)
-                                <li class="flex items-center gap-2">
-                                    <input type="text" wire:model="options.{{ $i }}" required data-option
-                                        autocomplete="off" spellcheck="false"
-                                        class="outline-none border border-gray-200 rounded-md p-2 text-sm text-gray-700 w-full"
-                                        placeholder="Seçenek {{ $i + 1 }}" />
+                                <li class="relative group flex items-center gap-2">
+                                    <div class="flex-1 relative">
+                                        <input type="text" wire:model="options.{{ $i }}" required
+                                            data-option autocomplete="off" spellcheck="false"
+                                            class="outline-none border border-gray-300 rounded-lg p-2.5 text-sm text-gray-700 w-full focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all duration-200 pl-8"
+                                            placeholder="Seçenek {{ $i + 1 }}" />
+                                        <div
+                                            class="absolute left-2.5 top-1/2 -translate-y-1/2 text-teal-500 font-medium text-sm">
+                                            {{ $i + 1 }}
+                                        </div>
+                                    </div>
                                     <button type="button" wire:click="deleteOption({{ $i }})"
-                                        class="shrink-0 text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors">
-                                        <x-icons.trash size="14" />
+                                        class="shrink-0 text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">
+                                        <x-icons.trash size="16" />
                                     </button>
                                 </li>
                             @endfor
@@ -63,15 +72,17 @@
             </form>
         </div>
         <div>
-            <div class="bg-gray-50 p-6 flex gap-2 items-center justify-end">
-                <button type="button" x-on:click="$wire.showEditPollModal = false; $wire.question = ''"
-                    class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-300">
-                    Kapat
-                </button>
-                <button wire:click="updatePoll" type="button"
-                    class="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600">
-                    Güncelle
-                </button>
+            <div class="bg-gray-50 p-5 flex gap-2 items-center justify-end border-t border-gray-100">
+                <div class="flex items-center gap-2">
+                    <button type="button" x-on:click="$wire.showEditPollModal = false; $wire.question = ''"
+                        class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300 transition-colors duration-200">
+                        İptal
+                    </button>
+                    <button wire:click="updatePoll" type="button"
+                        class="rounded bg-teal-500 px-4 py-2 text-sm font-medium text-white hover:bg-teal-600 transition-colors duration-200 shadow-sm hover:shadow">
+                        Kaydet
+                    </button>
+                </div>
             </div>
         </div>
     </div>

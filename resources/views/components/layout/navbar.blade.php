@@ -124,7 +124,7 @@
                         </x-link>
                     @endif
                 @endcan
-                <x-link href="{{ route('users.edit', Auth::user()->username) }}"
+                <x-link href="{{ route('users.show', Auth::user()->username) }}"
                     class="flex flex-row-reverse items-center justify-between gap-1 rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                     <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full object-cover">
                     <span>{{ Auth::user()->name }}</span>

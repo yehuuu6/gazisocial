@@ -19,6 +19,10 @@ class Comment extends Model
         'id'
     ];
 
+    protected $with = [
+        'post'
+    ];
+
     protected static function boot()
     {
         parent::boot();
