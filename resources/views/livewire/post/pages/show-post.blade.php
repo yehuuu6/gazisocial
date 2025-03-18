@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <article x-data="highlightCode" wire:ignore
-                        class="prose prose-sm max-w-none break-words overflow-x-auto sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
+                        class="prose prose-sm max-w-none break-all break-words overflow-x-auto sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
                         {!! $post->html !!}
                     </article>
                     <div class="flex items-center gap-3.5 mt-3" x-data="{ isDisabled: false }">
@@ -113,7 +113,7 @@
                 x-cloak wire:ignore.self x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';"
                 class="fixed lg:sticky bg-white rounded-tr-xl z-20 top-0 h-full min-w-[285px] w-[285px] md:min-w-[300px] md:w-[300px] lg:min-w-[330px] lg:w-[330px] 2xl:min-w-[375px] 2xl:w-[375px] transform transition-all duration-300 border-l border-gray-200">
-                <div class="p-4 lg:p-6 flex items-center gap-2">
+                <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center gap-2">
                     <button x-on:click="userPanel = !userPanel" x-cloak x-show="userPanel"
                         class="lg:hidden bg-gray-50 rounded-full p-2 text-gray-700 hover:bg-gray-100">
                         <x-icons.close size="18" />
@@ -138,7 +138,8 @@
                                         <x-icons.user size="24" class="text-gray-500" />
                                     </div>
                                 @else
-                                    <img class="object-cover" src="{{ asset($post->user->avatar) }}" alt="avatar">
+                                    <img class="object-cover" src="{{ asset($post->user->getAvatar()) }}"
+                                        alt="avatar">
                                 @endif
                             </div>
                             <div class="flex flex-col">
@@ -193,7 +194,7 @@
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <div class="size-8 shrink-0 rounded-full overflow-hidden">
-                                        <img class="object-cover" src="{{ asset($post->user->avatar) }}"
+                                        <img class="object-cover" src="{{ asset($post->user->getAvatar()) }}"
                                             alt="avatar">
                                     </div>
                                     <div class="flex flex-col">

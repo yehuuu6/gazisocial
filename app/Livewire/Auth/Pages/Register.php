@@ -84,8 +84,6 @@ class Register extends Component
             'password' => bcrypt($this->password),
         ];
 
-        $attributes['avatar'] = 'https://ui-avatars.com/api/?name=' . $attributes['name'] . '&color=7F9CF5&background=random';
-
         $user = User::create($attributes);
 
         Auth::login($user);

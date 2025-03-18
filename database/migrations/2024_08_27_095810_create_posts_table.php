@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->longText('content');
             $table->longText('html');
             $table->boolean('is_pinned')->default(false);
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->bigInteger('popularity')->default(0);
+            $table->boolean('is_anonim')->default(false);
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@
             @else
                 <x-link class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden"
                     title="{{ $post->user->name }}" href="{{ route('users.show', $post->user->username) }}">
-                    <img class="w-full h-full object-cover" src="{{ $post->user->avatar }}" alt="avatar">
+                    <img class="w-full h-full object-cover" src="{{ $post->user->getAvatar() }}" alt="avatar">
                 </x-link>
             @endif
             <div class="flex flex-col gap-2 md:gap-0 w-full">

@@ -67,7 +67,7 @@
                 <div class="relative">
                     <div class="size-7 md:size-8 relative md:static shadow rounded-full overflow-hidden">
                         <img x-ref="avatar" class="absolute md:static z-[1] w-full h-full object-cover"
-                            src="{{ asset($comment->user->avatar) }}" alt="avatar" />
+                            src="{{ asset($comment->user->getAvatar()) }}" alt="avatar" />
                     </div>
                     @if ($comment->depth > 0)
                         <div

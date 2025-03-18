@@ -32,7 +32,7 @@
                         <div x-data="{ userDropdown: false }">
                             <div x-on:click="userDropdown = !userDropdown" x-ref="userMenu"
                                 class="flex cursor-pointer items-center justify-center gap-1 rounded-lg p-2 hover:bg-gray-100">
-                                <img src="{{ Auth::user()->avatar }}" alt="profil resmi"
+                                <img src="{{ Auth::user()->getAvatar() }}" alt="profil resmi"
                                     class="size-9 rounded-full object-cover">
                                 <div class="ml-1 flex flex-col">
                                     <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
@@ -126,7 +126,7 @@
                 @endcan
                 <x-link href="{{ route('users.show', Auth::user()->username) }}"
                     class="flex flex-row-reverse items-center justify-between gap-1 rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
-                    <img src="{{ Auth::user()->avatar }}" alt="avatar" class="size-6 rounded-full object-cover">
+                    <img src="{{ Auth::user()->getAvatar() }}" alt="avatar" class="size-6 rounded-full object-cover">
                     <span>{{ Auth::user()->name }}</span>
                 </x-link>
                 <form method="POST" action="{{ route('logout') }}" class="w-full">

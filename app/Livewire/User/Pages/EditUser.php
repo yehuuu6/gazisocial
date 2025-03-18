@@ -4,23 +4,28 @@ namespace App\Livewire\User\Pages;
 
 use App\Models\User;
 use Livewire\Component;
-use Illuminate\Support\Facades\Hash;
-use Masmerise\Toaster\Toaster;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
-use Masmerise\Toaster\Toast;
+use Masmerise\Toaster\Toaster;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 
 #[Title('Hesap ayarları - Gazi Social')]
 class EditUser extends Component
 {
+    use WithFileUploads;
+
     public User $user;
 
     // Profile Info
     public $name;
     public $username;
     public $bio;
+
+    public $avatar;
 
     // Update Password
     public $current_password;
@@ -29,6 +34,11 @@ class EditUser extends Component
 
     // Update Account Privacy Settings
     public $profileVisibility;
+
+    public bool $deleteAccountModal = false;
+
+    // Delete Account
+    public $deleteAccountConfirmation;
 
     public function mount(User $user)
     {
@@ -41,6 +51,76 @@ class EditUser extends Component
         $this->profileVisibility = $user->is_private ? 'private' : 'public';
 
         $this->authorize('view', $this->user);
+    }
+
+    public function deleteAvatar()
+    {
+        if (!$this->user->avatar) {
+            Toaster::error('Avatar resmi bulunamadı.');
+            return;
+        }
+
+        $this->authorize('update', $this->user);
+
+        $oldAvatar = $this->user->avatar;
+
+        // Delete the old avatar if it exists and is not the default
+        if ($oldAvatar && Storage::exists($oldAvatar)) {
+            Storage::delete($oldAvatar);
+        } else {
+            Toaster::error('Avatar resmi bulunamadı.');
+            return;
+        }
+
+        // Alert success message
+        Toaster::success('Avatar resminiz başarıyla silindi.');
+
+        // Update the user's avatar in the database
+        $this->user->update([
+            'avatar' => null,
+        ]);
+
+        // Clear temporary avatar files
+        $this->reset('avatar');
+    }
+
+    public function saveAvatar()
+    {
+        $messages = [
+            'avatar.image' => 'Avatar resmi bir resim dosyası olmalıdır.',
+            'avatar.max' => 'Avatar resmi en fazla :max MB olabilir.',
+            'avatar.mimes' => 'Avatar resmi sadece :values formatında olabilir.',
+        ];
+
+        try {
+            $this->validate([
+                'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,webp',
+            ], $messages);
+        } catch (ValidationException $e) {
+            Toaster::error($e->getMessage());
+            return;
+        }
+
+        $oldAvatar = $this->user->avatar;
+
+        // Store the new avatar and get its path
+        $avatarPath = '/' . $this->avatar->store('avatars');
+
+        // Delete the old avatar if it exists and is not the default
+        if ($oldAvatar && Storage::exists($oldAvatar)) {
+            Storage::delete($oldAvatar);
+        }
+
+        // Update the user's avatar in the database
+        $this->user->update([
+            'avatar' => $avatarPath,
+        ]);
+
+        // Alert success message
+        Toaster::success('Avatar resminiz güncellendi.');
+
+        // Clear temporary avatar files
+        $this->reset('avatar');
     }
 
     public function leaveFaculty()
@@ -151,33 +231,52 @@ class EditUser extends Component
 
     public function updatePrivacyInfo()
     {
-
         $this->authorize('update', $this->user);
 
-        try {
-            $this->validate([
-                'profileVisibility' => 'required|in:public,private',
-            ]);
-        } catch (ValidationException $e) {
-            Toaster::error($e->getMessage());
-            return;
-        }
-
-        // If there is no change in the privacy settings, return
-        if ($this->profileVisibility === ($this->user->is_private ? 'private' : 'public')) {
-            Toaster::warning('Değişiklik yapmadınız.');
-            return;
-        }
-
-        $result = $this->user->update([
-            'is_private' => $this->profileVisibility === 'private' ? 1 : 0,
+        $this->user->update([
+            'is_private' => $this->profileVisibility === 'private',
         ]);
 
-        if ($result) {
-            Toaster::success('Tercihleriniz başarıyla kaydedildi.');
-        } else {
-            Toaster::error('Tercihler kaydedilirken bir hata oluştu.');
+        Toaster::success('Gizlilik ayarlarınız güncellendi.');
+    }
+
+    public function deleteAccount()
+    {
+        $this->authorize('delete', $this->user);
+
+        if ($this->deleteAccountConfirmation !== 'ONAYLA') {
+            Toaster::error('Hesabınızı silmek için "ONAYLA" yazın.');
+            return;
         }
+
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+
+        if ($user->id !== $this->user->id) {
+            Toaster::error('Sadece kendi hesabınızı silebilirsiniz.');
+            return;
+        }
+
+        // Kullanıcının avatarını silme
+        if ($user->avatar && Storage::exists($user->avatar)) {
+            Storage::delete($user->avatar);
+        }
+
+        // Kullanıcının ilişkili diğer verileri silmek için gerekli işlemler burada yapılabilir
+        // Not: cascade=true ile tanımlanan ilişkilerin otomatik silinmesi mümkündür
+
+        // Hesabı silme
+        $user->delete();
+
+        // Oturumu sonlandırma
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
+
+        // Giriş sayfasına yönlendirme
+        return redirect()->route('login')->with('success', 'Hesabınız başarıyla silindi.');
     }
 
     public function render()

@@ -10,14 +10,14 @@
                 class="w-full p-4 border-b border-gray-100 bg-white/80 backdrop-blur-md rounded-t-xl transition-all duration-200">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-3">
                     <div class="hidden sm:block size-16 overflow-hidden rounded-full flex-shrink-0">
-                        <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}"
+                        <img src="{{ asset($user->getAvatar()) }}" alt="{{ $user->name }}"
                             class="w-full object-cover h-full">
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between gap-2">
                             <div class="flex items-center gap-2">
                                 <div class="sm:hidden size-10 overflow-hidden rounded-full flex-shrink-0">
-                                    <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}"
+                                    <img src="{{ asset($user->getAvatar()) }}" alt="{{ $user->name }}"
                                         class="w-full object-cover h-full">
                                 </div>
                                 <div class="flex flex-col gap-0">
@@ -193,7 +193,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-0 lg:gap-2">
                                 <div class="flex items-start gap-2">
                                     <div class="size-8 lg:size-10 overflow-hidden rounded-full flex-shrink-0">
-                                        <img src="{{ asset($comment->user->avatar) }}"
+                                        <img src="{{ asset($comment->user->getAvatar()) }}"
                                             alt="{{ $comment->user->name }}" class="w-full object-cover h-full">
                                     </div>
                                     <div class="flex flex-col">
