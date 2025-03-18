@@ -121,20 +121,24 @@
                             x-on:livewire-upload-cancel="uploading = false"
                             x-on:livewire-upload-error="uploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
-                            <label x-show="!uploading" for="profile-avatar" wire:loading.remove
-                                wire:target="photo, deleteAvatar"
-                                class="cursor-pointer inline-flex self-start items-center justify-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                <x-icons.camera size="16" />
-                                <span>Yükle</span>
-                            </label>
-                            <input type="file" id="profile-avatar" name="profile-avatar" accept="image/*"
-                                class="hidden" wire:model="avatar" />
-                            <button x-show="!uploading" wire:click="deleteAvatar" wire:loading.remove
-                                wire:target="photo, deleteAvatar"
-                                class="inline-flex ml-2 self-start items-center justify-center gap-2 rounded border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50">
-                                <x-icons.trash size="16" />
-                                <span>Kaldır</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <label x-show="!uploading" for="profile-avatar" wire:loading.remove
+                                    wire:target="photo, deleteAvatar"
+                                    class="cursor-pointer w-full inline-flex self-start items-center justify-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    <x-icons.camera size="16" />
+                                    <span>Yükle</span>
+                                </label>
+                                <input type="file" id="profile-avatar" name="profile-avatar" accept="image/*"
+                                    class="hidden" wire:model="avatar" />
+                                @if ($this->user->avatar)
+                                    <button x-show="!uploading" wire:click="deleteAvatar" wire:loading.remove
+                                        wire:target="photo, deleteAvatar"
+                                        class="inline-flex w-full ml-2 self-start items-center justify-center gap-2 rounded border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50">
+                                        <x-icons.trash size="16" />
+                                        <span>Kaldır</span>
+                                    </button>
+                                @endif
+                            </div>
                             <div x-cloak x-show="uploading" class="mt-3 w-full">
                                 <div class="flex items-center gap-2">
                                     <div class="flex-1 bg-gray-200 rounded-full h-2.5 overflow-hidden">
