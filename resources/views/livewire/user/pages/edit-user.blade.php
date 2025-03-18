@@ -29,7 +29,7 @@
                                         </span>
                                     @else
                                         <span
-                                            class="md:ml-1 rounded-full bg-blue-500 px-2 py-1 text-xs text-white self-start">
+                                            class="md:ml-1 rounded-full bg-primary px-2 py-1 text-xs text-white self-start">
                                             E posta adresiniz onaylandı
                                         </span>
                                     @endif
@@ -54,7 +54,7 @@
                     <div class="flex justify-end bg-gray-50 p-6">
                         <button type="submit" wire:loading.attr="disabled" wire:target="updateProfileInfo"
                             wire:loading.class="animate-pulse"
-                            class="rounded bg-blue-500 px-6 py-2 font-medium text-white hover:bg-blue-600">
+                            class="rounded bg-primary px-6 py-2 font-medium text-white hover:bg-blue-900">
                             Değişiklikleri Uygula
                         </button>
                     </div>
@@ -91,7 +91,7 @@
                     <div class="flex justify-end bg-gray-50 p-6">
                         <button type="submit" wire:loading.attr="disabled" wire:target="updatePassword"
                             wire:loading.class="animate-pulse"
-                            class="rounded bg-blue-500 px-6 py-2 font-medium text-white hover:bg-blue-600">
+                            class="rounded bg-primary px-6 py-2 font-medium text-white hover:bg-blue-900">
                             Şifreyi Güncelle
                         </button>
                     </div>
@@ -107,7 +107,7 @@
                         <x-seperator />
                         <div class="flex flex-col gap-3 p-4">
                             <x-link
-                                class="rounded bg-blue-500 px-6 py-2 text-center font-medium text-white hover:bg-blue-600 hover:no-underline"
+                                class="rounded bg-primary px-6 py-2 text-center font-medium text-white hover:bg-blue-900 hover:no-underline"
                                 href="{{ route('faculties') }}">
                                 Fakülteleri Gör
                             </x-link>
@@ -125,7 +125,7 @@
                                 {{ Auth::user()->faculty->description }}
                             </span>
                             <button wire:click="leaveFaculty({{ Auth::user()->faculty->id }})"
-                                class="mt-3 rounded bg-blue-500 px-6 py-2 text-center font-medium text-white hover:bg-blue-600">
+                                class="mt-3 rounded bg-primary px-6 py-2 text-center font-medium text-white hover:bg-blue-900">
                                 <span class="flex items-center justify-center" wire:loading.remove
                                     wire:target="leaveFaculty">
                                     Ayrıl
@@ -154,7 +154,7 @@
                         </div>
                         <button type="submit" wire:loading.attr="disabled" wire:target="updatePrivacyInfo"
                             wire:loading.class="animate-pulse"
-                            class="mt-2 rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600">
+                            class="mt-2 rounded bg-primary px-4 py-2 font-medium text-white hover:bg-blue-900">
                             Tercihlerimi Kaydet
                         </button>
                     </div>
