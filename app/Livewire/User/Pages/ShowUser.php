@@ -5,15 +5,16 @@ namespace App\Livewire\User\Pages;
 use App\Models\User;
 use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
-use Livewire\WithoutUrlPagination;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class ShowUser extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination;
 
     public User $user;
+    public string $activeTab = 'posts';
 
     public array $colorVariants = [
         'blue' => 'bg-blue-700',
@@ -27,6 +28,17 @@ class ShowUser extends Component
     public function mount(User $user)
     {
         $this->user = $user;
+
+        // URL'den aktif sekmeyi belirle
+        $routeName = Route::currentRouteName();
+        if ($routeName === 'users.comments') {
+            $this->activeTab = 'comments';
+        }
+    }
+
+    public function updatedPage($page)
+    {
+        $this->dispatch('scroll-to-top');
     }
 
     #[Computed]
@@ -39,13 +51,26 @@ class ShowUser extends Component
     public function posts()
     {
         $query = $this->user->posts();
-        
+
         // Eğer kullanıcı kendi profilini görüntülemiyorsa, anonim gönderileri filtreliyoruz
         if (!$this->isOwnProfile()) {
             $query->where('is_anonim', false);
         }
-        
+
         return $query->with('user', 'likes', 'comments', 'tags')->simplePaginate(10);
+    }
+
+    #[Computed]
+    public function comments()
+    {
+        return $this->user->comments()
+            ->with([
+                'user',
+                'commentable'
+            ])
+            ->withCount('likes')
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(10);
     }
 
     public function render()

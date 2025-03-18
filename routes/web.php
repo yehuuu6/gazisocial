@@ -75,6 +75,7 @@ Route::get('/search/{query?}', AdvancedSearch::class)->name('search');
 // User routes START
 
 Route::get('/u/{user:username}', ShowUser::class)->name('users.show');
+Route::get('/u/{user:username}/comments', ShowUser::class)->name('users.comments');
 Route::get('/u/{user:username}/edit', EditUser::class)->name('users.edit')->middleware('auth');
 
 // User routes END

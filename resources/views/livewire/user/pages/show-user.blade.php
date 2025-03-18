@@ -1,14 +1,17 @@
 <div x-data="{
-    activeTab: 'posts',
+    activeTab: '{{ $activeTab }}',
     navbarHeight: 0
-}" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;">
+}" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;"
+    x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
     <div class="bg-white rounded-xl shadow-md border border-gray-100 relative">
         <!-- Kullanıcı Bilgileri Başlık - Yapışkan -->
         <div class="sticky top-0 z-10" :style="{ top: navbarHeight + 'px' }">
-            <div class="w-full p-4 border-b border-gray-100 bg-white rounded-t-xl">
+            <div
+                class="w-full p-4 border-b border-gray-100 bg-white/80 backdrop-blur-md rounded-t-xl transition-all duration-200">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-3">
                     <div class="hidden sm:block size-16 overflow-hidden rounded-full flex-shrink-0">
-                        <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}" class="w-full object-cover h-full">
+                        <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}"
+                            class="w-full object-cover h-full">
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between gap-2">
@@ -47,7 +50,7 @@
                             @endforeach
                         </div>
 
-                        <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                        <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
                             <div class="flex items-center gap-1">
                                 <span class="font-bold text-gray-800">
                                     @if ($this->isOwnProfile())
@@ -70,19 +73,19 @@
                             </div>
                         </div>
 
-                        <div class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                        <div class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm text-gray-500">
                             @if ($user->faculty)
-                                <div class="flex items-center gap-1 text-gray-500">
-                                    <x-icons.graduate size="12" />
+                                <div class="flex items-center gap-1">
+                                    <x-icons.graduate size="20" />
                                     <span>{{ $user->faculty->name }}</span>
                                 </div>
                             @endif
-                            <div class="flex items-center gap-1 text-gray-500">
-                                <x-icons.cake size="12" />
+                            <div class="flex items-center gap-1">
+                                <x-icons.cake size="20" />
                                 <span>{{ $user->created_at->locale('tr')->diffForHumans() }} katıldı</span>
                             </div>
-                            <div class="flex items-center gap-1 text-gray-500">
-                                <x-icons.activity size="12" />
+                            <div class="flex items-center gap-1">
+                                <x-icons.activity size="20" />
                                 <span>Son: {{ $user->last_activity->locale('tr')->diffForHumans() }}</span>
                             </div>
                         </div>
@@ -91,19 +94,20 @@
             </div>
 
             <!-- Sekmeler - Yapışkan -->
-            <div class="grid grid-cols-2 border-b border-gray-100 bg-white shadow-sm">
-                <button x-on:click="activeTab = 'posts'; window.scrollTo({ top: 0, behavior: 'smooth' });"
+            <div
+                class="grid grid-cols-2 border-b border-gray-100 bg-white/80 backdrop-blur-md shadow-sm transition-all duration-200">
+                <a wire:navigate href="{{ route('users.show', $user->username) }}"
                     :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'posts', 'text-gray-500 font-normal': activeTab !== 'posts' }"
                     class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
                     <x-icons.document size="16" class="hidden sm:block" />
                     <span>Gönderiler</span>
-                </button>
-                <button x-on:click="activeTab = 'comments'; window.scrollTo({ top: 0, behavior: 'smooth' });"
+                </a>
+                <a wire:navigate href="{{ route('users.comments', $user->username) }}"
                     :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'comments', 'text-gray-500 font-normal': activeTab !== 'comments' }"
                     class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
                     <x-icons.comment size="16" class="hidden sm:block" />
                     <span>Yorumlar</span>
-                </button>
+                </a>
             </div>
         </div>
 
@@ -181,10 +185,90 @@
         </div>
 
         <div x-show="activeTab === 'comments'" x-cloak class="p-4">
-            <div class="flex items-center justify-center w-full py-16">
-                <h2 class="text-gray-500 font-semibold text-lg">
-                    Yorumlar yakında eklenecek...
-                </h2>
+            <div class="flex flex-col gap-4">
+                @forelse ($this->comments as $comment)
+                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-3 sm:p-4">
+                        <div class="flex flex-col lg:gap-2">
+                            <!-- Yorum Başlığı -->
+                            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-0 lg:gap-2">
+                                <div class="flex items-start gap-2">
+                                    <div class="size-8 lg:size-10 overflow-hidden rounded-full flex-shrink-0">
+                                        <img src="{{ asset($comment->user->avatar) }}"
+                                            alt="{{ $comment->user->name }}" class="w-full object-cover h-full">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-sm font-medium text-gray-800">{{ $comment->user->name }}</span>
+                                        <span
+                                            class="text-xs text-gray-500">{{ $comment->created_at->locale('tr')->diffForHumans() }}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-1 sm:mt-0 ml-9 sm:ml-0">
+                                    <x-link href="{{ $comment->post->showRoute() }}"
+                                        class="text-sm sm:text-base text-gray-600 hover:text-primary">
+                                        <span class="hidden sm:inline">Gönderi:</span>
+                                        {{ Str::limit($comment->post->title, 25) }}
+                                    </x-link>
+                                </div>
+                            </div>
+
+                            <!-- Yorum İçeriği -->
+                            <div
+                                class="text-sm text-gray-700 break-words pl-9 sm:pl-10 line-clamp-4 sm:line-clamp-none">
+                                @if ($comment->content)
+                                    <p class="whitespace-pre-line">{{ $comment->content }}</p>
+                                @endif
+
+                                @if ($comment->gif_url)
+                                    <div class="mt-1 lg:mt-2 max-w-[200px] sm:max-w-[300px]">
+                                        <img src="{{ $comment->gif_url }}" alt="GIF" class="rounded-lg w-full">
+                                    </div>
+                                @endif
+                            </div>
+
+                            <!-- Yorum Alt Bilgileri -->
+                            <div class="flex items-center justify-between mt-2 pl-9 sm:pl-10">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-1 text-pink-400">
+                                        <x-icons.heart-off size="20" />
+                                        <span class="text-sm font-medium">
+                                            {{ $comment->likes_count }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-blue-400">
+                                        <x-icons.comment size="20" />
+                                        <span class="text-sm font-medium">
+                                            {{ $comment->getAllRepliesCount() }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    @if ($comment->commentable_type === 'comment')
+                                        <x-link
+                                            href="{{ $comment->commentable->showRoute(['reply' => $comment->id]) }}"
+                                            class="text-xs text-blue-500">
+                                            Yanıta git
+                                        </x-link>
+                                    @else
+                                        <x-link href="{{ $comment->showRoute() }}" class="text-xs text-blue-500">
+                                            Yoruma git
+                                        </x-link>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="flex items-center justify-center w-full py-16">
+                        <h2 class="text-gray-500 font-semibold text-lg">
+                            Henüz hiç yorum yok
+                        </h2>
+                    </div>
+                @else
+                    <div class="mt-4">
+                        {{ $this->comments->links('livewire.pagination.profile') }}
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

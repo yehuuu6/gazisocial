@@ -96,23 +96,16 @@ class ShowPollModal extends Component
                 return;
             }
 
-            $msg = 'Oy değiştirildi!';
-
             // Update the existing vote
             $existingVote->poll_option_id = $option->id;
             $existingVote->save();
         } else {
-            $msg = 'Başarıyla oy verdiniz!';
-            // If the user is voting for the first time, create a new vote
             PollVote::create([
                 'poll_id' => $poll->id,
                 'poll_option_id' => $option->id,
                 'user_id' => Auth::id(),
             ]);
         }
-
-        // Başarı mesajı
-        Toaster::success($msg);
 
         // Broadcast the event
         broadcast(new PollVOted($this->post))->toOthers();
