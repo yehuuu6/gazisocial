@@ -1,6 +1,6 @@
 @props(['oldMessages', 'currentPlayer', 'selectedDayCount', 'lobby'])
 <div
-    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full min-h-[250px] max-h-[350px] lg:max-h-[500px]">
+    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative w-full min-h-[250px] max-h-[350px] lg:max-h-[500px]">
     <div x-data="{
         historyDropdown: false,
     }" class="flex px-4 items-center justify-between">
