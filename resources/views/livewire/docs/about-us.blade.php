@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Hakkımızda (About Us)</h1>
+    <h1 class="text-3xl font-bold text-primary mb-6">Hakkımızda (About Us)</h1>
     <p class="text-gray-700 w-2/3">
         Gazi Social, Haziran 2024'te <a target="_blank" class="text-blue-400 hover:underline"
             href="https://github.com/yehuuu6">Eren Aydın</a> tarafından geliştirilmeye

@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Gizlilik Politikası (Privacy Policy)</h1>
+    <h1 class="text-3xl font-bold text-primary mb-6">Gizlilik Politikası (Privacy Policy)</h1>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">1. Genel Bilgiler</h2>
