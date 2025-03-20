@@ -112,7 +112,7 @@
         </div>
 
         <!-- Gönderiler -->
-        <div x-show="activeTab === 'posts'" class="p-4">
+        <div x-show="activeTab === 'posts'" class="p-4 min-h-96">
             <div class="flex flex-col gap-4">
                 @forelse ($this->posts as $post)
                     <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
@@ -184,7 +184,7 @@
             </div>
         </div>
 
-        <div x-show="activeTab === 'comments'" x-cloak class="p-4">
+        <div x-show="activeTab === 'comments'" x-cloak class="p-4 min-h-96">
             <div class="flex flex-col gap-4">
                 @forelse ($this->comments as $comment)
                     <div class="rounded-xl bg-gray-50 border border-gray-100 p-3 sm:p-4">
