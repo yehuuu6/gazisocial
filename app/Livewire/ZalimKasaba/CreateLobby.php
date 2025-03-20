@@ -53,7 +53,7 @@ class CreateLobby extends Component
         // Check if any unique role is selected more than once
         foreach ($uniqueRoles as $uniqueRoleId) {
             if ($roleIds->filter(fn($id) => $id === $uniqueRoleId)->count() > 1) {
-                Toaster::error('Tekil rollerden sadece bir tanesi seçilebilir.');
+                Toaster::error('Özel roller bir defa seçilebilir.');
                 return;
             }
         }

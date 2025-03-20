@@ -10,10 +10,9 @@
             </p>
         </div>
         <div class="mt-6 md:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:mx-20 lg:mx-28">
-            <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200 transition-all hover:shadow-md">
-                <a href="/games/zk" class="relative group">
-                    <img alt="Zalim Kasaba" width="400" height="200"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
+            <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200">
+                <a href="/games/zk" class="relative">
+                    <img alt="Zalim Kasaba" width="400" height="200" class="w-full h-48 object-cover"
                         src="{{ asset('zalim-kasaba/zalim-kasaba-banner.jpg') }}" style="color: transparent;">
                     <div
                         class="inline-flex items-center border-2 border-white rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-600 absolute top-3 right-3 text-white">
@@ -32,10 +31,9 @@
                     Detaylar <x-icons.arrow-right-alt size="16" class="inline-block" />
                 </a>
             </div>
-            <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200 transition-all hover:shadow-md">
-                <a href="/games/cb" class="relative group">
-                    <img alt="Zalim Kasaba" width="400" height="200"
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
+            <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200">
+                <a href="/games/cb" class="relative">
+                    <img alt="Zalim Kasaba" width="400" height="200" class="w-full h-48 object-cover"
                         src="{{ asset('placeholder.svg') }}" style="color: transparent;">
                     <div
                         class="inline-flex items-center border-2 border-white rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-600 absolute top-3 right-3 text-white">

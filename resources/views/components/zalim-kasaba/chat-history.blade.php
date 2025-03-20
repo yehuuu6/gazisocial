@@ -1,18 +1,11 @@
 @props(['oldMessages', 'currentPlayer', 'selectedDayCount', 'lobby'])
-<div wire:show="chatHistoryModal" wire:transition.scale
-    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full min-h-[250px] max-h-[350px] lg:max-h-[500px]">
-    <button x-on:click="$wire.chatHistoryModal = false"
-        class="flex items-center justify-center p-1 md:p-2 bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 absolute top-2 right-2">
-        <x-icons.close size="20" />
-    </button>
-    <h3 class="text-xl pt-4 px-4 pb-1 text-center font-semibold text-gray-800">
-        Geçmiş Mesajlar
-    </h3>
+<div
+    class="flex rounded-md flex-col gap-2 overflow-hidden bg-white relative w-full min-h-[250px] max-h-[350px] lg:max-h-[500px]">
     <div x-data="{
         historyDropdown: false,
     }" class="flex px-4 items-center justify-between">
         <button type="button" x-ref="historyDaySelector" x-on:click="historyDropdown = !historyDropdown"
-            class="text-gray-800 justify-center rounded flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 text-sm font-medium">
+            class="text-gray-800 justify-center rounded mt-4 flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 text-sm font-medium">
             {{ $selectedDayCount }}. Gün <x-icons.arrow-down size="20" />
         </button>
         <div class="max-h-40 overflow-y-auto bg-white border border-gray-300 rounded shadow-md" x-show="historyDropdown"
