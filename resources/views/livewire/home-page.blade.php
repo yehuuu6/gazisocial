@@ -145,7 +145,7 @@
                                 <x-icons.pin class="text-blue-500 animate-pulse" size="24" />
                             </div>
                         </div>
-                        <h4 class="text-base md:text-xl font-semibold text-gray-800 mb-2 md:mb-3">Sabitlenmiş Konu
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800 mb-2 md:mb-3">Sabitlenmiş Konu
                             Bulunamadı</h4>
                         <p class="text-xs md:text-sm text-gray-600 max-w-md mx-auto">Şu anda sabitlenmiş bir konu
                             bulunmamaktadır. Daha sonra tekrar kontrol edin veya diğer konuları keşfedin.</p>
