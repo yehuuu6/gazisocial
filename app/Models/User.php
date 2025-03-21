@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         static::created(function ($user) {
             // Assign the 'member' role to the user
             $user->assignRole(['member']);
+            $user->update(['email_verified_at' => now()]);
         });
     }
 
