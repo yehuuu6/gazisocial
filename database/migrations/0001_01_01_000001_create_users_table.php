@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->foreignId('faculty_id')->nullable()->constrained()->nullOnDelete();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable()->default(now());
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_activity')->nullable()->default(now());
             $table->string('password');
             $table->rememberToken();
