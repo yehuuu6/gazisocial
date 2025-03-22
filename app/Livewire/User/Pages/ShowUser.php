@@ -16,15 +16,6 @@ class ShowUser extends Component
     public User $user;
     public string $activeTab = 'posts';
 
-    public array $colorVariants = [
-        'blue' => 'bg-blue-700',
-        'red' => 'bg-red-700',
-        'green' => 'bg-green-700',
-        'yellow' => 'bg-yellow-500',
-        'orange' => 'bg-orange-500',
-        'purple' => 'bg-purple-500',
-    ];
-
     public function mount(User $user)
     {
         $this->user = $user;

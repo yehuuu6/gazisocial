@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Auth\Pages;
 
-use Illuminate\Http\Request;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Livewire\Component;
+use Illuminate\Http\Request;
+use Livewire\Attributes\Title;
 use Masmerise\Toaster\Toaster;
+use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Auth;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 #[Title('E-posta Adresinizi Doğrulayın')]
@@ -30,12 +30,15 @@ class Verify extends Component
     public function verifyUser(EmailVerificationRequest $request)
     {
         $request->fulfill();
+        /**
+         * @var User $user
+         */
         $this->user = Auth::user();
         // if user has @gazi.edu.tr email, assign gazili role
         if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
             // Check if user already has gazili role
             if (!$this->user->isStudent()) {
-                $this->user->assignRole(['student']);
+                $this->user->assignRole(['ogrenci']);
             }
         }
 

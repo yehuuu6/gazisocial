@@ -45,6 +45,11 @@ class Comment extends Model
         });
     }
 
+    public function report()
+    {
+        $this->update(['is_reported' => true]);
+    }
+
     /**
      * Get the comments's single thread route.
      * @param array $parameters

@@ -31,9 +31,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user1->assignRole([
-            'gazisocial',
-            'pistoltim',
-            'student'
+            'gazi-social',
+            'ogrenci'
         ]);
 
         $user2 = User::create([
@@ -59,7 +58,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user3->assignRole([
-            'student',
+            'ogrenci',
         ]);
 
         $user4 = User::create([
@@ -72,7 +71,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user4->assignRole([
-            'student',
+            'ogrenci',
         ]);
 
         $users[] = $user2;

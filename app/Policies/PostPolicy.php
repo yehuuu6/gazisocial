@@ -24,6 +24,10 @@ class PostPolicy
             return false;
         }
 
+        if ($user->canDoLowLevelAction()) {
+            return true;
+        }
+
         return true;
     }
 
@@ -36,8 +40,10 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        // Admin veya gazisocial rolüne sahip kullanıcılar tüm postları düzenleyebilir
-        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+        // If the user can do high level actions
+        // And the users role level is higher than or equal to the post owner's role level
+        // Then the user can edit the post
+        if ($user->canDoHighLevelAction() && $user->strongRole()->level >= $post->user->strongRole()->level) {
             return true;
         }
 
@@ -50,8 +56,10 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        // Admin veya gazisocial rolüne sahip kullanıcılar tüm postları silebilir
-        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+        // If the user can do critical actions
+        // And the users role level is higher than the post owner's role level
+        // Then the user can delete the post
+        if ($user->canDoCriticalAction() && $user->strongRole()->level > $post->user->strongRole()->level) {
             return true;
         }
 

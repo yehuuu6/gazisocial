@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Comment;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CommentPolicy
 {
@@ -25,16 +24,27 @@ class CommentPolicy
 
         return true;
     }
+
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Comment $comment): bool
     {
         // If the user has role admin or gazisocial, return true
-        if ($user->hasRole('admin') || $user->hasRole('gazisocial')) {
+        if ($user->canDoHighLevelAction() && $user->strongRole()->level > $comment->user->strongRole()->level) {
             return true;
         }
 
         return $user->id === $comment->user_id;
+    }
+
+    public function report(User $user, Comment $comment): bool
+    {
+        // If the user is not verified, return false
+        if (!$user->hasVerifiedEmail()) {
+            return false;
+        }
+
+        return true;
     }
 }

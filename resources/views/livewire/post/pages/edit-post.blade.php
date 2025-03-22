@@ -24,6 +24,37 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 md:gap-7 p-4 lg:p-6">
+                <div class="w-fit">
+                    @php
+                        $isAdmin = Auth::user()->canDoHighLevelAction();
+                        $isAuthor = $post->user_id === Auth::id();
+                        $isAnonymous = $post->isAnonim();
+                    @endphp
+
+                    {{-- Alert for admin editing another user's non-anonymous post --}}
+                    @if (!$isAnonymous && !$isAuthor && $isAdmin)
+                        <x-alerts.warning>
+                            Bu konu <a wire:navigate href="{{ route('users.show', $post->user->username) }}"
+                                class="font-bold text-amber-500 underline">{{ $post->user->name }}</a> tarafından
+                            oluşturulmuştur. Yönetici yetkinizle düzenleme yapıyorsunuz.
+                        </x-alerts.warning>
+                    @endif
+
+                    {{-- Alert for author editing their own anonymous post --}}
+                    @if ($isAnonymous && $isAuthor)
+                        <x-alerts.warning>
+                            Bu konuyu anonim olarak oluşturdunuz. Anonimlik kaldırılamaz ancak konunuzu
+                            düzenleyebilirsiniz.
+                        </x-alerts.warning>
+                        {{-- Alert for admin editing another user's anonymous post --}}
+                    @elseif ($isAnonymous && $isAdmin && !$isAuthor)
+                        <x-alerts.warning>
+                            Bu konu anonim olarak <x-link href="{{ route('users.show', $post->user->username) }}"
+                                class="font-bold text-amber-500 underline">{{ $post->user->name }}</x-link> tarafından
+                            oluşturulmuştur. Yönetici olarak düzenleme yapıyorsunuz.
+                        </x-alerts.warning>
+                    @endif
+                </div>
                 <div class="flex flex-col md:flex-row gap-3 md:gap-6">
                     <div class="w-full md:w-[300px]">
                         <label for="title" class="block text-lg lg:text-xl font-medium text-gray-700">
