@@ -119,9 +119,9 @@
                                     @else
                                         <x-link href="{{ route('users.show', $post->user->username) }}"
                                             class="flex items-center gap-1.5 text-xs md:text-sm text-blue-600 hover:text-blue-700">
-                                            <div
-                                                class="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
-                                                <x-icons.user size="12" class="text-blue-500" />
+                                            <div class="w-5 h-5 rounded-full flex items-center justify-center">
+                                                <img src="{{ $post->user->getAvatar() }}"
+                                                    alt="{{ $post->user->name }}" class="size-full rounded-full" />
                                             </div>
                                             {{ $post->user->name }} tarafından
                                         </x-link>
