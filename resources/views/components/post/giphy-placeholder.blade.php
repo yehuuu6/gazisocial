@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="grid gap-1 grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2">
+    <div class="grid gap-1 grid-cols-2 lg:grid-cols-4 overflow-y-auto h-[225px] md:h-[350px] mt-2">
         @for ($i = 0; $i < 12; $i++)
             <div class="flex items-center justify-center">
                 <img src="{{ asset('placeholder.svg') }}" alt="Loading..."

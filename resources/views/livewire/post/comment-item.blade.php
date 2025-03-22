@@ -101,7 +101,7 @@
                                     <div class="w-full flex items-center justify-end md:hidden">
                                         <button x-on:click="showMore = !showMore" type="button"
                                             x-text="showMore ? 'Gizle' : 'Devamını oku'"
-                                            class="text-gray-700 text-sm mt-1 mr-2">
+                                            class="text-gray-700 text-xs md:text-sm mt-1 mr-2">
                                             Devamını oku
                                         </button>
                                     </div>
@@ -116,7 +116,7 @@
                                     class="absolute bottom-2 rounded left-2 m-auto w-20" />
                             </div>
                         @endif
-                        <div class="relative flex items-center gap-2 md:gap-0.5 md:mt-2 flex-wrap">
+                        <div class="relative flex items-center gap-0.5 md:mt-2 flex-wrap">
                             @if ($comment->replies_count > 0)
                                 <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
