@@ -32,7 +32,7 @@ class CreatePost extends Component
     public ?Poll $editingPoll = null;
     public bool $is_anonim = false;
 
-    #[Computed(cache: true)]
+    #[Computed()]
     public function tags()
     {
         return Tag::all();
