@@ -26,11 +26,19 @@
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex relative">
-            <button x-on:click="userPanel = !userPanel" x-show="!userPanel"
-                class="lg:hidden absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md">
-                <x-icons.info size="24" class="text-gray-600" />
-            </button>
             <div class="flex-grow">
+                <div class="px-6 lg:hidden pt-4 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-1 flex-wrap">
+                        @foreach ($post->tags as $tag)
+                            <x-post.post-tag :tag="$tag" />
+                        @endforeach
+                    </div>
+                    <!-- filepath: /home/yehuuu6/Projects/gazisocial/resources/views/livewire/post/pages/show-post.blade.php -->
+                    <button x-on:click="userPanel = !userPanel"
+                        class="lg:hidden px-2 py-1 text-xs border border-primary text-primary rounded shadow">
+                        Detaylar
+                    </button>
+                </div>
                 <div class="flex w-full flex-col py-4 px-6 gap-2 md:gap-4 md:px-10 md:py-6">
                     <div>
                         <x-post.post-title>{{ $post->title }}</x-post.post-title>
@@ -39,8 +47,8 @@
                                 {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
                         </div>
                     </div>
-                    <article x-data="highlightCode" wire:ignore
-                        class="prose prose-sm max-w-none break-all break-words overflow-x-auto sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
+                    <article x-data="highlightCode" wire:ignore style="word-break: break-word;"
+                        class="prose prose-sm max-w-none sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
                         {!! $post->html !!}
                     </article>
                     <div class="flex items-center justify-between mt-3">
@@ -128,17 +136,17 @@
                 x-cloak wire:ignore.self x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';"
                 class="fixed lg:sticky bg-white rounded-tr-xl z-20 top-0 h-full min-w-[285px] w-[285px] md:min-w-[300px] md:w-[300px] lg:min-w-[330px] lg:w-[330px] 2xl:min-w-[375px] 2xl:w-[375px] transform transition-all duration-300 border-l border-gray-200">
-                <button x-on:click="userPanel = !userPanel" x-cloak x-show="userPanel"
-                    class="lg:hidden bg-gray-50 rounded-full p-2 text-gray-700 hover:bg-gray-100">
-                    <x-icons.close size="18" />
-                </button>
                 @auth
                     @can('update', $post)
-                        <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center gap-2">
+                        <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center justify-between gap-2">
+                            <button x-on:click="userPanel = !userPanel"
+                                class="lg:hidden bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
+                                <x-icons.close size="18" />
+                            </button>
                             <x-link href="{{ route('posts.edit', $post) }}"
-                                class="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
+                                class="flex items-center hover:no-underline justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
                                 <x-icons.edit size="14" />
-                                Konuyu Düzenle
+                                Düzenle
                             </x-link>
                         </div>
                     @endcan
@@ -257,8 +265,8 @@
                         @forelse ($this->polls as $poll)
                             <button wire:key="poll-button-{{ $poll->id }}" type="button"
                                 x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
-                                class="text-xs text-teal-500 flex items-center gap-1 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
-                                <x-icons.survey size="18" />
+                                class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
+                                <x-icons.survey size="18" class="shrink-0" />
                                 {{ $poll->question }}
                             </button>
                         @empty

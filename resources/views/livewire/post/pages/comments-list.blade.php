@@ -32,7 +32,7 @@
             @if (!$this->comments->isNotEmpty())
                 <div class="flex gap-3 md:items-center flex-col md:flex-row">
                     <div>
-                        <img src="{{ asset('discussion.png') }}" alt="start convo" class="size-20">
+                        <img src="{{ asset('discussion.png') }}" alt="start convo" class="size-16 lg:size-20">
                     </div>
                     <div>
                         <h3 class="font-semibold text-gray-600 text-base mb-3">İlk yorum yapan siz olun</h3>

@@ -93,8 +93,9 @@
                     <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
                         x-on:click.outside="$wire.replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-xs md:text-sm pr-1 text-gray-700 md:line-clamp-none break-all whitespace-pre-line"
-                                x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
+                            <p class="text-xs md:text-sm pr-1 text-gray-700 md:line-clamp-none whitespace-pre-line"
+                                style="word-break: break-word;" x-ref="commentContent"
+                                :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
                             </p>
                             <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
                                 <template x-if="isClamped">
@@ -113,7 +114,7 @@
                                 <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                     class="object-cover w-full h-full">
                                 <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"
-                                    class="absolute bottom-2 rounded left-2 m-auto w-20" />
+                                    class="absolute bottom-2 rounded left-2 m-auto w-12 lg:w-20" />
                             </div>
                         @endif
                         <div class="relative flex items-center gap-0.5 md:mt-0.5 flex-wrap">
