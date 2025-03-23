@@ -58,6 +58,7 @@ class PostIndexerByTags extends Component
         }
 
         return $query
+            ->orderBy('is_pinned', 'desc')
             ->orderBy($this->getSqlTerminology($this->order), 'desc')
             ->simplePaginate(20);
     }

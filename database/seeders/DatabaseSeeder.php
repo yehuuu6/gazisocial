@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
 
         $tags = Tag::all();
 
-        $posts = Post::factory(10)
+        $posts = Post::factory(50)
             ->withFixture()
             ->recycle($users)
             ->create()
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             });
 
         foreach ($posts as $post) {
-            $comments = Comment::factory(rand(0, 20))
+            $comments = Comment::factory(rand(0, 5))
                 ->recycle($users)
                 ->create([
                     'post_id' => $post->id,

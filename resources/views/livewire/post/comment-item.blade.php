@@ -150,8 +150,11 @@
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="$wire.replyForm = !$wire.replyForm">
                                 <x-icons.comment size="20" />
+                                <span class="text-xs font-bold text-gray-800 md:hidden">
+                                    {{ $comment->replies_count }}
+                                </span>
                                 <span class="text-xs font-bold hidden text-gray-800 md:inline-block">
-                                    Yanıtla
+                                    Yanıtla ({{ $comment->replies_count }})
                                 </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
