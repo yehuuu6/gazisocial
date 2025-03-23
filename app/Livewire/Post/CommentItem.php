@@ -105,6 +105,25 @@ class CommentItem extends Component
     }
 
     #[Renderless]
+    public function reportComment()
+    {
+        if (!Auth::check()) {
+            $this->dispatch('auth-required');
+            return;
+        }
+
+        $response = Gate::inspect('report', $this->comment);
+
+        if (!$response->allowed()) {
+            Toaster::error('Bu işlemi yapmak için yetkiniz yok.');
+            return;
+        }
+
+        $this->comment->report();
+        Toaster::info('Yorum şikayet edildi.');
+    }
+
+    #[Renderless]
     public function toggleLike()
     {
 

@@ -20,6 +20,9 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
+        if ($user->canDoCriticalAction() && $user->strongRole()->level > $model->strongRole()->level) {
+            return true;
+        }
         return $user->id === $model->id;
     }
 
@@ -28,6 +31,9 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
+        if ($user->canBeAGod()) {
+            return true;
+        }
         return $user->id === $model->id;
     }
 }

@@ -38,36 +38,10 @@
             </div>
         </section>
         <section class="mb-9 mt-4 mx-6 md:mb-12 md:mt-5 md:mx-16 lg:mb-16 lg:mt-9 lg:mx-24">
-            <div class="hidden md:flex items-center justify-between">
-                <div>
-                    <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
-                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
-                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
-                    </p>
-                </div>
-                @if ($this->pinnedPosts->count() > 0)
-                    <x-link href="{{ route('posts.index') }}"
-                        class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
-                        Tümünü Gör
-                    </x-link>
-                @endif
-            </div>
-            <div class="md:hidden">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
-                    @if ($this->pinnedPosts->count() > 0)
-                        <x-link href="{{ route('posts.index') }}"
-                            class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
-                            Tümünü Gör
-                        </x-link>
-                    @endif
-                </div>
-                <div class="mt-1">
-                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
-                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
-                    </p>
-                </div>
-            </div>
+            <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
+            <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
+                Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
+            </p>
             <div class="mt-3 space-y-4">
                 @forelse ($this->pinnedPosts as $post)
                     <div class="bg-white rounded-xl shadow-sm border border-blue-100 hover:bg-blue-50 transition-all duration-300 cursor-pointer overflow-hidden group"

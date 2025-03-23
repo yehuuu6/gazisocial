@@ -28,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         Carbon::setLocale('tr');
 
         Model::preventLazyLoading(! app()->isProduction());

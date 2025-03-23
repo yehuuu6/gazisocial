@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckAdminRole
+class CheckGodMode
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class CheckAdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && ($request->user()->hasRole('moderator') || $request->user()->hasRole('gazisocial'))) {
+        if ($request->user() && $request->user()->canBeAGod()) {
             return $next($request);
         }
 

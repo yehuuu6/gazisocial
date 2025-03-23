@@ -6,6 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\SendEmailVerification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\Auth\QueuedResetPassword;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword, FilamentUser, HasAvatar
 {
     use HasFactory, Notifiable;
 
@@ -44,9 +47,19 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
         // Set user's default avatar
         static::created(function ($user) {
-            // Assign the 'member' role to the user
-            $user->assignRole(['member']);
+            // Assign the 'uye' role to the user
+            $user->assignRole(['uye']);
         });
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->getAvatar();
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->canDoHighLevelAction();
     }
 
     public function getAvatar(): string
@@ -112,8 +125,55 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function isStudent(): bool
     {
-        // Return true if the user has the role with the slug 'student'
-        return $this->hasRole('student');
+        // Return true if the user has the role with the slug 'ogrenci'
+        return $this->hasRole('ogrenci');
+    }
+
+    /**
+     * Return the strongest role user have
+     */
+    public function strongRole()
+    {
+        return $this->roles()->orderBy('level', 'desc')->first();
+    }
+
+    /**
+     * Regular users, nothing going on here.
+     */
+    public function canDoLowLevelAction(): bool
+    {
+        // Return true if the users most powerful role is level 0
+        return $this->roles()->max('level') === 0;
+    }
+
+    /**
+     * High level users, can edit other users posts, delete comments etc something like Moderator.
+     */
+    public function canDoHighLevelAction(): bool
+    {
+        // Return true if the users most powerful role has a level of 1 or more
+        return $this->roles()->max('level') >= 1;
+    }
+
+    /**
+     * Critical level users, can delete other users posts, comments etc something like Admin.
+     * Can create new roles, assign roles to other users etc. (Can only create roles with level 0 or 1)
+     * Can't delete or update roles with level 2 or 3.
+     */
+    public function canDoCriticalAction(): bool
+    {
+        // Return true if the users most powerful role has a level of 2 or more
+        return $this->roles()->max('level') >= 2;
+    }
+
+    /**
+     * God level users, can do anything, no restrictions.
+     * Ment for only Gazi Social role. DO NOT CREATE ANYTHING ELSE WITH LEVEL 3.
+     */
+    public function canBeAGod(): bool
+    {
+        // Return true if the users most powerful role is level 3
+        return $this->roles()->max('level') === 3;
     }
 
     public function posts()

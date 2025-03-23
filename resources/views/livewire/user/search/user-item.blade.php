@@ -18,7 +18,7 @@
         <div class="flex flex-wrap items-center justify-center gap-2">
             @forelse ($user->roles as $role)
                 <span
-                    class="py-1 px-2 {{ $colorVariants[$role->color] }} text-white font-medium rounded-full capitalize text-xs">{{ $role->name }}</span>
+                    class="py-1 px-2 bg-{{ $role->color }}-500 text-white font-medium rounded-full capitalize text-xs">{{ $role->name }}</span>
             @empty
                 <span class="py-1 px-2 bg-orange-500 text-white font-medium rounded-full capitalize text-xs">Üye</span>
             @endforelse

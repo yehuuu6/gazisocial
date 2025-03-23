@@ -23,6 +23,7 @@ return new class extends Migration
             $table->morphs('commentable');
             $table->string('gif_url')->nullable();
             $table->unsignedBigInteger('likes_count')->default(0);
+            $table->boolean('is_reported')->default(false);
             $table->bigInteger('popularity')->default(0);
             $table->timestamps();
         });

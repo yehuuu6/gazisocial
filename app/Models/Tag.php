@@ -24,6 +24,12 @@ class Tag extends Model
         static::creating(function ($tag) {
             $tag->slug = Str::slug($tag->name);
         });
+        
+        static::updating(function ($tag) {
+            if ($tag->isDirty('name')) {
+                $tag->slug = Str::slug($tag->name);
+            }
+        });
     }
 
     public function posts()

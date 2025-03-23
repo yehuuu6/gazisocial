@@ -5,7 +5,7 @@
     x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
     <div class="bg-white rounded-xl shadow-md border border-gray-100 relative">
         <!-- Kullanıcı Bilgileri Başlık - Yapışkan -->
-        <div class="sticky top-0 z-10" :style="{ top: navbarHeight + 'px' }">
+        <div class="sticky top-0" :style="{ top: navbarHeight + 'px' }">
             <div
                 class="w-full p-4 border-b border-gray-100 bg-white/80 backdrop-blur-md rounded-t-xl transition-all duration-200">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-3">
@@ -44,7 +44,7 @@
                         <div class="mt-2 flex flex-wrap gap-1.5">
                             @foreach ($user->roles as $role)
                                 <span
-                                    class="{{ $colorVariants[$role->color] }} select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">
+                                    class="bg-{{ $role->color }}-500 select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">
                                     {{ $role->name }}
                                 </span>
                             @endforeach
@@ -122,11 +122,9 @@
                                     class="text-gray-900 break-all font-bold flex items-center gap-1.5">
                                     @if ($post->isAnonim())
                                         <div class="font-normal">
-                                            <x-ui.tooltip text="Anonim Gönderi">
-                                                <span class="text-amber-500">
-                                                    <x-icons.mask size="24" />
-                                                </span>
-                                            </x-ui.tooltip>
+                                            <span class="text-amber-500">
+                                                <x-icons.mask size="24" />
+                                            </span>
                                         </div>
                                     @endif
                                     {{ $post->title }}
