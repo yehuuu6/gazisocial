@@ -52,11 +52,7 @@
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-1 md:gap-2.5">
                                         <div class="bg-blue-50 p-1.5 rounded-full">
-                                            <x-ui.tooltip text="Sabitlenmiş Konu">
-                                                <x-icons.pin
-                                                    class="text-blue-500 group-hover:rotate-12 transition-transform duration-300"
-                                                    size="18" />
-                                            </x-ui.tooltip>
+                                            <x-icons.pin class="text-blue-500" size="18" />
                                         </div>
                                         <div class="flex items-center justify-end md:justify-start gap-1 flex-wrap">
                                             @foreach ($post->tags as $tag)

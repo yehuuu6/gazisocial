@@ -27,7 +27,7 @@
         </thead>
         <tbody class="divide-y divide-gray-100">
             @forelse ($this->posts as $post)
-                <livewire:post.indexer.post-item :$post :key="$post->id" />
+                <livewire:post.indexer.post-item :$post :show_pins="true" :key="$post->id" />
             @empty
                 <tr>
                     <td class="p-4 text-center" colspan="4">
