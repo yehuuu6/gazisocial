@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PostResource extends Resource
 {
@@ -68,8 +70,17 @@ class PostResource extends Resource
                     )
                     ->separator(','),
 
+                Tables\Columns\ToggleColumn::make('is_pinned')
+                    ->label('Sabitlenmiş')
+                    ->toggleable()
+                    ->visible(function () {
+                        return Gate::allows('pin', Post::class);
+                    })
+                    ->alignCenter(),
+
                 IconColumn::make('is_anonim')
                     ->label('Anonim')
+                    ->color(fn($state) => $state ? 'green' : 'red')
                     ->icon(fn(string $state): string => $state ? 'heroicon-o-check' : 'heroicon-o-x-mark')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->alignCenter(),
@@ -86,6 +97,8 @@ class PostResource extends Resource
                     ->alignCenter(),
             ])
             ->filters([
+                Filter::make('Sabitlenmiş')
+                    ->query(fn($query) => $query->where('is_pinned', true)),
                 Filter::make('Anonim')->query(
                     function ($query) {
                         return $query->where('is_anonim', true);
@@ -126,13 +139,16 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
+                    ->iconButton()
                     ->label('Görüntüle')
                     ->url(fn($record) => $record->showRoute())
                     ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()
+                    ->iconButton()
                     ->url(fn($record) => route('posts.edit', $record))
                     ->openUrlInNewTab(),
                 Tables\Actions\DeleteAction::make()
+                    ->iconButton()
             ])
             ->modifyQueryUsing(fn(Builder $query) => $query->with('user')->withCount('polls'));
     }

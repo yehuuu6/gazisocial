@@ -25,6 +25,9 @@ class RolePolicy
      */
     public function update(User $user, Role $role): bool
     {
+        if (!$user->canBeAGod() && $role->slug === 'uye') {
+            return false;
+        }
         if ($user->canBeAGod()) {
             return true;
         } elseif ($user->canDoCriticalAction() && $user->strongRole()->level > $role->level) {
@@ -39,6 +42,9 @@ class RolePolicy
      */
     public function delete(User $user, Role $role): bool
     {
+        if ($role->slug === 'uye') {
+            return false;
+        }
         if ($user->canBeAGod()) {
             return true;
         } elseif ($user->canDoCriticalAction() && $user->strongRole()->level > $role->level) {

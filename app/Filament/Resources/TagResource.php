@@ -26,7 +26,7 @@ class TagResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
-    protected static ?string $modelLabel = 'Etiketi';
+    protected static ?string $modelLabel = 'Etiket';
 
     protected static ?string $pluralModelLabel = 'Etiketler';
 
@@ -50,55 +50,52 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->label('Etiket Adı')
-                            ->required()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(function (string $state, callable $set) {
-                                $set('slug', Str::slug($state));
-                            }),
+                Forms\Components\TextInput::make('name')
+                    ->label('Etiket Adı')
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $state, callable $set) {
+                        $set('slug', Str::slug($state));
+                    }),
 
-                        Forms\Components\TextInput::make('slug')
-                            ->label('Slug')
-                            ->hidden()
-                            ->required()
-                            ->unique(ignoreRecord: true)
-                            ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->hidden()
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(255),
 
-                        Forms\Components\Select::make('color')
-                            ->label('Renk')
-                            ->options(function () {
-                                $colors = static::getColors();
-                                $formattedColors = [];
+                Forms\Components\Select::make('color')
+                    ->label('Renk')
+                    ->options(function () {
+                        $colors = static::getColors();
+                        $formattedColors = [];
 
-                                foreach ($colors as $value => $label) {
-                                    $formattedColors[$value] = '<div class="flex items-center gap-2">
+                        foreach ($colors as $value => $label) {
+                            $formattedColors[$value] = '<div class="flex items-center gap-2">
                                         <span class="w-4 h-4 rounded-full" style="background:' . match ($value) {
-                                        'amber' => '#f59e0b',
-                                        'sky' => '#0ea5e9',
-                                        'emerald' => '#10b981',
-                                        'stone' => '#78716c',
-                                        'zinc' => '#71717a',
-                                        'rose' => '#f43f5e',
-                                        'neutral' => '#737373',
-                                        'slate' => '#64748b',
-                                        default => $value,
-                                    } . ';"></span>
+                                'amber' => '#f59e0b',
+                                'sky' => '#0ea5e9',
+                                'emerald' => '#10b981',
+                                'stone' => '#78716c',
+                                'zinc' => '#71717a',
+                                'rose' => '#f43f5e',
+                                'neutral' => '#737373',
+                                'slate' => '#64748b',
+                                default => $value,
+                            } . ';"></span>
                                         <span>' . $label . '</span>
                                     </div>';
-                                }
+                        }
 
-                                return $formattedColors;
-                            })
-                            ->allowHtml()
-                            ->native(false)
-                            ->required(),
-                    ])->columns(2),
-            ]);
+                        return $formattedColors;
+                    })
+                    ->allowHtml()
+                    ->native(false)
+                    ->required(),
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table
@@ -159,8 +156,11 @@ class TagResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
+                    ->iconButton()
                     ->label('Düzenle'),
                 Tables\Actions\DeleteAction::make()
+                    ->recordTitle(fn($record) => $record->name . ' adlı etiketi')
+                    ->iconButton()
                     ->label('Sil'),
             ])
             ->modifyQueryUsing(fn(Builder $query) => $query->withCount('posts'));
@@ -177,8 +177,6 @@ class TagResource extends Resource
     {
         return [
             'index' => Pages\ListTags::route('/'),
-            'create' => Pages\CreateTag::route('/create'),
-            'edit' => Pages\EditTag::route('/{record}/edit'),
         ];
     }
 }

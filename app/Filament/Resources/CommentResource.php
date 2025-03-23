@@ -38,14 +38,35 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
+                // Show the gif field if not null
+                Forms\Components\ViewField::make('gif_url')
+                    ->visible(fn($record) => $record->gif_url !== null)
+                    ->label('GIF')
+                    ->view('filament.forms.components.gif-viewer')
+                    ->columnSpan(2),
                 Forms\Components\Textarea::make('content')
-                    ->label('İçerik')
+                    ->hiddenLabel()
                     ->required()
                     ->rows(10)
                     ->cols(30)
+                    ->visible(fn($record) => $record->gif_url === null)
                     ->maxWidth('full')
-                    ->maxLength(1000),
-            ])->columns(1);
+                    ->maxLength(1000)
+                    ->columnSpan(2),
+                Forms\Components\Section::make()
+                    ->description('Raporu gerekirse kaldırabilirsiniz.')
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->label('Yazar')
+                            ->relationship('user', 'name')
+                            ->required()
+                            ->disabled()
+                            ->columnSpanFull(),
+                        Forms\Components\Toggle::make('is_reported')
+                            ->label('Rapor Edildi')
+                            ->columnSpanFull(),
+                    ])->columnSpan(1)->columns(2),
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -55,19 +76,20 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('user.username')
+                    ->searchable()
                     ->label('Yazar')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('post.title')
-                    ->limit(50)
+                    ->limit(30)
                     ->label('Konu')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('content')
-                    ->limit(50)
+                    ->limit(30)
                     ->label('İçerik')
-                    ->searchable()
-                    ->sortable(),
+                    ->placeholder('GIF')
+                    ->searchable(),
                 IconColumn::make('is_reported')
                     ->label('Rapor Durumu')
                     ->icon(fn(string $state): string => $state ? 'heroicon-o-flag' : 'heroicon-o-minus')
@@ -104,10 +126,15 @@ class CommentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
+                    ->iconButton()
                     ->url(fn(Comment $comment) => $comment->showRoute())
                     ->openUrlInNewTab(),
-                Tables\Actions\EditAction::make(),
-            ]);
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->extraModalFooterActions([
+                        Tables\Actions\DeleteAction::make(),
+                    ]),
+            ])->modifyQueryUsing(fn(Builder $query) => $query->with('user'));
     }
 
     public static function getRelations(): array

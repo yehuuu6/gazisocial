@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        if ($user->canDoCriticalAction() && $user->strongRole()->level > $model->strongRole()->level) {
+        if ($user->canBeAGod()) {
             return true;
         }
         return $user->id === $model->id;

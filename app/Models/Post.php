@@ -21,10 +21,6 @@ class Post extends Model
         'id',
     ];
 
-    protected $casts = [
-        'is_anonim' => 'boolean',
-    ];
-
     public function toggleLike()
     {
         DB::transaction(function () {

@@ -25,6 +25,15 @@ class CommentPolicy
         return true;
     }
 
+    public function update(User $user, Comment $comment): bool
+    {
+        if ($user->canDoHighLevelAction() && $user->strongRole()->level > $comment->user->strongRole()->level) {
+            return true;
+        }
+
+        return $user->id === $comment->user_id;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */

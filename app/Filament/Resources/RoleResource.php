@@ -99,7 +99,7 @@ class RoleResource extends Resource
                             ->allowHtml()
                             ->native(false)
                             ->required(),
-                    ])->columnSpan(2),
+                    ])->columnSpan(1),
                 Forms\Components\Section::make('İzinler')
                     ->description('Dikkatli kullanın, yanlış izinler vermek sisteminizin güvenliğini tehlikeye atabilir.')
                     ->schema([
@@ -131,7 +131,7 @@ class RoleResource extends Resource
                             ->native(false)
                             ->required(),
                     ])->columnSpan(1),
-            ])->columns(3);
+            ])->columns(2);
     }
 
     public static function getLevelText(int $level): string
@@ -139,8 +139,8 @@ class RoleResource extends Resource
         return match ($level) {
             0 => 'Güvenli',
             1 => 'Riskli',
-            2 => 'Kritik',
-            3 => 'Garanti',
+            2 => 'Tehlikeli',
+            3 => 'Kritik',
             default => 'Güvenli',
         };
     }
@@ -164,7 +164,10 @@ class RoleResource extends Resource
 
                 Tables\Columns\TextColumn::make('level')
                     ->label('Güç Zehirlenmesi Olasılığı')
-                    ->sortable()
+                    ->sortable(query: function (Builder $query, $direction) {
+                        $query->orderBy('level', $direction)
+                            ->orderBy('id', $direction);
+                    })
                     ->badge()
                     ->color(function (int $state): string {
                         return match ($state) {
@@ -203,7 +206,8 @@ class RoleResource extends Resource
                     ->label('Oluşturulma Tarihi')
                     ->formatStateUsing(fn($state) => Carbon::parse($state)->translatedFormat('d M h:i, Y'))
                     ->alignCenter(),
-            ])->defaultSort('level', 'desc')
+            ])
+            ->defaultSort(fn($query) => $query->orderBy('level', 'desc')->orderBy('id', 'desc'))
             ->filters([
                 SelectFilter::make('level')
                     ->label('Güç Zehirlenmesi Olasılığı')
@@ -211,13 +215,15 @@ class RoleResource extends Resource
                     ->options([
                         0 => 'Güvenli',
                         1 => 'Riskli',
-                        2 => 'Kritik',
-                        3 => 'Garanti',
+                        2 => 'Tehlikeli',
+                        3 => 'Kritik',
                     ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->label('Düzenle'),
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ]);
     }
 
@@ -233,8 +239,6 @@ class RoleResource extends Resource
     {
         return [
             'index' => Pages\ListRoles::route('/'),
-            'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
 }

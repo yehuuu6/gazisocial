@@ -51,6 +51,15 @@ class PostPolicy
         return $user->id === $post->user_id;
     }
 
+    public function pin(User $user): bool
+    {
+        if ($user->canDoCriticalAction()) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */
