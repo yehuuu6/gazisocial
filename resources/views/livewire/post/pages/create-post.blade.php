@@ -110,6 +110,29 @@
                         </label>
                     </div>
                 </div>
+                @can('pin', App\Models\Post::class)
+                    <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+                        <div class="w-full md:w-[300px] shrink-0">
+                            <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">
+                                Sabitlenmiş Konu
+                            </h4>
+                            <p class="text-xs lg:text-sm text-gray-500">
+                                Yönetici olduğunuz için konunuzu doğrudan sabitleyebilirsiniz. Daha sonra panelden bu değeri
+                                değiştirebilirsiniz.
+                            </p>
+                        </div>
+                        <div
+                            class="p-4 border-2 border-transparent bg-gray-50 active:border-blue-500 active:border-opacity-80 rounded-md flex items-center h-fit w-full">
+                            <label for="is_pinned" class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="is_pinned" wire:model="is_pinned" class="sr-only peer">
+                                <div
+                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                </div>
+                                <span class="ms-3 text-sm font-medium text-gray-700">Konuyu sabitle</span>
+                            </label>
+                        </div>
+                    </div>
+                @endcan
                 <div>
                     <div class="mb-4">
                         <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">

@@ -45,8 +45,18 @@ class AdvancedSearch extends Component
         $posts = Post::search($this->search)->take(10)->get()->load('tags', 'user');
 
         if (!empty($this->selectedTags)) {
+            // Find posts that have ALL selected tags instead of ANY
             $posts = $posts->filter(function ($post) {
-                return $post->tags->pluck('id')->intersect($this->selectedTags)->isNotEmpty();
+                $postTagIds = $post->tags->pluck('id')->toArray();
+                
+                // Check if ALL selected tags are in the post's tags
+                foreach ($this->selectedTags as $tagId) {
+                    if (!in_array($tagId, $postTagIds)) {
+                        return false;
+                    }
+                }
+                
+                return true;
             });
         }
 
