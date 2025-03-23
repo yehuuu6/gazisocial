@@ -31,6 +31,7 @@ class CreatePost extends Component
     public bool $showEditPollModal = false;
     public ?Poll $editingPoll = null;
     public bool $is_anonim = false;
+    public bool $is_pinned = false;
 
     #[Computed()]
     public function tags()
@@ -251,6 +252,7 @@ class CreatePost extends Component
 
         $validated = [
             'title' => $this->title,
+            'is_pinned' => $this->is_pinned,
             'content' => $this->content,
         ];
 
