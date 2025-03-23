@@ -2,12 +2,13 @@
 
 namespace App\Livewire\User\Pages;
 
-use App\Models\Notification;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\Notification;
 use Livewire\WithPagination;
-use Livewire\Attributes\Computed;
 use Masmerise\Toaster\Toaster;
+use Livewire\Attributes\Computed;
+use Illuminate\Support\Facades\Auth;
 
 class AllNotifications extends Component
 {
@@ -68,6 +69,12 @@ class AllNotifications extends Component
         }
     }
 
+    public function getSenderAvatar($userId)
+    {
+        $user = User::find($userId);
+        return asset($user->getAvatar());
+    }
+
     #[Computed]
     public function notifications()
     {
@@ -75,7 +82,7 @@ class AllNotifications extends Component
          * @var \App\Models\User $user
          */
         $user = Auth::user();
-        return $user->notifications()->latest()->paginate(20);
+        return $user->notifications()->with('user')->latest()->simplePaginate(10);
     }
 
     public function getNotificationTitle(string $notificationType)
