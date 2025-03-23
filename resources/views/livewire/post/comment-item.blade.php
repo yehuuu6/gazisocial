@@ -89,11 +89,11 @@
                         </div>
                     </div>
                 @endif
-                <div class="pl-8 md:pl-10 pr-1">
+                <div class="pl-8 md:pl-10 pr-1 pt-1">
                     <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
                         x-on:click.outside="$wire.replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-xs sm:text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all whitespace-pre-line"
+                            <p class="text-xs md:text-sm pr-1 text-gray-700 md:line-clamp-none break-all whitespace-pre-line"
                                 x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
                             </p>
                             <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
@@ -116,7 +116,7 @@
                                     class="absolute bottom-2 rounded left-2 m-auto w-20" />
                             </div>
                         @endif
-                        <div class="relative flex items-center gap-0.5 md:mt-2 flex-wrap">
+                        <div class="relative flex items-center gap-0.5 md:mt-0.5 flex-wrap">
                             @if ($comment->replies_count > 0)
                                 <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
@@ -142,18 +142,21 @@
                                         <x-icons.heart size="20" />
                                     </template>
                                 </div>
-                                <span class="ml-0.5" x-text="likeCount" :class="{ 'text-pink-400': isLiked }">
+                                <span class="ml-0.5 text-xs font-bold" x-text="likeCount"
+                                    :class="{ 'text-pink-400': isLiked }">
                                     0
                                 </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="$wire.replyForm = !$wire.replyForm">
                                 <x-icons.comment size="20" />
-                                <span>{{ Number::abbreviate($comment->replies_count) }}</span>
+                                <span class="text-xs font-bold hidden text-gray-800 md:inline-block">
+                                    Yanıtla
+                                </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
                                 x-ref="shareButton">
                                 <x-icons.send size="20" />
-                                <span class="hidden md:inline-block">
+                                <span class="hidden text-xs font-bold text-gray-800 md:inline-block">
                                     Paylaş
                                 </span>
                             </x-comment.comment-button>

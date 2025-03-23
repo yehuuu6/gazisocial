@@ -39,6 +39,11 @@ class Post extends Model
         });
     }
 
+    public function report()
+    {
+        $this->update(['is_reported' => true]);
+    }
+
     public function incrementPopularity(int $amount)
     {
         $this->increment('popularity', $amount);

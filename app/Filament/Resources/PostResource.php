@@ -14,11 +14,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PostResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PostResource\RelationManagers;
 use Filament\Tables\Filters\Filter;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PostResource extends Resource
@@ -78,6 +74,13 @@ class PostResource extends Resource
                     })
                     ->alignCenter(),
 
+                IconColumn::make('is_reported')
+                    ->label('Rapor Durumu')
+                    ->icon(fn(string $state): string => $state ? 'heroicon-o-flag' : 'heroicon-o-minus')
+                    ->color(fn(string $state): string => $state ? 'red' : 'green')
+                    ->toggleable()
+                    ->alignCenter(),
+
                 IconColumn::make('is_anonim')
                     ->label('Anonim')
                     ->color(fn($state) => $state ? 'green' : 'red')
@@ -102,6 +105,11 @@ class PostResource extends Resource
                 Filter::make('Anonim')->query(
                     function ($query) {
                         return $query->where('is_anonim', true);
+                    }
+                ),
+                Filter::make('Rapor Edilenler')->query(
+                    function ($query) {
+                        return $query->where('is_reported', true);
                     }
                 ),
                 SelectFilter::make('user_id')

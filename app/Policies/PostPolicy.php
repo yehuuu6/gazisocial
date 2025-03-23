@@ -51,6 +51,25 @@ class PostPolicy
         return $user->id === $post->user_id;
     }
 
+    public function report(User $user): bool
+    {
+        // If the user is not logged in, return false
+        if (!$user) {
+            return false;
+        }
+
+        // If the user is not verified, return false
+        if (!$user->hasVerifiedEmail()) {
+            return false;
+        }
+
+        if ($user->canDoLowLevelAction()) {
+            return true;
+        }
+
+        return true;
+    }
+
     public function pin(User $user): bool
     {
         if ($user->canDoCriticalAction()) {

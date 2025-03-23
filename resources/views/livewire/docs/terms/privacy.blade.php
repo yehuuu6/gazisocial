@@ -80,8 +80,8 @@
 
     <section>
         <h2 class="text-xl font-semibold text-gray-800 mb-2">11. İletişim</h2>
-        <p class="text-gray-700">Gizlilik Sözleşmesi hakkında sorularınız için <a href="mailto:destek@gazisocial.com"
-                class="text-blue-600 underline">destek@gazisocial.com</a> adresinden bizimle iletişime geçebilirsiniz.
+        <p class="text-gray-700">Gizlilik Sözleşmesi hakkında sorularınız için <a href="mailto:contact@gazisocial.com"
+                class="text-blue-600 underline">contact@gazisocial.com</a> adresinden bizimle iletişime geçebilirsiniz.
         </p>
     </section>
 </div>

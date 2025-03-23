@@ -21,6 +21,7 @@ class EditPost extends Component
     public string $title;
     public $content;
     public array $selectedTags = [];
+    public bool $is_reported;
 
     #[Computed(cache: true)]
     public function tags()
@@ -38,6 +39,7 @@ class EditPost extends Component
         $this->title = $post->title;
         $this->content = $post->content;
         $this->selectedTags = $post->tags->pluck('id')->toArray();
+        $this->is_reported = $post->is_reported;
     }
 
     public function updatePost()
@@ -85,6 +87,7 @@ class EditPost extends Component
         $validated = [
             'title' => $this->title,
             'content' => $this->content,
+            'is_reported' => $this->is_reported
         ];
 
         $this->post->update($validated);

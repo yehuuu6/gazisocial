@@ -58,6 +58,15 @@ class ShowPost extends Component
         return $user->canDoHighLevelAction() || $this->isOwnPost();
     }
 
+    public function reportPost()
+    {
+        $this->authorize('report', Post::class);
+        // Report the post
+        $this->post->report();
+
+        Toaster::info('Konu yetkililere bildirildi.');
+    }
+
     #[Computed]
     public function isOwnPost()
     {
