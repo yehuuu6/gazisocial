@@ -24,37 +24,49 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 md:gap-7 p-4 lg:p-6">
-                <div class="w-fit">
-                    @php
-                        $isAdmin = Auth::user()->canDoHighLevelAction();
-                        $isAuthor = $post->user_id === Auth::id();
-                        $isAnonymous = $post->isAnonim();
-                    @endphp
+                @php
+                    $isAdmin = Auth::user()->canDoHighLevelAction();
+                    $isAuthor = $post->user_id === Auth::id();
+                    $isAnonymous = $post->isAnonim();
+                @endphp
 
-                    {{-- Alert for admin editing another user's non-anonymous post --}}
-                    @if (!$isAnonymous && !$isAuthor && $isAdmin)
+                @if ($isAdmin && $post->is_reported)
+                    <div class="w-fit">
+                        <x-alerts.warning>
+                            Bu konu kullanıcılar tarafından şikayet edilmiş!
+                        </x-alerts.warning>
+                    </div>
+                @endif
+
+                {{-- Alert for admin editing another user's non-anonymous post --}}
+                @if (!$isAnonymous && !$isAuthor && $isAdmin)
+                    <div class="w-fit">
                         <x-alerts.warning>
                             Bu konu <a wire:navigate href="{{ route('users.show', $post->user->username) }}"
                                 class="font-bold text-amber-500 underline">{{ $post->user->name }}</a> tarafından
                             oluşturulmuştur. Yönetici yetkinizle düzenleme yapıyorsunuz.
                         </x-alerts.warning>
-                    @endif
+                    </div>
+                @endif
 
-                    {{-- Alert for author editing their own anonymous post --}}
-                    @if ($isAnonymous && $isAuthor)
+                {{-- Alert for author editing their own anonymous post --}}
+                @if ($isAnonymous && $isAuthor)
+                    <div class="w-fit">
                         <x-alerts.warning>
                             Bu konuyu anonim olarak oluşturdunuz. Anonimlik kaldırılamaz ancak konunuzu
                             düzenleyebilirsiniz.
                         </x-alerts.warning>
-                        {{-- Alert for admin editing another user's anonymous post --}}
-                    @elseif ($isAnonymous && $isAdmin && !$isAuthor)
+                    </div>
+                    {{-- Alert for admin editing another user's anonymous post --}}
+                @elseif ($isAnonymous && $isAdmin && !$isAuthor)
+                    <div class="w-fit">
                         <x-alerts.warning>
                             Bu konu anonim olarak <x-link href="{{ route('users.show', $post->user->username) }}"
                                 class="font-bold text-amber-500 underline">{{ $post->user->name }}</x-link> tarafından
                             oluşturulmuştur. Yönetici olarak düzenleme yapıyorsunuz.
                         </x-alerts.warning>
-                    @endif
-                </div>
+                    </div>
+                @endif
                 <div class="flex flex-col md:flex-row gap-3 md:gap-6">
                     <div class="w-full md:w-[300px]">
                         <label for="title" class="block text-lg lg:text-xl font-medium text-gray-700">
@@ -98,6 +110,32 @@
                         @endforeach
                     </div>
                 </div>
+                @if ($post->is_reported && Auth::user()->canDoHighLevelAction())
+                    <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+                        <div class="w-full md:w-[300px] shrink-0">
+                            <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">
+                                Rapor Durumu
+                            </h4>
+                            <p class="text-xs lg:text-sm text-gray-500">
+                                Konu kullanıcılar tarafından şikayet edilmişse, rapor durumu aktif olacaktır.
+                                Düzenlemeler
+                                bittikten sonra bu durumu kapatabilirsiniz.
+                            </p>
+                        </div>
+                        <div
+                            class="p-4 border-2 border-transparent bg-gray-50 active:border-blue-500 active:border-opacity-80 rounded-md flex items-center h-fit w-full">
+                            <label for="is_reported" class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="is_reported" wire:model="is_reported" class="sr-only peer">
+                                <div
+                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                </div>
+                                <span class="ms-3 text-sm font-medium text-gray-700">
+                                    Rapor Durumu
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                @endif
                 <div>
                     <div class="mb-4">
                         <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">

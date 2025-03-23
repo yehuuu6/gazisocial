@@ -43,57 +43,72 @@
                         class="prose prose-sm max-w-none break-all break-words overflow-x-auto sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
                         {!! $post->html !!}
                     </article>
-                    <div class="flex items-center gap-3.5 mt-3" x-data="{ isDisabled: false }">
-                        <button x-on:click="toggleLike()" :disabled='isDisabled'
-                            x-on:blocked-from-liking.window="isDisabled = true"
-                            class="flex items-center gap-1 text-gray-700 group pr-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none">
-                            <div :class="{ 'text-pink-400': isLiked }"
-                                class="relative group-hover:text-pink-400 flex items-center justify-center group-focus:transform group-focus:scale-105">
-                                <div class="group-active:scale-125 transition-transform duration-150">
-                                    <template x-if="isLiked">
-                                        <x-icons.heart-off size="24" />
-                                    </template>
-                                    <template x-if="!isLiked">
-                                        <x-icons.heart size="24" />
-                                    </template>
+                    <div class="flex items-center justify-between mt-3">
+                        <div class="flex items-center gap-3.5" x-data="{ isDisabled: false }">
+                            <button x-on:click="toggleLike()" :disabled='isDisabled'
+                                x-on:blocked-from-liking.window="isDisabled = true"
+                                class="flex items-center gap-1 text-gray-700 group pr-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none">
+                                <div :class="{ 'text-pink-400': isLiked }"
+                                    class="relative group-hover:text-pink-400 flex items-center justify-center group-focus:transform group-focus:scale-105">
+                                    <div class="group-active:scale-125 transition-transform duration-150">
+                                        <template x-if="isLiked">
+                                            <x-icons.heart-off size="24" />
+                                        </template>
+                                        <template x-if="!isLiked">
+                                            <x-icons.heart size="24" />
+                                        </template>
+                                    </div>
+                                    <div
+                                        class="rounded-full hidden group-hover:inline-block absolute size-9 bg-pink-400 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    </div>
                                 </div>
-                                <div
-                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-pink-400 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                </div>
-                            </div>
-                            <span :class="{ 'text-pink-400': isLiked }" wire:text="likesCount"
-                                class="font-light text-sm ml-0.5 group-hover:text-pink-400">
-                            </span>
-                        </button>
-                        <button :disabled="isSingleThread"
-                            x-on:click="$nextTick(() => {
+                                <span :class="{ 'text-pink-400': isLiked }" wire:text="likesCount"
+                                    class="font-light text-sm ml-0.5 group-hover:text-pink-400">
+                                </span>
+                            </button>
+                            <button :disabled="isSingleThread"
+                                x-on:click="$nextTick(() => {
                                 $dispatch('toggle-comment-form');
                                 setTimeout(() => {
                                     document.getElementById('comment-form').scrollIntoView({ behavior: 'smooth', block: 'center'});
                                 }, 100);
                              })"
-                            class="flex items-center gap-1 text-gray-700 group pr-2">
-                            <div class="relative group-hover:text-blue-400 flex items-center justify-center">
-                                <x-icons.comment size="22" />
-                                <div
-                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-blue-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                class="flex items-center gap-1 text-gray-700 group pr-2">
+                                <div class="relative group-hover:text-blue-400 flex items-center justify-center">
+                                    <x-icons.comment size="22" />
+                                    <div
+                                        class="rounded-full hidden group-hover:inline-block absolute size-9 bg-blue-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    </div>
                                 </div>
-                            </div>
-                            <span x-text="commentCount" class="font-light text-sm ml-0.5 group-hover:text-blue-400">
-                            </span>
-                        </button>
-                        <button class="flex items-center gap-1 text-gray-700 group pr-2"
-                            x-on:click="$wire.showShareModal = true">
-                            <div class="relative group-hover:text-green-400 flex items-center justify-center">
-                                <x-icons.share size="20" />
-                                <div
-                                    class="rounded-full hidden group-hover:inline-block absolute size-9 bg-green-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <span x-text="commentCount" class="font-light text-sm ml-0.5 group-hover:text-blue-400">
+                                </span>
+                            </button>
+                            <button class="flex items-center gap-1 text-gray-700 group pr-2"
+                                x-on:click="$wire.showShareModal = true">
+                                <div class="relative group-hover:text-green-400 flex items-center justify-center">
+                                    <x-icons.share size="20" />
+                                    <div
+                                        class="rounded-full hidden group-hover:inline-block absolute size-9 bg-green-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="font-light text-sm ml-0.5 group-hover:text-green-400">
-                                Paylaş
-                            </span>
-                        </button>
+                                <span class="font-light text-sm ml-0.5 group-hover:text-green-400">
+                                    Paylaş
+                                </span>
+                            </button>
+                        </div>
+                        @can('report', $post)
+                            <button class="flex items-center gap-1 text-gray-700 group" wire:click="reportPost()">
+                                <div class="relative group-hover:text-red-400 flex items-center justify-center">
+                                    <x-icons.report size="20" />
+                                    <div
+                                        class="rounded-full hidden group-hover:inline-block absolute size-9 bg-red-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    </div>
+                                </div>
+                                <span class="font-light text-sm ml-0.5 group-hover:text-red-400">
+                                    Bildir
+                                </span>
+                            </button>
+                        @endcan
                     </div>
                 </div>
                 <x-seperator />
@@ -113,21 +128,21 @@
                 x-cloak wire:ignore.self x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';"
                 class="fixed lg:sticky bg-white rounded-tr-xl z-20 top-0 h-full min-w-[285px] w-[285px] md:min-w-[300px] md:w-[300px] lg:min-w-[330px] lg:w-[330px] 2xl:min-w-[375px] 2xl:w-[375px] transform transition-all duration-300 border-l border-gray-200">
-                <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center gap-2">
-                    <button x-on:click="userPanel = !userPanel" x-cloak x-show="userPanel"
-                        class="lg:hidden bg-gray-50 rounded-full p-2 text-gray-700 hover:bg-gray-100">
-                        <x-icons.close size="18" />
-                    </button>
-                    @auth
-                        @can('update', $post)
+                <button x-on:click="userPanel = !userPanel" x-cloak x-show="userPanel"
+                    class="lg:hidden bg-gray-50 rounded-full p-2 text-gray-700 hover:bg-gray-100">
+                    <x-icons.close size="18" />
+                </button>
+                @auth
+                    @can('update', $post)
+                        <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center gap-2">
                             <x-link href="{{ route('posts.edit', $post) }}"
                                 class="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
                                 <x-icons.edit size="14" />
                                 Konuyu Düzenle
                             </x-link>
-                        @endcan
-                    @endauth
-                </div>
+                        </div>
+                    @endcan
+                @endauth
                 <div class="p-4 lg:p-6">
                     <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
                     <div class="flex lg:items-center justify-between gap-3 flex-col lg:flex-row">

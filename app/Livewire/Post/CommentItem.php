@@ -120,7 +120,7 @@ class CommentItem extends Component
         }
 
         $this->comment->report();
-        Toaster::info('Yorum şikayet edildi.');
+        Toaster::info('Yorum yetkililere bildirildi.');
     }
 
     #[Renderless]

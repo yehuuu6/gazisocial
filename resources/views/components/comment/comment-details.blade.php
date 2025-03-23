@@ -1,15 +1,17 @@
 @props(['comment', 'user_id', 'is_anonim' => false])
-<div :class="{ 'mb-1': {{ $comment->gif_url ? 'true' : 'false' }} }">
-    <div class="flex items-center gap-1 flex-wrap">
-        <x-link href="{{ route('users.show', $comment->user) }}" class="font-semibold text-xs md:text-sm text-gray-700">
+<div>
+    <div class="flex items-center gap-1.5 flex-wrap">
+        <x-link href="{{ route('users.show', $comment->user) }}" class="font-bold text-xs text-gray-800">
             {{ $comment->user->name }}
         </x-link>
-        <span class="hidden md:inline-block text-xs text-gray-500">
-            {{ '@' . $comment->user->username }}
-        </span>
+        @if ($comment->user_id === $user_id && !$is_anonim)
+            <span class="text-xs text-blue-700 font-semibold">
+                Yazar
+            </span>
+        @endif
         <span class="text-xs text-gray-500">•</span>
         <span class="text-xs text-gray-500">
-            {{ $comment->created_at->locale('tr')->diffForHumans() }}
+            {{ $comment->created_at->locale('tr')->shortAbsoluteDiffForHumans() }} önce
         </span>
     </div>
     @if ($comment->user->strongRole()->level > 0)

@@ -117,7 +117,7 @@
     <section>
         <h2 class="text-xl font-semibold text-gray-800 mb-2">13. Bize Ulaşın</h2>
         <p class="text-gray-700">Bu şartlarla ilgili sorularınız veya sorunlarınız için bizimle <a
-                href="mailto:destek@gazisocial.com" class="text-blue-600 underline">destek@gazisocial.com</a>
+                href="mailto:contact@gazisocial.com" class="text-blue-600 underline">contact@gazisocial.com</a>
             adresinden bizimle iletişime geçebilirsiniz.</p>
     </section>
 </div>
