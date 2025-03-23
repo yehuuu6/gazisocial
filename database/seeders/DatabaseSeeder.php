@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user2->assignRole([
-            'moderator'
+            'yonetici'
         ]);
 
         $user3 = User::create([
@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user3->assignRole([
+            'moderator',
             'ogrenci',
         ]);
 

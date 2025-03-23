@@ -75,8 +75,8 @@ class UserResource extends Resource
                             ->email()
                             ->unique(ignoreRecord: true)
                             ->live(onBlur: true),
-                    ])->columnSpan(2),
-                Forms\Components\Section::make('Diğer')
+                    ])->columnSpan(1),
+                Forms\Components\Section::make('Yetkiler')
                     ->schema([
                         Forms\Components\Select::make('roles')
                             ->multiple()
@@ -105,7 +105,7 @@ class UserResource extends Resource
                             })
                             ->required(),
                     ])->columnSpan(1),
-            ])->columns(3);
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table
@@ -139,11 +139,8 @@ class UserResource extends Resource
                     ->alignCenter()
                     ->color(
                         fn($state, $record) =>
-                        $record->roles->contains('name', $state)
-                            ? $record->roles->firstWhere('name', $state)->color
-                            : 'gray'
-                    )
-                    ->separator(','),
+                        $record->roles->firstWhere('name', $state)->color
+                    ),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Kayıt Tarihi')
