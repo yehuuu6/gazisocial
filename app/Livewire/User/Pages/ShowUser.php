@@ -3,11 +3,15 @@
 namespace App\Livewire\User\Pages;
 
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Comment;
 use Livewire\Attributes\Computed;
 use Livewire\WithPagination;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Livewire\Attributes\Url;
+use Masmerise\Toaster\Toaster;
 
 class ShowUser extends Component
 {
@@ -15,6 +19,9 @@ class ShowUser extends Component
 
     public User $user;
     public string $activeTab = 'posts';
+
+    #[Url(as: 'q')]
+    public string $search = '';
 
     public function mount(User $user)
     {
@@ -32,15 +39,39 @@ class ShowUser extends Component
         $this->dispatch('scroll-to-top');
     }
 
+    public function runSearch()
+    {
+        $this->dispatch('scroll-to-top');
+    }
+
+    public function clearSearch()
+    {
+        $this->search = '';
+        $this->dispatch('scroll-to-top');
+    }
+
     #[Computed]
     public function isOwnProfile()
     {
         return Auth::check() && Auth::id() === $this->user->id;
     }
 
+    public function deletePost(Post $post)
+    {
+        $this->authorize('delete', $post);
+
+        $post->delete();
+
+        Toaster::success('Konu başarıyla silindi.');
+    }
+
     #[Computed]
     public function posts()
     {
+        if ($this->activeTab === 'comments') {
+            return collect();
+        }
+
         $query = $this->user->posts();
 
         // Eğer kullanıcı kendi profilini görüntülemiyorsa, anonim gönderileri filtreliyoruz
@@ -48,17 +79,43 @@ class ShowUser extends Component
             $query->where('is_anonim', false);
         }
 
+        // Search functionality using Scout
+        if (strlen($this->search) >= 3 && $this->activeTab === 'posts') {
+            $searchResults = Post::search($this->search)->get();
+            $query->whereIn('id', $searchResults->pluck('id'));
+        }
+
         return $query->with('user', 'likes', 'comments', 'tags')->simplePaginate(10);
+    }
+
+    public function deleteComment(Comment $comment)
+    {
+        $this->authorize('delete', $comment);
+
+        $comment->delete();
+
+        Toaster::success('Yorum başarıyla silindi.');
     }
 
     #[Computed]
     public function comments()
     {
-        return $this->user->comments()
-            ->with([
-                'user',
-                'commentable'
-            ])
+        if ($this->activeTab === 'posts') {
+            return collect();
+        }
+
+        $query = $this->user->comments();
+
+        // Search functionality using Scout
+        if (strlen($this->search) >= 3 && $this->activeTab === 'comments') {
+            $searchResults = Comment::search($this->search)->get();
+            $query->whereIn('id', $searchResults->pluck('id'));
+        }
+
+        return $query->with([
+            'user',
+            'commentable'
+        ])
             ->withCount('likes')
             ->orderBy('created_at', 'desc')
             ->simplePaginate(10);
@@ -66,6 +123,6 @@ class ShowUser extends Component
 
     public function render()
     {
-        return view('livewire.user.pages.show-user');
+        return view('livewire.user.pages.show-user')->title($this->user->name . ' - ' . 'Gazi Social');
     }
 }
