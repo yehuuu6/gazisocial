@@ -9,13 +9,13 @@
                         <div class="flex flex-col gap-2 px-4">
                             <label for="name" class="block font-medium text-gray-700">İsim</label>
                             <input wire:model="name" type="text" id="name" name="name" autocomplete="off"
-                                required maxlength="30"
+                                required maxlength="30" spellcheck="false"
                                 class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" />
                         </div>
                         <div class="flex flex-col gap-2 px-4">
                             <label for="username" class="block font-medium text-gray-700">Kullanıcı Adı</label>
                             <input wire:model="username" type="text" id="username" name="username"
-                                autocomplete="off" required maxlength="30"
+                                spellcheck="false" autocomplete="off" required maxlength="30"
                                 class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" />
                         </div>
                         <div class="flex flex-col gap-2 px-4">
@@ -45,8 +45,8 @@
                         </div>
                         <div class="flex flex-col gap-2 px-4">
                             <label for="bio" class="block font-medium text-gray-700">Biyografi</label>
-                            <textarea wire:model="bio" id="bio" name="bio" rows="5" placeholder="Herhangi bir bilgi verilmemiş."
-                                maxlength="255"
+                            <textarea wire:model="bio" spellcheck="false" id="bio" name="bio" rows="5"
+                                placeholder="Herhangi bir bilgi verilmedi." maxlength="255"
                                 class="block w-full resize-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">{{ Auth::user()->bio }}</textarea>
                         </div>
                     </div>
@@ -230,22 +230,22 @@
                 @endif
             @endif
             <x-user.edit.container>
-                <x-user.edit.title title="Gizlilik Tercihleri" description="Gizlilik tercihlerinizi güncelleyin" />
+                <x-user.edit.title title="Cinsiyet" description="Cinsiyetinizi güncelleyin" />
                 <x-seperator />
-                <form wire:submit="updatePrivacyInfo">
+                <form wire:submit="updateGender">
                     <div class="flex flex-col gap-3 p-4">
                         <div class="flex flex-col gap-2">
-                            <label for="profile-visibility" class="block font-medium text-gray-700">Görünürlük</label>
-                            <select wire:model="profileVisibility" id="profile-visibility" name="profile-visibility"
+                            <label for="gender" class="block font-medium text-gray-700">Cinsiyet</label>
+                            <select wire:model="gender" id="gender" name="gender"
                                 class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
-                                <option value="public">Herkese Açık</option>
-                                <option value="private">Gizli</option>
+                                <option value="erkek">Erkek</option>
+                                <option value="kadın">Kadın</option>
                             </select>
                         </div>
-                        <button type="submit" wire:loading.attr="disabled" wire:target="updatePrivacyInfo"
+                        <button type="submit" wire:loading.attr="disabled" wire:target="updateGender"
                             wire:loading.class="animate-pulse"
                             class="mt-2 rounded bg-primary px-4 py-2 font-medium text-white hover:bg-blue-900">
-                            Tercihlerimi Kaydet
+                            Kaydet
                         </button>
                     </div>
                 </form>

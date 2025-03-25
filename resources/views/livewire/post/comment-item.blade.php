@@ -111,11 +111,11 @@
                             </div>
                         @endif
                         @if ($comment->gif_url)
-                            <div class="relative h-32 md:h-64 max-w-fit overflow-hidden pr-1">
+                            <div class="relative h-32 group md:h-64 max-w-fit overflow-hidden pr-1">
                                 <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                     class="object-cover w-full h-full">
                                 <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"
-                                    class="absolute bottom-2 rounded left-2 m-auto w-12 lg:w-20" />
+                                    class="absolute group-hover:opacity-100 transition-opacity duration-300 bottom-2 opacity-30 rounded left-2 m-auto w-12 lg:w-20" />
                             </div>
                         @endif
                         <div class="relative flex items-center gap-0.5 md:mt-0.5 flex-wrap">

@@ -8,7 +8,7 @@
                 <div wire:show="!commentForm">
                     <button x-on:click="$wire.commentForm = true"
                         class="rounded-3xl w-full py-2 md:py-3 px-3 md:px-4 border border-gray-300 hover:border-gray-400 text-sm text-gray-500 font-normal cursor-text text-left">
-                        Yorum ekle
+                        Yorum yap
                     </button>
                 </div>
                 <div x-cloak wire:show="commentForm">

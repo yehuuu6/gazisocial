@@ -1,113 +1,135 @@
 <div x-data="{
     activeTab: '{{ $activeTab }}',
     navbarHeight: 0
-}" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;"
-    x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
-    <div class="bg-white rounded-xl shadow-md border border-gray-100 relative">
+}" x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
+    <div class="bg-white rounded-xl shadow-md border border-gray-100">
         <!-- Kullanıcı Bilgileri Başlık - Yapışkan -->
-        <div class="sticky top-0" :style="{ top: navbarHeight + 'px' }">
+        <div>
             <div
-                class="w-full p-4 border-b border-gray-100 bg-white/80 backdrop-blur-md rounded-t-xl transition-all duration-200">
+                class="w-full p-4 border-b border-gray-200 bg-white/80 backdrop-blur-md rounded-t-xl transition-all duration-200">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-3">
-                    <div class="hidden sm:block size-16 overflow-hidden rounded-full flex-shrink-0">
+                    <div class="size-24 overflow-hidden rounded-full flex-shrink-0">
                         <img src="{{ asset($user->getAvatar()) }}" alt="{{ $user->name }}"
                             class="w-full object-cover h-full">
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center justify-between gap-2">
                             <div class="flex items-center gap-2">
-                                <div class="sm:hidden size-10 overflow-hidden rounded-full flex-shrink-0">
-                                    <img src="{{ asset($user->getAvatar()) }}" alt="{{ $user->name }}"
-                                        class="w-full object-cover h-full">
-                                </div>
                                 <div class="flex flex-col gap-0">
-                                    <span class="font-bold text-gray-800 text-base lg:text-lg">
-                                        {{ $user->name }}
-                                    </span>
-                                    <span class="text-sm text-gray-600">{{ '@' . $user->username }}</span>
+                                    <div class="flex flex-col lg:flex-row flex-wrap lg:items-center gap-2">
+                                        <h1 class="text-2xl lg:text-xl font-semibold text-gray-800">
+                                            {{ $user->name }}
+                                        </h1>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            @foreach ($user->roles()->orderBy('level', 'desc')->orderBy('id', 'desc')->get() as $role)
+                                                <span
+                                                    class="bg-{{ $role->color }}-500 select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">
+                                                    {{ $role->name }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 mt-1.5 flex-wrap break-all">
+                                        <span class="text-sm text-gray-500">{{ '@' . $user->username }}</span>
+                                        <span class="text-xs text-gray-500">•</span>
+                                        <span class="text-sm text-gray-500">
+                                            {{ $user->created_at->locale('tr')->translatedFormat('j F Y') }} tarihinden
+                                            beri
+                                            üye
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             @auth
                                 @if (Auth::user()->id === $user->id)
                                     <a href="{{ route('users.edit', $user->username) }}"
-                                        class="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 rounded-md text-gray-700 font-medium w-fit">
+                                        class="hidden lg:flex items-center justify-center border border-gray-200 gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 rounded text-gray-800 font-medium w-fit">
                                         <x-icons.edit size="14" />
-                                        <span class="hidden sm:inline">Profili Düzenle</span>
-                                        <span class="sm:hidden">Düzenle</span>
+                                        Profili Düzenle
                                     </a>
                                 @endif
                             @endauth
                         </div>
 
-                        <p class="text-sm text-gray-600 mt-2 line-clamp-2">{{ $user->bio }}</p>
-
-                        <div class="mt-2 flex flex-wrap gap-1.5">
-                            @foreach ($user->roles as $role)
-                                <span
-                                    class="bg-{{ $role->color }}-500 select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">
-                                    {{ $role->name }}
-                                </span>
-                            @endforeach
-                        </div>
-
-                        <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
+                        <div class="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
                             <div class="flex items-center gap-1">
-                                <span class="font-bold text-gray-800">
+                                <x-icons.document size="16" />
+                                <span class="font-medium text-gray-800">
                                     @if ($this->isOwnProfile())
                                         {{ $user->posts->count() }}
                                     @else
                                         {{ $user->nonAnonymousPosts()->count() }}
                                     @endif
-                                </span>
-                                <span class="text-gray-500">
-                                    Gönderi
+                                    konu
                                 </span>
                             </div>
                             <div class="flex items-center gap-1">
-                                <span class="font-bold text-gray-800">
-                                    {{ $user->comments->count() }}
-                                </span>
-                                <span class="text-gray-500">
-                                    Yorum
+                                <x-icons.comment size="16" />
+                                <span class="font-medium text-gray-800">
+                                    {{ $user->comments->count() }} yorum
                                 </span>
                             </div>
-                        </div>
-
-                        <div class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm text-gray-500">
                             @if ($user->faculty)
                                 <div class="flex items-center gap-1">
-                                    <x-icons.graduate size="20" />
-                                    <span>{{ $user->faculty->name }}</span>
+                                    <x-icons.graduate size="16" />
+                                    <span class="font-medium text-gray-800">
+                                        {{ $user->faculty->name }}
+                                    </span>
                                 </div>
                             @endif
-                            <div class="flex items-center gap-1">
-                                <x-icons.cake size="20" />
-                                <span>{{ $user->created_at->locale('tr')->diffForHumans() }} katıldı</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <x-icons.activity size="20" />
-                                <span>Son: {{ $user->last_activity->locale('tr')->diffForHumans() }}</span>
-                            </div>
                         </div>
+
+                        <p class="text-sm text-gray-800 mt-2.5 lg:w-1/2" style="word-break: break-word;">
+                            {{ $user->bio }}
+                        </p>
+
+                        @auth
+                            @if (Auth::user()->id === $user->id)
+                                <a href="{{ route('users.edit', $user->username) }}"
+                                    class="mt-5 flex lg:hidden items-center justify-center border border-gray-200 gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 rounded text-gray-800 font-medium w-fit">
+                                    <x-icons.edit size="14" />
+                                    Profili Düzenle
+                                </a>
+                            @endif
+                        @endauth
                     </div>
                 </div>
             </div>
-
             <!-- Sekmeler - Yapışkan -->
             <div
-                class="grid grid-cols-2 border-b border-gray-100 bg-white/80 backdrop-blur-md shadow-sm transition-all duration-200">
-                <a wire:navigate href="{{ route('users.show', $user->username) }}"
-                    :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'posts', 'text-gray-500 font-normal': activeTab !== 'posts' }"
-                    class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
-                    <x-icons.document size="16" class="hidden sm:block" />
-                    <span>Gönderiler</span>
-                </a>
-                <a wire:navigate href="{{ route('users.comments', $user->username) }}"
-                    :class="{ 'border-b-2 border-primary text-primary font-medium': activeTab === 'comments', 'text-gray-500 font-normal': activeTab !== 'comments' }"
-                    class="py-2.5 text-sm transition-colors duration-200 text-center flex items-center justify-center gap-1.5">
-                    <x-icons.comment size="16" class="hidden sm:block" />
-                    <span>Yorumlar</span>
-                </a>
+                class="flex-col lg:flex-row px-4 bg-white/80 backdrop-blur-md transition-all duration-200 flex items-center justify-between gap-4 mt-5">
+                <div class="flex items-center rounded-md bg-gray-100 p-1 w-full lg:w-auto">
+                    <a wire:navigate href="{{ route('users.show', $user->username) }}"
+                        :class="{ 'bg-white text-gray-800': activeTab === 'posts', 'text-gray-500 bg-gray-100': activeTab !== 'posts' }"
+                        class="px-3 py-1.5 text-sm rounded-md text-center font-semibold w-full lg:w-auto">
+                        <span>Konular</span>
+                    </a>
+                    <a wire:navigate href="{{ route('users.comments', $user->username) }}"
+                        :class="{ 'bg-white text-gray-800': activeTab === 'comments', 'text-gray-500 bg-gray-100': activeTab !== 'comments' }"
+                        class="px-3 py-1.5 text-sm rounded-md font-semibold w-full lg:w-auto text-center">
+                        <span>Yorumlar</span>
+                    </a>
+                </div>
+                <div
+                    class="flex items-center w-full lg:w-auto gap-2 border border-gray-200 rounded-md p-2 text-sm text-gray-800 font-medium">
+                    <input type="text" placeholder="Ara..." spellcheck="false" wire:model="search" autocomplete="off"
+                        x-on:keydown.enter="$wire.runSearch" class="bg-transparent focus:outline-none w-full lg:w-52"
+                        id="search-in-profile">
+                    @if ($search)
+                        <button wire:click="clearSearch" class="text-gray-500 hover:text-gray-700">
+                            <x-icons.close size="16" />
+                        </button>
+                    @endif
+                    <button wire:click="runSearch" wire:loading.attr="disabled"
+                        class="text-primary hover:text-blue-700">
+                        <span wire:loading.remove wire:target="runSearch">
+                            <x-icons.search size="16" />
+                        </span>
+                        <span wire:loading wire:target="runSearch">
+                            <x-icons.spinner size="16" class="animate-spin" />
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -115,11 +137,11 @@
         <div x-show="activeTab === 'posts'" class="p-4 min-h-96">
             <div class="flex flex-col gap-4">
                 @forelse ($this->posts as $post)
-                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
+                    <div class="rounded-md border border-gray-200 p-4" wire:key="post-{{ $post->id }}">
                         <div>
                             <div class="flex items-start justify-between gap-10">
-                                <x-link href="{{ $post->showRoute() }}"
-                                    class="text-gray-900 break-all font-bold flex items-center gap-1.5">
+                                <x-link href="{{ $post->showRoute() }}" style="word-break: break-word;"
+                                    class="text-gray-800 font-semibold flex items-center gap-1.5">
                                     @if ($post->isAnonim())
                                         <div class="font-normal">
                                             <span class="text-amber-500">
@@ -129,40 +151,45 @@
                                     @endif
                                     {{ $post->title }}
                                 </x-link>
-                                <div class="flex-shrink-0">
-                                    <span class="text-xs text-gray-500">
-                                        {{ $post->created_at->diffForHumans() }}
-                                    </span>
+                                <div x-data="{
+                                    openMorePostButtons: false,
+                                    confirmDelete: false,
+                                }" class="flex-shrink-0" x-ref="moreButton">
+                                    <button x-on:click="openMorePostButtons = true" type="button"
+                                        class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
+                                        <x-icons.dots size="18" />
+                                    </button>
+                                    <x-post.post-more-dropdown :$post />
                                 </div>
                             </div>
-                            <div class="flex items-center gap-1.5 mt-1.5 mb-2">
+                            <div class="flex items-center gap-1.5 mb-2">
                                 @foreach ($post->tags as $tag)
-                                    <x-post.post-tag :tag="$tag" />
+                                    <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
                                 @endforeach
                             </div>
                         </div>
                         <div class="mb-3.5">
-                            <p class="text-sm text-gray-500 mb-1 break-all">
+                            <p class="text-sm text-gray-500 mb-1 w-full lg:w-5/6" style="word-break: break-word;">
                                 {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
                             </p>
                         </div>
                         <div class="mt-3.5 flex items-center justify-between gap-5">
-                            <div class="flex items-center gap-3.5">
-                                <div class="flex items-center gap-1 text-pink-400">
-                                    <x-icons.heart-off size="20" />
-                                    <span class="text-sm font-medium">
-                                        {{ $post->likes_count }}
-                                    </span>
+                            <div class="flex items-center gap-3.5 text-gray-500">
+                                <div class="flex items-center gap-1 text-xs">
+                                    <x-icons.calendar size="16" />
+                                    {{ $post->created_at->locale('tr')->translatedFormat('d F Y') }}
                                 </div>
-                                <div class="flex items-center gap-1 text-blue-400">
-                                    <x-icons.comment size="20" />
-                                    <span class="text-sm font-medium">
-                                        {{ $post->getCommentsCount() }}
-                                    </span>
+                                <div class="flex items-center gap-1 text-xs">
+                                    <x-icons.comment size="16" />
+                                    {{ $post->getCommentsCount() }} yorum
+                                </div>
+                                <div class="flex items-center gap-1 text-xs">
+                                    <x-icons.heart size="16" />
+                                    {{ $post->likes_count }} beğeni
                                 </div>
                             </div>
                             <div class="flex items-center">
-                                <x-link href="{{ $post->showRoute() }}" class="text-xs text-blue-500">
+                                <x-link href="{{ $post->showRoute() }}" class="text-xs text-gray-800">
                                     Devamını oku
                                 </x-link>
                             </div>
@@ -185,70 +212,66 @@
         <div x-show="activeTab === 'comments'" x-cloak class="p-4 min-h-96">
             <div class="flex flex-col gap-4">
                 @forelse ($this->comments as $comment)
-                    <div class="rounded-xl bg-gray-50 border border-gray-100 p-3 sm:p-4">
+                    <div class="rounded-md border border-gray-200 p-4" wire:key="comment-{{ $comment->id }}">
                         <div class="flex flex-col lg:gap-2">
                             <!-- Yorum Başlığı -->
-                            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-0 lg:gap-2">
-                                <div class="flex items-start gap-2">
-                                    <div class="size-8 lg:size-10 overflow-hidden rounded-full flex-shrink-0">
-                                        <img src="{{ asset($comment->user->getAvatar()) }}"
-                                            alt="{{ $comment->user->name }}" class="w-full object-cover h-full">
-                                    </div>
-                                    <div class="flex flex-col">
-                                        <span
-                                            class="text-sm font-medium text-gray-800">{{ $comment->user->name }}</span>
-                                        <span
-                                            class="text-xs text-gray-500">{{ $comment->created_at->locale('tr')->diffForHumans() }}</span>
-                                    </div>
-                                </div>
-                                <div class="mt-1 sm:mt-0 ml-9 sm:ml-0">
+                            <div class="flex items-center justify-between gap-4">
+                                <div>
                                     <x-link href="{{ $comment->post->showRoute() }}"
-                                        class="text-sm sm:text-base text-gray-600 hover:text-primary">
-                                        <span class="hidden sm:inline">Gönderi:</span>
-                                        {{ Str::limit($comment->post->title, 25) }}
+                                        class="text-xs md:text-sm text-gray-800 font-medium">
+                                        <span class="text-gray-600 text-xs md:text-sm font-normal">Şu konuya:</span>
+                                        {{ Str::limit($comment->post->title, 50) }}
                                     </x-link>
+                                    <span class="text-gray-500 text-xs">•</span>
+                                    <span class="text-xs text-gray-500">
+                                        {{ $comment->created_at->locale('tr')->translatedFormat('d F Y H:i') }}
+                                    </span>
+                                </div>
+                                <div x-data="{ openMoreCommentButtons: false, confirmDelete: false }" x-ref="moreCommentButton">
+                                    <button x-on:click="openMoreCommentButtons = true" type="button"
+                                        class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
+                                        <x-icons.dots size="18" />
+                                    </button>
+                                    <x-comment.comment-more-dropdown-profile :$comment />
                                 </div>
                             </div>
 
                             <!-- Yorum İçeriği -->
-                            <div
-                                class="text-sm text-gray-700 break-words pl-9 sm:pl-10 line-clamp-4 sm:line-clamp-none">
+                            <div class="text-sm text-gray-800 break-words line-clamp-4 sm:line-clamp-none">
                                 @if ($comment->content)
-                                    <p class="whitespace-pre-line">{{ $comment->content }}</p>
+                                    <p class="whitespace-pre-line line-clamp-4" style="word-break: break-words">
+                                        {{ Str::limit($comment->content, 500) }}
+                                    </p>
                                 @endif
 
                                 @if ($comment->gif_url)
-                                    <div class="mt-1 lg:mt-2 max-w-[200px] sm:max-w-[300px]">
+                                    <div class="mt-1 lg:mt-2 max-w-[200px] sm:max-w-[275px]">
                                         <img src="{{ $comment->gif_url }}" alt="GIF" class="rounded-lg w-full">
                                     </div>
                                 @endif
                             </div>
 
                             <!-- Yorum Alt Bilgileri -->
-                            <div class="flex items-center justify-between mt-2 pl-9 sm:pl-10">
-                                <div class="flex items-center gap-3">
-                                    <div class="flex items-center gap-1 text-pink-400">
-                                        <x-icons.heart-off size="20" />
-                                        <span class="text-sm font-medium">
-                                            {{ $comment->likes_count }}
-                                        </span>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-3.5 text-gray-500">
+                                    <div class="flex items-center gap-1 text-xs">
+                                        <x-icons.heart size="16" />
+                                        {{ $comment->likes_count }} beğeni
                                     </div>
-                                    <div class="flex items-center gap-1 text-blue-400">
-                                        <x-icons.comment size="20" />
-                                        <span class="text-sm font-medium">
-                                            {{ $comment->getAllRepliesCount() }}
-                                        </span>
+                                    <div class="flex items-center gap-1 text-xs">
+                                        <x-icons.comment size="16" />
+                                        {{ $comment->getAllRepliesCount() }} yanıt
                                     </div>
                                 </div>
                                 <div>
                                     @if ($comment->commentable_type === 'comment')
                                         <x-link
                                             href="{{ $comment->commentable->showRoute(['reply' => $comment->id]) }}"
-                                            class="text-xs text-blue-500">
+                                            class="text-xs text-gray-800">
                                             Yanıta git
                                         </x-link>
                                     @else
-                                        <x-link href="{{ $comment->showRoute() }}" class="text-xs text-blue-500">
+                                        <x-link href="{{ $comment->showRoute() }}" class="text-xs text-gray-800">
                                             Yoruma git
                                         </x-link>
                                     @endif

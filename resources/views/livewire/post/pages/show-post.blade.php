@@ -242,7 +242,7 @@
                     <div class="p-4 lg:p-6">
                         <h4 class="text-sm text-gray-700 font-light uppercase">KULLANICI ROZETLERİ</h4>
                         <div class="flex items-center flex-wrap gap-1 mt-2">
-                            @foreach ($post->user->roles as $role)
+                            @foreach ($post->user->roles()->orderBy('level', 'desc')->orderBy('id', 'desc')->get() as $role)
                                 <span
                                     class="bg-{{ $role->color }}-500 cursor-default select-none rounded-full px-2 py-1 md:px-2.5 text-xs font-medium md:font-semibold capitalize text-white">{{ $role->name }}</span>
                             @endforeach
