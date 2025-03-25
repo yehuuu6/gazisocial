@@ -87,13 +87,13 @@ class EditUser extends Component
     {
         $messages = [
             'avatar.image' => 'Avatar resmi bir resim dosyası olmalıdır.',
-            'avatar.max' => 'Avatar resmi en fazla :max MB olabilir.',
+            'avatar.max' => 'Avatar resmi en fazla 2 MB olabilir.',
             'avatar.mimes' => 'Avatar resmi sadece :values formatında olabilir.',
         ];
 
         try {
             $this->validate([
-                'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,webp',
+                'avatar' => 'image|max:2048|mimes:jpeg,png,jpg,webp',
             ], $messages);
         } catch (ValidationException $e) {
             Toaster::error($e->getMessage());

@@ -27,7 +27,7 @@
     })" class="relative">
         <!-- Preview Image -->
         <div class="cursor-pointer" x-on:click="showGallery = true">
-            <img src="{{ $images[0] }}" alt="Post image" class="w-full h-96 object-contain rounded-xl">
+            <img src="{{ $images[0] }}" alt="Post image" class="w-full bg-gray-900 bg-opacity-20 h-96 object-contain">
             @if (count($images) > 1)
                 <div class="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
                     +{{ count($images) - 1 }} görsel

@@ -63,6 +63,14 @@ class Post extends Model
         return $this->likes()->where('user_id', Auth::id())->exists();
     }
 
+    /**
+     * Will return the default page logo if no image is set.
+     */
+    public function getFirstImageUrl(): string
+    {
+        return $this->image_urls[0] ?? asset('logos/GS_LOGO_DEFAULT.png');
+    }
+
     public function getCommentsCount(): int
     {
         return $this->hasMany(Comment::class)->count();

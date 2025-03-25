@@ -1,3 +1,10 @@
+@section('ogtags')
+    <meta property="og:title" content="{{ $user->name }} - Gazi Social">
+    <meta property="og:url" content="{{ route('users.show', $user->username) }}">
+    <meta property="og:image" content="{{ $user->getAvatar() }}" itemprop="image">
+    <meta property="twitter:title" content="{{ $user->name }} - Gazi Social">
+    <meta property="twitter:image" content="{{ $user->getAvatar() }}">
+@endsection
 <div x-data="{
     activeTab: '{{ $activeTab }}',
     navbarHeight: 0
