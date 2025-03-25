@@ -1,6 +1,13 @@
 @section('canonical')
     <link rel="canonical" href="{{ $post->showRoute() }}">
 @endsection
+@section('ogtags')
+    <meta property="og:title" content="{{ $post->title }} - Gazi Social">
+    <meta property="og:url" content="{{ $post->showRoute() }}">
+    <meta property="og:image" content="{{ $post->getFirstImageUrl() }}" itemprop="image">
+    <meta property="twitter:title" content="{{ $post->title }} - Gazi Social">
+    <meta property="twitter:image" content="{{ $post->getFirstImageUrl() }}">
+@endsection
 @push('scripts')
     @vite('resources/js/syntax-highlight.js')
 @endpush
