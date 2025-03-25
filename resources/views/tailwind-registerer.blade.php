@@ -15,6 +15,12 @@
 <div class="border-lime-500">border-lime-500</div>
 <div class="border-emerald-500">border-emerald-500</div>
 <div class="border-amber-500">border-amber-500</div>
+<div class="border-stone-500"></div>
+<div class="border-zinc-500"></div>
+<div class="border-neutral-500"></div>
+<div class="border-gray-500"></div>
+<div class="bg-gray-500"></div>
+<div class="border-slate-500"></div>
 <div class="border-l-4">border-l-4</div>
 <div class="bg-blue-500">bg-blue-500</div>
 <div class="bg-pink-500">bg-pink-500</div>
@@ -29,9 +35,13 @@
 <div class="bg-fuchsia-500">bg-fuchsia-500</div>
 <div class="bg-orange-500">bg-orange-500</div>
 <div class="bg-pink-500">bg-pink-500</div>
+<div class="bg-stone-500"></div>
 <div class="bg-violet-500">bg-violet-500</div>
+<div class="bg-zinc-500"></div>
+<div class="bg-neutral-500"></div>
 <div class="bg-cyan-500">bg-cyan-500</div>
 <div class="bg-sky-500">bg-sky-500</div>
+<div class="bg-slate-500"></div>
 <div class="bg-teal-500">bg-teal-500</div>
 <div class="bg-indigo-500">bg-indigo-500</div>
 <div class="bg-lime-500">bg-lime-500</div>

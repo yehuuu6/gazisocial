@@ -31,9 +31,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user1->assignRole([
-            'gazisocial',
-            'pistoltim',
-            'student'
+            'gazi-social',
+            'ogrenci'
         ]);
 
         $user2 = User::create([
@@ -46,7 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user2->assignRole([
-            'moderator'
+            'yonetici'
         ]);
 
         $user3 = User::create([
@@ -59,7 +58,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user3->assignRole([
-            'student',
+            'moderator',
+            'ogrenci',
         ]);
 
         $user4 = User::create([
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user4->assignRole([
-            'student',
+            'ogrenci',
         ]);
 
         $users[] = $user2;
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
 
         $tags = Tag::all();
 
-        $posts = Post::factory(10)
+        $posts = Post::factory(50)
             ->withFixture()
             ->recycle($users)
             ->create()
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             });
 
         foreach ($posts as $post) {
-            $comments = Comment::factory(rand(0, 20))
+            $comments = Comment::factory(rand(0, 5))
                 ->recycle($users)
                 ->create([
                     'post_id' => $post->id,

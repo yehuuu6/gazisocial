@@ -47,12 +47,12 @@
                                 x-on:click.outside="userDropdown = false" x-transition.scale.origin.top.right>
                                 <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
                                 <x-seperator />
-                                @if (Auth::user()->hasRole('moderator') || Auth::user()->hasRole('gazisocial'))
-                                    <x-link href="{{ route('home') }}"
+                                @if (Auth::user()->canDoHighLevelAction())
+                                    <a href="/dashboard"
                                         class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                                         <x-icons.admin size="20" />
                                         <span>Yönetim Paneli</span>
-                                    </x-link>
+                                    </a>
                                 @endif
                                 <x-link href="{{ route('users.show', Auth::user()->username) }}"
                                     class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">

@@ -17,16 +17,15 @@
             </h3>
             <p class="text-sm text-gray-600 font-normal mb-5 text-center">
                 Kayıt olarak, <x-link href="{{ route('terms') }}"
-                    class="text-blue-600 hover:text-blue-800 transition-colors duration-200">kullanım koşulları</x-link>
+                    class="text-blue-400 transition-colors duration-200">kullanım koşulları</x-link>
                 ve
-                <x-link href="{{ route('privacy') }}"
-                    class="text-blue-600 hover:text-blue-800 transition-colors duration-200">gizlilik
+                <x-link href="{{ route('privacy') }}" class="text-blue-400 transition-colors duration-200">gizlilik
                     politikası</x-link> şartlarını
                 kabul etmiş olursunuz.
             </p>
             <div class="flex flex-col items-center gap-4">
                 <a href="{{ route('register') }}"
-                    class="rounded-lg w-2/3 flex items-center justify-center gap-1 bg-gradient-to-r from-primary to-blue-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300 shadow-md hover:shadow">
+                    class="rounded-md w-2/3 flex items-center justify-center gap-2 bg-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-950 transition-all duration-200">
                     <x-icons.user-plus size="18" />
                     Kayıt Ol
                 </a>
@@ -36,16 +35,16 @@
                     <span class="h-px bg-gray-300 flex-1"></span>
                 </div>
                 <a href="{{ route('login') }}"
-                    class="rounded-lg w-2/3 flex items-center gap-1 justify-center bg-white border-2 border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-white transition-colors duration-300">
+                    class="rounded-md w-2/3 flex items-center gap-2 justify-center border border-primary px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary hover:bg-opacity-5 transition-colors duration-200">
                     <x-icons.user size="18" />
                     Giriş Yap
                 </a>
             </div>
         </div>
         <div>
-            <div class="bg-gray-50 p-5 flex items-center justify-end border-t border-gray-100">
+            <div class="bg-gray-50 p-5 flex items-center justify-end border-t border-gray-100 rounded-b-xl">
                 <button x-on:click="$wire.showRegisterModal = false" type="button"
-                    class="rounded bg-gray-200 hover:bg-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200">
+                    class="rounded-md px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-colors duration-200">
                     Kapat
                 </button>
             </div>

@@ -38,83 +38,96 @@
             </div>
         </section>
         <section class="mb-9 mt-4 mx-6 md:mb-12 md:mt-5 md:mx-16 lg:mb-16 lg:mt-9 lg:mx-24">
-            <div class="hidden md:flex items-center justify-between">
-                <div>
-                    <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
-                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
-                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
-                    </p>
-                </div>
-                <x-link href="{{ route('posts.index') }}"
-                    class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
-                    Tümünü Gör
-                </x-link>
-            </div>
-            <div class="md:hidden">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
-                    <x-link href="{{ route('posts.index') }}"
-                        class="text-primary whitespace-nowrap text-xs md:text-sm font-medium">
-                        Tümünü Gör
-                    </x-link>
-                </div>
-                <div class="mt-1">
-                    <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
-                        Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
-                    </p>
-                </div>
-            </div>
+            <h3 class="text-gray-800 text-base md:text-xl font-semibold">Sabitlenmiş Konular</h3>
+            <p class="text-xs md:text-sm text-normal text-gray-400 font-normal">
+                Sabitlenen son 3 konu listelenmiştir. Muhtemelen önemli içeriğe sahipler.
+            </p>
             <div class="mt-3 space-y-4">
-                @foreach ($this->pinnedPosts as $post)
-                    <div class="bg-white rounded-lg shadow border border-gray-100 hover:bg-gray-50 cursor-pointer"
+                @forelse ($this->pinnedPosts as $post)
+                    <div class="bg-white rounded-xl shadow-sm border border-blue-100 hover:bg-blue-50 transition-all duration-300 cursor-pointer overflow-hidden group"
                         x-on:click="Livewire.navigate('{{ $post->showRoute() }}')"
                         wire:key="pinned-post-{{ $post->id }}">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-0 md:gap-2">
-                                    <x-ui.tooltip text="Sabitlenmiş Konu">
-                                        <x-icons.pin class="text-blue-500" size="20" />
-                                    </x-ui.tooltip>
-                                    <div class="ml-1.5 flex items-center justify-end md:justify-start gap-1 flex-wrap">
-                                        @foreach ($post->tags as $tag)
-                                            <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
-                                        @endforeach
+                        <div class="border-l-4 border-blue-500">
+                            <div class="p-4 md:p-5">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-1 md:gap-2.5">
+                                        <div class="bg-blue-50 p-1.5 rounded-full">
+                                            <x-icons.pin class="text-blue-500" size="18" />
+                                        </div>
+                                        <div class="flex items-center justify-end md:justify-start gap-1 flex-wrap">
+                                            @foreach ($post->tags as $tag)
+                                                <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
+                                            @endforeach
+                                        </div>
                                     </div>
+                                    <span class="text-xs text-gray-500 bg-gray-50 py-1 px-2 rounded-full">
+                                        {{ $post->created_at->diffForHumans() }}
+                                    </span>
                                 </div>
-                                <span class="text-xs text-gray-500">
-                                    {{ $post->created_at->diffForHumans() }}
-                                </span>
-                            </div>
-                            <div class="mt-2 md:mt-3">
-                                <h4 class="text-sm md:text-lg font-medium text-gray-700">
-                                    {{ $post->title }}
-                                </h4>
-                                <p class="text-xs md:text-sm font-light text-gray-500 mt-1 md:mt-0 break-all">
-                                    {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
-                                </p>
-                            </div>
-                            <x-seperator class="my-2 md:hidden" />
-                            <div
-                                class="mt-1.5 md:mt-3 flex items-end md:items-center justify-between gap-2.5 flex-wrap">
-                                @if ($post->isAnonim())
-                                    <div class="text-xs md:text-sm text-gray-600">
-                                        Anonim tarafından
+                                <div class="mt-3 md:mt-4 px-1">
+                                    <h4
+                                        class="text-sm md:text-lg font-semibold text-gray-800 group-hover:text-blue-700 transition-colors duration-300">
+                                        {{ $post->title }}
+                                    </h4>
+                                    <p
+                                        class="text-xs md:text-sm font-normal text-gray-500 mt-1 md:mt-2 line-clamp-2 md:line-clamp-3">
+                                        {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
+                                    </p>
+                                </div>
+                                <x-seperator class="my-3 md:my-4 opacity-50" />
+                                <div class="flex items-center justify-between gap-2.5">
+                                    @if ($post->isAnonim())
+                                        <div class="flex items-center gap-1.5">
+                                            <div
+                                                class="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center">
+                                                <x-icons.user size="12" class="text-gray-500" />
+                                            </div>
+                                            <span class="text-xs md:text-sm text-gray-600">
+                                                Anonim tarafından
+                                            </span>
+                                        </div>
+                                    @else
+                                        <x-link href="{{ route('users.show', $post->user->username) }}"
+                                            class="flex items-center gap-1.5 text-xs md:text-sm text-blue-600 hover:text-blue-700">
+                                            <div class="w-5 h-5 rounded-full flex items-center justify-center">
+                                                <img src="{{ $post->user->getAvatar() }}"
+                                                    alt="{{ $post->user->name }}" class="size-full rounded-full" />
+                                            </div>
+                                            {{ $post->user->name }} tarafından
+                                        </x-link>
+                                    @endif
+                                    <div>
+                                        <x-link href="{{ $post->showRoute() }}"
+                                            class="inline-flex items-center gap-1 text-blue-500 text-xs md:text-sm font-medium rounded-full px-3 py-1 bg-blue-50 hover:bg-blue-100 transition-colors duration-300">
+                                            Devamını oku
+                                            <x-icons.arrow-right-alt size="14" />
+                                        </x-link>
                                     </div>
-                                @else
-                                    <x-link href="{{ route('users.show', $post->user->username) }}"
-                                        class="text-xs md:text-sm text-blue-500">
-                                        {{ $post->user->name }} tarafından
-                                    </x-link>
-                                @endif
-                                <div>
-                                    <x-link href="{{ $post->showRoute() }}" class="text-primary text-xs font-normal">
-                                        Devamını oku
-                                    </x-link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div
+                        class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-sm border border-blue-200 px-4 py-6 md:px-8 md:py-10 text-center">
+                        <div class="flex justify-center mb-4 md:mb-5">
+                            <div class="bg-white p-3 md:p-4 rounded-full shadow-sm">
+                                <x-icons.pin class="text-blue-500 animate-pulse" size="24" />
+                            </div>
+                        </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800 mb-2 md:mb-3">Sabitlenmiş Konu
+                            Bulunamadı</h4>
+                        <p class="text-xs md:text-sm text-gray-600 max-w-md mx-auto">Şu anda sabitlenmiş bir konu
+                            bulunmamaktadır. Daha sonra tekrar kontrol edin veya diğer konuları keşfedin.</p>
+                        <div class="mt-4 md:mt-6">
+                            <x-link href="{{ route('posts.index') }}"
+                                class="inline-flex items-center gap-1.5 bg-white text-blue-500 hover:no-underline text-xs md:text-sm font-medium px-4 py-2 rounded-full border border-blue-200 hover:border-blue-300 transition-all duration-300">
+                                <x-icons.arrow-right-alt size="16" />
+                                En Yeni Konuları Gör
+                            </x-link>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </section>
         <section class="py-9 px-6 md:py-12 md:px-16 lg:py-16 lg:px-24 bg-gray-50">

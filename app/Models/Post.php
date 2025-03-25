@@ -21,10 +21,6 @@ class Post extends Model
         'id',
     ];
 
-    protected $casts = [
-        'is_anonim' => 'boolean',
-    ];
-
     public function toggleLike()
     {
         DB::transaction(function () {
@@ -41,6 +37,11 @@ class Post extends Model
                 $like->addLike();
             }
         });
+    }
+
+    public function report()
+    {
+        $this->update(['is_reported' => true]);
     }
 
     public function incrementPopularity(int $amount)

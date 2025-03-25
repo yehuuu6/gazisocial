@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-100 bg-white shadow-md p-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">Sıkça Sorulan Sorular (FAQ)</h1>
+    <h1 class="text-3xl font-bold text-primary mb-6">Sıkça Sorulan Sorular (FAQ)</h1>
 
     <div x-data="{
         activeAccordion: '',
@@ -107,6 +107,7 @@
                     <li>Reklam yapmak</li>
                     <li>Spam yapmak</li>
                     <li>Yanlış bilgi paylaşmak</li>
+                    <li>Sitede mevcut açıklardan yararlanarak zarar vermek</li>
                     <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek</li>
                     <li>Diğer kullanıcıları rahatsız etmek</li>
                     <li>Yasadışı içerik paylaşmak</li>

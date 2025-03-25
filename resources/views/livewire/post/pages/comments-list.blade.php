@@ -8,7 +8,7 @@
                 <div wire:show="!commentForm">
                     <button x-on:click="$wire.commentForm = true"
                         class="rounded-3xl w-full py-2 md:py-3 px-3 md:px-4 border border-gray-300 hover:border-gray-400 text-sm text-gray-500 font-normal cursor-text text-left">
-                        Yorum ekle
+                        Yorum yap
                     </button>
                 </div>
                 <div x-cloak wire:show="commentForm">
@@ -32,7 +32,7 @@
             @if (!$this->comments->isNotEmpty())
                 <div class="flex gap-3 md:items-center flex-col md:flex-row">
                     <div>
-                        <img src="{{ asset('discussion.png') }}" alt="start convo" class="size-20">
+                        <img src="{{ asset('discussion.png') }}" alt="start convo" class="size-16 lg:size-20">
                     </div>
                     <div>
                         <h3 class="font-semibold text-gray-600 text-base mb-3">İlk yorum yapan siz olun</h3>

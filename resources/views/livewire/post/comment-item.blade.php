@@ -5,6 +5,7 @@
         openShareDropdown: false,
         likeCount: $wire.likesCount,
         isLiked: $wire.isLiked,
+        showMore: false,
         isMobile() {
             const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
             return regex.test(navigator.userAgent);
@@ -89,19 +90,20 @@
                         </div>
                     </div>
                 @endif
-                <div class="pl-8 md:pl-10 pr-1">
+                <div class="pl-8 md:pl-10 pr-1 pt-1">
                     <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
                         x-on:click.outside="$wire.replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-xs sm:text-sm pr-1 md:text-base text-gray-800 md:line-clamp-none break-all whitespace-pre-line"
-                                x-ref="commentContent" :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
+                            <p class="text-xs md:text-sm pr-1 text-gray-700 whitespace-pre-line"
+                                style="word-break: break-word;" x-ref="commentContent"
+                                :class="{ 'line-clamp-6 lg:line-clamp-5': !showMore }">{{ $comment->content }}
                             </p>
                             <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
                                 <template x-if="isClamped">
-                                    <div class="w-full flex items-center justify-end md:hidden">
+                                    <div class="w-full flex items-center">
                                         <button x-on:click="showMore = !showMore" type="button"
-                                            x-text="showMore ? 'Gizle' : 'Devamını oku'"
-                                            class="text-gray-700 text-sm mt-1 mr-2">
+                                            x-text="showMore ? 'Daha az göster' : 'Devamını oku'"
+                                            class="text-gray-700 hover:underline text-xs md:text-sm mt-1 mr-2">
                                             Devamını oku
                                         </button>
                                     </div>
@@ -109,14 +111,14 @@
                             </div>
                         @endif
                         @if ($comment->gif_url)
-                            <div class="relative h-32 md:h-64 max-w-fit overflow-hidden pr-1">
+                            <div class="relative h-32 group md:h-64 max-w-fit overflow-hidden pr-1">
                                 <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                     class="object-cover w-full h-full">
                                 <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"
-                                    class="absolute bottom-2 rounded left-2 m-auto w-20" />
+                                    class="absolute group-hover:opacity-100 transition-opacity duration-300 bottom-2 opacity-30 rounded left-2 m-auto w-12 lg:w-20" />
                             </div>
                         @endif
-                        <div class="relative flex items-center gap-2 md:gap-0.5 md:mt-2 flex-wrap">
+                        <div class="relative flex items-center gap-0.5 md:mt-0.5 flex-wrap">
                             @if ($comment->replies_count > 0)
                                 <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
@@ -142,18 +144,24 @@
                                         <x-icons.heart size="20" />
                                     </template>
                                 </div>
-                                <span class="ml-0.5" x-text="likeCount" :class="{ 'text-pink-400': isLiked }">
+                                <span class="ml-0.5 text-xs font-bold" x-text="likeCount"
+                                    :class="{ 'text-pink-400': isLiked }">
                                     0
                                 </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="$wire.replyForm = !$wire.replyForm">
                                 <x-icons.comment size="20" />
-                                <span>{{ Number::abbreviate($comment->replies_count) }}</span>
+                                <span class="text-xs font-bold text-gray-800 md:hidden">
+                                    {{ $comment->replies_count }}
+                                </span>
+                                <span class="text-xs font-bold hidden text-gray-800 md:inline-block">
+                                    Yanıtla ({{ $comment->replies_count }})
+                                </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
                                 x-ref="shareButton">
                                 <x-icons.send size="20" />
-                                <span class="hidden md:inline-block">
+                                <span class="hidden text-xs font-bold text-gray-800 md:inline-block">
                                     Paylaş
                                 </span>
                             </x-comment.comment-button>

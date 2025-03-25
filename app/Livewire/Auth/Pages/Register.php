@@ -16,7 +16,6 @@ use Livewire\Attributes\Title;
 #[Title('Kayıt Ol')]
 class Register extends Component
 {
-
     use WithRateLimiting;
 
     public $name;

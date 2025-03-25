@@ -32,15 +32,6 @@ class ShowPost extends Component
 
     public bool $isAuthenticated;
 
-    public $colorVariants = [
-        'blue' => 'bg-blue-700',
-        'red' => 'bg-red-700',
-        'green' => 'bg-green-700',
-        'yellow' => 'bg-yellow-500',
-        'orange' => 'bg-orange-500',
-        'purple' => 'bg-purple-500',
-    ];
-
     #[Computed]
     public function isAnonim()
     {
@@ -64,7 +55,16 @@ class ShowPost extends Component
          * @var \App\Models\User $user
          */
         $user = Auth::user();
-        return $user->hasRole('gazisocial') || $user->hasRole('moderator') || $this->isOwnPost();
+        return $user->canDoHighLevelAction() || $this->isOwnPost();
+    }
+
+    public function reportPost()
+    {
+        $this->authorize('report', Post::class);
+        // Report the post
+        $this->post->report();
+
+        Toaster::info('Konu yetkililere bildirildi.');
     }
 
     #[Computed]

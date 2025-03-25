@@ -32,8 +32,7 @@ class EditUser extends Component
     public $password;
     public $password_confirmation;
 
-    // Update Account Privacy Settings
-    public $profileVisibility;
+    public $gender;
 
     public bool $deleteAccountModal = false;
 
@@ -48,7 +47,7 @@ class EditUser extends Component
         $this->username = $user->username;
         $this->bio = $user->bio;
 
-        $this->profileVisibility = $user->is_private ? 'private' : 'public';
+        $this->gender = $user->gender;
 
         $this->authorize('view', $this->user);
     }
@@ -166,6 +165,10 @@ class EditUser extends Component
             return;
         }
 
+        if ($this->bio === '') {
+            $this->bio = "Herhangi bir bilgi verilmedi.";
+        }
+
         $result = $this->user->update([
             'name' => $this->name,
             'username' => $this->username,
@@ -229,15 +232,15 @@ class EditUser extends Component
         $this->reset();
     }
 
-    public function updatePrivacyInfo()
+    public function updateGender()
     {
         $this->authorize('update', $this->user);
 
         $this->user->update([
-            'is_private' => $this->profileVisibility === 'private',
+            'gender' => $this->gender,
         ]);
 
-        Toaster::success('Gizlilik ayarlarınız güncellendi.');
+        Toaster::success('Cinsiyet bilginiz başarıyla güncellendi.');
     }
 
     public function deleteAccount()

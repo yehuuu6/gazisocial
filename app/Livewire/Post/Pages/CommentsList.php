@@ -97,27 +97,6 @@ class CommentsList extends Component
         return view('components.post.comment-list-placeholder');
     }
 
-    private function limitLineBreaks(string $text, int $maxBreaks = 3): string
-    {
-        // Replace multiple line breaks with a placeholder
-        $parts = preg_split('/(\r\n|\r|\n)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-        $count = 0;
-        $result = '';
-
-        foreach ($parts as $part) {
-            if (preg_match('/\r\n|\r|\n/', $part)) {
-                $count++;
-                if ($count > $maxBreaks) {
-                    continue; // Skip extra line breaks
-                }
-            }
-            $result .= $part;
-        }
-
-        return $result;
-    }
-
     private function handleCommentCreation(?string $content = null, ?string $gifUrl = null)
     {
         if (!Auth::check()) {
@@ -133,8 +112,6 @@ class CommentsList extends Component
         }
 
         if ($content) {
-            $content = $this->limitLineBreaks($content);
-
             $messages = [
                 'required' => 'Yorum içeriği boş olamaz.',
                 'min' => 'Yorum içeriği en az :min karakter olmalıdır.',
@@ -264,7 +241,7 @@ class CommentsList extends Component
 
         $comment->delete();
 
-        Toaster::info('Yorum silindi.');
+        Toaster::success('Yorum başarıyla silindi.');
 
         $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }
