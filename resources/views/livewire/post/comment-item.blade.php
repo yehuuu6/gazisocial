@@ -166,11 +166,13 @@
                                 </span>
                             </x-comment.comment-button>
                             <x-comment.comment-share-dropdown :comment_url="$comment->showRoute()" :reply_url="$comment->commentable->showRoute(['reply' => $comment->id])" :commentable="$comment->commentable_type" />
-                            <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
-                                x-ref="moreButton">
-                                <x-icons.dots size="20" />
-                            </x-comment.comment-button>
-                            <x-comment.comment-more-dropdown :$comment />
+                            @auth
+                                <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
+                                    x-ref="moreButton">
+                                    <x-icons.dots size="20" />
+                                </x-comment.comment-button>
+                                <x-comment.comment-more-dropdown :$comment />
+                            @endauth
                         </div>
                         <div x-cloak wire:show="replyForm">
                             <x-comment.forms.reply-form :$comment />

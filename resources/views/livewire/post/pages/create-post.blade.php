@@ -30,7 +30,6 @@
         else this.optionsCount--;
     },
 }">
-    <x-poll.promotion-banner />
     <form wire:submit="createPost" class="rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex-grow">
             <div wire:ignore x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;

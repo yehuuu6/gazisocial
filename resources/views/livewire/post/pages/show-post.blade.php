@@ -53,6 +53,15 @@
                             <span class="text-sm text-gray-600 font-light">
                                 {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
                         </div>
+                        @if ($post->is_pinned)
+                            <div
+                                class="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200 shadow-sm">
+                                <x-icons.pin size="18" />
+                                <span class="text-xs font-medium">
+                                    Bu gönderi yöneticiler tarafından sabitlenmiştir.
+                                </span>
+                            </div>
+                        @endif
                     </div>
                     <article x-data="highlightCode" wire:ignore style="word-break: break-word;"
                         class="prose prose-sm max-w-none sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">

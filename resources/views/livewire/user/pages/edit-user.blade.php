@@ -163,7 +163,7 @@
                             </div>
                             <div class="text-sm text-gray-500 mt-3">
                                 <p>Desteklenen formatlar: JPG, PNG, GIF</p>
-                                <p>Maksimum dosya boyutu: 5MB</p>
+                                <p>Maksimum dosya boyutu: 2MB</p>
                             </div>
                         </div>
                     </div>
