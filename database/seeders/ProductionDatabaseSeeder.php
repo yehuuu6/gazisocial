@@ -201,6 +201,12 @@ class ProductionDatabaseSeeder extends Seeder
             'enum' => 'guard',
         ]);
 
+        $villager = GameRole::create([
+            'icon' => '👨‍🌾',
+            'name' => 'Köylü',
+            'enum' => 'villager',
+        ]);
+
         $hunter = GameRole::create([
             'icon' => '🏹',
             'name' => 'Avcı',
