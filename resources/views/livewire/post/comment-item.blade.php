@@ -5,6 +5,7 @@
         openShareDropdown: false,
         likeCount: $wire.likesCount,
         isLiked: $wire.isLiked,
+        showMore: false,
         isMobile() {
             const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
             return regex.test(navigator.userAgent);
@@ -93,16 +94,16 @@
                     <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
                         x-on:click.outside="$wire.replyForm = false;">
                         @if ($comment->content)
-                            <p class="text-xs md:text-sm pr-1 text-gray-700 md:line-clamp-none whitespace-pre-line"
+                            <p class="text-xs md:text-sm pr-1 text-gray-700 whitespace-pre-line"
                                 style="word-break: break-word;" x-ref="commentContent"
-                                :class="{ 'line-clamp-5': !showMore }">{{ $comment->content }}
+                                :class="{ 'line-clamp-6 lg:line-clamp-5': !showMore }">{{ $comment->content }}
                             </p>
                             <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
                                 <template x-if="isClamped">
-                                    <div class="w-full flex items-center justify-end md:hidden">
+                                    <div class="w-full flex items-center">
                                         <button x-on:click="showMore = !showMore" type="button"
-                                            x-text="showMore ? 'Gizle' : 'Devamını oku'"
-                                            class="text-gray-700 text-xs md:text-sm mt-1 mr-2">
+                                            x-text="showMore ? 'Daha az göster' : 'Devamını oku'"
+                                            class="text-gray-700 hover:underline text-xs md:text-sm mt-1 mr-2">
                                             Devamını oku
                                         </button>
                                     </div>

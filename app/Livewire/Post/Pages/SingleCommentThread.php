@@ -99,7 +99,7 @@ class SingleCommentThread extends Component
 
         $comment->delete();
 
-        Toaster::info('Yorum silindi.');
+        Toaster::success('Yorum başarıyla silindi.');
 
         $this->dispatch('comment-deleted', decreaseCount: $countToDecrease);
     }
