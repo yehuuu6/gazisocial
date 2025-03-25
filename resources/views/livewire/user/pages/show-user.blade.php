@@ -125,8 +125,8 @@
                         <span wire:loading.remove wire:target="runSearch">
                             <x-icons.search size="16" />
                         </span>
-                        <span wire:loading wire:target="runSearch">
-                            <x-icons.spinner size="16" class="animate-spin" />
+                        <span wire:loading.flex wire:target="runSearch">
+                            <x-icons.spinner size="16" />
                         </span>
                     </button>
                 </div>

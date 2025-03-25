@@ -2,20 +2,22 @@
 
 namespace App\Livewire\User\Pages;
 
-use App\Models\User;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
-use Livewire\Attributes\Computed;
-use Livewire\WithPagination;
 use Livewire\Component;
+use Livewire\Attributes\Url;
+use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Livewire\Attributes\Url;
-use Masmerise\Toaster\Toaster;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class ShowUser extends Component
 {
-    use WithPagination;
+    use WithPagination, WithRateLimiting;
 
     public User $user;
     public string $activeTab = 'posts';
@@ -81,6 +83,12 @@ class ShowUser extends Component
 
         // Search functionality using Scout
         if (strlen($this->search) >= 3 && $this->activeTab === 'posts') {
+            try {
+                $this->rateLimit(25, decaySeconds: 1800);
+            } catch (TooManyRequestsException $exception) {
+                Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+                return collect();
+            }
             $searchResults = Post::search($this->search)->get();
             $query->whereIn('id', $searchResults->pluck('id'));
         }
@@ -108,6 +116,12 @@ class ShowUser extends Component
 
         // Search functionality using Scout
         if (strlen($this->search) >= 3 && $this->activeTab === 'comments') {
+            try {
+                $this->rateLimit(25, decaySeconds: 1800);
+            } catch (TooManyRequestsException $exception) {
+                Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+                return collect();
+            }
             $searchResults = Comment::search($this->search)->get();
             $query->whereIn('id', $searchResults->pluck('id'));
         }

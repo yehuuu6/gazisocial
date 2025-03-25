@@ -2,13 +2,18 @@
 
 namespace App\Livewire\Post\Search;
 
-use App\Models\Post;
 use App\Models\Tag;
-use Livewire\Attributes\Computed;
+use App\Models\Post;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
+use Livewire\Attributes\Computed;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class SearchBar extends Component
 {
+    use WithRateLimiting;
+
     public string $search = '';
 
     #[Computed(persist: true)]
@@ -28,6 +33,14 @@ class SearchBar extends Component
         if (strlen($this->search) < 3) {
             return collect();
         }
+
+        try {
+            $this->rateLimit(25, decaySeconds: 1800);
+        } catch (TooManyRequestsException $exception) {
+            Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
+            return collect();
+        }
+
         return Post::search($this->search)->take(5)->get();
     }
 
