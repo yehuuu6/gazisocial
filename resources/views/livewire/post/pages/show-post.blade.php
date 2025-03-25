@@ -51,6 +51,11 @@
                         class="prose prose-sm max-w-none sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
                         {!! $post->html !!}
                     </article>
+                    @if ($post->image_urls)
+                        <div class="mt-4">
+                            <x-image-gallery :images="$post->image_urls" />
+                        </div>
+                    @endif
                     <div class="flex items-center justify-between mt-3">
                         <div class="flex items-center gap-3.5" x-data="{ isDisabled: false }">
                             <button x-on:click="toggleLike()" :disabled='isDisabled'

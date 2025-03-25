@@ -82,9 +82,9 @@
                                 x-on:click="selectedTags.includes({{ $tag->id }}) ? selectedTags.splice(selectedTags.indexOf({{ $tag->id }}), 1) : selectedTags.push({{ $tag->id }})"
                                 type="button"
                                 :class="selectedTags.includes({{ $tag->id }}) ?
-                                    'bg-{{ $tag->color }}-500 text-white' :
-                                    'bg-gray-200 text-gray-700'"
-                                class="rounded-full hover:bg-opacity-80 px-2.5 py-1 shadow-sm focus:outline-none text-xs lg:text-sm active:scale-90 transition-transform duration-100">
+                                    'bg-{{ $tag->color }}-500 border-transparent text-white hover:bg-opacity-80' :
+                                    'bg-white border-gray-200 text-gray-800'"
+                                class="rounded-full font-semibold px-3 py-1 border text-xs active:scale-90 transition-all duration-300">
                                 {{ $tag->name }}
                             </button>
                         @endforeach
@@ -133,6 +133,47 @@
                         </div>
                     </div>
                 @endcan
+                <div>
+                    <div class="mb-4">
+                        <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">
+                            Görseller
+                        </h4>
+                        <p class="text-xs lg:text-sm text-gray-500">
+                            Konunuza en fazla 3 adet görsel ekleyebilirsiniz. Her bir görsel en fazla 2MB boyutunda
+                            olabilir.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        @foreach ($images as $index => $image)
+                            @if ($image)
+                                <div class="relative">
+                                    <img src="{{ $image->temporaryUrl() }}"
+                                        class="w-32 h-32 object-cover rounded-lg border-2 border-gray-200">
+                                    <button type="button" wire:click="removeImage({{ $index }})"
+                                        class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                                        <x-icons.close size="14" />
+                                    </button>
+                                </div>
+                            @endif
+                        @endforeach
+                        @if (count(array_filter($images)) < 3)
+                            <label
+                                class="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors">
+                                <input type="file" wire:model="newImage" class="hidden" accept="image/*">
+                                <div class="text-gray-500 flex flex-col items-center gap-2">
+                                    <x-icons.image size="24" />
+                                    <span class="text-xs">Görsel Ekle</span>
+                                </div>
+                            </label>
+                        @endif
+                    </div>
+                    <div wire:loading wire:target="newImage" class="mt-2">
+                        <div class="text-sm text-blue-500 flex items-center gap-2">
+                            <x-icons.spinner size="16" />
+                            <span>Görsel yükleniyor...</span>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <div class="mb-4">
                         <h4 class="block cursor-default font-medium text-lg md:text-xl text-gray-700">

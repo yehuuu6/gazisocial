@@ -18,7 +18,11 @@ class Post extends Model
     use HasFactory, ConvertsMarkdownToHtml, Searchable;
 
     protected $guarded = [
-        'id',
+        'id'
+    ];
+
+    protected $casts = [
+        'image_urls' => 'array',
     ];
 
     public function toggleLike()

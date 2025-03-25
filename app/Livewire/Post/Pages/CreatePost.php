@@ -7,7 +7,6 @@ use App\Models\Poll;
 use App\Models\Post;
 use Livewire\Component;
 use App\Models\PollOption;
-use Livewire\Attributes\On;
 use Masmerise\Toaster\Toaster;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +14,12 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class CreatePost extends Component
 {
-    use WithRateLimiting;
+    use WithRateLimiting, WithFileUploads;
 
     public string $title;
     public string $content;
@@ -32,6 +33,35 @@ class CreatePost extends Component
     public ?Poll $editingPoll = null;
     public bool $is_anonim = false;
     public bool $is_pinned = false;
+    public $images = [];
+    public $newImage = null;
+
+    public function updatedNewImage()
+    {
+        if (count($this->images) >= 3) {
+            Toaster::warning('En fazla 3 görsel yükleyebilirsiniz.');
+            $this->newImage = null;
+            return;
+        }
+
+        $this->validate([
+            'newImage' => 'image|max:2048', // 2MB max
+        ], [
+            'newImage.image' => 'Yüklenen dosya bir resim olmalıdır.',
+            'newImage.max' => 'Resim boyutu en fazla 2MB olabilir.',
+        ]);
+
+        $this->images[] = $this->newImage;
+        $this->newImage = null;
+    }
+
+    public function removeImage($index)
+    {
+        if (isset($this->images[$index])) {
+            unset($this->images[$index]);
+            $this->images = array_values($this->images); // Reindex array
+        }
+    }
 
     #[Computed()]
     public function tags()
@@ -224,12 +254,16 @@ class CreatePost extends Component
             'content.required' => 'Konu içeriği zorunludur.',
             'content.min' => 'Konu içeriği en az :min karakter olmalıdır.',
             'content.max' => 'Konu içeriği en fazla :max karakter olabilir.',
+            'images.*.image' => 'Yüklenen dosya bir resim olmalıdır.',
+            'images.*.max' => 'Resim boyutu en fazla 2MB olabilir.',
+            'images.max' => 'En fazla 3 resim yükleyebilirsiniz.',
         ];
 
         try {
             $this->validate([
                 'title' => 'bail|required|min:6|max:100',
-                'content' => 'bail|required|min:10|max:5000'
+                'content' => 'bail|required|min:10|max:5000',
+                'images' => 'array|max:3', // Maximum 3 images
             ], $messages);
 
             if (count($this->selectedTags) < 1) {
@@ -261,6 +295,16 @@ class CreatePost extends Component
             'user_id' => Auth::id(),
             'is_anonim' => $this->is_anonim,
         ]);
+
+        // Store images
+        if (!empty($this->images)) {
+            $imageUrls = [];
+            foreach ($this->images as $image) {
+                $path = $image->store('posts/images/' . $post->id, 'public');
+                $imageUrls[] = Storage::url($path);
+            }
+            $post->update(['image_urls' => $imageUrls]);
+        }
 
         // Attach tags to the post
         $post->tags()->attach($this->selectedTags);
