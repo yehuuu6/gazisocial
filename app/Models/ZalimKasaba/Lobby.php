@@ -8,7 +8,6 @@ use App\Enums\ZalimKasaba\GameState;
 use App\Models\ZalimKasaba\FinalVote;
 use App\Enums\ZalimKasaba\LobbyStatus;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\ZalimKasaba\FinalVoteType;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,15 +18,17 @@ class Lobby extends Model
     /** @use HasFactory<\Database\Factories\LobbyFactory> */
     use HasFactory;
 
-    protected $guarded = ['id', 'uuid'];
+    protected $guarded = ['uuid'];
 
     // Create an uuid on creating a new lobby
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($lobby) {
-            $lobby->uuid = Str::uuid();
+        static::creating(function ($model) {
+            if (!$model->id) {
+                $model->id = (string) Str::uuid();
+            }
         });
     }
 
