@@ -14,7 +14,8 @@
         "laravel/reverb": "^1.4.8",
         "laravel/tinker": "^2.10",
         "livewire/livewire": "^3.6",
-        "masmerise/livewire-toaster": "^2.7"
+        "masmerise/livewire-toaster": "^2.7",
+        "z3d0x/filament-logger": "^0.8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14.10",
