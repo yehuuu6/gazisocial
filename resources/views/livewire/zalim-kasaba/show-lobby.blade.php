@@ -73,11 +73,6 @@
                     </ul>
                 </div>
             @endif
-            <button type="button"
-                class="lg:hidden absolute top-2 right-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded-full shadow-sm"
-                x-on:click="leftPanel = false">
-                <x-icons.close size="20" />
-            </button>
             <div class="flex flex-col flex-grow flex-shrink-0">
                 <div class="bg-white flex flex-col h-full p-4">
                     <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded px-3 py-2 mb-3">
@@ -118,9 +113,15 @@
         <div class="flex flex-col flex-grow relative">
             <div class="flex bg-white items-center justify-between border-b border-gray-200 p-3" x-ref="gameHeader">
                 <div class="flex items-center gap-2">
-                    <button type="button" x-on:click="leftPanel = true; rightPanel = false;"
+                    <button x-show="!leftPanel" type="button" x-on:click="leftPanel = true; rightPanel = false;"
+                        x-cloak
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
                         <x-icons.arrow-right-alt size="20" />
+                    </button>
+                    <button type="button" x-on:click="leftPanel = false; rightPanel = false;" x-show="leftPanel"
+                        x-cloak
+                        class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                        <x-icons.close size="20" />
                     </button>
                     <x-ui.tooltip text="Tam Ekran" position="bottom">
                         <button type="button"
@@ -157,9 +158,20 @@
                             </button>
                         </x-ui.tooltip>
                     @endif
-                    <button type="button" x-on:click="rightPanel = true; leftPanel = false;"
+                    <button type="button" x-on:click="rightPanel = true; leftPanel = false;" x-cloak
+                        x-show="!rightPanel"
                         class="bg-gray-100 hover:bg-gray-200 text-gray-700 lg:hidden flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.arrow-left-alt size="20" />
+                        @if ($currentPlayer->role && $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
+                            <span
+                                class="size-5 flex items-center justify-center">{{ $currentPlayer->role->icon }}</span>
+                        @else
+                            <x-icons.arrow-left-alt size="20" />
+                        @endif
+                    </button>
+                    <button type="button" x-on:click="rightPanel = false; leftPanel = false;" x-show="rightPanel"
+                        x-cloak
+                        class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                        <x-icons.close size="20" />
                     </button>
                 </div>
             </div>
@@ -248,11 +260,6 @@
                     </div>
                 </div>
             @endif
-            <button type="button"
-                class="absolute lg:hidden top-2 left-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded-full shadow-sm"
-                x-on:click="rightPanel = false">
-                <x-icons.close size="20" />
-            </button>
             <div class="flex flex-col flex-grow flex-shrink-0 bg-white p-4">
                 <div class="flex items-center justify-between">
                     <div class="bg-gradient-to-r from-green-600 to-green-500 text-white rounded px-3 py-2 mb-3 w-full">
