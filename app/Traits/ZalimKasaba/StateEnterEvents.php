@@ -67,27 +67,12 @@ trait StateEnterEvents
     private function enterReveal()
     {
         $this->lobby->players()
-            ->where('is_alive', true)
-            ->update(['is_cleaned' => false]);
+            ->where('is_alive', true);
 
         $deadPlayers = $this->lobby->players()
             ->where('is_alive', false)
             ->where('death_night', $this->lobby->day_count)
             ->get();
-
-        foreach ($deadPlayers as $deadPlayer) {
-            $username = $deadPlayer->user->username;
-            if ($this->currentPlayer->role->enum !== PlayerRole::JANITOR && $deadPlayer->is_cleaned) {
-                $roleName = 'Temizlendi';
-            } else {
-                $roleName = $deadPlayer->role->name;
-            }
-
-            $this->sendSystemMessage(
-                "{$username} dün gece evinde ölü bulundu. Oyuncunun rolü: {$roleName}.",
-                ChatMessageType::WARNING
-            );
-        }
     }
 
     private function enterPreparation()

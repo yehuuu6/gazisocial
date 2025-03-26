@@ -46,11 +46,6 @@ class ShowLastWill extends Component
             return;
         }
 
-        if ($this->author->is_cleaned) {
-            $this->lastWill = 'Bu kişinin vasiyeti temizlendi.';
-            return;
-        }
-
         $this->lastWill = $this->author->last_will;
     }
 
