@@ -9,7 +9,7 @@ use App\Enums\ZalimKasaba\FinalVoteType;
 
 trait StateExitEvents
 {
-    use ChatManager, PlayerActionsManager, VoteManager, RoleActions;
+    use ChatManager, PlayerActionsManager, VoteManager;
 
     private function exitLobby()
     {
@@ -90,26 +90,11 @@ trait StateExitEvents
         }
 
         $this->lobby->update(['accused_id' => null]);
-        $this->checkGameOver();
     }
 
     private function exitNight()
     {
         $this->validateEvent(GameState::NIGHT);
-
-        $this->jesterActions();
-        $this->guardActions();
-        $this->angelActions();
-        $this->doctorActions();
-        $this->janitorActions();
-        $this->witchActions();
-        $this->lookoutActions();
-        $this->godfatherActions();
-        $this->mafiosoActions();
-        $this->hunterActions();
-
-        $this->processPoisons();
-        $this->processGuilts();
 
         $this->informAbiltyWasted();
     }
@@ -117,7 +102,6 @@ trait StateExitEvents
     private function exitReveal()
     {
         $this->validateEvent(GameState::REVEAL);
-        $this->checkGameOver();
     }
 
     private function exitPreparation()
@@ -128,9 +112,6 @@ trait StateExitEvents
     private function exitGameOver()
     {
         if ($this->lobby->state !== GameState::GAME_OVER) return false;
-
-        // Redirect to lobbies list
-        return redirect()->route('games.zk.lobbies')->success('Oyun bitti!');
     }
 
     // FUNCTIONS START

@@ -20,7 +20,6 @@ trait PlayerManager
             ['user_id' => Auth::id()],
             [
                 'is_online' => true,
-                'last_seen' => now(),
                 'is_host' => $this->lobby->host_id === Auth::id(),
             ],
         );
@@ -114,7 +113,7 @@ trait PlayerManager
 
         if (!$hostId) {
             $this->lobby->update(['status' => 'waiting_host']);
-            return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
+            //return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         } else {
             $this->lobby->update(['status' => 'active']);
         }
@@ -132,7 +131,6 @@ trait PlayerManager
         if ($player && !$player->is_online) {
             $player->update([
                 'is_online' => true,
-                'last_seen' => now(),
             ]);
         }
     }

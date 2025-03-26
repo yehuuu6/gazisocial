@@ -119,12 +119,10 @@ trait PlayerActionsManager
             case PlayerRole::HUNTER:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
-                if ($this->currentPlayer->guilt()->exists()) return false;
                 break;
             case PlayerRole::WITCH:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
-                if ($targetPlayer->poison()->exists()) return false;
                 break;
             case PlayerRole::JESTER:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
@@ -143,17 +141,13 @@ trait PlayerActionsManager
     /**
      * Kills the target player and sets their death night.
      * @param Player $player The player who is targeted by the ability.
-     * @param bool $canHaunt Whether the player can haunt after death. (Jester)
-     * @param bool $isExecuted Whether the player is executed by the town.
      * @return void
      */
-    private function killPlayer(Player $player, bool $canHaunt = false, bool $isExecuted = false): void
+    private function killPlayer(Player $player): void
     {
         $player->update([
             'is_alive' => false,
             'death_night' => $this->lobby->day_count,
-            'can_haunt' => $canHaunt,
-            'is_executed' => $isExecuted,
         ]);
     }
 

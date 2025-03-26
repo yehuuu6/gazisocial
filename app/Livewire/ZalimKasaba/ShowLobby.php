@@ -39,7 +39,7 @@ class ShowLobby extends Component
         $this->lobby = $lobby;
 
         if ($lobby->status === LobbyStatus::WAITING_HOST && $lobby->host_id !== Auth::id()) {
-            return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
+            //return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         }
 
         $this->gameTitle = $this->setGameTitle($lobby);
@@ -63,7 +63,7 @@ class ShowLobby extends Component
     private function checkHostAvailability()
     {
         if (!$this->hostPlayer) {
-            return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
+            //return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         }
     }
 

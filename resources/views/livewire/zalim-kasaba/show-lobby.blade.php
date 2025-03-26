@@ -294,9 +294,6 @@
                                         @if ($player->is_host && $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                                             <span class="text-yellow-500">👑 Yönetici</span>
                                         @endif
-                                        @if ($player->poison()->exists() && $this->currentPlayer->role->enum === App\Enums\ZalimKasaba\PlayerRole::WITCH)
-                                            <span class="text-purple-500">🧪 Zehirlenmiş</span>
-                                        @endif
                                         @if (
                                             $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
                                                 in_array($player->role?->enum, App\Enums\ZalimKasaba\PlayerRole::getMafiaRoles()) &&

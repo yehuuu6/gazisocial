@@ -45,16 +45,6 @@ class Lobby extends Model
         return $this->belongsToMany(GameRole::class);
     }
 
-    public function poisons(): HasMany
-    {
-        return $this->hasMany(WitchPoison::class);
-    }
-
-    public function guilts(): HasMany
-    {
-        return $this->hasMany(GuiltThoughts::class);
-    }
-
     public function host(): BelongsTo
     {
         return $this->belongsTo(User::class, 'host_id');
