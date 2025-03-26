@@ -45,7 +45,7 @@
                 === 'success',
                 '!text-gray-500 italic': {{ $this->isDeadChat($msg) ? 'true' : 'false' }}
             }"
-                class="rounded px-1 break-all text-xs md:text-sm self-start">
+                class="rounded px-1 text-xs md:text-sm self-start" style="word-break: break-word;">
                 {{ $msg->message }}
             </p>
         </div>

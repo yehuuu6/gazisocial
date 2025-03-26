@@ -2,16 +2,29 @@
 
 namespace App\Traits\ZalimKasaba;
 
-use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Enums\ZalimKasaba\GameState;
-use App\Enums\ZalimKasaba\PlayerRole;
 use App\Events\ZalimKasaba\GameStateUpdated;
-use Illuminate\Support\Collection;
-use Masmerise\Toaster\Toaster;
 
 trait StateManager
 {
     use StateEnterEvents, StateExitEvents;
+
+    /**
+     * Calculate the required number of votes based on the number of alive players.
+     * @return int
+     */
+    private function calculateRequiredVotes(): int
+    {
+        $alivePlayers = $this->lobby->players()->where('is_alive', true)->count();
+
+        if ($alivePlayers >= 14) return 8;
+        if ($alivePlayers >= 12) return 7;
+        if ($alivePlayers >= 10) return 6;
+        if ($alivePlayers >= 8) return 5;
+        if ($alivePlayers >= 6) return 4;
+        if ($alivePlayers >= 4) return 3;
+        return 2; // For 2-3 players
+    }
 
     /**
      * Changes the state of the lobby to the next state.
@@ -35,15 +48,15 @@ trait StateManager
 
         // In seconds
         $timerValues = [
-            GameState::PREPARATION->value => 15,
-            GameState::DAY->value => $currentDay === 0 ? 20 : 45,
-            GameState::VOTING->value => 30,
+            GameState::PREPARATION->value => 5,
+            GameState::DAY->value => $currentDay === 0 ? 20 : 5,
+            GameState::VOTING->value => 20,
             GameState::DEFENSE->value => 20,
             GameState::JUDGMENT->value => 20,
             GameState::LAST_WORDS->value => 10,
-            GameState::NIGHT->value => 40,
-            GameState::REVEAL->value => 15,
-            GameState::GAME_OVER->value => 20
+            GameState::NIGHT->value => 5,
+            GameState::REVEAL->value => 5,
+            GameState::GAME_OVER->value => 5
         ];
 
         // If the next state is in the timerValues array, set the countdown_end

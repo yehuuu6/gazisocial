@@ -3,8 +3,13 @@
     endTime: null,
     isStarted: null,
     countdownText: '0:15',
-    timerInterval: null,
+    animationFrameId: null,
     init() {
+        // Cancel any existing animation frame
+        if (this.animationFrameId !== null) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
         this.setProps();
         this.setInitialCountdownText();
         this.startCountdown();
@@ -38,23 +43,15 @@
         if (distance < 0) {
             this.countdownText = '0:00';
             $wire.$parent.call('goToNextGameState');
-            this.stopCountdown();
             return;
         }
 
         this.countdownText = this.formatCountdown(distance);
-        requestAnimationFrame(() => this.updateCountdown());
+        this.animationFrameId = requestAnimationFrame(() => this.updateCountdown());
     },
     startCountdown() {
         if (!this.isStarted) return;
-        this.stopCountdown(); // Ensure previous interval is cleared
-        requestAnimationFrame(() => this.updateCountdown());
-    },
-    stopCountdown() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
-        }
+        this.animationFrameId = requestAnimationFrame(() => this.updateCountdown());
     },
 }"
     x-on:game-state-updated.window="init();" x-text="countdownText">

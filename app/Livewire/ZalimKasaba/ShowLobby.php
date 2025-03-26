@@ -19,7 +19,11 @@ use Masmerise\Toaster\Toaster;
 
 class ShowLobby extends Component
 {
-    use StateManager, ChatManager, PlayerManager, VoteManager, PlayerActionsManager;
+    // Resolve method name conflicts using trait aliasing
+    use StateManager {
+        StateManager::calculateRequiredVotes as calculateVoteThreshold;
+    }
+    use ChatManager, PlayerManager, VoteManager, PlayerActionsManager;
 
     public Lobby $lobby;
 
@@ -119,6 +123,10 @@ class ShowLobby extends Component
     {
         // Refresh players list
         $this->lobby->players()->orderBy('place')->get();
+
+        if ($this->currentPlayer->is_host && $this->lobby->state === GameState::VOTING) {
+            $this->checkEnoughVotes();
+        }
     }
 
     public function handleGameStateUpdated($payload)

@@ -2,6 +2,7 @@
 
 namespace App\Traits\ZalimKasaba;
 
+use App\Enums\ZalimKasaba\ChatMessageType;
 use Illuminate\Support\Collection;
 use App\Enums\ZalimKasaba\GameState;
 use App\Enums\ZalimKasaba\PlayerRole;
@@ -50,8 +51,11 @@ trait StateExitEvents
 
         $judgmentResult = $this->calculateFinalVotes();
 
+        $msgType = $judgmentResult['type'] === FinalVoteType::GUILTY->value ? ChatMessageType::WARNING : ChatMessageType::SUCCESS;
+
         $this->sendSystemMessage(
-            "Yargılama süreci sona erdi. {$judgmentResult['guilty']} suçlu, {$judgmentResult['inno']} masum oy aldı. {$judgmentResult['abstain']} oy çekimser kaldı."
+            "Yargılama süreci sona erdi. {$judgmentResult['guilty']} suçlu, {$judgmentResult['inno']} masum oy aldı. {$judgmentResult['abstain']} oy çekimser kaldı.",
+            $msgType
         );
 
         if ($judgmentResult['type'] === FinalVoteType::GUILTY->value) {
@@ -83,7 +87,7 @@ trait StateExitEvents
         $roleName = $accused->role->name;
         $roleIcon = $accused->role->icon;
         if ($accused) {
-            $this->killPlayer($accused, $accused->role->enum === PlayerRole::JESTER, true);
+            //$this->killPlayer($accused, $accused->role->enum === PlayerRole::JESTER, true);
             $this->sendSystemMessage(
                 "{$username} kasaba tarafından idam edildi. Oyuncunun rolü: {$roleIcon} {$roleName}."
             );
@@ -97,6 +101,13 @@ trait StateExitEvents
         $this->validateEvent(GameState::NIGHT);
 
         $this->informAbiltyWasted();
+
+        // If there are no deaths, skip to the day phase
+        $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count)->get();
+        if ($deadPlayers->count() === 0) {
+            $this->nextState(GameState::DAY);
+            return;
+        }
     }
 
     private function exitReveal()

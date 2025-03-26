@@ -19,8 +19,10 @@ trait StateEnterEvents
     private function enterVoting()
     {
         $this->lobby->finalVotes()->delete();
-        $totalPlayers = $this->lobby->players()->count();
-        $threshold = ceil($totalPlayers / 2);
+        // Use the aliased method if it exists, otherwise try the original method
+        $threshold = method_exists($this, 'calculateVoteThreshold') 
+            ? $this->calculateVoteThreshold() 
+            : $this->calculateRequiredVotes();
         $trialCount = $this->lobby->available_trials;
         $this->sendSystemMessage("Bu gün {$trialCount} oylama yapma hakkınız kaldı. Sorgulama yapmak için {$threshold} oy gerekiyor.");
         $this->lobby->update(['available_trials' => $trialCount - 1]);
