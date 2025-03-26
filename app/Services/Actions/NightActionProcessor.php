@@ -50,14 +50,12 @@ class NightActionProcessor
                     $handler->handle($action, $healedPlayers);
                 }
             }
+        }
 
-            // After killing (priority 5), process janitor cleaning
-            if ($priority === 5) {
-                $janitorHandler = $this->actionHandlerFactory->getJanitorHandler();
-                if ($janitorHandler) {
-                    $janitorHandler->processCleaningResults();
-                }
-            }
+        // Process janitor cleaning after all actions are handled
+        $janitorHandler = $this->actionHandlerFactory->getJanitorHandler();
+        if ($janitorHandler) {
+            $janitorHandler->processCleaningResults();
         }
 
         // Process lookout actions at the end
@@ -74,7 +72,8 @@ class NightActionProcessor
             ActionType::ORDER => 2,
             ActionType::HEAL => 3,
             ActionType::KILL => 4,
-            ActionType::CLEAN => 5,
+            ActionType::SHOOT => 5,
+            ActionType::CLEAN => 6,
             default => 99,
         };
     }

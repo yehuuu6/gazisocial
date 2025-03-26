@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Services\Actions\Handlers;
+
+use App\Enums\ZalimKasaba\ActionType;
+use App\Enums\ZalimKasaba\ChatMessageType;
+use App\Enums\ZalimKasaba\PlayerRole;
+use App\Models\ZalimKasaba\GameAction;
+use App\Models\ZalimKasaba\Lobby;
+use App\Models\ZalimKasaba\Player;
+use App\Traits\ZalimKasaba\ChatManager;
+use App\Traits\ZalimKasaba\PlayerActionsManager;
+
+class HunterActionHandler implements ActionHandlerInterface
+{
+    use ChatManager, PlayerActionsManager;
+
+    public Lobby $lobby;
+
+    public function __construct(Lobby $lobby)
+    {
+        $this->lobby = $lobby;
+    }
+
+    public function handle(GameAction $action, array &$healActions = []): void
+    {
+        // If the hunter is roleblocked, they can't perform their action
+        if ($action->is_roleblocked) {
+            return;
+        }
+
+        $targetPlayer = $this->lobby->players()->where('id', $action->target_id)->first();
+
+        if (!$targetPlayer) {
+            return;
+        }
+
+        // Check if the target was healed
+        $wasHealed = false;
+        foreach ($healActions as $healAction) {
+            if ($healAction->target_id === $targetPlayer->id) {
+                $wasHealed = true;
+                $doctor = $healAction->actor;
+                break;
+            }
+        }
+
+        if ($wasHealed) {
+            // Target was healed, shot is unsuccessful
+            $this->sendMessageToPlayer($action->actor, "Hedefinize ateş ettiniz, ancak biri onu kurtardı!", ChatMessageType::WARNING);
+            $this->sendMessageToPlayer($doctor, 'Hedefin saldırıya uğradı, ancak onu kurtardın!', ChatMessageType::SUCCESS);
+            $this->sendMessageToPlayer($targetPlayer, 'Biri evine girip sana saldırdı, ama bir doktor seni kurtardı!', ChatMessageType::SUCCESS);
+            return;
+        }
+
+        // Kill the target
+        $this->killPlayer($targetPlayer);
+
+        $this->sendMessageToPlayer($targetPlayer, 'Biri evine girdi, öldürüldün!', ChatMessageType::WARNING);
+
+        // Check if the target was a town role
+        if (in_array($targetPlayer->role->enum, PlayerRole::getTownRoles())) {
+            // Mark hunter for suicide next day
+            $hunterPlayer = $action->actor;
+
+            $this->lobby->guilts()->create([
+                'player_id' => $hunterPlayer->id,
+                'night' => $this->lobby->day_count + 1,
+            ]);
+        }
+    }
+
+    private function killPlayer(Player $player): void
+    {
+        $player->update([
+            'is_alive' => false,
+            'death_night' => $this->lobby->day_count,
+        ]);
+    }
+}

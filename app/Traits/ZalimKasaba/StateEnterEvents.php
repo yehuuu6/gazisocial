@@ -20,8 +20,8 @@ trait StateEnterEvents
     {
         $this->lobby->finalVotes()->delete();
         // Use the aliased method if it exists, otherwise try the original method
-        $threshold = method_exists($this, 'calculateVoteThreshold') 
-            ? $this->calculateVoteThreshold() 
+        $threshold = method_exists($this, 'calculateVoteThreshold')
+            ? $this->calculateVoteThreshold()
             : $this->calculateRequiredVotes();
         $trialCount = $this->lobby->available_trials;
         $this->sendSystemMessage("Bu gün {$trialCount} oylama yapma hakkınız kaldı. Sorgulama yapmak için {$threshold} oy gerekiyor.");
@@ -52,10 +52,23 @@ trait StateEnterEvents
 
     private function enterNight()
     {
-        //REMOVEPRODUCTION
         $offlinePlayers = $this->lobby->players()->where('is_online', false)->get();
         foreach ($offlinePlayers as $offlinePlayer) {
             //$this->killPlayer($offlinePlayer);
+        }
+
+        $players = $this->lobby->players()->with(['guilt'])->where('is_alive', true)->get();
+
+        foreach ($players as $player) {
+            // Check if the player has guilt
+            $guilt = $player->guilt;
+            if ($guilt && $guilt->night === $this->lobby->day_count) {
+                $this->sendMessageToPlayer(
+                    $player,
+                    'Masum bir köylüyü öldürdüğün için vicdan azabı çekiyorsun...',
+                    ChatMessageType::DEFAULT
+                );
+            }
         }
 
         // Delete all the votes

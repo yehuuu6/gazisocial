@@ -11,7 +11,8 @@ use App\Services\Actions\Handlers\{
     GuardActionHandler,
     LookoutActionHandler,
     JanitorActionHandler,
-    ActionHandlerInterface
+    ActionHandlerInterface,
+    HunterActionHandler
 };
 
 class ActionHandlerFactory
@@ -31,6 +32,7 @@ class ActionHandlerFactory
             ActionType::INTERROGATE->value => new GuardActionHandler($lobby),
             ActionType::WATCH->value => new LookoutActionHandler($lobby),
             ActionType::CLEAN->value => new JanitorActionHandler($lobby),
+            ActionType::SHOOT->value => new HunterActionHandler($lobby),
         ];
     }
 
@@ -47,5 +49,10 @@ class ActionHandlerFactory
     public function getJanitorHandler(): ?JanitorActionHandler
     {
         return $this->handlers[ActionType::CLEAN->value] ?? null;
+    }
+
+    public function getHunterHandler(): ?HunterActionHandler
+    {
+        return $this->handlers[ActionType::SHOOT->value] ?? null;
     }
 }

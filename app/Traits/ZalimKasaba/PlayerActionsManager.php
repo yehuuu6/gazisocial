@@ -119,6 +119,7 @@ trait PlayerActionsManager
             case PlayerRole::HUNTER:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
+                if ($this->currentPlayer->guilt()->exists()) return false;
                 break;
             case PlayerRole::WITCH:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
@@ -192,6 +193,26 @@ trait PlayerActionsManager
             PlayerRole::JESTER => "{$name} adlı oyuncuyu lanetlemeye karar verdin.",
             PlayerRole::ANGEL => "Melek formuna dönüşmeye karar verdin."
         };
+    }
+
+    private function processGuilts()
+    {
+        $guilts = $this->lobby->guilts()->with('player')->get();
+
+        if ($guilts->count() === 0) return;
+
+        foreach ($guilts as $guilt) {
+            // If the guilt was not applied last night, skip
+            if ($this->lobby->day_count !== $guilt->night) continue;
+
+            $guiltyPlayer = $guilt->player;
+
+            if (!$guiltyPlayer) continue;
+
+            $this->killPlayer($guiltyPlayer);
+            $this->sendMessageToPlayer($guiltyPlayer, 'Vicdan azabından intihar ettin!', ChatMessageType::WARNING);
+            $guilt->delete();
+        }
     }
 
     private function sendNightAbilityMessages()

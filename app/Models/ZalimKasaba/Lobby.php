@@ -60,6 +60,11 @@ class Lobby extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
+    public function guilts(): HasMany
+    {
+        return $this->hasMany(GuiltThoughts::class);
+    }
+
     public function votes(): HasMany
     {
         return $this->hasMany(LynchVote::class);
