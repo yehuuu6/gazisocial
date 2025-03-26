@@ -112,25 +112,11 @@ class ShowUser extends Component
             return collect();
         }
 
-        $query = $this->user->comments();
-
-        // Search functionality using Scout
-        if (strlen($this->search) >= 3 && $this->activeTab === 'comments') {
-            try {
-                $this->rateLimit(25, decaySeconds: 1800);
-            } catch (TooManyRequestsException $exception) {
-                Toaster::error("Çok fazla istek gönderdiniz. Lütfen {$exception->minutesUntilAvailable} dakika sonra tekrar deneyin.");
-                return collect();
-            }
-            $searchResults = Comment::search($this->search)->get();
-            $query->whereIn('id', $searchResults->pluck('id'));
-        }
-
-        return $query->with([
-            'user',
-            'commentable'
-        ])
-            ->withCount('likes')
+        return $this->user->comments()
+            ->with([
+                'user',
+                'commentable'
+            ])->withCount('likes')
             ->orderBy('created_at', 'desc')
             ->simplePaginate(10);
     }

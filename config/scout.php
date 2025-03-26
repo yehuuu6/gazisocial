@@ -44,7 +44,7 @@ return [
 
     'queue' => [
         'connection' => 'redis',
-        'queue' => 'default'
+        'queue' => 'scout'
     ],
 
     /*

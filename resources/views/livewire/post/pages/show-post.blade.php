@@ -157,21 +157,25 @@
                 x-cloak wire:ignore.self x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
                 $el.style.top = navbarHeight + 'px';"
                 class="fixed lg:sticky bg-white rounded-tr-xl z-20 top-0 h-full min-w-[285px] w-[285px] md:min-w-[300px] md:w-[300px] lg:min-w-[330px] lg:w-[330px] 2xl:min-w-[375px] 2xl:w-[375px] transform transition-all duration-300 border-l border-gray-200">
-                @auth
-                    @can('update', $post)
-                        <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center justify-between gap-2">
-                            <button x-on:click="userPanel = !userPanel"
-                                class="lg:hidden bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
-                                <x-icons.close size="18" />
-                            </button>
-                            <x-link href="{{ route('posts.edit', $post) }}"
-                                class="flex items-center hover:no-underline justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
-                                <x-icons.edit size="14" />
-                                Düzenle
-                            </x-link>
-                        </div>
-                    @endcan
-                @endauth
+                @cannot('update', $post)
+                    <button x-on:click="userPanel = !userPanel"
+                        class="lg:hidden absolute top-2 right-2 bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
+                        <x-icons.close size="18" />
+                    </button>
+                @endcannot
+                @can('update', $post)
+                    <div class="px-4 pt-4 pb-0 lg:px-6 lg:pt-6 flex items-center justify-between gap-2">
+                        <button x-on:click="userPanel = !userPanel"
+                            class="lg:hidden bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
+                            <x-icons.close size="18" />
+                        </button>
+                        <x-link href="{{ route('posts.edit', $post) }}"
+                            class="flex items-center hover:no-underline justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
+                            <x-icons.edit size="14" />
+                            Düzenle
+                        </x-link>
+                    </div>
+                @endcan
                 <div class="p-4 lg:p-6">
                     <h4 class="text-sm text-gray-700 font-light uppercase mb-2">KULLANICI DETAYLARI</h4>
                     <div class="flex lg:items-center justify-between gap-3 flex-col lg:flex-row">

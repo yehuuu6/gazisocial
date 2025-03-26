@@ -117,7 +117,7 @@
                         <span>Yorumlar</span>
                     </a>
                 </div>
-                <div
+                <div x-cloak x-show="activeTab === 'posts'"
                     class="flex items-center w-full lg:w-auto gap-2 border border-gray-200 rounded-md p-2 text-sm text-gray-800 font-medium">
                     <input type="text" placeholder="Ara..." spellcheck="false" wire:model="search" autocomplete="off"
                         x-on:keydown.enter="$wire.runSearch" class="bg-transparent focus:outline-none w-full lg:w-52"

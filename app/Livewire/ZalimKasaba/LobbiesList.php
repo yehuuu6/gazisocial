@@ -14,7 +14,7 @@ class LobbiesList extends Component
     public function render()
     {
         return view('livewire.zalim-kasaba.lobbies-list', [
-            'lobbies' => Lobby::latest()->with(['host'])->get()
+            'lobbies' => Lobby::where('is_listed', true)->latest()->with(['host'])->get()
         ]);
     }
 }
