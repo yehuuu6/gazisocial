@@ -277,7 +277,7 @@
                                 @endif
                             </span>
                             <span class="text-sm font-normal bg-white/20 px-2 py-0.5 rounded-full mt-1">
-                                {{ $lobby->players->count() }} / {{ $lobby->max_players }}
+                                {{ $lobby->players->where('is_alive', true)->count() }} / {{ $lobby->max_players }}
                             </span>
                         </h1>
                     </div>
