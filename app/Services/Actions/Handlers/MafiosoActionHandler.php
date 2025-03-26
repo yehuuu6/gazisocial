@@ -58,4 +58,12 @@ class MafiosoActionHandler implements ActionHandlerInterface
             $this->sendMessageToPlayer($playerToKill, "Biri evine girdi, öldürüldün!", ChatMessageType::WARNING);
         }
     }
+
+    private function killPlayer(Player $player): void
+    {
+        $player->update([
+            'is_alive' => false,
+            'death_night' => $this->lobby->day_count,
+        ]);
+    }
 }

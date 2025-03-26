@@ -20,10 +20,10 @@ class NightActionProcessor
     {
         // Initialize healedPlayers array for this night - using a local variable
         $healedPlayers = [];
-        
+
         // Store all actions to process lookout actions later
         $allActions = [];
-        
+
         // Get all possible priority levels
         $priorities = array_unique(array_map(function ($type) {
             return $this->getPriority($type);
@@ -43,15 +43,23 @@ class NightActionProcessor
             foreach ($actions as $action) {
                 // Add to all actions list for lookout
                 $allActions[] = $action;
-                
+
                 $handler = $this->actionHandlerFactory->getHandler($action->action_type);
                 if ($handler) {
                     // Pass healedPlayers array to handle method
                     $handler->handle($action, $healedPlayers);
                 }
             }
+
+            // After killing (priority 5), process janitor cleaning
+            if ($priority === 5) {
+                $janitorHandler = $this->actionHandlerFactory->getJanitorHandler();
+                if ($janitorHandler) {
+                    $janitorHandler->processCleaningResults();
+                }
+            }
         }
-        
+
         // Process lookout actions at the end
         $lookoutHandler = $this->actionHandlerFactory->getLookoutHandler();
         if ($lookoutHandler) {
@@ -66,6 +74,7 @@ class NightActionProcessor
             ActionType::ORDER => 2,
             ActionType::HEAL => 3,
             ActionType::KILL => 4,
+            ActionType::CLEAN => 5,
             default => 99,
         };
     }

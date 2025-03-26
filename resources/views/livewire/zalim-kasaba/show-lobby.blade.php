@@ -61,7 +61,11 @@
                                         </span>
                                         <span
                                             class="text-gray-500 text-xs font-medium px-1.5 py-0.5 rounded-full bg-gray-50 border border-gray-200">
-                                            {{ $deadPlayer->role->icon . ' ' . $deadPlayer->role->name }}
+                                            @if ($deadPlayer->is_cleaned)
+                                                🧼 Temizlendi
+                                            @else
+                                                {{ $deadPlayer->role->icon . ' ' . $deadPlayer->role->name }}
+                                            @endif
                                         </span>
                                     </button>
                                 </x-ui.tooltip>

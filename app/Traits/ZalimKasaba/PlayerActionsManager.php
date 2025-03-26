@@ -199,7 +199,7 @@ trait PlayerActionsManager
         $players = $this->lobby->players()->with('role')->get();
 
         foreach ($players as $player) {
-            if (!$player->is_alive) {
+            if (!$player->is_alive || $player->role->enum === PlayerRole::VILLAGER) {
                 continue;
             }
             $availableUses = $player->ability_uses;

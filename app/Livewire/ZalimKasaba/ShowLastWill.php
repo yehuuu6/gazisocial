@@ -41,6 +41,11 @@ class ShowLastWill extends Component
 
         $this->title = $this->author->user->username . ' Vasiyeti';
 
+        if ($this->author->is_cleaned) {
+            $this->lastWill = 'Bu kişinin vasiyeti temizlendi.';
+            return;
+        }
+
         if ($this->author->last_will === null) {
             $this->lastWill = 'Bu kişi vasiyet bırakmamış.';
             return;

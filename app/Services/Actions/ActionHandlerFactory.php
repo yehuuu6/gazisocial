@@ -10,6 +10,7 @@ use App\Services\Actions\Handlers\{
     DoctorActionHandler,
     GuardActionHandler,
     LookoutActionHandler,
+    JanitorActionHandler,
     ActionHandlerInterface
 };
 
@@ -29,6 +30,7 @@ class ActionHandlerFactory
             ActionType::HEAL->value => new DoctorActionHandler($lobby),
             ActionType::INTERROGATE->value => new GuardActionHandler($lobby),
             ActionType::WATCH->value => new LookoutActionHandler($lobby),
+            ActionType::CLEAN->value => new JanitorActionHandler($lobby),
         ];
     }
 
@@ -40,5 +42,10 @@ class ActionHandlerFactory
     public function getLookoutHandler(): ?LookoutActionHandler
     {
         return $this->handlers[ActionType::WATCH->value] ?? null;
+    }
+    
+    public function getJanitorHandler(): ?JanitorActionHandler
+    {
+        return $this->handlers[ActionType::CLEAN->value] ?? null;
     }
 }
