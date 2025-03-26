@@ -9,6 +9,7 @@ use App\Services\Actions\Handlers\{
     MafiosoActionHandler, 
     DoctorActionHandler,
     GuardActionHandler,
+    LookoutActionHandler,
     ActionHandlerInterface
 };
 
@@ -27,11 +28,17 @@ class ActionHandlerFactory
             ActionType::KILL->value => new MafiosoActionHandler($lobby),
             ActionType::HEAL->value => new DoctorActionHandler($lobby),
             ActionType::INTERROGATE->value => new GuardActionHandler($lobby),
+            ActionType::WATCH->value => new LookoutActionHandler($lobby),
         ];
     }
 
     public function getHandler(ActionType $actionType): ?ActionHandlerInterface
     {
         return $this->handlers[$actionType->value] ?? null;
+    }
+    
+    public function getLookoutHandler(): ?LookoutActionHandler
+    {
+        return $this->handlers[ActionType::WATCH->value] ?? null;
     }
 }

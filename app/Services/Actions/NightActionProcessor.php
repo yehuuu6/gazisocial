@@ -18,9 +18,12 @@ class NightActionProcessor
 
     public function processActionsForLobby(Lobby $lobby): void
     {
-        // Initialize healActions array for this night - using a local variable
-        $healActions = [];
-
+        // Initialize healedPlayers array for this night - using a local variable
+        $healedPlayers = [];
+        
+        // Store all actions to process lookout actions later
+        $allActions = [];
+        
         // Get all possible priority levels
         $priorities = array_unique(array_map(function ($type) {
             return $this->getPriority($type);
@@ -30,19 +33,29 @@ class NightActionProcessor
 
         // Process actions by priority level
         foreach ($priorities as $priority) {
-            // Fetch actions of the current priority level
+            // For each priority level, refetch the actions from the database
+            // to ensure we get any actions that were created by previous handlers
             $actions = $lobby->actions()
                 ->with(['actor', 'target'])
                 ->get()
                 ->filter(fn($action) => $this->getPriority($action->action_type) === $priority);
 
             foreach ($actions as $action) {
+                // Add to all actions list for lookout
+                $allActions[] = $action;
+                
                 $handler = $this->actionHandlerFactory->getHandler($action->action_type);
                 if ($handler) {
-                    // Pass healActions array to handle method
-                    $handler->handle($action, $healActions);
+                    // Pass healedPlayers array to handle method
+                    $handler->handle($action, $healedPlayers);
                 }
             }
+        }
+        
+        // Process lookout actions at the end
+        $lookoutHandler = $this->actionHandlerFactory->getLookoutHandler();
+        if ($lookoutHandler) {
+            $lookoutHandler->processLookoutActions($allActions);
         }
     }
 

@@ -110,7 +110,7 @@ trait StateExitEvents
         // If there are no deaths, skip to the day phase
         $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count)->get();
         if ($deadPlayers->count() === 0) {
-            $this->sendSystemMessage('Gece kimse ölmedi. Gün aşamasına geçiliyor.');
+            $this->sendSystemMessage('Gece kimse ölmedi.');
         }
     }
 

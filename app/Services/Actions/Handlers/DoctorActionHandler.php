@@ -29,11 +29,8 @@ class DoctorActionHandler implements ActionHandlerInterface
         if ($action->is_roleblocked) {
             return;
         }
-        
-        $healActions[] = $action;
 
-        // Send a message to the doctor
-        $this->sendMessageToPlayer($action->actor, "Sen {$action->target->user->username} adlı oyuncuyu korudun.", ChatMessageType::DEFAULT);
+        $healActions[] = $action;
 
         // If the doctor healed themselves, mark as self-healed
         if ($action->actor_id === $action->target_id) {

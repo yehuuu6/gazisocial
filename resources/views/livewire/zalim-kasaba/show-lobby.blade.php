@@ -79,7 +79,7 @@
                 <div class="bg-white flex flex-col h-full p-4">
                     <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded px-3 py-2 mb-3">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
-                            <x-icons.tag size="18" />
+                            <x-icons.badge size="18" />
                             Rol Listesi
                         </h1>
                     </div>
