@@ -2,11 +2,13 @@
 
 namespace App\Traits\ZalimKasaba;
 
-use App\Enums\ZalimKasaba\ChatMessageType;
 use Illuminate\Support\Collection;
 use App\Enums\ZalimKasaba\GameState;
 use App\Enums\ZalimKasaba\PlayerRole;
 use App\Enums\ZalimKasaba\FinalVoteType;
+use App\Enums\ZalimKasaba\ChatMessageType;
+use App\Services\Actions\ActionHandlerFactory;
+use App\Services\Actions\NightActionProcessor;
 
 trait StateExitEvents
 {
@@ -102,11 +104,13 @@ trait StateExitEvents
 
         $this->informAbiltyWasted();
 
+        $processor = new NightActionProcessor(new ActionHandlerFactory($this->lobby));
+        $processor->processActionsForLobby($this->lobby);
+
         // If there are no deaths, skip to the day phase
         $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count)->get();
         if ($deadPlayers->count() === 0) {
-            $this->nextState(GameState::DAY);
-            return;
+            $this->sendSystemMessage('Gece kimse ölmedi. Gün aşamasına geçiliyor.');
         }
     }
 
