@@ -146,6 +146,7 @@ trait ChatManager
             'message' => $this->message,
             'faction' => $this->getMessageFaction(),
             'type' => ChatMessageType::DEFAULT,
+            'day_count' => $this->lobby->day_count, // Explicitly set day_count to ensure consistency
         ]);
 
         $this->messages->push($message);
@@ -153,6 +154,7 @@ trait ChatManager
         // Broadcast message
         broadcast(new NewChatMessage($this->lobby->id, $message->id))->toOthers();
 
+        // Update local messages list to trigger UI refresh
         $this->dispatch('chat-message-received');
 
         $this->message = '';

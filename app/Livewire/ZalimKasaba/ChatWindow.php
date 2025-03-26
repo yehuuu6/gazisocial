@@ -2,6 +2,7 @@
 
 namespace App\Livewire\ZalimKasaba;
 
+use App\Enums\ZalimKasaba\ChatMessageFaction;
 use Livewire\Component;
 use App\Models\ZalimKasaba\Lobby;
 use App\Models\ZalimKasaba\Player;
@@ -54,6 +55,14 @@ class ChatWindow extends Component
             ->where(function ($query) {
                 $query->whereNull('receiver_id')
                     ->orWhere('receiver_id', Auth::id());
+            })
+            ->where(function ($query) {
+                if ($this->currentPlayer->is_alive) {
+                    $query->where(function ($q) {
+                        $q->where('faction', '!=', ChatMessageFaction::DEAD->value)
+                            ->orWhere('receiver_id', Auth::id());
+                    });
+                }
             })
             ->oldest()
             ->get();

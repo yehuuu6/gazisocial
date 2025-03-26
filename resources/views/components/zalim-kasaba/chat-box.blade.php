@@ -4,7 +4,9 @@
     @forelse ($messages as $msg)
         @if (
             ($msg->faction === App\Enums\ZalimKasaba\ChatMessageFaction::MAFIA && !$currentPlayer->isMafia()) ||
-                ($msg->faction === App\Enums\ZalimKasaba\ChatMessageFaction::DEAD && $currentPlayer->is_alive))
+                ($msg->faction === App\Enums\ZalimKasaba\ChatMessageFaction::DEAD &&
+                    $currentPlayer->is_alive &&
+                    $msg->receiver_id !== $currentPlayer->user_id))
             @continue
         @endif
         <div wire:key="{{ $key }}-{{ $msg->id }}"
