@@ -18,7 +18,7 @@ class Lobby extends Model
     /** @use HasFactory<\Database\Factories\LobbyFactory> */
     use HasFactory;
 
-    protected $guarded = ['uuid'];
+    protected $guarded = ['id', 'uuid'];
 
     // Create an uuid on creating a new lobby
     protected static function boot()
@@ -26,8 +26,8 @@ class Lobby extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (!$model->id) {
-                $model->id = (string) Str::uuid();
+            if (!$model->uuid) {
+                $model->uuid = (string) Str::uuid();
             }
         });
     }
@@ -37,6 +37,7 @@ class Lobby extends Model
         'state' => GameState::class,
         'countdown_start' => 'datetime',
         'countdown_end' => 'datetime',
+        'is_listed' => 'boolean',
     ];
 
     public function roles(): BelongsToMany

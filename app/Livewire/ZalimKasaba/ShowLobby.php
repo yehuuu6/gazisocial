@@ -161,6 +161,19 @@ class ShowLobby extends Component
         $this->nextState();
     }
 
+    public function toggleListing()
+    {
+        if (!$this->currentPlayer->is_host) {
+            return;
+        }
+
+        $this->lobby->update([
+            'is_listed' => !$this->lobby->is_listed
+        ]);
+
+        Toaster::success($this->lobby->is_listed ? 'Lobi listelendi.' : 'Lobi gizlendi.');
+    }
+
     #[Layout('layout.games')]
     public function render()
     {

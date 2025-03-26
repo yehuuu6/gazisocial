@@ -145,8 +145,19 @@
                 <h1 class="text-gray-800 font-bold text-sm md:text-lg lg:text-xl bg-gray-50 px-4 py-1 rounded-full shadow-sm border border-gray-200"
                     wire:text="gameTitle">
                 </h1>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2" x-data="{
+                    isListed: {{ $lobby->is_listed ? 'true' : 'false' }},
+                }">
                     <livewire:zalim-kasaba.show-game-timer :$lobby />
+                    @if ($currentPlayer->is_host && $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
+                        <x-ui.tooltip :text="$lobby->is_listed ? 'Lobiyi Gizle' : 'Lobiyi Göster'" position="bottom">
+                            <button type="button" wire:click="toggleListing" x-on:click="isListed = !isListed"
+                                class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                                <x-icons.eye x-show="isListed" x-cloak size="20" />
+                                <x-icons.eye-off x-show="!isListed" x-cloak size="20" />
+                            </button>
+                        </x-ui.tooltip>
+                    @endif
                     <button type="button" x-on:click="rightPanel = true; leftPanel = false;"
                         class="bg-gray-100 hover:bg-gray-200 text-gray-700 lg:hidden flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
                         <x-icons.arrow-left-alt size="20" />
