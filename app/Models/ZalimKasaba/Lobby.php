@@ -38,6 +38,7 @@ class Lobby extends Model
         'countdown_start' => 'datetime',
         'countdown_end' => 'datetime',
         'is_listed' => 'boolean',
+        'roles_hidden' => 'boolean',
     ];
 
     public function roles(): BelongsToMany

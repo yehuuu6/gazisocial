@@ -75,16 +75,30 @@ class HunterActionHandler implements ActionHandlerInterface
 
         $players = $this->lobby->players()->where('is_alive', true)->get();
         $witchPlayer = $players->where('role.enum', PlayerRole::WITCH)->first();
+        $angelPlayers = $players->where('role.enum', PlayerRole::ANGEL);
+        $doctorPlayers = $players->where('role.enum', PlayerRole::DOCTOR);
+        $guardPlayers = $players->where('role.enum', PlayerRole::GUARD);
+
+        $possibleMessages = [];
+        if ($doctorPlayers->isNotEmpty()) {
+            $possibleMessages[] = 'Hedefinize ateş ettiniz, ancak biri onu kurtardı!';
+        }
+        if ($angelPlayers->isNotEmpty()) {
+            $possibleMessages[] = 'Öldürmek için gittiğin evde bir meleğin güzelliğine yenik düştün. Eve dönüyorsun.';
+        }
+        if ($guardPlayers->isNotEmpty()) {
+            $possibleMessages[] = 'Bekçi seni durdurdu ve kimlik kontrolü yaptı. Geceyi evde geçireceksin.';
+        }
 
         if ($witchPlayer) {
-            $possibleMessages = [
-                'Hedefinize ateş ettiniz, ancak biri onu kurtardı!',
-                'Öldürmek için gittiğin evde bir meleğin güzelliğine yenik düştün. Eve dönüyorsun.',
-            ];
             if ($targetPlayer->id === $witchPlayer->id) {
                 // Choose one of the messages randomly
-                $message = $possibleMessages[array_rand($possibleMessages)];
-                $this->sendMessageToPlayer($action->actor, $message, ChatMessageType::WARNING);
+                if (count($possibleMessages) > 0) {
+                    $message = $possibleMessages[array_rand($possibleMessages)];
+                    $this->sendMessageToPlayer($action->actor, $message, ChatMessageType::WARNING);
+                } else {
+                    $this->sendMessageToPlayer($action->actor, "Hedefinize ateş ettiniz, ancak silah tutukluk yaptı!", ChatMessageType::WARNING);
+                }
                 $this->sendMessageToPlayer($targetPlayer, "Bir avcı seni öldürmeyi denedi, ama sen onun zihnine sahte bir görüntü yerleştirdin ve kurtuldun.", ChatMessageType::WARNING);
                 return;
             }

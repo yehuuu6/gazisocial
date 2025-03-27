@@ -16,6 +16,7 @@ class CreateLobby extends Component
     public string $lobbyName;
     public array $selectedRoles = [];
     public Collection $gameRoles;
+    public bool $rolesHidden = false;
 
     public function mount()
     {
@@ -62,6 +63,7 @@ class CreateLobby extends Component
             'host_id' => Auth::id(),
             'name' => $this->lobbyName,
             'max_players' => $roleIds->count(),
+            'roles_hidden' => $this->rolesHidden,
         ]);
 
         $lobby->roles()->attach($roleIds);

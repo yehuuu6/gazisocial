@@ -98,10 +98,19 @@
                             <li class="flex items-center justify-between p-2 gap-1 rounded-lg border border-gray-100 shadow-sm bg-white"
                                 wire:key="lobby-role-{{ $role->id }}">
                                 <div class="text-sm flex items-center gap-1">
-                                    <span class="text-xl">{{ $role->icon }}</span>
-                                    <span class="text-gray-800 font-medium">
-                                        {{ $role->name }}
-                                    </span>
+                                    @if (!$lobby->roles_hidden || in_array($role->enum, App\Enums\ZalimKasaba\PlayerRole::getUniqueRoles()))
+                                        <span class="text-xl">{{ $role->icon }}</span>
+                                        <span class="text-gray-800 font-medium">
+                                            {{ $role->name }}
+                                        </span>
+                                    @else
+                                        <span class="text-xl">
+                                            ❓
+                                        </span>
+                                        <span class="text-gray-400">
+                                            Gizli Rol
+                                        </span>
+                                    @endif
                                 </div>
                                 <span class="text-xs font-medium px-2 py-1 rounded-full"
                                     :class="{
