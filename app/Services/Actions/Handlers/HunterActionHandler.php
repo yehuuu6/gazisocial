@@ -29,7 +29,7 @@ class HunterActionHandler implements ActionHandlerInterface
             return;
         }
 
-        $targetPlayer = $this->lobby->players()->where('id', $action->target_id)->first();
+        $targetPlayer = $action->target;
 
         if (!$targetPlayer) {
             return;
@@ -56,11 +56,28 @@ class HunterActionHandler implements ActionHandlerInterface
             return;
         }
 
+        $targetIsAnAngel = false;
+
+        $angelActions = $this->lobby->actions()->where('action_type', ActionType::REVEAL)->get();
+
+        foreach ($angelActions as $angelAction) {
+            if ($angelAction->target_id === $targetPlayer->id) {
+                $targetIsAnAngel = true;
+                break;
+            }
+        }
+
+        if ($targetIsAnAngel) {
+            // Player is an angel, cancel the kill
+            $this->sendMessageToPlayer($action->actor, "Öldürmek için gittiğin evde bir meleğin güzelliğine yenik düştün. Eve dönüyorsun.", ChatMessageType::WARNING);
+            $this->sendMessageToPlayer($targetPlayer, "Biri sana saldırmaya çalıştı, ama melek formun onu durdurdu!", ChatMessageType::SUCCESS);
+            return;
+        }
+
         // Kill the target
         $this->killPlayer($targetPlayer);
 
-        $this->sendMessageToPlayer($targetPlayer, 'Biri evine girdi, öldürüldün!', ChatMessageType::WARNING);
-
+        $this->sendMessageToPlayer($targetPlayer, 'Bir avcı tarafından vuruldun!', ChatMessageType::WARNING);
         // Check if the target was a town role
         if (in_array($targetPlayer->role->enum, PlayerRole::getTownRoles())) {
             // Mark hunter for suicide next day
@@ -71,13 +88,5 @@ class HunterActionHandler implements ActionHandlerInterface
                 'night' => $this->lobby->day_count + 1,
             ]);
         }
-    }
-
-    private function killPlayer(Player $player): void
-    {
-        $player->update([
-            'is_alive' => false,
-            'death_night' => $this->lobby->day_count,
-        ]);
     }
 }

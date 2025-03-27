@@ -29,7 +29,7 @@ class MafiosoActionHandler implements ActionHandlerInterface
             return;
         }
 
-        $playerToKill = $this->lobby->players()->where('id', $action->target_id)->first();
+        $playerToKill = $action->target;
 
         if ($playerToKill) {
             // Check if the player was healed
@@ -56,16 +56,26 @@ class MafiosoActionHandler implements ActionHandlerInterface
                 return;
             }
 
-            $this->killPlayer($playerToKill);
-            $this->sendMessageToPlayer($playerToKill, "Biri evine girdi, öldürüldün!", ChatMessageType::WARNING);
-        }
-    }
+            $targetIsAnAngel = false;
 
-    private function killPlayer(Player $player): void
-    {
-        $player->update([
-            'is_alive' => false,
-            'death_night' => $this->lobby->day_count,
-        ]);
+            $angelActions = $this->lobby->actions()->where('action_type', ActionType::REVEAL)->get();
+
+            foreach ($angelActions as $angelAction) {
+                if ($angelAction->target_id === $playerToKill->id) {
+                    $targetIsAnAngel = true;
+                    break;
+                }
+            }
+
+            if ($targetIsAnAngel) {
+                // Player is an angel, cancel the kill
+                $this->sendMessageToPlayer($action->actor, "Öldürmek için gittiğin evde bir meleğin güzelliğine yenik düştün. Eve dönüyorsun.", ChatMessageType::WARNING);
+                $this->sendMessageToPlayer($playerToKill, "Biri sana saldırmaya çalıştı, ama melek formun onu durdurdu!", ChatMessageType::SUCCESS);
+                return;
+            }
+
+            $this->killPlayer($playerToKill);
+            $this->sendMessageToPlayer($playerToKill, "Bir mafya üyesi tarafından öldürüldünüz!", ChatMessageType::WARNING);
+        }
     }
 }
