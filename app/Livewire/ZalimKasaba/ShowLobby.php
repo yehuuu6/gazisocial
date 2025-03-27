@@ -188,6 +188,8 @@ class ShowLobby extends Component
         if (!$this->currentPlayer->is_online) {
             $this->currentPlayer->update(['is_online' => true]);
         }
+        $this->setJudgeModalState();
+        $this->gameTitle = $this->setGameTitle($this->lobby);
         return view('livewire.zalim-kasaba.show-lobby')->title($this->lobby->name . ' - Zalim Kasaba');
     }
 }
