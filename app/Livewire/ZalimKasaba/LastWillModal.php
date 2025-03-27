@@ -21,10 +21,10 @@ class LastWillModal extends Component
 
     public ?string $lastWill = '';
 
-    public function mount(Lobby $lobby)
+    public function mount(Lobby $lobby, Player $currentPlayer)
     {
         $this->lobby = $lobby;
-        $this->currentPlayer = $this->lobby->players()->where('user_id', Auth::id())->first();
+        $this->currentPlayer = $currentPlayer;
         $this->lastWill = $this->currentPlayer->last_will;
     }
 
