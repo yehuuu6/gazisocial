@@ -7,6 +7,7 @@ enum PlayerRole: string
     case GODFATHER = 'godfather';
     case MAFIOSO = 'mafioso';
     case JANITOR = 'janitor';
+    case VILLAGER = 'villager';
     case DOCTOR = 'doctor';
     case LOOKOUT = 'lookout';
     case ANGEL = 'angel';
@@ -36,6 +37,7 @@ enum PlayerRole: string
     public static function getTownRoles(): array
     {
         return [
+            self::VILLAGER,
             self::DOCTOR,
             self::LOOKOUT,
             self::GUARD,
@@ -79,6 +81,7 @@ enum PlayerRole: string
             self::GODFATHER => 'Mafyanın liderisin. Her gece birinin öldürülmesi için emir ver. Gece mafya ile konuşabilirsin.',
             self::MAFIOSO => 'Baron tarafından sana verilen emirleri yerine getir. Gece mafya ile konuşabilirsin.',
             self::JANITOR => 'Mafya tarafından öldürülen kişinin rolünü temizle. Gece mafya ile konuşabilirsin.',
+            self::VILLAGER => 'Herhangi bir yeteneğin yok. Olan biteni izleyip, bütün kötüleri idam etmek için kasaba halkına yardım et.',
             self::DOCTOR => 'Kendini ya da başkasını koru. Kendini sadece bir kez koruyabilirsin.',
             self::LOOKOUT => 'Birinin evini dikizle ve kimlerin onu ziyaret ettiğini öğren.',
             self::GUARD => 'Birini gece boyunca sorgula ve o gece yeteneğini kullanmasına engel ol.',

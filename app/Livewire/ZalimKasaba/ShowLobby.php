@@ -19,7 +19,11 @@ use Masmerise\Toaster\Toaster;
 
 class ShowLobby extends Component
 {
-    use StateManager, ChatManager, PlayerManager, VoteManager, PlayerActionsManager;
+    // Resolve method name conflicts using trait aliasing
+    use StateManager {
+        StateManager::calculateRequiredVotes as calculateVoteThreshold;
+    }
+    use ChatManager, PlayerManager, VoteManager, PlayerActionsManager;
 
     public Lobby $lobby;
 
@@ -119,6 +123,10 @@ class ShowLobby extends Component
     {
         // Refresh players list
         $this->lobby->players()->orderBy('place')->get();
+
+        if ($this->currentPlayer->is_host && $this->lobby->state === GameState::VOTING) {
+            $this->checkEnoughVotes();
+        }
     }
 
     public function handleGameStateUpdated($payload)
@@ -161,12 +169,27 @@ class ShowLobby extends Component
         $this->nextState();
     }
 
+    public function toggleListing()
+    {
+        if (!$this->currentPlayer->is_host) {
+            return;
+        }
+
+        $this->lobby->update([
+            'is_listed' => !$this->lobby->is_listed
+        ]);
+
+        Toaster::success($this->lobby->is_listed ? 'Lobi listelendi.' : 'Lobi gizlendi.');
+    }
+
     #[Layout('layout.games')]
     public function render()
     {
         if (!$this->currentPlayer->is_online) {
             $this->currentPlayer->update(['is_online' => true]);
         }
+        $this->setJudgeModalState();
+        $this->gameTitle = $this->setGameTitle($this->lobby);
         return view('livewire.zalim-kasaba.show-lobby')->title($this->lobby->name . ' - Zalim Kasaba');
     }
 }

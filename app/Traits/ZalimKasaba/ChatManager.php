@@ -132,6 +132,61 @@ trait ChatManager
         return $msg->faction === ChatMessageFaction::MAFIA && $this->currentPlayer->isMafia() && in_array($this->lobby->state, $allowedStates);
     }
 
+    /**
+     * Sends a whisper message to a specific player
+     * @param Player $targetPlayer The player to whisper to
+     * @param string $msg The whisper message
+     * @return void
+     */
+    private function sendWhisper(Player $targetPlayer, string $msg)
+    {
+        if (!$this->currentPlayer->is_alive) {
+            return;
+        }
+
+        if (!$targetPlayer->is_alive) {
+            return;
+        }
+
+        $validForWhispering = [
+            GameState::DAY,
+            GameState::VOTING,
+            GameState::DEFENSE,
+            GameState::JUDGMENT,
+            GameState::LAST_WORDS,
+        ];
+
+        if (!in_array($this->lobby->state, $validForWhispering)) {
+            return;
+        }
+
+        $this->sendSystemMessage(
+            $this->currentPlayer->user->username . ' adlı oyuncu ' . $targetPlayer->user->username . ' adlı oyuncuya fısıldadı.',
+        );
+
+        // Create a message for the sender
+        $senderMessage = $this->lobby->messages()->create([
+            'user_id' => Auth::id(),
+            'message' => $msg,
+            'type' => ChatMessageType::WHISPER,
+            'receiver_id' => $this->currentPlayer->user->id,
+            'faction' => ChatMessageFaction::ALL,
+            'day_count' => $this->lobby->day_count,
+        ]);
+
+        $this->messages->push($senderMessage);
+
+        // Create a message for the receiver
+        $receiverMessage = $this->lobby->messages()->create([
+            'user_id' => Auth::id(),
+            'message' => $msg,
+            'type' => ChatMessageType::WHISPER,
+            'receiver_id' => $targetPlayer->user->id,
+            'faction' => ChatMessageFaction::ALL,
+            'day_count' => $this->lobby->day_count,
+        ]);
+    }
+
     public function sendMessage()
     {
         // Trim message
@@ -141,11 +196,42 @@ trait ChatManager
             return;
         }
 
+        // Check if this is a whisper command: /w <player_number> <message>
+        if (
+            preg_match('/^\/w\s+(\d+)\s+(.+)$/i', $this->message, $matches) ||
+            preg_match('/^\/whisper\s+(\d+)\s+(.+)$/i', $this->message, $matches)
+        ) {
+
+            $playerNumber = (int) $matches[1];
+            $whisperMsg = $matches[2];
+
+            // Find target player by their place number
+            $targetPlayer = $this->lobby->players()
+                ->where('place', $playerNumber)
+                ->where('is_alive', true)
+                ->first();
+
+            if (!$targetPlayer) {
+                Toaster::error('Belirtilen numaraya sahip oyuncu bulunamadı veya hayatta değil.');
+                return;
+            }
+
+            if ($targetPlayer->id === $this->currentPlayer->id) {
+                Toaster::error('Kendine fısıldayamazsın.');
+                return;
+            }
+
+            $this->sendWhisper($targetPlayer, $whisperMsg);
+            $this->message = '';
+            return;
+        }
+
         $message = $this->lobby->messages()->create([
             'user_id' => Auth::id(),
             'message' => $this->message,
             'faction' => $this->getMessageFaction(),
             'type' => ChatMessageType::DEFAULT,
+            'day_count' => $this->lobby->day_count, // Explicitly set day_count to ensure consistency
         ]);
 
         $this->messages->push($message);
@@ -153,8 +239,14 @@ trait ChatManager
         // Broadcast message
         broadcast(new NewChatMessage($this->lobby->id, $message->id))->toOthers();
 
+        // Update local messages list to trigger UI refresh
         $this->dispatch('chat-message-received');
 
         $this->message = '';
+    }
+
+    public function isWhisperChat(ChatMessage $msg): bool
+    {
+        return $msg->type === ChatMessageType::WHISPER;
     }
 }

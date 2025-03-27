@@ -211,9 +211,6 @@
                             <h3 class="font-medium text-gray-700">
                                 {{ Auth::user()->faculty->name }}
                             </h3>
-                            <span class="text-sm text-gray-500">
-                                {{ Auth::user()->faculty->description }}
-                            </span>
                             <button wire:click="leaveFaculty({{ Auth::user()->faculty->id }})"
                                 class="mt-3 rounded bg-primary px-6 py-2 text-center font-medium text-white hover:bg-blue-900">
                                 <span class="flex items-center justify-center" wire:loading.remove

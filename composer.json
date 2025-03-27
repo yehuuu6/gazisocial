@@ -12,7 +12,6 @@
         "guzzlehttp/guzzle": "^7.9.2",
         "laravel/framework": "^12.0",
         "laravel/reverb": "^1.4.8",
-        "laravel/tinker": "^2.10",
         "livewire/livewire": "^3.6",
         "masmerise/livewire-toaster": "^2.7",
         "z3d0x/filament-logger": "^0.8.0"
@@ -58,7 +57,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names=reverb,queue,vite"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#34d399,#f87171\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=reverb,default-queue,notifications-queue,scout-queue,vite"
         ],
         "expose": [
             "Composer\\Config::disableProcessTimeout",

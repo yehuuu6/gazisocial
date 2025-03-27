@@ -34,14 +34,25 @@
             '-left-80': !leftPanel,
             'left-0': leftPanel,
         }" x-cloak
-            class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-30 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
+            wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
+            $el.style.top = headerHeight + 'px';
+            if (window.innerWidth < 1024) {
+                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+            }"
+            class="fixed transform w-72 lg:w-80 transition-all duration-300 top-0 lg:static z-30 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="bg-white p-4 border-b border-gray-200">
-                    <div class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded px-3 py-2 mb-3">
+                    <div
+                        class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded px-3 py-2 mb-3 items-center flex justify-between">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
                             <x-icons.skull size="18" />
                             Mezarlık
                         </h1>
+                        <button type="button" x-on:click="leftPanel = false; rightPanel = false;"
+                            x-show="leftPanel && !fullscreen" x-cloak
+                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                            <x-icons.close size="20" />
+                        </button>
                     </div>
                     <ul class="mt-2 flex flex-col gap-2">
                         @forelse ($deadPlayers as $deadPlayer)
@@ -56,7 +67,7 @@
                                         </span>
                                         <span
                                             class="text-gray-500 text-xs font-medium px-1.5 py-0.5 rounded-full bg-gray-50 border border-gray-200">
-                                            @if ($deadPlayer->is_cleaned)
+                                            @if ($deadPlayer->is_cleaned && $currentPlayer->role->enum !== App\Enums\ZalimKasaba\PlayerRole::JANITOR)
                                                 🧼 Temizlendi
                                             @else
                                                 {{ $deadPlayer->role->icon . ' ' . $deadPlayer->role->name }}
@@ -74,16 +85,11 @@
                     </ul>
                 </div>
             @endif
-            <button type="button"
-                class="lg:hidden absolute top-2 right-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded-full shadow-sm"
-                x-on:click="leftPanel = false">
-                <x-icons.close size="20" />
-            </button>
             <div class="flex flex-col flex-grow flex-shrink-0">
                 <div class="bg-white flex flex-col h-full p-4">
                     <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded px-3 py-2 mb-3">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
-                            <x-icons.tag size="18" />
+                            <x-icons.badge size="18" />
                             Rol Listesi
                         </h1>
                     </div>
@@ -92,10 +98,22 @@
                             <li class="flex items-center justify-between p-2 gap-1 rounded-lg border border-gray-100 shadow-sm bg-white"
                                 wire:key="lobby-role-{{ $role->id }}">
                                 <div class="text-sm flex items-center gap-1">
-                                    <span class="text-xl">{{ $role->icon }}</span>
-                                    <span class="text-gray-800 font-medium">
-                                        {{ $role->name }}
-                                    </span>
+                                    @if (
+                                        $currentPlayer->is_host ||
+                                            !$lobby->roles_hidden ||
+                                            in_array($role->enum, App\Enums\ZalimKasaba\PlayerRole::getUniqueRoles()))
+                                        <span class="text-xl">{{ $role->icon }}</span>
+                                        <span class="text-gray-800 font-medium">
+                                            {{ $role->name }}
+                                        </span>
+                                    @else
+                                        <span class="text-xl">
+                                            ❓
+                                        </span>
+                                        <span class="text-gray-400">
+                                            Gizli Rol
+                                        </span>
+                                    @endif
                                 </div>
                                 <span class="text-xs font-medium px-2 py-1 rounded-full"
                                     :class="{
@@ -119,9 +137,15 @@
         <div class="flex flex-col flex-grow relative">
             <div class="flex bg-white items-center justify-between border-b border-gray-200 p-3" x-ref="gameHeader">
                 <div class="flex items-center gap-2">
-                    <button type="button" x-on:click="leftPanel = true; rightPanel = false;"
+                    <button x-show="!leftPanel" type="button" x-on:click="leftPanel = true; rightPanel = false;"
+                        x-cloak
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
                         <x-icons.arrow-right-alt size="20" />
+                    </button>
+                    <button type="button" x-on:click="leftPanel = false; rightPanel = false;" x-show="leftPanel"
+                        x-cloak
+                        class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                        <x-icons.close size="20" />
                     </button>
                     <x-ui.tooltip text="Tam Ekran" position="bottom">
                         <button type="button"
@@ -145,11 +169,33 @@
                 <h1 class="text-gray-800 font-bold text-sm md:text-lg lg:text-xl bg-gray-50 px-4 py-1 rounded-full shadow-sm border border-gray-200"
                     wire:text="gameTitle">
                 </h1>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2" x-data="{
+                    isListed: {{ $lobby->is_listed ? 'true' : 'false' }},
+                }">
                     <livewire:zalim-kasaba.show-game-timer :$lobby />
-                    <button type="button" x-on:click="rightPanel = true; leftPanel = false;"
+                    @if ($currentPlayer->is_host && $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
+                        <x-ui.tooltip :text="$lobby->is_listed ? 'Lobiyi Gizle' : 'Lobiyi Göster'" position="bottom">
+                            <button type="button" wire:click="toggleListing" x-on:click="isListed = !isListed"
+                                class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                                <x-icons.eye x-show="isListed" x-cloak size="20" />
+                                <x-icons.eye-off x-show="!isListed" x-cloak size="20" />
+                            </button>
+                        </x-ui.tooltip>
+                    @endif
+                    <button type="button" x-on:click="rightPanel = true; leftPanel = false;" x-cloak
+                        x-show="!rightPanel"
                         class="bg-gray-100 hover:bg-gray-200 text-gray-700 lg:hidden flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.arrow-left-alt size="20" />
+                        @if ($currentPlayer->role && $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
+                            <span
+                                class="size-5 flex items-center justify-center">{{ $currentPlayer->role->icon }}</span>
+                        @else
+                            <x-icons.arrow-left-alt size="20" />
+                        @endif
+                    </button>
+                    <button type="button" x-on:click="rightPanel = false; leftPanel = false;" x-show="rightPanel"
+                        x-cloak
+                        class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                        <x-icons.close size="20" />
                     </button>
                 </div>
             </div>
@@ -184,10 +230,21 @@
             '-right-80': !rightPanel,
             'right-0': rightPanel,
         }" x-cloak
+            wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
+            $el.style.top = headerHeight + 'px';
+            if (window.innerWidth < 1024) {
+                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+            }"
             class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-30 flex flex-col flex-shrink-0 bg-white border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">
-                    <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded px-3 py-2 mb-3">
+                    <div
+                        class="flex items-center justify-between bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded px-3 py-2 mb-3">
+                        <button type="button" x-on:click="rightPanel = false; leftPanel = false;"
+                            x-show="rightPanel && !fullscreen" x-cloak
+                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                            <x-icons.close size="20" />
+                        </button>
                         <h1
                             class="text-base md:text-lg flex items-center justify-center gap-2 font-semibold text-center">
                             <span class="text-2xl">{{ $this->currentPlayer->role->icon }}</span>
@@ -235,11 +292,6 @@
                     </div>
                 </div>
             @endif
-            <button type="button"
-                class="absolute lg:hidden top-2 left-2 bg-gray-100 hover:bg-gray-200 text-gray-700 p-1 rounded-full shadow-sm"
-                x-on:click="rightPanel = false">
-                <x-icons.close size="20" />
-            </button>
             <div class="flex flex-col flex-grow flex-shrink-0 bg-white p-4">
                 <div class="flex items-center justify-between">
                     <div class="bg-gradient-to-r from-green-600 to-green-500 text-white rounded px-3 py-2 mb-3 w-full">
@@ -253,7 +305,7 @@
                                 @endif
                             </span>
                             <span class="text-sm font-normal bg-white/20 px-2 py-0.5 rounded-full mt-1">
-                                {{ $lobby->players->count() }} / {{ $lobby->max_players }}
+                                {{ $lobby->players->where('is_alive', true)->count() }} / {{ $lobby->max_players }}
                             </span>
                         </h1>
                     </div>
@@ -261,7 +313,8 @@
                 <ul class="flex flex-col gap-2 mt-1.5 flex-grow overflow-y-auto h-0">
                     @forelse ($lobby->players()->with(['user', 'role', 'votesReceived'])->orderBy('place')->where('is_alive', true)->get() as $player)
                         <li wire:key="player-{{ $player->id }}"
-                            class="flex items-center justify-between gap-4 rounded-lg p-2 border border-gray-100 shadow-sm bg-white hover:bg-gray-50 transition-all">
+                            x-on:click="rightPanel=false; $dispatch('whisper-to-player', { playerPlace: {{ $player->place }} })"
+                            class="flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 border border-gray-100 shadow-sm bg-white">
                             <div class="flex items-center gap-2">
                                 <span
                                     :class="{
@@ -282,6 +335,9 @@
                                     <span class="text-gray-500 text-xs flex items-center gap-1">
                                         @if ($player->is_host && $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                                             <span class="text-yellow-500">👑 Yönetici</span>
+                                        @endif
+                                        @if ($currentPlayer->poison()->exists() && $player->id === $currentPlayer->id)
+                                            <span class="text-purple-500">🧪 Zehirlendim!</span>
                                         @endif
                                         @if ($player->poison()->exists() && $this->currentPlayer->role->enum === App\Enums\ZalimKasaba\PlayerRole::WITCH)
                                             <span class="text-purple-500">🧪 Zehirlenmiş</span>
@@ -349,7 +405,7 @@
     @if (
         $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
             $lobby->state !== App\Enums\ZalimKasaba\GameState::PREPARATION)
-        <livewire:zalim-kasaba.last-will-modal :$lobby />
-        <livewire:zalim-kasaba.show-last-will :$lobby />
+        <livewire:zalim-kasaba.last-will-modal :$lobby :$currentPlayer />
+        <livewire:zalim-kasaba.show-last-will :$lobby :$currentPlayer />
     @endif
 </div>

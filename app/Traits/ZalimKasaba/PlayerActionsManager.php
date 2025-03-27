@@ -143,17 +143,13 @@ trait PlayerActionsManager
     /**
      * Kills the target player and sets their death night.
      * @param Player $player The player who is targeted by the ability.
-     * @param bool $canHaunt Whether the player can haunt after death. (Jester)
-     * @param bool $isExecuted Whether the player is executed by the town.
      * @return void
      */
-    private function killPlayer(Player $player, bool $canHaunt = false, bool $isExecuted = false): void
+    private function killPlayer(Player $player): void
     {
         $player->update([
             'is_alive' => false,
             'death_night' => $this->lobby->day_count,
-            'can_haunt' => $canHaunt,
-            'is_executed' => $isExecuted,
         ]);
     }
 
@@ -174,6 +170,7 @@ trait PlayerActionsManager
             PlayerRole::WITCH => 'Zehirle',
             PlayerRole::JESTER => 'Lanetle',
             PlayerRole::ANGEL => 'Dönüş',
+            default => 'Yetenek',
         };
     }
 
@@ -200,12 +197,62 @@ trait PlayerActionsManager
         };
     }
 
+    private function processPoisons()
+    {
+        $poisons = $this->lobby->poisons()->get();
+
+        if ($poisons->count() === 0) return;
+
+        foreach ($poisons as $poison) {
+            // If the poison was not applied last night, skip
+            if ($this->lobby->day_count !== $poison->poisoned_at + 1) continue;
+
+            $targetPlayer = $this->lobby->players()->find($poison->target_id);
+
+            if (!$targetPlayer) continue;
+
+            $healActions = $this->lobby->actions()->where('action_type', ActionType::HEAL)->get();
+
+            foreach ($healActions as $healAction) {
+                if ($healAction->target_id === $targetPlayer->id) {
+                    $this->sendMessageToPlayer($targetPlayer, 'Bir doktor sana panzehir verdi, zehirin etkisinden kurtuldun!', ChatMessageType::SUCCESS);
+                    $poison->delete();
+                    return;
+                }
+            }
+
+            $this->killPlayer($targetPlayer);
+            $this->sendMessageToPlayer($targetPlayer, 'Zehir etkisinden öldün!', ChatMessageType::WARNING);
+            $poison->delete();
+        }
+    }
+
+    private function processGuilts()
+    {
+        $guilts = $this->lobby->guilts()->with('player')->get();
+
+        if ($guilts->count() === 0) return;
+
+        foreach ($guilts as $guilt) {
+            // If the guilt was not applied last night, skip
+            if ($this->lobby->day_count !== $guilt->night) continue;
+
+            $guiltyPlayer = $guilt->player;
+
+            if (!$guiltyPlayer) continue;
+
+            $this->killPlayer($guiltyPlayer);
+            $this->sendMessageToPlayer($guiltyPlayer, 'Vicdan azabından intihar ettin!', ChatMessageType::WARNING);
+            $guilt->delete();
+        }
+    }
+
     private function sendNightAbilityMessages()
     {
-        $players = $this->lobby->players()->with('role')->get();
+        $players = $this->lobby->players()->where('is_alive', true)->with('role')->get();
 
         foreach ($players as $player) {
-            if (!$player->is_alive) {
+            if (!$player->is_alive || $player->role->enum === PlayerRole::VILLAGER) {
                 continue;
             }
             $availableUses = $player->ability_uses;

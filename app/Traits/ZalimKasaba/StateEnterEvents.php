@@ -13,14 +13,26 @@ trait StateEnterEvents
     {
         // Delete all actions
         $this->lobby->actions()->delete();
+
+        // Announce dead players
+        $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count - 1)->get();
+        if ($deadPlayers->isNotEmpty()) {
+            $deadPlayersString = $deadPlayers->map(function ($player) {
+                return $player->user->username;
+            })->implode(', ');
+            $this->sendSystemMessage("Gece ölenler: {$deadPlayersString}");
+        }
+
         $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
     }
 
     private function enterVoting()
     {
         $this->lobby->finalVotes()->delete();
-        $totalPlayers = $this->lobby->players()->count();
-        $threshold = ceil($totalPlayers / 2);
+        // Use the aliased method if it exists, otherwise try the original method
+        $threshold = method_exists($this, 'calculateVoteThreshold')
+            ? $this->calculateVoteThreshold()
+            : $this->calculateRequiredVotes();
         $trialCount = $this->lobby->available_trials;
         $this->sendSystemMessage("Bu gün {$trialCount} oylama yapma hakkınız kaldı. Sorgulama yapmak için {$threshold} oy gerekiyor.");
         $this->lobby->update(['available_trials' => $trialCount - 1]);
@@ -41,29 +53,20 @@ trait StateEnterEvents
     private function enterLastWords()
     {
         $accusedPlayer = $this->lobby->accused;
-        if ($accusedPlayer->role->enum === PlayerRole::JESTER) {
-            $this->sendSystemMessage('Zibidi mezardan intikamını alacak! 🤡', type: ChatMessageType::WARNING);
-            return;
-        }
         $this->sendSystemMessage("Sanık {$accusedPlayer->user->username}, son sözlerini söyle.");
     }
 
     private function enterNight()
     {
-        $offlinePlayers = $this->lobby->players()->where('is_online', false)->get();
-        foreach ($offlinePlayers as $offlinePlayer) {
-            //$this->killPlayer($offlinePlayer);
-        }
-
-        $players = $this->lobby->players()->with(['poison', 'guilt'])->where('is_alive', true)->get();
+        $players = $this->lobby->players()->with(['guilt', 'poison'])->where('is_alive', true)->get();
 
         foreach ($players as $player) {
-            // Check if the player is poisoned
+            // Check if the player has poison
             $poison = $player->poison;
             if ($poison && $poison->poisoned_at === $this->lobby->day_count - 1) {
                 $this->sendMessageToPlayer(
                     $player,
-                    'Zehirin etkisi devam ediyor, acilen doktora ihtiyacın var!',
+                    'Zehirin etkisi devam ediyor, bu gece bir doktor seni kurtarmazsa öleceksin!',
                     ChatMessageType::WARNING
                 );
             }
@@ -73,7 +76,7 @@ trait StateEnterEvents
             if ($guilt && $guilt->night === $this->lobby->day_count) {
                 $this->sendMessageToPlayer(
                     $player,
-                    'Masum bir köylüyü öldürdüğün için vicdan azabı çekiyorsun.',
+                    'Masum bir köylüyü öldürdüğün için vicdan azabı çekiyorsun...',
                     ChatMessageType::DEFAULT
                 );
             }
@@ -87,32 +90,7 @@ trait StateEnterEvents
         $this->sendNightAbilityMessages();
     }
 
-    private function enterReveal()
-    {
-        $this->lobby->players()
-            ->where('is_alive', true)
-            ->update(['is_cleaned' => false]);
-
-        $deadPlayers = $this->lobby->players()
-            ->where('is_alive', false)
-            ->where('is_executed', false)
-            ->where('death_night', $this->lobby->day_count)
-            ->get();
-
-        foreach ($deadPlayers as $deadPlayer) {
-            $username = $deadPlayer->user->username;
-            if ($this->currentPlayer->role->enum !== PlayerRole::JANITOR && $deadPlayer->is_cleaned) {
-                $roleName = 'Temizlendi';
-            } else {
-                $roleName = $deadPlayer->role->name;
-            }
-
-            $this->sendSystemMessage(
-                "{$username} dün gece evinde ölü bulundu. Oyuncunun rolü: {$roleName}.",
-                ChatMessageType::WARNING
-            );
-        }
-    }
+    private function enterReveal() {}
 
     private function enterPreparation()
     {

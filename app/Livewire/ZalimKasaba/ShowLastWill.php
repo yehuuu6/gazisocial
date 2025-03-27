@@ -2,6 +2,7 @@
 
 namespace App\Livewire\ZalimKasaba;
 
+use App\Enums\ZalimKasaba\PlayerRole;
 use App\Models\ZalimKasaba\Lobby;
 use App\Models\ZalimKasaba\Player;
 use Livewire\Component;
@@ -10,13 +11,19 @@ use Masmerise\Toaster\Toaster;
 class ShowLastWill extends Component
 {
     public Lobby $lobby;
+    public Player $currentPlayer;
     public ?Player $author;
     public ?string $lastWill;
     public ?string $title;
 
-    public function mount(Lobby $lobby, Player | null $author = null, string | null $lastWill = null)
-    {
+    public function mount(
+        Lobby $lobby,
+        Player $currentPlayer,
+        Player | null $author = null,
+        string | null $lastWill = null
+    ) {
         $this->lobby = $lobby;
+        $this->currentPlayer = $currentPlayer;
         $this->author = $author;
         $this->lastWill = $lastWill;
         $this->title = 'Vasiyet';
@@ -41,13 +48,13 @@ class ShowLastWill extends Component
 
         $this->title = $this->author->user->username . ' Vasiyeti';
 
-        if ($this->author->last_will === null) {
-            $this->lastWill = 'Bu kişi vasiyet bırakmamış.';
+        if ($this->author->is_cleaned && $this->currentPlayer->role->enum !== PlayerRole::JANITOR) {
+            $this->lastWill = 'Bu kişinin vasiyeti temizlendi.';
             return;
         }
 
-        if ($this->author->is_cleaned) {
-            $this->lastWill = 'Bu kişinin vasiyeti temizlendi.';
+        if ($this->author->last_will === null) {
+            $this->lastWill = 'Bu kişi vasiyet bırakmamış.';
             return;
         }
 

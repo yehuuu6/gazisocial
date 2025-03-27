@@ -2,7 +2,7 @@
     <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6 md:p-8">
         <div class="max-w-4xl mx-auto">
             <div class="flex flex-col items-center mb-8">
-                <h1 class="text-4xl font-bold text-gray-800 mb-3">Zalim Kasaba</h1>
+                <h1 class="text-3xl lg:text-5xl font-extrabold text-primary mb-3">Zalim Kasaba</h1>
                 <p class="text-gray-600 text-center font-medium mb-6">
                     Town of Salem ve Vampir Köyü oyunlarından esinlenerek geliştirdiğimiz rol yapma oyunu.
                 </p>
@@ -33,17 +33,36 @@
                 </div>
                 <div x-show="open" x-collapse class="p-5">
                     <p class="text-gray-600 mb-4">
-                        Zalim Kasaba, gizemli bir kasabada geçen, dört farklı grubun kıyasıya bir mücadele sergilediği
-                        rol yapma oyunudur. Bu gruplar; masumiyetin temsilcisi <span
-                            class="font-medium text-green-600">Kasaba halkı</span>, gölgelerde
-                        sinsice planlar yapan <span class="font-medium text-red-600">Mafya</span>, düzensizlik ve kaos
-                        peşinde koşan <span class="font-medium text-purple-600">Kaos</span> ve kendi çıkarlarını her
-                        şeyin üstünde tutan <span class="font-medium text-yellow-600">Tarafsızlar</span> olarak ayrılır.
+                        Zalim Kasaba, gizemli bir kasabada geçen, dört farklı tarafın kıyasıya bir mücadele sergilediği
+                        rol yapma oyunudur. Taraflar; <span class="font-medium text-green-600">Kasaba</span>,
+                        <span class="font-medium text-red-600">Mafya</span>,
+                        <span class="font-medium text-purple-600">Kaos</span> ve <span
+                            class="font-medium text-yellow-600">Tarafsızlar</span> olarak ayrılır.
                     </p>
                     <p class="text-gray-600">
                         Oyunun temel amacı, mensubu olduğunuz grubun amacına ulaşmaktır. Oyun başladığında, her oyuncu
-                        rastgele bir rol alır ve bu rol, diğer oyunculardan gizli tutulur. Yalnızca mafya üyeleri
-                        birbirlerini tanır.
+                        rastgele bir rol alır ve bu rol, diğer oyunculardan gizli tutulur. Yalnızca <span
+                            class="font-medium text-red-600">Mafya</span> üyeleri
+                        birbirlerini tanır ve rollerini bilirler.
+                    </p>
+                    <br>
+                    <p class="text-gray-600">
+                        Oyunda diğer oyuncular ile aktif olarak iletişim halinde olmanız gerekmektedir. Bunun için
+                        dilerseniz oyun içi sohbeti kullanabilir, dilerseniz de arkadaşlarınızla yan yana oturarak oyunu
+                        oynayabilirsiniz. Yalnızca oyunun belirli evrelerinde konuşma hakkınız olacaktır. Geceleri
+                        sohbet kullanılamaz, ancak <span class="text-red-600 font-medium">Mafya</span> üyeleri arasında
+                        özel bir
+                        sohbet odası vardır ve birbirlerinin
+                        aksiyonlarını görebilirler.
+                    </p>
+                    <br>
+                    <p class="text-gray-600">
+                        <code class="text-xs text-pink-500">/w (Oyuncu Numarası) (Mesaj)</code> komutu ile ya da oyuncu
+                        listesinden istediğiniz kişiye tıklayarak oyunculara
+                        özel mesajlar
+                        gönderebilirsiniz.
+                        Kasabadaki diğer oyuncular fısıldadığınızı görebilirler ancak mesaj içeriği yalnızca siz ve
+                        alıcı arasındadır.
                     </p>
                 </div>
             </div>
@@ -67,10 +86,9 @@
                             Oyunda 8 tane evre bulunmakta olup, her evrede oyuncuların belirli görevleri vardır.
                         </p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🏟️</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🏟️</span>
                                     Lobi
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -78,20 +96,18 @@
                                     evredir.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🎲</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🎲</span>
                                     Hazırlık
                                 </h4>
                                 <p class="text-gray-600 text-sm">
                                     Herkesin rolleri belirlenir ve oyun geri sayım bittikten sonra başlar.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🌞</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🌞</span>
                                     Gündüz
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -100,10 +116,9 @@
                                     olduğuna karar vermeye çalışır.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🗳️</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🗳️</span>
                                     Oylama
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -112,10 +127,9 @@
                                     sayım sonunda savunma yapmak için bir süre verilir.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🛡️</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🛡️</span>
                                     Savunma
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -124,10 +138,9 @@
                                     onu dinler.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">⚖️</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">⚖️</span>
                                     Yargı
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -136,10 +149,9 @@
                                     ederler ya da masum olduğuna karar verirler. En çok oy alan seçenek uygulanır.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🗣️</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🗣️</span>
                                     Son Sözler
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -148,10 +160,9 @@
                                     diğerleri de dinler.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🌙</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🌙</span>
                                     Gece
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -160,20 +171,18 @@
                                     sohbeti kullanabilir.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🔍</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🔍</span>
                                     Açıklama
                                 </h4>
                                 <p class="text-gray-600 text-sm">
                                     Gece olan olaylar, bu evrede açıklanır. Sonrasında oyun bir sonraki güne geçer.
                                 </p>
                             </div>
-                            <div
-                                class="rounded-md border border-gray-200 p-4 hover:border-amber-200 hover:bg-amber-50 transition-all duration-200">
+                            <div class="rounded-md border border-gray-200 p-4">
                                 <h4 class="font-bold text-gray-800 flex items-center gap-2 mb-2">
-                                    <span class="bg-amber-100 p-1.5 rounded-full text-amber-600">🏁</span>
+                                    <span class="bg-amber-100 py-1.5 px-2 rounded-full text-amber-600">🏁</span>
                                     Oyun Bitti
                                 </h4>
                                 <p class="text-gray-600 text-sm">
@@ -261,6 +270,24 @@
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                        <!-- Köylü -->
+                        <div class="rounded-lg shadow-sm overflow-hidden border border-green-100 flex flex-row">
+                            <div class="w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('zalim-kasaba/townie.jpg') }}" alt="Köylü"
+                                    class="h-full w-full object-cover object-top">
+                            </div>
+                            <div class="w-2/3 p-4">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <span class="text-green-600 font-medium text-sm">Kasaba 🏘️</span>
+                                </div>
+                                <h4 class="text-base font-bold text-gray-800 mb-1">Köylü</h4>
+                                <p class="text-gray-600 text-sm">
+                                    Herhangi bir yeteneğin yok. Sadece kasabanın huzur bulmasını istiyorsun. Oylamalarda
+                                    kasabaya destek ol.
+                                </p>
+                            </div>
+                        </div>
+
                         <!-- Doktor -->
                         <div class="rounded-lg shadow-sm overflow-hidden border border-green-100 flex flex-row">
                             <div class="w-1/3 relative overflow-hidden">
@@ -273,7 +300,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Doktor</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Kendini ya da başkasını koru. Kendini sadece bir kez koruyabilirsin.
+                                    Gece kendini veya bir başkasını koruyabilirsin. Kendi kendini yalnızca bir kez
+                                    koruyabilirsin.
                                 </p>
                             </div>
                         </div>
@@ -290,7 +318,7 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Dikizci</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Birinin evini dikizle ve kimlerin onu ziyaret ettiğini öğren.
+                                    Birinin evini gözetle ve o gece eve kimlerin gittiğini öğren.
                                 </p>
                             </div>
                         </div>
@@ -307,9 +335,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Avcı</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Geceleri silahını kullanarak birini vurabilirsin. Vurduğun kişi masum biriyse,
-                                    intihar
-                                    edersin.
+                                    Silahındaki 3 mermiyi kullanarak istediğin birini vurabilirsin. Masum birini
+                                    vurursan sonraki gece intihar edersin.
                                 </p>
                             </div>
                         </div>
@@ -328,7 +355,8 @@
                                     Bekçi
                                 </h4>
                                 <p class="text-gray-600 text-sm">
-                                    Birini gece boyunca sorgula ve o gece yeteneğini kullanmasına engel ol.
+                                    Gece seçtiğin oyuncuyu sorguya çek. Sorgu bütün gün sürdüğü için sorgulanan kişi
+                                    yeteneğini kullanamadan eve geri döner.
                                 </p>
                             </div>
                         </div>
@@ -355,7 +383,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Baron</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Mafyanın liderisin. Her gece birinin öldürülmesi için emir ver. Gece mafya ile
+                                    Mafyanın liderisin. Tetikçi senin emrinde çalışır ve seçtiğin oyuncuyu
+                                    öldürmeye gider. Eğer tetikçi yoksa ellerini kirletmekten korkmazsın. Gece mafya ile
                                     konuşabilirsin.
                                 </p>
                             </div>
@@ -375,7 +404,8 @@
                                     Tetikçi
                                 </h4>
                                 <p class="text-gray-600 text-sm">
-                                    Baron tarafından sana verilen emirleri yerine getir. Gece mafya ile konuşabilirsin.
+                                    Baronun seçtiği kişiyi öldür. Eğer baron birini seçmezse, kendi seçtiğin kişiyi
+                                    öldürürsün. Gece mafya ile konuşabilirsin.
                                 </p>
                             </div>
                         </div>
@@ -392,7 +422,9 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Temizlikçi</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Mafya tarafından öldürülen kişinin rolünü temizle. Gece mafya ile konuşabilirsin.
+                                    Mafya tarafından öldürülen kişinin vasiyetini ve kimliğini temizlersin, sadece sen
+                                    temizlediğin kişinin kimliğini görebilirsin. Gece mafya ile konuşabilirsin. Eğer
+                                    Baron ve Tetikçi öldüyse, sen Tetikçi rolüne terfi edersin.
                                 </p>
                             </div>
                         </div>
@@ -402,8 +434,8 @@
                 <!-- Kaos Rolleri -->
                 <div x-show="roles.chaos" class="p-4">
                     <p class="text-gray-600 mb-6">
-                        Kasabada karışıklık çıkarmak için çalışan bu roller, kasabanın düzenini bozarak kendi amaçlarına
-                        ulaşmaya çalışırlar.
+                        Kasaba halkını manipüle eden ve çıkan kargaşadan beslenen bu rollerin tek isteği, masum
+                        kasabalıların ortadan kaldırılması.
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -419,8 +451,10 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Cadı</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Her gece birini zehirlersin; zehirlenen kişiyi sonraki gece doktor tedavi etmez ise
-                                    ölür.
+                                    Geceleri dokunulmazsın. Bir mafya üyesi sana saldırırsa, kimliklerinizi
+                                    öğrenirsiniz. Bir avcı seni öldürmeye gelirse, ona sahte bir
+                                    anı yükleyip geri gönderirsin. 2 adet zehirinle köylüleri dikkatlice
+                                    zehirlemelisin.
                                 </p>
                             </div>
                         </div>
@@ -431,8 +465,7 @@
                 <div x-show="roles.neutral" class="p-4">
                     <p class="text-gray-600 mb-6">
                         Kendi özel amaçları olan bu roller, kasaba veya mafyadan olmaksızın kendi hedeflerine ulaşmak
-                        için
-                        uğraşırlar.
+                        için uğraşırlar.
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -449,7 +482,7 @@
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Zibidi</h4>
                                 <p class="text-gray-600 text-sm">
                                     İdam edilmek isteyen bir manyaksın. Eğer idam edilirsen, gece bir kişiyi
-                                    öldürebilirsin.
+                                    lanetleyerek öldürebilirsin. Gece öldürülürsen, kaybedersin.
                                 </p>
                             </div>
                         </div>
@@ -466,8 +499,9 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Melek</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Geceleri insan formundan melek formuna dönüşebilirsin. Bu sayede saldırılardan
-                                    korunursun.
+                                    Gündüz insanken, gece melek formuna geçebilirsin. Gece seni öldürmeye gelenler
+                                    güzelliğinden etkilenip geri döner. Melek formuna yalnızca 3 kez dönüşebilirsin.
+                                    Oyunun sonuna kadar hayatta kalırsan kazanırsın.
                                 </p>
                             </div>
                         </div>

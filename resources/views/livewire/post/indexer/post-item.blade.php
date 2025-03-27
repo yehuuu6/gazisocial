@@ -17,18 +17,20 @@
             <div class="flex flex-col gap-2 md:gap-0 w-full">
                 <div class="item-center flex flex-wrap gap-2">
                     @if ($post->is_pinned && $show_pins)
-                        <x-ui.tooltip text="Sabitlenmiş">
-                            <x-icons.pin size="20" class="text-amber-500 inline-block items-center" />
-                        </x-ui.tooltip>
+                        <div class="hidden md:inline-block">
+                            <x-ui.tooltip text="Sabitlenmiş">
+                                <x-icons.pin size="20" class="text-amber-500 inline-block items-center" />
+                            </x-ui.tooltip>
+                        </div>
                     @endif
                     @foreach ($post->tags as $tag)
                         <x-post.post-tag :tag="$tag" :key="'post-tag-' . $tag->id" />
                     @endforeach
                 </div>
-                <h1 style="word-break: break-word;"
+                <p style="word-break: break-word;"
                     class="flex md:items-center gap-2 w-full text-base font-medium text-gray-700 md:text-lg">
-                    <span>{{ $post->title }}</span>
-                </h1>
+                    {{ $post->title }}
+                </p>
                 <div class="md:hidden">
                     @if ($post->isAnonim())
                         <span class="text-xs font-normal text-gray-500">Anonim</span>
@@ -39,6 +41,9 @@
                         </x-link>
                     @endif
                     <span class="text-xs font-light text-gray-600"> tarafından</span>
+                    @if ($post->is_pinned && $show_pins)
+                        <x-icons.pin size="18" class="text-amber-500 ml-1 md:hidden inline-block items-center" />
+                    @endif
                 </div>
             </div>
         </div>

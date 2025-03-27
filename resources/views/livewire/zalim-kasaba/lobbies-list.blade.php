@@ -1,11 +1,17 @@
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
     <div class="max-w-5xl mx-auto">
-        <div class="mb-8">
+        <div>
             <h1 class="text-3xl font-bold text-gray-800 mb-3">Aktif Oyunlar</h1>
             <p class="text-gray-600 font-medium">Mevcut oyunlara katılın veya kendi Zalim Kasaba oyununuzu oluşturun.</p>
         </div>
 
-        <div class="flex items-center justify-between gap-3 mb-6">
+        <div class="my-4 w-fit">
+            <x-alerts.warning>
+                Lobiler her 5 dakikada bir aktiflik durumuna göre otomatik olarak temizlenir.
+            </x-alerts.warning>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 mb-6 flex-col md:flex-row">
             <a href="{{ route('games.zk.guide') }}"
                 class="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
                 <x-icons.arrow-left-alt size="18" />
@@ -53,15 +59,14 @@
                                 <span class="text-4xl">🎮</span>
                             </div>
                             <h3 class="text-lg font-medium text-gray-800 mb-2">Henüz bir lobi oluşturulmamış</h3>
-                            <p class="text-gray-600 mb-4">İlk oyunu oluşturarak arkadaşlarınla eğlenceye başla!</p>
-                            <a href="{{ route('games.zk.create') }}"
-                                class="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-5 py-2.5 rounded-lg font-medium shadow-sm transition-all">
-                                Oyun Oluştur
-                            </a>
+                            <p class="text-gray-600">İlk oyunu oluşturarak arkadaşlarınla eğlenceye başla!</p>
                         </div>
                     @endforelse
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mt-3">
+        {{ $lobbies->links('livewire.pagination.profile') }}
     </div>
 </div>

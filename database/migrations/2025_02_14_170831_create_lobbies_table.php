@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lobbies', function (Blueprint $table) {
-            $table->uuid('uuid')->primary();
+            $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('host_id')->constrained('users');
             $table->string('name');
             $table->integer('available_trials')->default(3);

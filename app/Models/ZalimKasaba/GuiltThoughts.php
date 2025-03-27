@@ -2,7 +2,6 @@
 
 namespace App\Models\ZalimKasaba;
 
-use App\Models\ZalimKasaba\Lobby;
 use Illuminate\Database\Eloquent\Model;
 
 class GuiltThoughts extends Model

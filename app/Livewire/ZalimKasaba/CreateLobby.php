@@ -16,10 +16,11 @@ class CreateLobby extends Component
     public string $lobbyName;
     public array $selectedRoles = [];
     public Collection $gameRoles;
+    public bool $rolesHidden = false;
 
     public function mount()
     {
-        $this->gameRoles = GameRole::all();
+        $this->gameRoles = GameRole::select('id', 'name', 'icon', 'enum')->get();
     }
 
     public function isUnique(PlayerRole $role): bool
@@ -27,12 +28,156 @@ class CreateLobby extends Component
         return in_array($role, PlayerRole::getUniqueRoles());
     }
 
+    public function loadPreset(string $preset)
+    {
+        // Clear current selection
+        $this->selectedRoles = [];
+
+        switch ($preset) {
+            case 'classic':
+                $this->loadClassicGame();
+                break;
+            case 'balanced':
+                $this->loadBalancedGame();
+                break;
+            case 'chaos':
+                $this->loadChaosGame();
+                break;
+            case 'beginner':
+                $this->loadBeginnerGame();
+                break;
+            default:
+                Toaster::error('Geçersiz oyun türü seçildi.');
+                break;
+        }
+    }
+
+    private function loadClassicGame()
+    {
+        $roles = [
+            // 1 Godfather
+            PlayerRole::GODFATHER->value => 1,
+            // 1 Mafioso
+            PlayerRole::MAFIOSO->value => 1,
+            // 1 Janitor
+            PlayerRole::JANITOR->value => 1,
+            // 1 Doctor
+            PlayerRole::DOCTOR->value => 1,
+            // 1 Lookout
+            PlayerRole::LOOKOUT->value => 1,
+            // 1 Guard
+            PlayerRole::GUARD->value => 1,
+            // 1 Hunter
+            PlayerRole::HUNTER->value => 1,
+            // 2 Villagers
+            PlayerRole::VILLAGER->value => 3,
+        ];
+
+        $this->addRolesToSelection($roles);
+        Toaster::success('Klasik oyun seti yüklendi.');
+    }
+
+    private function loadBalancedGame()
+    {
+        $roles = [
+            // 1 Godfather
+            PlayerRole::GODFATHER->value => 1,
+            // 1 Mafioso
+            PlayerRole::MAFIOSO->value => 1,
+            // 1 Janitor
+            PlayerRole::JANITOR->value => 1,
+            // 1 Doctor
+            PlayerRole::DOCTOR->value => 1,
+            // 1 Lookout
+            PlayerRole::LOOKOUT->value => 1,
+            // 1 Guard
+            PlayerRole::GUARD->value => 1,
+            // 1 Hunter
+            PlayerRole::HUNTER->value => 1,
+            // 1 Jester
+            PlayerRole::JESTER->value => 1,
+            // 1 Angel
+            PlayerRole::ANGEL->value => 1,
+            // 3 Villagers
+            PlayerRole::VILLAGER->value => 3,
+        ];
+
+        $this->addRolesToSelection($roles);
+        Toaster::success('Dengeli oyun seti yüklendi.');
+    }
+
+    private function loadChaosGame()
+    {
+        $roles = [
+            // 1 Godfather
+            PlayerRole::GODFATHER->value => 1,
+            // 1 Mafioso
+            PlayerRole::MAFIOSO->value => 1,
+            // 2 Janitor
+            PlayerRole::JANITOR->value => 2,
+            // 1 Witch
+            PlayerRole::WITCH->value => 1,
+            // 2 Doctor
+            PlayerRole::DOCTOR->value => 2,
+            // 1 Lookout
+            PlayerRole::LOOKOUT->value => 1,
+            // 1 Hunter
+            PlayerRole::HUNTER->value => 1,
+            // 1 Angel
+            PlayerRole::ANGEL->value => 1,
+            // 2 Jester
+            PlayerRole::JESTER->value => 2,
+            // 3 Villagers
+            PlayerRole::VILLAGER->value => 3,
+        ];
+
+        $this->addRolesToSelection($roles);
+        Toaster::success('Kaos oyun seti yüklendi.');
+    }
+
+    private function loadBeginnerGame()
+    {
+        $roles = [
+            // 1 Godfather
+            PlayerRole::GODFATHER->value => 1,
+            // 1 Mafioso
+            PlayerRole::MAFIOSO->value => 1,
+            // 1 Doctor
+            PlayerRole::DOCTOR->value => 1,
+            // 1 Lookout
+            PlayerRole::LOOKOUT->value => 1,
+            // 1 Jester
+            PlayerRole::JESTER->value => 1,
+            // 2 Villagers
+            PlayerRole::VILLAGER->value => 2,
+        ];
+
+        $this->addRolesToSelection($roles);
+        Toaster::success('Başlangıç oyun seti yüklendi.');
+    }
+
+    private function addRolesToSelection(array $roleCounts)
+    {
+        foreach ($roleCounts as $roleValue => $count) {
+            $role = $this->gameRoles->firstWhere('enum', $roleValue);
+
+            if ($role) {
+                for ($i = 0; $i < $count; $i++) {
+                    $roleClone = clone $role;
+                    $roleClone = $roleClone->toArray();
+                    $roleClone['uuid'] = uniqid();
+                    $this->selectedRoles[] = $roleClone;
+                }
+            }
+        }
+    }
+
     public function createLobby()
     {
         $messages = [
-            'lobbyName.required' => 'Lobi adı zorunludur.',
-            'lobbyName.min' => 'Lobi adı en az :min karakter olmalıdır.',
-            'lobbyName.max' => 'Lobi adı en fazla :max karakter olmalıdır.',
+            'lobbyName.required' => 'Oda adı zorunludur.',
+            'lobbyName.min' => 'Oda adı en az :min karakter olmalıdır.',
+            'lobbyName.max' => 'Oda adı en fazla :max karakter olmalıdır.',
         ];
 
         try {
@@ -42,6 +187,17 @@ class CreateLobby extends Component
         } catch (\Illuminate\Validation\ValidationException $e) {
             Toaster::error($e->validator->errors()->first());
             return;
+        }
+
+        //PRODUCTIONREMOVE
+        if (count($this->selectedRoles) < 7) {
+            Toaster::error('En az 7 rol seçmelisiniz.');
+            //return;
+        }
+
+        if (count($this->selectedRoles) > 15) {
+            Toaster::error('En fazla 15 rol seçebilirsiniz.');
+            //return;
         }
 
         // Only get the ids of the selected roles
@@ -62,6 +218,7 @@ class CreateLobby extends Component
             'host_id' => Auth::id(),
             'name' => $this->lobbyName,
             'max_players' => $roleIds->count(),
+            'roles_hidden' => $this->rolesHidden,
         ]);
 
         $lobby->roles()->attach($roleIds);
@@ -72,6 +229,6 @@ class CreateLobby extends Component
     #[Layout('layout.games')]
     public function render()
     {
-        return view('livewire.zalim-kasaba.create-lobby');
+        return view('livewire.zalim-kasaba.create-lobby')->title('Yeni Zalim Kasaba Oyunu - Gazi Social');
     }
 }

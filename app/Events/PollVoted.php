@@ -13,6 +13,8 @@ class PollVoted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $queue = 'notifications';
+
     /**
      * Create a new event instance.
      */

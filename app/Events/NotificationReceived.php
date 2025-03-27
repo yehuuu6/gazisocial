@@ -16,6 +16,8 @@ class NotificationReceived implements ShouldBroadcast
 
     public User $receiver;
 
+    public $queue = 'notifications';
+
     /**
      * Create a new event instance.
      * @param Notification $notification

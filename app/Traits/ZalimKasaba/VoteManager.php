@@ -2,7 +2,6 @@
 
 namespace App\Traits\ZalimKasaba;
 
-use Masmerise\Toaster\Toast;
 use Masmerise\Toaster\Toaster;
 use App\Models\ZalimKasaba\Player;
 use App\Enums\ZalimKasaba\GameState;
@@ -47,7 +46,7 @@ trait VoteManager
     {
         if ($this->lobby->state !== GameState::VOTING) {
             return;
-        } elseif (!$this->lobby->players()->where('id', $targetPlayer->id)->exists()) {
+        } elseif (!$this->lobby->players()->where('is_alive', true)->where('id', $targetPlayer->id)->exists()) {
             Toaster::error('Oyuncu bulunamadı.');
             return;
         } elseif ($this->currentPlayer->id === $targetPlayer->id) {
@@ -82,10 +81,35 @@ trait VoteManager
         $this->sendSystemMessage("{$this->currentPlayer->user->username}, {$targetPlayer->user->username} için oy kullandı.");
     }
 
+    /**
+     * Check if any player has enough votes to be accused and triggers state transition
+     */
+    private function checkEnoughVotes(): void
+    {
+        // Only check for votes if we're in the VOTING state
+        if ($this->lobby->state !== GameState::VOTING) {
+            return;
+        }
+
+        $accusedPlayerId = $this->getAccusedPlayer();
+        if ($accusedPlayerId) {
+            // Get the accused player information for messaging
+            $accusedPlayer = $this->lobby->players()->where('is_alive', true)->find($accusedPlayerId);
+            if ($accusedPlayer) {
+                // Update the accused_id
+                $this->lobby->update(['accused_id' => $accusedPlayerId]);
+                $this->nextState(GameState::DEFENSE);
+                return;
+            }
+        }
+    }
+
     public function getAccusedPlayer(): ?int
     {
-        $totalPlayers = $this->lobby->players()->count();
-        $threshold = ceil($totalPlayers / 2);
+        // Use the aliased method if it exists, otherwise try the original method
+        $threshold = method_exists($this, 'calculateVoteThreshold')
+            ? $this->calculateVoteThreshold()
+            : $this->calculateRequiredVotes();
 
         // Get vote counts per target player
         $voteCounts = $this->lobby->votes()
@@ -131,7 +155,7 @@ trait VoteManager
         ])->count();
 
         // Calculate abstain votes
-        $totalPlayers = $this->lobby->players()->count() - 1; // Exclude the accused player
+        $totalPlayers = $this->lobby->players()->where('is_alive', true)->count() - 1; // Exclude the accused player
         $abstainVotes = $totalPlayers - $innocentVotes - $guiltyVotes;
 
         if ($guiltyVotes > $innocentVotes) {

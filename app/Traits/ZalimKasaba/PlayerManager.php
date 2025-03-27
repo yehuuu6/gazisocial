@@ -20,7 +20,6 @@ trait PlayerManager
             ['user_id' => Auth::id()],
             [
                 'is_online' => true,
-                'last_seen' => now(),
                 'is_host' => $this->lobby->host_id === Auth::id(),
             ],
         );
@@ -132,7 +131,6 @@ trait PlayerManager
         if ($player && !$player->is_online) {
             $player->update([
                 'is_online' => true,
-                'last_seen' => now(),
             ]);
         }
     }

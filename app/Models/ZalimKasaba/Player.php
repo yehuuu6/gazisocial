@@ -11,15 +11,21 @@ class Player extends Model
 {
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'last_seen' => 'datetime',
-    ];
-
     protected $with = ['role', 'user'];
 
     public function role(): BelongsTo
     {
         return $this->belongsTo(GameRole::class, 'game_role_id');
+    }
+
+    public function poison()
+    {
+        return $this->hasOne(WitchPoison::class, 'target_id');
+    }
+
+    public function guilt()
+    {
+        return $this->hasOne(GuiltThoughts::class);
     }
 
     public function votesGiven()
@@ -40,16 +46,6 @@ class Player extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function poison()
-    {
-        return $this->hasOne(WitchPoison::class, 'target_id');
-    }
-
-    public function guilt()
-    {
-        return $this->hasOne(GuiltThoughts::class);
     }
 
     public function isMafia(): bool

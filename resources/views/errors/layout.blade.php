@@ -21,17 +21,6 @@
         <p class="text-center text-xl font-medium text-gray-700 mt-5 w-3/4">
             @yield('extra')
         </p>
-        <div class="flex items-center gap-5 mt-8 justify-center">
-            <button onclick="window.history.back()"
-                class="px-4 shadow py-2 text-primary bg-white rounded-md hover:bg-slate-50 focus:outline-none">
-                <x-icons.arrow-right-alt size="24" class="inline-block transform scale-x-[-1]" />
-                Geri Dön
-            </button>
-            <x-link href="{{ route('home') }}"
-                class="px-4 py-2 shadow text-white hover:no-underline bg-primary rounded-md hover:bg-blue-800">
-                Ana Sayfaya Git 🏠
-            </x-link>
-        </div>
     </main>
     @livewireScriptConfig
 </body>

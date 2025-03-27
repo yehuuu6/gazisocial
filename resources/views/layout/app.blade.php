@@ -34,6 +34,7 @@
     </main>
     <x-layout.footer />
     @persist('toaster')
+        <x-cookie-banner />
         <x-toaster-hub />
     @endpersist
     @livewireScriptConfig

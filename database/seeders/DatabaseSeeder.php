@@ -75,14 +75,27 @@ class DatabaseSeeder extends Seeder
             'ogrenci',
         ]);
 
+        $user5 = User::create([
+            'name' => 'Gürsel Şanlı',
+            'username' => 'bayGlorious',
+            'email' => 'gursel@gazi.edu.tr',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
+
+        $user5->assignRole([
+            'ogrenci',
+        ]);
+
+        $users[] = $user1;
         $users[] = $user2;
         $users[] = $user3;
-        $users[] = $user1;
         $users[] = $user4;
+        $users[] = $user5;
 
         $tags = Tag::all();
 
-        $posts = Post::factory(50)
+        $posts = Post::factory(20)
             ->withFixture()
             ->recycle($users)
             ->create()

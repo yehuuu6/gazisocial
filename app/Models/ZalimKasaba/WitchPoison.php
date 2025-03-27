@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WitchPoison extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $with = ['target', 'poisoner'];
 
@@ -15,12 +15,12 @@ class WitchPoison extends Model
         return $this->belongsTo(Lobby::class);
     }
 
-    public function target()
+    public function target() // Player
     {
         return $this->belongsTo(Player::class, 'target_id');
     }
 
-    public function poisoner()
+    public function poisoner() // Witch
     {
         return $this->belongsTo(Player::class, 'poisoner_id');
     }
