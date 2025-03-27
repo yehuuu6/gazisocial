@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use App\Models\ZalimKasaba\GameRole;
 
-class ProductionDatabaseSeeder extends Seeder
+class TestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
