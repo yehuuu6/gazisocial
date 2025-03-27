@@ -73,6 +73,23 @@ class HunterActionHandler implements ActionHandlerInterface
             return;
         }
 
+        $players = $this->lobby->players()->where('is_alive', true)->get();
+        $witchPlayer = $players->where('role.enum', PlayerRole::WITCH)->first();
+
+        if ($witchPlayer) {
+            $possibleMessages = [
+                'Hedefinize ateş ettiniz, ancak biri onu kurtardı!',
+                'Öldürmek için gittiğin evde bir meleğin güzelliğine yenik düştün. Eve dönüyorsun.',
+            ];
+            if ($targetPlayer->id === $witchPlayer->id) {
+                // Choose one of the messages randomly
+                $message = $possibleMessages[array_rand($possibleMessages)];
+                $this->sendMessageToPlayer($action->actor, $message, ChatMessageType::WARNING);
+                $this->sendMessageToPlayer($targetPlayer, "Bir avcı seni öldürmeyi denedi, ama sen onun zihnine sahte bir görüntü yerleştirdin ve kurtuldun.", ChatMessageType::WARNING);
+                return;
+            }
+        }
+
         // Kill the target
         $this->killPlayer($targetPlayer);
 

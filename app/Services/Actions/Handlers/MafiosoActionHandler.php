@@ -2,11 +2,12 @@
 
 namespace App\Services\Actions\Handlers;
 
-use App\Enums\ZalimKasaba\ActionType;
-use App\Models\ZalimKasaba\GameAction;
-use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Models\ZalimKasaba\Lobby;
+use App\Enums\ZalimKasaba\ActionType;
+use App\Enums\ZalimKasaba\PlayerRole;
+use App\Models\ZalimKasaba\GameAction;
 use App\Traits\ZalimKasaba\ChatManager;
+use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Traits\ZalimKasaba\PlayerActionsManager;
 
 class MafiosoActionHandler implements ActionHandlerInterface
@@ -71,6 +72,18 @@ class MafiosoActionHandler implements ActionHandlerInterface
                 $this->sendMessageToPlayer($playerToKill, "Biri sana saldırmaya çalıştı, ama melek formun onu durdurdu!", ChatMessageType::SUCCESS);
                 return;
             }
+
+            $players = $this->lobby->players()->where('is_alive', true)->get();
+            $witchPlayer = $players->where('role.enum', PlayerRole::WITCH)->first();
+
+            if ($witchPlayer) {
+                if ($playerToKill->id === $witchPlayer->id) {
+                    $this->sendMessageToPlayer($action->actor, "Saldırmaya çalıştığın kişinin bir cadı olduğunu fark ettin, onunla iş birliği yapabilirsin.", ChatMessageType::WARNING);
+                    $this->sendMessageToPlayer($playerToKill, "Mafya üyelerinden " . $action->actor->user->username . " sana saldırmak istedi, ama sen bir cadısın ve onunla iş birliği yapabilirsin.", ChatMessageType::WARNING);
+                    return;
+                }
+            }
+
 
             $this->killPlayer($playerToKill);
             $this->sendMessageToPlayer($playerToKill, "Bir mafya üyesi tarafından öldürüldün!", ChatMessageType::WARNING);

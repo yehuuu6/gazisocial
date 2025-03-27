@@ -249,7 +249,7 @@ trait PlayerActionsManager
 
     private function sendNightAbilityMessages()
     {
-        $players = $this->lobby->players()->with('role')->get();
+        $players = $this->lobby->players()->where('is_alive', true)->with('role')->get();
 
         foreach ($players as $player) {
             if (!$player->is_alive || $player->role->enum === PlayerRole::VILLAGER) {

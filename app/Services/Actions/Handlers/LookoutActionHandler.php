@@ -48,7 +48,7 @@ class LookoutActionHandler implements ActionHandlerInterface
             return;
         }
 
-        $allActions = $this->lobby->actions()->with(['target', 'actor'])->get();
+        $allActions = $this->lobby->actions()->where('is_roleblocked', false)->with(['target', 'actor'])->get();
 
         // For each lookout action
         foreach ($this->visitors as $lookoutData) {

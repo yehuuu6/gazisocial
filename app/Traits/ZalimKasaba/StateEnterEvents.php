@@ -90,16 +90,7 @@ trait StateEnterEvents
         $this->sendNightAbilityMessages();
     }
 
-    private function enterReveal()
-    {
-        $this->lobby->players()
-            ->where('is_alive', true);
-
-        $deadPlayers = $this->lobby->players()
-            ->where('is_alive', false)
-            ->where('death_night', $this->lobby->day_count)
-            ->get();
-    }
+    private function enterReveal() {}
 
     private function enterPreparation()
     {

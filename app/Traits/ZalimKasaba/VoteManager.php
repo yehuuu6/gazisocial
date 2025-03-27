@@ -46,7 +46,7 @@ trait VoteManager
     {
         if ($this->lobby->state !== GameState::VOTING) {
             return;
-        } elseif (!$this->lobby->players()->where('id', $targetPlayer->id)->exists()) {
+        } elseif (!$this->lobby->players()->where('is_alive', true)->where('id', $targetPlayer->id)->exists()) {
             Toaster::error('Oyuncu bulunamadı.');
             return;
         } elseif ($this->currentPlayer->id === $targetPlayer->id) {
@@ -94,7 +94,7 @@ trait VoteManager
         $accusedPlayerId = $this->getAccusedPlayer();
         if ($accusedPlayerId) {
             // Get the accused player information for messaging
-            $accusedPlayer = $this->lobby->players()->find($accusedPlayerId);
+            $accusedPlayer = $this->lobby->players()->where('is_alive', true)->find($accusedPlayerId);
             if ($accusedPlayer) {
                 // Update the accused_id
                 $this->lobby->update(['accused_id' => $accusedPlayerId]);

@@ -28,10 +28,9 @@ class GodfatherActionHandler implements ActionHandlerInterface
             return;
         }
 
-        $players = $this->lobby->players()->get();
+        $players = $this->lobby->players()->where('is_alive', true)->get();
 
         $mafioso = $players->where('role.enum', PlayerRole::MAFIOSO)
-            ->where('is_alive', true)
             ->first();
 
         if ($mafioso) {
