@@ -22,7 +22,6 @@ class EditUser extends Component
 
     // Profile Info
     public $name;
-    public $username;
     public $bio;
 
     public $avatar;
@@ -44,7 +43,6 @@ class EditUser extends Component
         $this->user = $user;
 
         $this->name = $user->name;
-        $this->username = $user->username;
         $this->bio = $user->bio;
 
         $this->gender = $user->gender;
@@ -147,17 +145,12 @@ class EditUser extends Component
             'name.required' => 'Ad alanı boş bırakılamaz.',
             'name.string' => 'Ad alanı metin tipinde olmalıdır.',
             'name.max' => 'Ad alanı en fazla :max karakter olabilir.',
-            'username.required' => 'Kullanıcı adı alanı boş bırakılamaz.',
-            'username.string' => 'Kullanıcı adı alanı metin tipinde olmalıdır.',
-            'username.max' => 'Kullanıcı adı alanı en fazla :max karakter olabilir.',
-            'username.unique' => 'Bu kullanıcı adı zaten alınmış.',
             'bio.max' => 'Biyografi en fazla :max karakter olabilir.',
         ];
 
         try {
             $this->validate([
                 'name' => 'required|string|max:30',
-                'username' => 'required|string|max:30|unique:users,username,' . $this->user->id,
                 'bio' => 'max:255',
             ], $messages);
         } catch (ValidationException $e) {
@@ -171,20 +164,8 @@ class EditUser extends Component
 
         $result = $this->user->update([
             'name' => $this->name,
-            'username' => $this->username,
             'bio' => $this->bio,
         ]);
-
-        // If name is updated, update the avatar
-        if ($result && $this->user->wasChanged('name')) {
-            return redirect()->route('users.edit', $this->user->username)->success('Profil bilgileriniz başarıyla güncellendi.');
-        }
-
-        // If the username is updated, update the page URL
-        if ($result && $this->user->wasChanged('username')) {
-            return redirect()->route('users.edit', $this->username)->success('Profil bilgileriniz başarıyla güncellendi.');
-            return;
-        }
 
         if ($result) {
             Toaster::success('Profil bilgileriniz başarıyla güncellendi.');

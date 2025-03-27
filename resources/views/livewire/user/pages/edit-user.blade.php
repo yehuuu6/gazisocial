@@ -14,8 +14,8 @@
                         </div>
                         <div class="flex flex-col gap-2 px-4">
                             <label for="username" class="block font-medium text-gray-700">Kullanıcı Adı</label>
-                            <input wire:model="username" type="text" id="username" name="username"
-                                spellcheck="false" autocomplete="off" required maxlength="30"
+                            <input type="text" id="username" name="username" spellcheck="false" autocomplete="off"
+                                readonly maxlength="30" placeholder="{{ Auth::user()->username }}" disabled
                                 class="block w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" />
                         </div>
                         <div class="flex flex-col gap-2 px-4">
