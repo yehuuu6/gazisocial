@@ -13,6 +13,16 @@ trait StateEnterEvents
     {
         // Delete all actions
         $this->lobby->actions()->delete();
+
+        // Announce dead players
+        $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count)->get();
+        if ($deadPlayers->isNotEmpty()) {
+            $deadPlayersString = $deadPlayers->map(function ($player) {
+                return $player->user->username;
+            })->implode(', ');
+            $this->sendSystemMessage("Gece ölenler: {$deadPlayersString}");
+        }
+
         $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
     }
 

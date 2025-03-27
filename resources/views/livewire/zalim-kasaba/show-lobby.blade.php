@@ -42,11 +42,17 @@
             class="fixed transform w-72 lg:w-80 transition-all duration-300 top-0 lg:static z-30 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="bg-white p-4 border-b border-gray-200">
-                    <div class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded px-3 py-2 mb-3">
+                    <div
+                        class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded px-3 py-2 mb-3 items-center flex justify-between">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
                             <x-icons.skull size="18" />
                             Mezarlık
                         </h1>
+                        <button type="button" x-on:click="leftPanel = false; rightPanel = false;"
+                            x-show="leftPanel && !fullscreen" x-cloak
+                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                            <x-icons.close size="20" />
+                        </button>
                     </div>
                     <ul class="mt-2 flex flex-col gap-2">
                         @forelse ($deadPlayers as $deadPlayer)
@@ -220,7 +226,13 @@
             class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-30 flex flex-col flex-shrink-0 bg-white border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">
-                    <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded px-3 py-2 mb-3">
+                    <div
+                        class="flex items-center justify-between bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded px-3 py-2 mb-3">
+                        <button type="button" x-on:click="rightPanel = false; leftPanel = false;"
+                            x-show="rightPanel && !fullscreen" x-cloak
+                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                            <x-icons.close size="20" />
+                        </button>
                         <h1
                             class="text-base md:text-lg flex items-center justify-center gap-2 font-semibold text-center">
                             <span class="text-2xl">{{ $this->currentPlayer->role->icon }}</span>

@@ -107,8 +107,8 @@ trait VoteManager
     public function getAccusedPlayer(): ?int
     {
         // Use the aliased method if it exists, otherwise try the original method
-        $threshold = method_exists($this, 'calculateVoteThreshold') 
-            ? $this->calculateVoteThreshold() 
+        $threshold = method_exists($this, 'calculateVoteThreshold')
+            ? $this->calculateVoteThreshold()
             : $this->calculateRequiredVotes();
 
         // Get vote counts per target player
@@ -155,7 +155,7 @@ trait VoteManager
         ])->count();
 
         // Calculate abstain votes
-        $totalPlayers = $this->lobby->players()->count() - 1; // Exclude the accused player
+        $totalPlayers = $this->lobby->players()->where('is_alive', true)->count() - 1; // Exclude the accused player
         $abstainVotes = $totalPlayers - $innocentVotes - $guiltyVotes;
 
         if ($guiltyVotes > $innocentVotes) {

@@ -34,7 +34,7 @@
     <div wire:show="chatHistoryModal" wire:transition.opacity x-cloak
         class="fixed inset-0 bg-black bg-opacity-60 z-50 grid place-items-center">
         <div wire:show="chatHistoryModal" wire:transition.scale
-            class="bg-white rounded-lg shadow-lg max-w-lg w-full mx-auto overflow-hidden border border-gray-200">
+            class="rounded-lg overflow-hidden shadow-lg bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full border border-gray-200">
             <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-4 flex items-center justify-between">
                 <h2 class="text-white font-bold text-lg">Sohbet Geçmişi</h2>
                 <button type="button" class="text-white hover:text-gray-200"

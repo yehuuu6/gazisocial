@@ -12,8 +12,7 @@
 
         <div class="p-5">
             <p class="text-gray-600 text-sm mb-4 bg-purple-50 p-3 rounded-lg border border-purple-100">
-                Vasiyetiniz siz öldükten sonra diğer oyuncular tarafından okunabilir. Önemli notlarınızı veya
-                şüphelerinizi buraya yazabilirsiniz.
+                Vasiyetiniz siz öldükten sonra diğer oyuncular tarafından okunabilir.
             </p>
 
             <textarea wire:model="lastWill" spellcheck="false" maxlength="1000"
