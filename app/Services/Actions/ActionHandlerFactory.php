@@ -5,14 +5,15 @@ namespace App\Services\Actions;
 use App\Enums\ZalimKasaba\ActionType;
 use App\Models\ZalimKasaba\Lobby;
 use App\Services\Actions\Handlers\{
-    GodfatherActionHandler, 
-    MafiosoActionHandler, 
+    GodfatherActionHandler,
+    MafiosoActionHandler,
     DoctorActionHandler,
     GuardActionHandler,
     LookoutActionHandler,
     JanitorActionHandler,
     ActionHandlerInterface,
-    HunterActionHandler
+    HunterActionHandler,
+    WitchActionHandler
 };
 
 class ActionHandlerFactory
@@ -32,6 +33,7 @@ class ActionHandlerFactory
             ActionType::INTERROGATE->value => new GuardActionHandler($lobby),
             ActionType::WATCH->value => new LookoutActionHandler($lobby),
             ActionType::CLEAN->value => new JanitorActionHandler($lobby),
+            ActionType::POISON->value => new WitchActionHandler($lobby),
             ActionType::SHOOT->value => new HunterActionHandler($lobby),
         ];
     }
@@ -40,12 +42,12 @@ class ActionHandlerFactory
     {
         return $this->handlers[$actionType->value] ?? null;
     }
-    
+
     public function getLookoutHandler(): ?LookoutActionHandler
     {
         return $this->handlers[ActionType::WATCH->value] ?? null;
     }
-    
+
     public function getJanitorHandler(): ?JanitorActionHandler
     {
         return $this->handlers[ActionType::CLEAN->value] ?? null;

@@ -75,7 +75,7 @@ class MafiosoActionHandler implements ActionHandlerInterface
             }
 
             $this->killPlayer($playerToKill);
-            $this->sendMessageToPlayer($playerToKill, "Bir mafya üyesi tarafından öldürüldünüz!", ChatMessageType::WARNING);
+            $this->sendMessageToPlayer($playerToKill, "Bir mafya üyesi tarafından öldürüldün!", ChatMessageType::WARNING);
         }
     }
 }

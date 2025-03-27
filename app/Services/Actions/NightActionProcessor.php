@@ -18,9 +18,6 @@ class NightActionProcessor
 
     public function processActionsForLobby(Lobby $lobby): void
     {
-        // Store all actions to process lookout actions later
-        $allActions = [];
-
         // Get all possible priority levels
         $priorities = array_unique(array_map(function ($type) {
             return $this->getPriority($type);
@@ -38,9 +35,6 @@ class NightActionProcessor
                 ->filter(fn($action) => $this->getPriority($action->action_type) === $priority);
 
             foreach ($actions as $action) {
-                // Add to all actions list for lookout
-                $allActions[] = $action;
-
                 $handler = $this->actionHandlerFactory->getHandler($action->action_type);
                 if ($handler) {
                     // Pass array to handle method
@@ -58,7 +52,7 @@ class NightActionProcessor
         // Process lookout actions at the end
         $lookoutHandler = $this->actionHandlerFactory->getLookoutHandler();
         if ($lookoutHandler) {
-            $lookoutHandler->processLookoutActions($allActions);
+            $lookoutHandler->processLookoutActions();
         }
     }
 
@@ -70,7 +64,8 @@ class NightActionProcessor
             ActionType::HEAL => 3,
             ActionType::KILL => 4,
             ActionType::SHOOT => 5,
-            ActionType::CLEAN => 6,
+            ActionType::POISON => 6,
+            ActionType::CLEAN => 7,
             default => 99,
         };
     }

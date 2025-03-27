@@ -57,9 +57,19 @@ trait StateEnterEvents
             //$this->killPlayer($offlinePlayer);
         }
 
-        $players = $this->lobby->players()->with(['guilt'])->where('is_alive', true)->get();
+        $players = $this->lobby->players()->with(['guilt', 'poison'])->where('is_alive', true)->get();
 
         foreach ($players as $player) {
+            // Check if the player has poison
+            $poison = $player->poison;
+            if ($poison && $poison->poisoned_at === $this->lobby->day_count - 1) {
+                $this->sendMessageToPlayer(
+                    $player,
+                    'Zehirin etkisi devam ediyor, bu gece bir doktor seni kurtarmazsa öleceksin!',
+                    ChatMessageType::WARNING
+                );
+            }
+
             // Check if the player has guilt
             $guilt = $player->guilt;
             if ($guilt && $guilt->night === $this->lobby->day_count) {

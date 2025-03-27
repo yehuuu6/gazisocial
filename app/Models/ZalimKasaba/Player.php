@@ -18,6 +18,11 @@ class Player extends Model
         return $this->belongsTo(GameRole::class, 'game_role_id');
     }
 
+    public function poison()
+    {
+        return $this->hasOne(WitchPoison::class, 'target_id');
+    }
+
     public function guilt()
     {
         return $this->hasOne(GuiltThoughts::class);

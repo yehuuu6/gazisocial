@@ -65,6 +65,11 @@ class Lobby extends Model
         return $this->hasMany(GuiltThoughts::class);
     }
 
+    public function poisons(): HasMany
+    {
+        return $this->hasMany(WitchPoison::class);
+    }
+
     public function votes(): HasMany
     {
         return $this->hasMany(LynchVote::class);

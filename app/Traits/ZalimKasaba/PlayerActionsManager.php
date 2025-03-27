@@ -124,6 +124,7 @@ trait PlayerActionsManager
             case PlayerRole::WITCH:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
+                if ($targetPlayer->poison()->exists()) return false;
                 break;
             case PlayerRole::JESTER:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
@@ -193,6 +194,36 @@ trait PlayerActionsManager
             PlayerRole::JESTER => "{$name} adlı oyuncuyu lanetlemeye karar verdin.",
             PlayerRole::ANGEL => "Melek formuna dönüşmeye karar verdin."
         };
+    }
+
+    private function processPoisons()
+    {
+        $poisons = $this->lobby->poisons()->get();
+
+        if ($poisons->count() === 0) return;
+
+        foreach ($poisons as $poison) {
+            // If the poison was not applied last night, skip
+            if ($this->lobby->day_count !== $poison->poisoned_at + 1) continue;
+
+            $targetPlayer = $this->lobby->players()->find($poison->target_id);
+
+            if (!$targetPlayer) continue;
+
+            $healActions = $this->lobby->actions()->where('action_type', ActionType::HEAL)->get();
+
+            foreach ($healActions as $healAction) {
+                if ($healAction->target_id === $targetPlayer->id) {
+                    $this->sendMessageToPlayer($targetPlayer, 'Bir doktor sana panzehir verdi, zehirin etkisinden kurtuldun!', ChatMessageType::SUCCESS);
+                    $poison->delete();
+                    return;
+                }
+            }
+
+            $this->killPlayer($targetPlayer);
+            $this->sendMessageToPlayer($targetPlayer, 'Zehir etkisinden öldün!', ChatMessageType::WARNING);
+            $poison->delete();
+        }
     }
 
     private function processGuilts()

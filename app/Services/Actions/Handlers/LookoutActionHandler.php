@@ -41,12 +41,14 @@ class LookoutActionHandler implements ActionHandlerInterface
      * Process all lookout actions after all other actions have been handled
      * This should be called by the NightActionProcessor at the end of processing
      */
-    public function processLookoutActions(array $allActions): void
+    public function processLookoutActions(): void
     {
         // Skip if no lookout actions
         if (empty($this->visitors)) {
             return;
         }
+
+        $allActions = $this->lobby->actions()->with(['target', 'actor'])->get();
 
         // For each lookout action
         foreach ($this->visitors as $lookoutData) {
@@ -74,7 +76,7 @@ class LookoutActionHandler implements ActionHandlerInterface
 
                 // Skip actions that have been deleted (check if action still exists in DB)
                 try {
-                    $existingAction = GameAction::find($action->id);
+                    $existingAction = $this->lobby->actions()->where('id', $action->id)->first();
                     if (!$existingAction) {
                         continue;
                     }

@@ -108,6 +108,7 @@ trait StateExitEvents
         $processor->processActionsForLobby($this->lobby);
 
         $this->processGuilts();
+        $this->processPoisons();
 
         // If there are no deaths, skip to the day phase
         $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count)->get();
