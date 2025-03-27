@@ -12,7 +12,8 @@
                     tıklayın.</a>
             </p>
         </div>
-        <form wire:submit="register" class="bg-slate-50 border border-slate-200 px-8 pt-6 pb-8 mb-4 rounded-lg">
+        <form id="guarded-form" wire:submit="register"
+            class="bg-slate-50 border border-slate-200 px-8 pt-6 pb-8 mb-4 rounded-lg">
             @csrf
             <div class="mb-4 flex gap-4">
                 <div>
@@ -84,12 +85,11 @@
                 </label>
             </div>
 
-
             <div class="flex items-center justify-between flex-col gap-3">
-                <button wire:loading.class="bg-gray-200 cursor-not-allowed"
-                    wire:loading.class.remove = "bg-primary hover:bg-opacity-100" wire:loading.attr="disabled"
-                    class="bg-primary flex items-center h-[40px] gap-1 overflow-hidden justify-center bg-opacity-90 hover:bg-opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                    type="submit">
+                <button type="button" wire:loading.class="bg-gray-200 cursor-not-allowed"
+                    data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit' data-action='submit'
+                    wire:loading.class.remove="bg-primary hover:bg-opacity-100" wire:loading.attr="disabled"
+                    class="g-recaptcha bg-primary flex items-center h-[40px] gap-1 overflow-hidden justify-center bg-opacity-90 hover:bg-opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
                     <x-icons.spinner wire:loading size="32" color="#479fff" />
                     <span wire:loading.remove>Kayıt Ol</span>
                 </button>
@@ -114,4 +114,10 @@
             <a href="/" class="text-gray-700 hover:underline">© 2025 Gazi Social</a>
         </li>
     </ul>
+    <script>
+        function onSubmit(token) {
+            @this.set('recaptchaToken', token);
+            @this.call('register');
+        }
+    </script>
 </div>

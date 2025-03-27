@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth\Pages;
 
 use App\Models\User;
+use App\Rules\ReChaptcha;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -12,6 +13,7 @@ use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Renderless;
 
 #[Title('Kayıt Ol')]
 class Register extends Component
@@ -25,7 +27,9 @@ class Register extends Component
     public $password;
     public $password_confirmation;
     public $accept_terms = false;
+    public $recaptchaToken;
 
+    #[Renderless]
     public function register()
     {
 
@@ -68,6 +72,7 @@ class Register extends Component
                 'password' => 'required|string|min:8|confirmed',
                 'accept_terms' => 'required|accepted',
                 'gender' => 'required|string|in:erkek,kadın,belirtilmemiş',
+                'recaptchaToken' => [new ReChaptcha()],
             ], $messages);
         } catch (ValidationException $e) {
             $message = $e->getMessage();

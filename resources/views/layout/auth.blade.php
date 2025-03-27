@@ -21,6 +21,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Gazi Social">
     <meta name="twitter:image" content="{{ asset('logos/GS_LOGO_DEFAULT.png') }}">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
