@@ -13,7 +13,7 @@
         x-on:click.outside="tagsDropdown = false" x-ref="tagsLister"
         class="bg-white border border-gray-200 rounded-md z-[3] shadow w-[240px] overflow-hidden">
         <div>
-            <input type="text" placeholder="🔎    Etiket Ara" spellcheck="false" id="search-tags"
+            <input type="text" placeholder="🔎    Etiket Ara" spellcheck="false" id="search-tags" autocomplete="off"
                 class="w-full px-5 py-4 text-sm outline-none placeholder:font-normal font-medium text-gray-700 border-b border-gray-200"
                 x-model="search" x-on:input="searchTags()" x-ref="searchInput">
         </div>
