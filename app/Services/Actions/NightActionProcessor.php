@@ -66,6 +66,7 @@ class NightActionProcessor
             ActionType::SHOOT => 5,
             ActionType::POISON => 6,
             ActionType::CLEAN => 7,
+            ActionType::HAUNT => 8,
             default => 99,
         };
     }

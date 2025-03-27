@@ -89,10 +89,15 @@ trait StateExitEvents
         $roleName = $accused->role->name;
         $roleIcon = $accused->role->icon;
         if ($accused) {
-            //$this->killPlayer($accused, $accused->role->enum === PlayerRole::JESTER, true);
+            $this->killPlayer($accused);
             $this->sendSystemMessage(
                 "{$username} kasaba tarafından idam edildi. Oyuncunun rolü: {$roleIcon} {$roleName}."
             );
+
+            if ($accused->role->enum === PlayerRole::JESTER) {
+                $accused->update(['can_haunt' => true]);
+                $this->sendSystemMessage('Zibidi mezardan intikamını alacak! 🤡', type: ChatMessageType::WARNING);
+            }
         }
 
         $this->lobby->update(['accused_id' => null]);

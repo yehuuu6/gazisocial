@@ -4,12 +4,10 @@ namespace App\Services\Actions\Handlers;
 
 use App\Enums\ZalimKasaba\ActionType;
 use App\Models\ZalimKasaba\GameAction;
-use App\Models\ZalimKasaba\Player;
 use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Models\ZalimKasaba\Lobby;
 use App\Traits\ZalimKasaba\ChatManager;
 use App\Traits\ZalimKasaba\PlayerActionsManager;
-use Masmerise\Toaster\Toaster;
 
 class MafiosoActionHandler implements ActionHandlerInterface
 {

@@ -7,7 +7,6 @@ use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Enums\ZalimKasaba\PlayerRole;
 use App\Models\ZalimKasaba\GameAction;
 use App\Models\ZalimKasaba\Lobby;
-use App\Models\ZalimKasaba\Player;
 use App\Traits\ZalimKasaba\ChatManager;
 use App\Traits\ZalimKasaba\PlayerActionsManager;
 

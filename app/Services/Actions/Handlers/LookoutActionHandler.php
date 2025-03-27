@@ -64,8 +64,8 @@ class LookoutActionHandler implements ActionHandlerInterface
             $visitors = [];
 
             foreach ($allActions as $action) {
-                // Skip lookout's own action
-                if ($action->action_type === ActionType::WATCH) {
+                // If the lookout sees his own visit, skip it
+                if ($action->actor_id === $lookoutPlayer->id) {
                     continue;
                 }
 

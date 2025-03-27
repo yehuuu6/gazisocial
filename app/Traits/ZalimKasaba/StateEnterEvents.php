@@ -43,10 +43,6 @@ trait StateEnterEvents
     private function enterLastWords()
     {
         $accusedPlayer = $this->lobby->accused;
-        if ($accusedPlayer->role->enum === PlayerRole::JESTER) {
-            $this->sendSystemMessage('Zibidi mezardan intikamını alacak! 🤡', type: ChatMessageType::WARNING);
-            return;
-        }
         $this->sendSystemMessage("Sanık {$accusedPlayer->user->username}, son sözlerini söyle.");
     }
 

@@ -13,7 +13,8 @@ use App\Services\Actions\Handlers\{
     JanitorActionHandler,
     ActionHandlerInterface,
     HunterActionHandler,
-    WitchActionHandler
+    WitchActionHandler,
+    JesterActionHandler
 };
 
 class ActionHandlerFactory
@@ -35,6 +36,7 @@ class ActionHandlerFactory
             ActionType::CLEAN->value => new JanitorActionHandler($lobby),
             ActionType::POISON->value => new WitchActionHandler($lobby),
             ActionType::SHOOT->value => new HunterActionHandler($lobby),
+            ActionType::HAUNT->value => new JesterActionHandler($lobby),
         ];
     }
 
@@ -51,10 +53,5 @@ class ActionHandlerFactory
     public function getJanitorHandler(): ?JanitorActionHandler
     {
         return $this->handlers[ActionType::CLEAN->value] ?? null;
-    }
-
-    public function getHunterHandler(): ?HunterActionHandler
-    {
-        return $this->handlers[ActionType::SHOOT->value] ?? null;
     }
 }

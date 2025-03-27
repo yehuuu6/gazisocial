@@ -51,7 +51,7 @@ class ChatWindow extends Component
 
     private function fetchMessages(int $dayCount)
     {
-        if ($this->lobby->state !== GameState::LOBBY) {
+        if ($this->currentPlayer->role) {
             $isMafia = $this->currentPlayer->isMafia();
         } else {
             $isMafia = false;

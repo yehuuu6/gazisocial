@@ -39,6 +39,13 @@ class GuardActionHandler implements ActionHandlerInterface
 
         if ($targetAction) {
             $targetAction->update(['is_roleblocked' => true]);
+        } else {
+            $this->sendMessageToPlayer(
+                $targetPlayer,
+                'Kapının önünde bekçi dolanıyor, neyseki bugün evden çıkmadın.',
+                ChatMessageType::WARNING
+            );
+            return;
         }
 
         $this->sendMessageToPlayer($targetPlayer, "Bekçi seni durdurdu ve kimlik kontrolü yaptı. Geceyi evde geçireceksin.", ChatMessageType::WARNING);
