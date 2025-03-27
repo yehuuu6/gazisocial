@@ -64,37 +64,13 @@
         </x-ui.accordion>
         <x-ui.accordion>
             <x-slot name="title">
-                Hangi dillerde içerik paylaşabiliriz?
-            </x-slot>
-            <x-slot name="text">
-                Gazi Social'de Türkçe ve İngilizce dillerinde içerik paylaşabilirsiniz.
-            </x-slot>
-        </x-ui.accordion>
-        <x-ui.accordion>
-            <x-slot name="title">
-                Hangi tür içerikler paylaşabiliriz?
-            </x-slot>
-            <x-slot name="text">
-                Etiketlerde belirtilen kategorilerde içerik paylaşabilirsiniz.
-            </x-slot>
-        </x-ui.accordion>
-        <x-ui.accordion>
-            <x-slot name="title">
                 Gazi Social'da reklam yapabilir miyim?
             </x-slot>
             <x-slot name="text">
                 Hayır, Gazi Social'de reklam yapmak yasaktır. İçeriğinde reklam tespit edilen konular silinecek, bu
-                davranış devam ederse ilgili hesaplar askıya alınacaktır.
-            </x-slot>
-        </x-ui.accordion>
-        <x-ui.accordion>
-            <x-slot name="title">
-                Nasıl içerik paylaşabilirim?
-            </x-slot>
-            <x-slot name="text">
-                Gazi Social'da içerik paylaşmak için öncelikle kayıt olmanız gerekmektedir. Kayıt olduktan sonra
-                <x-link href="{{ route('posts.create') }}" class="text-blue-600">konu oluştur</x-link> sayfasına giderek
-                içeriğinizi paylaşabilirsiniz.
+                davranış devam ederse ilgili hesaplar askıya alınacaktır. Sponsorlu reklam vermek için <a
+                    href="mailto:contact@gazisocial.com" class="text-blue-600 underline">contact@gazisocial.com</a>
+                adresinden iletişime geçebilirsiniz.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
@@ -104,14 +80,14 @@
             <x-slot name="text">
                 Gazi Social'da aşağıdaki davranışlar yasaktır:
                 <ul class="list-disc pl-6">
-                    <li>Reklam yapmak</li>
-                    <li>Spam yapmak</li>
+                    <li>Anlaşmasız reklam yapmak</li>
+                    <li>Spam - flood yapmak</li>
                     <li>Yanlış bilgi paylaşmak</li>
-                    <li>Sitede mevcut açıklardan yararlanarak zarar vermek</li>
+                    <li>Siteye varsa mevcut açıklardan yararlanarak zarar vermek (Sitede hata bulursanız bize
+                        iletebilirsiniz.)</li>
                     <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek</li>
-                    <li>Diğer kullanıcıları rahatsız etmek</li>
                     <li>Yasadışı içerik paylaşmak</li>
-                    <li>Diğer kullanıcıları kışkırtmak</li>
+                    <li>Kışkırtıcı içerik paylaşmak</li>
                     <li>Diğer kullanıcıların gizliliğini ihlal etmek</li>
                 </ul>
             </x-slot>
