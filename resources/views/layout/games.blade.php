@@ -22,7 +22,7 @@
     @stack('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Oyun Merkezi - Gazi Social' }}</title>
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body x-data="{

@@ -23,7 +23,7 @@
     <meta name="twitter:image" content="{{ asset('logos/GS_LOGO_DEFAULT.png') }}">
     @yield('ogtags')
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body class="min-h-svh flex flex-col w-full bg-slate-100 font-inter antialiased">
