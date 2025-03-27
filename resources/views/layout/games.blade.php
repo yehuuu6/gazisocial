@@ -26,7 +26,7 @@
 </head>
 
 <body x-data="{
-    fullscreen: true,
+    fullscreen: false,
 }"
     class="min-h-svh flex flex-col w-full overflow-x-hidden bg-slate-100 font-inter antialiased">
     <div x-show="!fullscreen">
