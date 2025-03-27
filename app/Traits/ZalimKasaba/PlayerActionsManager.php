@@ -170,6 +170,7 @@ trait PlayerActionsManager
             PlayerRole::WITCH => 'Zehirle',
             PlayerRole::JESTER => 'Lanetle',
             PlayerRole::ANGEL => 'Dönüş',
+            default => 'Yetenek',
         };
     }
 
