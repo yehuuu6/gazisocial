@@ -4,6 +4,7 @@ namespace App\Services\Actions\Handlers;
 
 use App\Enums\ZalimKasaba\ActionType;
 use App\Enums\ZalimKasaba\ChatMessageType;
+use App\Enums\ZalimKasaba\PlayerRole;
 use App\Models\ZalimKasaba\GameAction;
 use App\Models\ZalimKasaba\Lobby;
 use App\Traits\ZalimKasaba\ChatManager;
@@ -29,6 +30,12 @@ class GuardActionHandler implements ActionHandlerInterface
         $targetAction = $this->lobby->actions()
             ->where('actor_id', $action->target_id)
             ->first();
+
+        // IF target player is also a guard, don't roleblock him
+        if ($targetPlayer->role->enum === PlayerRole::GUARD) {
+            $this->sendMessageToPlayer($targetPlayer, "Başka bir bekçi sana yaklaştı ve selam verip yoluna devam etti.", ChatMessageType::WARNING);
+            return;
+        }
 
         if ($targetAction) {
             $targetAction->update(['is_roleblocked' => true]);

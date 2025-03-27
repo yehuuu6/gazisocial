@@ -3,6 +3,7 @@
 namespace App\Livewire\ZalimKasaba;
 
 use App\Enums\ZalimKasaba\ChatMessageFaction;
+use App\Enums\ZalimKasaba\GameState;
 use Livewire\Component;
 use App\Models\ZalimKasaba\Lobby;
 use App\Models\ZalimKasaba\Player;
@@ -50,7 +51,11 @@ class ChatWindow extends Component
 
     private function fetchMessages(int $dayCount)
     {
-        $isMafia = $this->currentPlayer->isMafia();
+        if ($this->lobby->state !== GameState::LOBBY) {
+            $isMafia = $this->currentPlayer->isMafia();
+        } else {
+            $isMafia = false;
+        }
 
         return $this->lobby->messages()
             ->where('day_count', $dayCount)
