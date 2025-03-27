@@ -50,19 +50,35 @@ class ChatWindow extends Component
 
     private function fetchMessages(int $dayCount)
     {
+        $isMafia = $this->currentPlayer->isMafia();
+
         return $this->lobby->messages()
             ->where('day_count', $dayCount)
-            ->where(function ($query) {
-                $query->whereNull('receiver_id')
-                    ->orWhere('receiver_id', Auth::id());
-            })
-            ->where(function ($query) {
-                if ($this->currentPlayer->is_alive) {
-                    $query->where(function ($q) {
-                        $q->where('faction', '!=', ChatMessageFaction::DEAD->value)
-                            ->orWhere('receiver_id', Auth::id());
+            ->where(function ($query) use ($isMafia) {
+                // Everyone can see messages with faction ALL
+                $query->where(function ($q) {
+                    $q->where('faction', ChatMessageFaction::ALL)
+                        ->whereNull('receiver_id');
+                });
+
+                // Only Mafia members can see MAFIA messages
+                if ($isMafia) {
+                    $query->orWhere(function ($q) {
+                        $q->where('faction', ChatMessageFaction::MAFIA)
+                            ->whereNull('receiver_id');
                     });
                 }
+
+                // Only dead players can see DEAD messages
+                if (!$this->currentPlayer->is_alive) {
+                    $query->orWhere(function ($q) {
+                        $q->where('faction', ChatMessageFaction::DEAD)
+                            ->whereNull('receiver_id');
+                    });
+                }
+
+                // Direct messages to the player are always visible regardless of faction
+                $query->orWhere('receiver_id', Auth::id());
             })
             ->oldest()
             ->get();
