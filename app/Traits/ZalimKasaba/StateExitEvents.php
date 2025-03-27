@@ -101,6 +101,8 @@ trait StateExitEvents
         }
 
         $this->lobby->update(['accused_id' => null]);
+
+        $this->promoteJanitor();
     }
 
     private function exitNight()
@@ -114,6 +116,29 @@ trait StateExitEvents
 
         $this->processGuilts();
         $this->processPoisons();
+
+        $this->promoteJanitor();
+    }
+
+    private function promoteJanitor()
+    {
+        // Convert the janitor to mafioso if the godfather or the mafioso is no longer alive.
+        $players = $this->lobby->players()->get();
+
+        $godfatherPlayer = $players->where('role.enum', PlayerRole::GODFATHER)->where('is_alive', true)->first();
+        $mafiosoPlayer = $players->where('role.enum', PlayerRole::MAFIOSO)->where('is_alive', true)->first();
+
+        if (!$godfatherPlayer && !$mafiosoPlayer) {
+            $janitorPlayer = $players->where('role.enum', PlayerRole::JANITOR)->where('is_alive', true)->first();
+
+            if ($janitorPlayer) {
+                $janitorPlayer->update([
+                    'game_role_id' => 2,
+                    'ability_uses' => null
+                ]);
+                $this->sendMessageToPlayer($janitorPlayer, 'Tetikçi rolüne terfi ettiniz.');
+            }
+        }
     }
 
     private function exitReveal()
