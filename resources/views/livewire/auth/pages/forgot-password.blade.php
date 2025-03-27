@@ -14,7 +14,7 @@
                     id="email" type="email" name="email" wire:model="email" autocomplete="mail" required>
             </div>
             <button wire:loading.class="bg-gray-200 cursor-not-allowed"
-                data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit' data-action='submit'
+                data-sitekey="{{ config('services.recaptcha.key') }}" data-callback='onSubmit' data-action='submit'
                 wire:loading.class.remove = "bg-primary hover:bg-opacity-100" wire:loading.attr="disabled"
                 class="bg-primary g-recaptcha flex items-center h-[40px] gap-1 overflow-hidden justify-center bg-opacity-90 hover:bg-opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                 type="button">

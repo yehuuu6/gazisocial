@@ -87,7 +87,7 @@
 
             <div class="flex items-center justify-between flex-col gap-3">
                 <button type="button" wire:loading.class="bg-gray-200 cursor-not-allowed"
-                    data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}" data-callback='onSubmit' data-action='submit'
+                    data-sitekey="{{ config('services.recaptcha.key') }}" data-callback='onSubmit' data-action='submit'
                     wire:loading.class.remove="bg-primary hover:bg-opacity-100" wire:loading.attr="disabled"
                     class="g-recaptcha bg-primary flex items-center h-[40px] gap-1 overflow-hidden justify-center bg-opacity-90 hover:bg-opacity-100 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
                     <x-icons.spinner wire:loading size="32" color="#479fff" />

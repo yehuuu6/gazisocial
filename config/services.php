@@ -18,6 +18,11 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
+    'recaptcha' => [
+        'key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
+        'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+    ],
+
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
