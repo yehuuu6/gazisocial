@@ -42,7 +42,7 @@
                             Zalim Kasaba
                         </x-link>
                         <x-link href="games/cb" class="font-medium text-sm self-start md:self-end">
-                            Çiz Bil
+                            Çiz Bil (Yakında)
                         </x-link>
                     </div>
                 </div>

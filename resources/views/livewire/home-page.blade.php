@@ -2,21 +2,29 @@
     <div class="bg-white rounded-xl shadow-md border border-gray-100">
         <section
             class="bg-gradient-to-b from-blue-500 to-blue-700 px-6 md:px-24 text-center py-12 md:py-24 rounded-t-xl">
-            <h1 class="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase font-ginto">
+            <h1 class="text-white text-xl md:text-3xl lg:text-4xl font-extrabold uppercase font-ginto">
                 GAZİ SOCİAL'A HOŞ GELDİNİZ
             </h1>
             <p class="text-white text-sm md:text-lg font-medium mt-3.5 md:w-full">
-                Gazi öğrencilerinin fikirlerini paylaştığı ve bir araya geldiği dijital topluluk.
+                Haberler, etkinlikler, oyunlar ve daha fazlası için Gazi Social topluluğuna katılın.
             </p>
-            <div class="flex items-center justify-center gap-2.5 mt-7 md:gap-4 md:mt-10">
+            <div class="flex items-center justify-center gap-2 mt-7 md:gap-4 md:mt-10">
                 <x-link href="{{ route('posts.index', 'popular') }}"
                     class="text-gray-800 hover:border-blue-100 border border-white text-xs w-36 md:w-48 md:text-sm font-medium bg-blue-50 py-2 md:py-3 rounded-md hover:no-underline hover:bg-blue-100 transition duration-300">
                     Konuları Keşfet
                 </x-link>
-                <x-link href="{{ route('games.index') }}"
-                    class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
-                    Oyun Merkezine Git
-                </x-link>
+                @auth
+                    <x-link href="{{ route('games.index') }}"
+                        class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
+                        Oyun Merkezine Git
+                    </x-link>
+                @endauth
+                @guest
+                    <x-link href="{{ route('register') }}"
+                        class="rounded-md w-36 md:w-48 bg-white border border-white py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-opacity-0 hover:bg-opacity-10 transition duration-300 hover:no-underline">
+                        Kayıt Ol
+                    </x-link>
+                @endguest
             </div>
         </section>
         <section class="px-6 md:px-16 lg:px-24 border-b border-gray-200">
@@ -49,9 +57,9 @@
                         wire:key="pinned-post-{{ $post->id }}">
                         <div class="border-l-4 border-blue-500">
                             <div class="p-4 md:p-5">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-1 md:gap-2.5">
-                                        <div class="bg-blue-50 p-1.5 rounded-full">
+                                <div class="flex md:items-center justify-between">
+                                    <div class="flex md:items-center flex-col md:flex-row gap-2 md:gap-2.5">
+                                        <div class="self-start bg-blue-50 p-1.5 rounded-full">
                                             <x-icons.pin class="text-blue-500" size="18" />
                                         </div>
                                         <div class="flex items-center justify-end md:justify-start gap-1 flex-wrap">
@@ -60,7 +68,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                    <span class="text-xs text-gray-500 bg-gray-50 py-1 px-2 rounded-full">
+                                    <span class="text-xs text-gray-500 shrink-0">
                                         {{ $post->created_at->diffForHumans() }}
                                     </span>
                                 </div>
@@ -75,7 +83,7 @@
                                     </p>
                                 </div>
                                 <x-seperator class="my-3 md:my-4 opacity-50" />
-                                <div class="flex items-center justify-between gap-2.5">
+                                <div class="flex md:items-center flex-col md:flex-row justify-between gap-2.5">
                                     @if ($post->isAnonim())
                                         <div class="flex items-center gap-1.5">
                                             <div
@@ -89,14 +97,14 @@
                                     @else
                                         <x-link href="{{ route('users.show', $post->user->username) }}"
                                             class="flex items-center gap-1.5 text-xs md:text-sm text-blue-600 hover:text-blue-700">
-                                            <div class="w-5 h-5 rounded-full flex items-center justify-center">
+                                            <div class="size-5 shrink-0 rounded-full flex items-center justify-center">
                                                 <img src="{{ $post->user->getAvatar() }}"
                                                     alt="{{ $post->user->name }}" class="size-full rounded-full" />
                                             </div>
                                             {{ $post->user->name }} tarafından
                                         </x-link>
                                     @endif
-                                    <div>
+                                    <div class="flex items-center justify-end">
                                         <x-link href="{{ $post->showRoute() }}"
                                             class="inline-flex items-center gap-1 text-blue-500 text-xs md:text-sm font-medium rounded-full px-3 py-1 bg-blue-50 hover:bg-blue-100 transition-colors duration-300">
                                             Devamını oku
