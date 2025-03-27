@@ -20,7 +20,7 @@ class GuardActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // Get the target player
         $targetPlayer = $action->target;

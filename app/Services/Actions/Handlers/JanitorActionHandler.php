@@ -24,7 +24,7 @@ class JanitorActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the janitor is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {

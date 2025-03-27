@@ -15,22 +15,17 @@ class DoctorActionHandler implements ActionHandlerInterface
 
     public Lobby $lobby;
 
-    // Store heal actions for the night
-    protected array $healActions = [];
-
     public function __construct(Lobby $lobby)
     {
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the doctor is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {
             return;
         }
-
-        $healActions[] = $action;
 
         // If the doctor healed themselves, mark as self-healed
         if ($action->actor_id === $action->target_id) {

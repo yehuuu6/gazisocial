@@ -22,7 +22,7 @@ class HunterActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the hunter is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {
@@ -34,6 +34,9 @@ class HunterActionHandler implements ActionHandlerInterface
         if (!$targetPlayer) {
             return;
         }
+
+
+        $healActions = $this->lobby->actions()->where('action_type', ActionType::HEAL)->get();
 
         // Check if the target was healed
         $wasHealed = false;

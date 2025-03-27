@@ -18,9 +18,6 @@ class NightActionProcessor
 
     public function processActionsForLobby(Lobby $lobby): void
     {
-        // Initialize healedPlayers array for this night - using a local variable
-        $healedPlayers = [];
-
         // Store all actions to process lookout actions later
         $allActions = [];
 
@@ -46,8 +43,8 @@ class NightActionProcessor
 
                 $handler = $this->actionHandlerFactory->getHandler($action->action_type);
                 if ($handler) {
-                    // Pass healedPlayers array to handle method
-                    $handler->handle($action, $healedPlayers);
+                    // Pass array to handle method
+                    $handler->handle($action);
                 }
             }
         }

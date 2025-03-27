@@ -21,7 +21,7 @@ class GodfatherActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the godfather is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {
@@ -55,7 +55,7 @@ class GodfatherActionHandler implements ActionHandlerInterface
 
             // Notify the mafioso.
             $this->sendMessageToPlayer($mafioso, "Baron seni hedefini öldürmeye gönderdi.");
-            
+
             // Delete the original godfather action so the lookout doesn't see the godfather visiting
             // This must be done AFTER creating the new mafioso action
             $action->delete();
@@ -67,7 +67,7 @@ class GodfatherActionHandler implements ActionHandlerInterface
                 'target_id' => $action->target_id,
                 'action_type' => ActionType::KILL,
             ]);
-            
+
             // Delete the original action to avoid duplication
             if ($newAction->id != $action->id) {
                 $action->delete();

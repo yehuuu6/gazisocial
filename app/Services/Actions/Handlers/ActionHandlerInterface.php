@@ -13,5 +13,5 @@ interface ActionHandlerInterface
      * @param array $healedPlayers Reference to the array of healed player IDs
      * @return void
      */
-    public function handle(GameAction $action, array &$healedPlayers = []): void;
+    public function handle(GameAction $action): void;
 }

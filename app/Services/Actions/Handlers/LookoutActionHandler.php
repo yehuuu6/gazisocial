@@ -23,7 +23,7 @@ class LookoutActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the lookout is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {

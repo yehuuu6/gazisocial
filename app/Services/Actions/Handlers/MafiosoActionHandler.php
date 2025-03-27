@@ -22,7 +22,7 @@ class MafiosoActionHandler implements ActionHandlerInterface
         $this->lobby = $lobby;
     }
 
-    public function handle(GameAction $action, array &$healActions = []): void
+    public function handle(GameAction $action): void
     {
         // If the mafioso is roleblocked, they can't perform their action
         if ($action->is_roleblocked) {
@@ -34,6 +34,8 @@ class MafiosoActionHandler implements ActionHandlerInterface
         if ($playerToKill) {
             // Check if the player was healed
             $wasHealed = false;
+
+            $healActions = $this->lobby->actions()->where('action_type', ActionType::HEAL)->get();
 
             foreach ($healActions as $healAction) {
                 if ($healAction->target_id === $playerToKill->id) {
