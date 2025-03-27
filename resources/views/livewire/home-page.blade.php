@@ -171,14 +171,14 @@
                 <div
                     class="flex w-full xl:w-1/3 items-center px-7 py-5 gap-3.5 bg-white border border-gray-200 rounded-lg">
                     <div class="rounded bg-blue-100 p-3">
-                        <x-icons.code size="40" class="text-blue-500" />
+                        <x-icons.options size="40" class="text-blue-500" />
                     </div>
                     <div>
                         <h2 class="text-base md:text-lg font-semibold text-gray-700">
-                            Open Source
+                            Anketler
                         </h2>
                         <p class="text-xs md:text-sm text-gray-500">
-                            Geliştirme sürecine katkıda bulunun.
+                            Topluluk anketleri oluşturun ve fikir edinin.
                         </p>
                     </div>
                 </div>

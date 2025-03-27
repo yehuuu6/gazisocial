@@ -13,7 +13,6 @@
                     <div class="flex flex-col">
                         <a target="_blank" href="{{ $faculty->url }}"
                             class="text-xl self-start font-semibold text-primary hover:underline">{{ $faculty->name }}</a>
-                        <span class="mt-1 text-sm text-gray-600">{{ $faculty->description }}</span>
                     </div>
                     @can('join', App\Models\Faculty::class)
                         <button wire:click="joinFaculty({{ $faculty->id }})"
