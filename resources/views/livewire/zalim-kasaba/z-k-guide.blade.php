@@ -273,7 +273,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Köylü</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Herhangi bir yeteneğin yok. Sadece kasabanın huzur bulmasını istiyorsun.
+                                    Herhangi bir yeteneğin yok. Sadece kasabanın huzur bulmasını istiyorsun. Oylamalarda
+                                    kasabaya destek ol.
                                 </p>
                             </div>
                         </div>
@@ -290,7 +291,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Doktor</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Kendini ya da başkasını koru. Kendini sadece bir kez koruyabilirsin.
+                                    Gece kendini veya bir başkasını koruyabilirsin. Kendi kendini yalnızca bir kez
+                                    koruyabilirsin.
                                 </p>
                             </div>
                         </div>
@@ -307,7 +309,7 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Dikizci</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Birinin evini dikizle ve kimlerin onu ziyaret ettiğini öğren.
+                                    Birinin evini gözetle ve o gece eve kimlerin gittiğini öğren.
                                 </p>
                             </div>
                         </div>
@@ -324,9 +326,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Avcı</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Geceleri silahını kullanarak birini vurabilirsin. Vurduğun kişi masum biriyse,
-                                    intihar
-                                    edersin.
+                                    Silahındaki 3 mermiyi kullanarak istediğin birini vurabilirsin. Masum birini
+                                    vurursan sonraki gece intihar edersin.
                                 </p>
                             </div>
                         </div>
@@ -345,7 +346,8 @@
                                     Bekçi
                                 </h4>
                                 <p class="text-gray-600 text-sm">
-                                    Birini gece boyunca sorgula ve o gece yeteneğini kullanmasına engel ol.
+                                    Gece seçtiğin oyuncuyu sorguya çek. Sorgu bütün gün sürdüğü için sorgulanan kişi
+                                    yeteneğini kullanamadan eve geri döner.
                                 </p>
                             </div>
                         </div>
@@ -372,7 +374,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Baron</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Mafyanın liderisin. Her gece birinin öldürülmesi için emir ver. Gece mafya ile
+                                    Mafyanın liderisin. Tetikçi senin emrinde çalışır ve seçtiğin oyuncuyu
+                                    öldürmeye gider. Eğer tetikçi yoksa ellerini kirletmekten korkmazsın. Gece mafya ile
                                     konuşabilirsin.
                                 </p>
                             </div>
@@ -392,7 +395,8 @@
                                     Tetikçi
                                 </h4>
                                 <p class="text-gray-600 text-sm">
-                                    Baron tarafından sana verilen emirleri yerine getir. Gece mafya ile konuşabilirsin.
+                                    Baronun seçtiği kişiyi öldür. Eğer baron birini seçmezse, kendi seçtiğin kişiyi
+                                    öldürürsün. Gece mafya ile konuşabilirsin.
                                 </p>
                             </div>
                         </div>
@@ -409,7 +413,9 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Temizlikçi</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Mafya tarafından öldürülen kişinin rolünü temizle. Gece mafya ile konuşabilirsin.
+                                    Mafya tarafından öldürülen kişinin vasiyetini ve kimliğini temizlersin, sadece sen
+                                    temizlediğin kişinin kimliğini görebilirsin. Gece mafya ile konuşabilirsin. Eğer
+                                    Baron ve Tetikçi öldüyse, sen Tetikçi rolüne terfi edersin.
                                 </p>
                             </div>
                         </div>
@@ -419,8 +425,8 @@
                 <!-- Kaos Rolleri -->
                 <div x-show="roles.chaos" class="p-4">
                     <p class="text-gray-600 mb-6">
-                        Kasabada karışıklık çıkarmak için çalışan bu roller, kasabanın düzenini bozarak kendi amaçlarına
-                        ulaşmaya çalışırlar.
+                        Kasaba halkını manipüle eden ve çıkan kargaşadan beslenen bu rollerin tek isteği, masum
+                        kasabalıların ortadan kaldırılması.
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -436,8 +442,10 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Cadı</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Her gece birini zehirlersin; zehirlenen kişiyi sonraki gece doktor tedavi etmez ise
-                                    ölür.
+                                    Geceleri dokunulmazsın. Bir mafya üyesi sana saldırırsa, kimliklerinizi
+                                    öğrenirsiniz. Bir avcı seni öldürmeye gelirse, ona sahte bir
+                                    anı yükleyip geri gönderirsin. 2 adet zehirinle sadece köylüleri dikkatlice
+                                    zehirlemelisin.
                                 </p>
                             </div>
                         </div>
@@ -448,8 +456,7 @@
                 <div x-show="roles.neutral" class="p-4">
                     <p class="text-gray-600 mb-6">
                         Kendi özel amaçları olan bu roller, kasaba veya mafyadan olmaksızın kendi hedeflerine ulaşmak
-                        için
-                        uğraşırlar.
+                        için uğraşırlar.
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -466,7 +473,7 @@
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Zibidi</h4>
                                 <p class="text-gray-600 text-sm">
                                     İdam edilmek isteyen bir manyaksın. Eğer idam edilirsen, gece bir kişiyi
-                                    öldürebilirsin.
+                                    lanetleyerek öldürebilirsin. Gece öldürülürsen, kaybedersin.
                                 </p>
                             </div>
                         </div>
@@ -483,8 +490,9 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Melek</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Geceleri insan formundan melek formuna dönüşebilirsin. Bu sayede saldırılardan
-                                    korunursun.
+                                    Gündüz insanken, gece melek formuna geçebilirsin. Gece seni öldürmeye gelenler
+                                    güzelliğinden etkilenip geri döner. Melek formuna yalnızca 3 kez dönüşebilirsin.
+                                    Oyunun sonuna kadar hayatta kalırsan kazanırsın.
                                 </p>
                             </div>
                         </div>
