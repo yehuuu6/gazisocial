@@ -176,6 +176,9 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->iconButton()
                     ->label('Düzenle'),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->label('Sil'),
             ]);
     }
 
