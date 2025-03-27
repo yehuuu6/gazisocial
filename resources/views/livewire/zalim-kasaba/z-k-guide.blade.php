@@ -444,7 +444,7 @@
                                 <p class="text-gray-600 text-sm">
                                     Geceleri dokunulmazsın. Bir mafya üyesi sana saldırırsa, kimliklerinizi
                                     öğrenirsiniz. Bir avcı seni öldürmeye gelirse, ona sahte bir
-                                    anı yükleyip geri gönderirsin. 2 adet zehirinle sadece köylüleri dikkatlice
+                                    anı yükleyip geri gönderirsin. 2 adet zehirinle köylüleri dikkatlice
                                     zehirlemelisin.
                                 </p>
                             </div>

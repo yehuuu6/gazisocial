@@ -98,7 +98,10 @@
                             <li class="flex items-center justify-between p-2 gap-1 rounded-lg border border-gray-100 shadow-sm bg-white"
                                 wire:key="lobby-role-{{ $role->id }}">
                                 <div class="text-sm flex items-center gap-1">
-                                    @if (!$lobby->roles_hidden || in_array($role->enum, App\Enums\ZalimKasaba\PlayerRole::getUniqueRoles()))
+                                    @if (
+                                        $currentPlayer->is_host ||
+                                            !$lobby->roles_hidden ||
+                                            in_array($role->enum, App\Enums\ZalimKasaba\PlayerRole::getUniqueRoles()))
                                         <span class="text-xl">{{ $role->icon }}</span>
                                         <span class="text-gray-800 font-medium">
                                             {{ $role->name }}
