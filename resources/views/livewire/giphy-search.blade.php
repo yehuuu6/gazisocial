@@ -1,7 +1,8 @@
 <div>
     <div class="flex items-center gap-1 justify-between w-full border focus:border-gray-300 rounded border-gray-100">
-        <input x-trap="gifSelector" type="text" spellcheck="false" class="text-sm lg:text-lg outline-none w-full p-2"
-            placeholder="🔎 GIPHY'de Ara" wire:model.live.debounce.500ms="query" id="giphy-search-input" />
+        <input x-trap="gifSelector" autocomplete="off" type="text" spellcheck="false"
+            class="text-sm lg:text-lg outline-none w-full p-2" placeholder="🔎 GIPHY'de Ara"
+            wire:model.live.debounce.500ms="query" id="giphy-search-input" />
         <div class="flex items-end justify-end">
             <a target="_blank" href="https://giphy.com/">
                 <img src="{{ asset('logos/giphy.png') }}" alt="Powered by GIPHY" class="w-16 md:w-20" />
