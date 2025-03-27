@@ -313,7 +313,8 @@
                 <ul class="flex flex-col gap-2 mt-1.5 flex-grow overflow-y-auto h-0">
                     @forelse ($lobby->players()->with(['user', 'role', 'votesReceived'])->orderBy('place')->where('is_alive', true)->get() as $player)
                         <li wire:key="player-{{ $player->id }}"
-                            class="flex items-center justify-between gap-4 rounded-lg p-2 border border-gray-100 shadow-sm bg-white">
+                            x-on:click="$dispatch('whisper-to-player', { playerPlace: {{ $player->place }} })"
+                            class="flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50 rounded-lg p-2 border border-gray-100 shadow-sm bg-white">
                             <div class="flex items-center gap-2">
                                 <span
                                     :class="{

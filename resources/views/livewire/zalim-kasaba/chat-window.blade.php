@@ -8,11 +8,19 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
             });
         },
-}" class="flex flex-col flex-1 h-0">
+        whisperToPlayer(place) {
+            // Set the input text to /w place
+            const messageInput = this.$refs.messageInput;
+            messageInput.value = `/w ${place} `;
+            messageInput.focus();
+        },
+}" class="flex flex-col flex-1 h-0"
+    x-on:whisper-to-player.window="whisperToPlayer($event.detail.playerPlace)">
     <x-zalim-kasaba.chat-box :$messages :$currentPlayer />
     <div class="flex items-center gap-2 px-4 py-3 bg-white border-t border-gray-200 shadow-sm">
         <div class="relative flex-grow">
-            <input x-on:keydown.enter="sendMessage()" type="text" wire:model="message"
+            <input x-on:keydown.enter="sendMessage()" type="text" wire:model="message" spellcheck="false"
+                x-ref="messageInput"
                 class="w-full px-4 py-2.5 bg-gray-50 text-sm border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all"
                 placeholder="Mesajınızı yazın...">
         </div>

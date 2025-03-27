@@ -55,6 +55,15 @@
                         sohbet odası vardır ve birbirlerinin
                         aksiyonlarını görebilirler.
                     </p>
+                    <br>
+                    <p class="text-gray-600">
+                        <code class="text-xs text-pink-500">/w (Oyuncu Numarası) (Mesaj)</code> komutu ile ya da oyuncu
+                        listesinden istediğiniz kişiye tıklayarak oyunculara
+                        özel mesajlar
+                        gönderebilirsiniz.
+                        Kasabadaki diğer oyuncular fısıldadığınızı görebilirler ancak mesaj içeriği yalnızca siz ve
+                        alıcı arasındadır.
+                    </p>
                 </div>
             </div>
 

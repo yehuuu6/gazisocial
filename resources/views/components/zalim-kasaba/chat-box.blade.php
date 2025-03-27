@@ -16,6 +16,16 @@
                     <span class="bg-red-500 text-white px-2 py-1 rounded-full">
                         MAFYA
                     </span>
+                @elseif ($this->isWhisperChat($msg))
+                    <span class="bg-indigo-500 text-white px-2 py-1 rounded-full">
+                        @if ($msg->user_id === Auth::id())
+                            SEN FISILDADIN
+                        @elseif ($msg->receiver_id === Auth::id())
+                            SANA FISILDADI
+                        @else
+                            FISILTI
+                        @endif
+                    </span>
                 @endif
                 @if ($msg->user === null && $msg->receiver_id === null)
                     <span class="bg-blue-500 text-white px-2 py-1 rounded-full">
@@ -38,6 +48,8 @@
                 === 'warning',
                 'bg-green-500 text-white': '{{ $msg->type }}'
                 === 'success',
+                'bg-indigo-100 text-indigo-700': '{{ $msg->type }}'
+                === 'whisper',
                 '!text-gray-500 italic': {{ $this->isDeadChat($msg) ? 'true' : 'false' }}
             }"
                 class="rounded px-1 text-xs md:text-sm self-start" style="word-break: break-word;">
