@@ -48,11 +48,6 @@ trait StateEnterEvents
 
     private function enterNight()
     {
-        $offlinePlayers = $this->lobby->players()->where('is_online', false)->get();
-        foreach ($offlinePlayers as $offlinePlayer) {
-            //$this->killPlayer($offlinePlayer);
-        }
-
         $players = $this->lobby->players()->with(['guilt', 'poison'])->where('is_alive', true)->get();
 
         foreach ($players as $player) {

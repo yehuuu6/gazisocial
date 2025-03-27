@@ -54,7 +54,6 @@ class WitchActionHandler implements ActionHandlerInterface
         $this->sendMessageToPlayer($targetPlayer, 'Bir cadı tarafından zehirlendin!', ChatMessageType::WARNING);
 
         // Create the poison
-
         $poison = $this->lobby->poisons()->create(
             [
                 'target_id' => $action->target_id,

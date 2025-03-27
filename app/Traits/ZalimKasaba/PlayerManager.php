@@ -113,7 +113,7 @@ trait PlayerManager
 
         if (!$hostId) {
             $this->lobby->update(['status' => 'waiting_host']);
-            //return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
+            return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         } else {
             $this->lobby->update(['status' => 'active']);
         }
