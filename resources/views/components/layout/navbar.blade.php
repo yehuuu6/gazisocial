@@ -105,12 +105,14 @@
                 class="flex rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                 Oyun Merkezi
             </x-link>
-            @if (Auth::user()->canDoHighLevelAction())
-                <a href="/dashboard"
-                    class="flex rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
-                    Yönetim Paneli
-                </a>
-            @endif
+            @auth
+                @if (Auth::user()->canDoHighLevelAction())
+                    <a href="/dashboard"
+                        class="flex rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
+                        Yönetim Paneli
+                    </a>
+                @endif
+            @endauth
             @guest
                 <a href="{{ route('login') }}"
                     class="flex rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
