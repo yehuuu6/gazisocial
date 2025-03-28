@@ -25,6 +25,16 @@ class Post extends Model
         'image_urls' => 'array',
     ];
 
+    protected static function booted()
+    {
+        // Delete polls from the database when a post is deleted
+        static::deleting(function ($post) {
+            foreach ($post->polls as $poll) {
+                $poll->delete();
+            }
+        });
+    }
+
     public function toggleLike()
     {
         DB::transaction(function () {
