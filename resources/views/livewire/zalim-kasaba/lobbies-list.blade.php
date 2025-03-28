@@ -38,13 +38,13 @@
                             class="bg-white rounded-lg p-4 flex items-center justify-between border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-purple-200 transition-all">
                             <div class="flex items-center gap-4">
                                 <div
-                                    class="bg-gradient-to-r from-purple-500 to-purple-400 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-sm">
+                                    class="bg-gradient-to-r flex-shrink-0 from-purple-500 to-purple-400 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-sm">
                                     <x-icons.user size="24" />
                                 </div>
                                 <div>
                                     <h2 class="text-lg font-bold text-gray-800 capitalize">{{ $lobby->name }}</h2>
                                     <p class="text-sm text-gray-600 flex items-center gap-1">
-                                        <x-icons.user size="14" />
+                                        <x-icons.user size="14" class="flex-shrink-0" />
                                         {{ $lobby->host->name }} tarafından oluşturuldu
                                     </p>
                                 </div>
