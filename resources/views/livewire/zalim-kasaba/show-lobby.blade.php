@@ -34,7 +34,7 @@
             '-left-80': !leftPanel,
             'left-0': leftPanel,
         }" x-cloak
-            class="fixed transform w-72 lg:w-80 transition-all duration-300 top-0 lg:static z-30 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
+            class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-50 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="bg-white p-4 border-b border-gray-200">
                     <div
