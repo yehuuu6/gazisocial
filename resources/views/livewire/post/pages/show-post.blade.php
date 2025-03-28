@@ -72,6 +72,16 @@
                             <x-image-gallery :images="$post->image_urls" />
                         </div>
                     @endif
+                    <div class="mt-2 flex items-center flex-wrap gap-2">
+                        @foreach ($this->polls as $poll)
+                            <button wire:key="poll-button-{{ $poll->id }}" type="button"
+                                x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
+                                class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
+                                <x-icons.survey size="18" class="shrink-0" />
+                                {{ $poll->question }}
+                            </button>
+                        @endforeach
+                    </div>
                     <div class="flex items-center justify-between mt-3">
                         <div class="flex items-center gap-3.5" x-data="{ isDisabled: false }">
                             <button x-on:click="toggleLike()" :disabled='isDisabled'
@@ -281,22 +291,6 @@
                         @foreach ($post->tags as $tag)
                             <x-post.post-tag :tag="$tag" :key="'tag-' . $tag->id" />
                         @endforeach
-                    </div>
-                </div>
-                <x-seperator />
-                <div class="p-4 lg:p-6">
-                    <h4 class="text-sm text-gray-700 font-light uppercase">EKLENEN ANKETLER</h4>
-                    <div class="mt-2 flex items-center flex-wrap gap-2">
-                        @forelse ($this->polls as $poll)
-                            <button wire:key="poll-button-{{ $poll->id }}" type="button"
-                                x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
-                                class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
-                                <x-icons.survey size="18" class="shrink-0" />
-                                {{ $poll->question }}
-                            </button>
-                        @empty
-                            <p class="text-gray-600 font-light text-sm">Bu gönderiye ait anket bulunmamaktadır.</p>
-                        @endforelse
                     </div>
                 </div>
             </div>
