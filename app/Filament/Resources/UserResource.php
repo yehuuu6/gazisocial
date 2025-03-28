@@ -16,6 +16,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\UserResource\Pages;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Notification as LaravelNotification;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -147,6 +149,14 @@ class UserResource extends Resource
                     ->sortable()
                     ->formatStateUsing(fn($state) => Carbon::parse($state)->translatedFormat('d M h:i, Y'))
                     ->alignCenter(),
+
+                Tables\Columns\IconColumn::make('is_banned')
+                    ->label('Yasaklı Hesap')
+                    ->boolean()
+                    ->color(fn($state) => $state ? 'danger' : 'success')
+                    ->trueIcon('heroicon-o-shield-exclamation')
+                    ->falseIcon('heroicon-o-shield-check')
+                    ->alignCenter(),
             ])
             ->filters([
                 Filter::make('Onaylı Hesaplar')->query(
@@ -154,6 +164,9 @@ class UserResource extends Resource
                         return $query->where('email_verified_at', '!=', null);
                     }
                 ),
+                Filter::make('Yasaklı Hesaplar')
+                    ->query(fn(Builder $query): Builder => $query->where('is_banned', true))
+                    ->label('Yasaklı Hesaplar'),
                 SelectFilter::make('roles')
                     ->multiple()
                     ->options(Role::pluck('name', 'id')->toArray())
@@ -179,6 +192,66 @@ class UserResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->iconButton()
                     ->label('Sil'),
+                Tables\Actions\Action::make('ban')
+                    ->label('Yasakla')
+                    ->icon('heroicon-o-shield-exclamation')
+                    ->color('danger')
+                    ->iconButton()
+                    ->requiresConfirmation()
+                    ->action(function (User $record) {
+                        /**
+                         * @var User $user
+                         */
+                        $user = Auth::user();
+                        if (! $user->can('ban', $record)) {
+                            return;
+                        }
+
+                        $record->is_banned = true;
+                        $record->save();
+
+                        Notification::make()
+                            ->title($record->name . ' kullanıcısı yasaklandı')
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(function (User $record): bool {
+                        /**
+                         * @var User $user
+                         */
+                        $user = Auth::user();
+                        return ! $record->is_banned && $user->can('ban', $record);
+                    }),
+                Tables\Actions\Action::make('unban')
+                    ->label('Yasağı Kaldır')
+                    ->icon('heroicon-o-shield-check')
+                    ->color('success')
+                    ->iconButton()
+                    ->requiresConfirmation()
+                    ->action(function (User $record) {
+                        /**
+                         * @var User $user
+                         */
+                        $user = Auth::user();
+                        if (! $user->can('ban', $record)) {
+                            return;
+                        }
+
+                        $record->is_banned = false;
+                        $record->save();
+
+                        Notification::make()
+                            ->title($record->name . ' kullanıcısının yasağı kaldırıldı')
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(function (User $record): bool {
+                        /**
+                         * @var User $user
+                         */
+                        $user = Auth::user();
+                        return $record->is_banned && $user->can('ban', $record);
+                    }),
             ]);
     }
 

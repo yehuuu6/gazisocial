@@ -26,12 +26,24 @@ class UserPolicy
         return $user->id === $model->id;
     }
 
+    public function ban(User $user, User $model): bool
+    {
+        if ($user->canDoCriticalAction() && $user->strongRole()->level > $model->strongRole()->level) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, User $model): bool
     {
         if ($user->canBeAGod()) {
+            if ($user->id === $model->id) {
+                return false;
+            }
             return true;
         }
         return $user->id === $model->id;

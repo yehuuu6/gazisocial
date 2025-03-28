@@ -22,6 +22,10 @@ class CommentPolicy
             return false;
         }
 
+        if ($user->is_banned) {
+            return false;
+        }
+
         return true;
     }
 
@@ -29,6 +33,10 @@ class CommentPolicy
     {
         if ($user->canDoHighLevelAction() && $user->strongRole()->level > $comment->user->strongRole()->level) {
             return true;
+        }
+
+        if ($user->is_banned) {
+            return false;
         }
 
         return $user->id === $comment->user_id;

@@ -107,7 +107,7 @@ class CommentsList extends Component
         $response = Gate::inspect('create', Comment::class);
 
         if (!$response->allowed()) {
-            Toaster::warning('Yorum yapmak için onaylı bir hesap gereklidir.');
+            Toaster::warning('Yorum yapmak için yetkiniz yok.');
             return false;
         }
 

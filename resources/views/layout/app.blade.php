@@ -30,6 +30,11 @@
     <x-layout.navbar />
     <x-layout.header />
     <main class="mx-[3%] mt-4 xl:mx-[6%] md:mt-8 mb-7 md:mb-14 2xl:mx-[12%]">
+        @auth
+            @if (Auth::user()->is_banned)
+                <x-ban-info />
+            @endif
+        @endauth
         {{ $slot }}
     </main>
     <x-layout.footer />

@@ -24,6 +24,10 @@ class PostPolicy
             return false;
         }
 
+        if ($user->is_banned) {
+            return false;
+        }
+
         if ($user->canDoLowLevelAction()) {
             return true;
         }
@@ -45,6 +49,10 @@ class PostPolicy
         // Then the user can edit the post
         if ($user->canDoHighLevelAction() && $user->strongRole()->level >= $post->user->strongRole()->level) {
             return true;
+        }
+
+        if ($user->is_banned) {
+            return false;
         }
 
         // Kullanıcı postun sahibi ise düzenleyebilir

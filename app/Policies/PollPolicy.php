@@ -9,6 +9,21 @@ use Illuminate\Auth\Access\Response;
 class PollPolicy
 {
 
+    public function create(User $user)
+    {
+        if (!$user) {
+            return false;
+        }
+        if ($user->is_banned) {
+            return false;
+        }
+        if (!$user->hasVerifiedEmail()) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */

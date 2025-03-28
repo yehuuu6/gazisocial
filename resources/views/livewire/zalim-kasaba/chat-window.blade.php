@@ -33,7 +33,7 @@
             </x-ui.tooltip>
             <button type="button" x-on:click="sendMessage()"
                 class="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-lg p-2 text-white transition-all shadow-sm">
-                <x-icons.send size="20" />
+                <x-icons.send-msg size="20" />
             </button>
         </div>
     </div>

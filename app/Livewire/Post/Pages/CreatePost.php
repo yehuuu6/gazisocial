@@ -109,6 +109,13 @@ class CreatePost extends Component
             return;
         }
 
+        $response = Gate::inspect('create', Poll::class);
+
+        if (!$response->allowed()) {
+            Toaster::error('Anket oluşturmak için yetkiniz yok.');
+            return;
+        }
+
         if (count($this->options) < 2) {
             Toaster::error('En az 2 seçenek eklemelisiniz.');
             return;
@@ -243,7 +250,7 @@ class CreatePost extends Component
         $response = Gate::inspect('create', Post::class);
 
         if (!$response->allowed()) {
-            Toaster::error('Konu oluşturmak için onaylı bir hesap gereklidir.');
+            Toaster::error('Konu oluşturmak için yetkiniz yok.');
             return;
         }
 
@@ -290,10 +297,16 @@ class CreatePost extends Component
             'content' => $this->content,
         ];
 
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+
         $post = Post::create([
             ...$validated,
             'user_id' => Auth::id(),
             'is_anonim' => $this->is_anonim,
+            'is_published' => $user->can('publish', Post::class),
         ]);
 
         // Store images
