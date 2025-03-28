@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->longText('html');
+            $table->json('image_urls')->nullable();
+            $table->boolean('is_published')->default(false);
             $table->boolean('is_pinned')->default(false);
             $table->boolean('is_reported')->default(false);
             $table->unsignedBigInteger('likes_count')->default(0);

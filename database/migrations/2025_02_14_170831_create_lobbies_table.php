@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('max_players')->default(6);
             $table->string('state')->default('lobby');
             $table->integer('day_count')->default(0);
+            $table->boolean('roles_hidden')->default(false);
             $table->boolean('is_listed')->default(true);
             $table->string('status')->default('waiting_host');
             $table->timestamps();
