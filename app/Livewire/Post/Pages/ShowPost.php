@@ -58,6 +58,13 @@ class ShowPost extends Component
         return $user->canDoHighLevelAction() || $this->isOwnPost();
     }
 
+    public function deletePost()
+    {
+        $this->authorize('delete', $this->post);
+        $this->post->delete();
+        return redirect()->route('users.show', Auth::user()->username)->success('Konu başarıyla silindi.');
+    }
+
     public function reportPost()
     {
         $this->authorize('report', Post::class);

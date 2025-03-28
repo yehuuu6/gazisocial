@@ -158,16 +158,18 @@
                                     @endif
                                     {{ $post->title }}
                                 </x-link>
-                                <div x-data="{
-                                    openMorePostButtons: false,
-                                    confirmDelete: false,
-                                }" class="flex-shrink-0" x-ref="moreButton">
-                                    <button x-on:click="openMorePostButtons = true" type="button"
-                                        class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
-                                        <x-icons.dots size="18" />
-                                    </button>
-                                    <x-post.post-more-dropdown :$post />
-                                </div>
+                                @can('delete', $post)
+                                    <div x-data="{
+                                        openMorePostButtons: false,
+                                        confirmDelete: false,
+                                    }" class="flex-shrink-0" x-ref="moreButton">
+                                        <button x-on:click="openMorePostButtons = true" type="button"
+                                            class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
+                                            <x-icons.dots size="18" />
+                                        </button>
+                                        <x-post.post-more-dropdown :$post />
+                                    </div>
+                                @endcan
                             </div>
                             <div class="flex items-center gap-1.5 mb-2">
                                 @foreach ($post->tags as $tag)
@@ -234,13 +236,15 @@
                                         {{ $comment->created_at->locale('tr')->translatedFormat('d F Y H:i') }}
                                     </span>
                                 </div>
-                                <div x-data="{ openMoreCommentButtons: false, confirmDelete: false }" x-ref="moreCommentButton">
-                                    <button x-on:click="openMoreCommentButtons = true" type="button"
-                                        class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
-                                        <x-icons.dots size="18" />
-                                    </button>
-                                    <x-comment.comment-more-dropdown-profile :$comment />
-                                </div>
+                                @can('delete', $comment)
+                                    <div x-data="{ openMoreCommentButtons: false, confirmDelete: false }" x-ref="moreCommentButton">
+                                        <button x-on:click="openMoreCommentButtons = true" type="button"
+                                            class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
+                                            <x-icons.dots size="18" />
+                                        </button>
+                                        <x-comment.comment-more-dropdown-profile :$comment />
+                                    </div>
+                                @endcan
                             </div>
 
                             <!-- Yorum İçeriği -->
