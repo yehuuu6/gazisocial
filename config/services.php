@@ -18,6 +18,10 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
+    'giphy' => [
+        'token' => env('GIPHY_API_KEY'),
+    ],
+
     'recaptcha' => [
         'key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
         'secret' => env('GOOGLE_RECAPTCHA_SECRET'),

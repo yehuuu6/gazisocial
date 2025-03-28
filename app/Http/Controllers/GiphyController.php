@@ -28,7 +28,7 @@ class GiphyController extends Controller
             try {
                 $response = $this->client->get('search', [
                     'query' => [
-                        'api_key' => env('GIPHY_API_KEY'),
+                        'api_key' => config('services.giphy.token'),
                         'q' => $query,
                         'limit' => 20,
                     ],
@@ -48,7 +48,7 @@ class GiphyController extends Controller
             try {
                 $response = $this->client->get('trending', [
                     'query' => [
-                        'api_key' => env('GIPHY_API_KEY'),
+                        'api_key' => config('services.giphy.token'),
                         'limit' => 20,
                     ],
                 ]);
