@@ -166,4 +166,14 @@ class Post extends Model
     {
         return route('posts.show', [$this, Str::slug($this->title), ...$parameters]);
     }
+
+    /**
+     * Determine if the model should be searchable.
+     *
+     * @return bool
+     */
+    public function shouldBeSearchable()
+    {
+        return $this->is_published;
+    }
 }
