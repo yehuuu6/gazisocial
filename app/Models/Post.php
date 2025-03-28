@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Scopes\PublishedScope;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -32,6 +33,32 @@ class Post extends Model
             foreach ($post->polls as $poll) {
                 $poll->delete();
             }
+        });
+
+        static::addGlobalScope(function ($builder) {
+            // Check for authenticated user at query time, not boot time
+            if (!Auth::check()) {
+                // Guests can only see published posts
+                $builder->where('is_published', true);
+                return;
+            }
+            
+            /**
+             * @var \App\Models\User $user
+             */
+            $user = Auth::user();
+            
+            if ($user->canDoHighLevelAction()) {
+                // Users with high level permissions can see all posts
+                return;
+            }
+            
+            // Authors can see their own posts (both published and unpublished)
+            // Others can only see published posts
+            $builder->where(function ($query) use ($user) {
+                $query->where('is_published', true)
+                      ->orWhere('user_id', $user->id);
+            });
         });
     }
 

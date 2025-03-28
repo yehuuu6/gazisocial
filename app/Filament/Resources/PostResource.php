@@ -68,9 +68,17 @@ class PostResource extends Resource
 
                 Tables\Columns\ToggleColumn::make('is_pinned')
                     ->label('Sabitlenmiş')
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->visible(function () {
                         return Gate::allows('pin', Post::class);
+                    })
+                    ->alignCenter(),
+
+                Tables\Columns\ToggleColumn::make('is_published')
+                    ->label('Yayında')
+                    ->toggleable()
+                    ->visible(function () {
+                        return Gate::allows('publish', Post::class);
                     })
                     ->alignCenter(),
 
@@ -100,6 +108,11 @@ class PostResource extends Resource
                     ->alignCenter(),
             ])
             ->filters([
+                Filter::make('İnceleme Bekleyen')->query(
+                    function ($query) {
+                        return $query->where('is_published', false);
+                    }
+                ),
                 Filter::make('Sabitlenmiş')
                     ->query(fn($query) => $query->where('is_pinned', true)),
                 Filter::make('Anonim')->query(
@@ -158,7 +171,7 @@ class PostResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->iconButton()
             ])
-            ->modifyQueryUsing(fn(Builder $query) => $query->with('user')->withCount('polls'));
+            ->modifyQueryUsing(fn(Builder $query) => $query->withoutGlobalScopes()->with('user')->withCount('polls'));
     }
 
     public static function getRelations(): array

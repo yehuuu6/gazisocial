@@ -16,10 +16,17 @@
             @endif
             <div class="flex flex-col gap-2 md:gap-0 w-full">
                 <div class="item-center flex flex-wrap gap-2">
+                    @if (!$post->is_published)
+                        <div class="hidden md:inline-block">
+                            <x-ui.tooltip text="Yayınlanmamış">
+                                <x-icons.warning size="20" class="text-amber-500 inline-block items-center" />
+                            </x-ui.tooltip>
+                        </div>
+                    @endif
                     @if ($post->is_pinned && $show_pins)
                         <div class="hidden md:inline-block">
                             <x-ui.tooltip text="Sabitlenmiş">
-                                <x-icons.pin size="20" class="text-amber-500 inline-block items-center" />
+                                <x-icons.pin size="20" class="text-blue-500 inline-block items-center" />
                             </x-ui.tooltip>
                         </div>
                     @endif
@@ -41,8 +48,12 @@
                         </x-link>
                     @endif
                     <span class="text-xs font-light text-gray-600"> tarafından</span>
+                    @if (!$post->is_published)
+                        <x-icons.warning size="18"
+                            class="text-amber-500 ml-1 md:hidden inline-block items-center" />
+                    @endif
                     @if ($post->is_pinned && $show_pins)
-                        <x-icons.pin size="18" class="text-amber-500 ml-1 md:hidden inline-block items-center" />
+                        <x-icons.pin size="18" class="text-blue-500 ml-1 md:hidden inline-block items-center" />
                     @endif
                 </div>
             </div>

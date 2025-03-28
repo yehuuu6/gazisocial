@@ -70,6 +70,15 @@ class PostPolicy
         return true;
     }
 
+    public function publish(User $user): bool
+    {
+        if ($user->canDoHighLevelAction()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function pin(User $user): bool
     {
         if ($user->canDoCriticalAction()) {

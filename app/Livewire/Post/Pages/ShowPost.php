@@ -86,6 +86,13 @@ class ShowPost extends Component
         return $this->post->polls()->with('options')->get();
     }
 
+    public function publishPost()
+    {
+        $this->authorize('publish', $this->post);
+        $this->post->update(['is_published' => true]);
+        Toaster::success('Konu başarıyla yayınlandı.');
+    }
+
     public function mount(Post $post, Request $request, $comment = null,)
     {
         $this->post = $post;

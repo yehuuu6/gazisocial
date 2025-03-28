@@ -31,6 +31,52 @@
     }
 }" x-on:comment-added.window="commentCount++"
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
+    @if (!$post->is_published && !Auth::user()->canDoHighLevelAction())
+        <div
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-amber-50 text-amber-700 rounded-md border border-amber-200">
+            <div class="inline-flex items-center gap-3">
+                <x-icons.eye-off size="18" class="flex-shrink-0" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Bu konu yönetici onayı bekliyor. Şu anda sadece siz görebilirsiniz.
+                </span>
+            </div>
+            <button type="button" disabled
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-amber-50 px-2 py-1 rounded font-medium">
+                holder
+            </button>
+        </div>
+    @elseif (!$post->is_published && Auth::user()->canDoHighLevelAction())
+        <div
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-amber-50 text-amber-700 rounded-md border border-amber-200">
+            <div class="inline-flex items-center gap-3">
+                <x-icons.eye-off size="18" class="flex-shrink-0" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Bu konu yayınlanmak için onay bekliyor. Konuyu inceleyip uygunsa yayınlayabilirsiniz.
+                </span>
+            </div>
+            @can('publish', $post)
+                <button wire:click="publishPost"
+                    class="text-xs lg:text-sm text-white bg-yellow-500 hover:bg-yellow-600 px-2 py-1 rounded font-medium">
+                    Yayınla
+                </button>
+            @endcan
+        </div>
+    @endif
+    @if ($post->is_pinned)
+        <div
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-blue-50 text-blue-700 rounded-md border border-blue-200">
+            <div class="inline-flex items-center gap-3">
+                <x-icons.pin size="18" class="flex-shrink-0" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Bu konu yöneticiler tarafından sabitlenmiş. Önemli içeriğe sahip olabilir.
+                </span>
+            </div>
+            <button type="button" disabled
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-blue-50 px-2 py-1 rounded font-medium">
+                holder
+            </button>
+        </div>
+    @endif
     <div class="flex flex-col rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex relative">
             <div class="flex-grow">
@@ -49,19 +95,8 @@
                 <div class="flex w-full flex-col py-4 px-6 gap-2 md:gap-4 md:px-10 md:py-6">
                     <div>
                         <x-post.post-title>{{ $post->title }}</x-post.post-title>
-                        <div>
-                            <span class="text-sm text-gray-600 font-light">
-                                {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</span>
-                        </div>
-                        @if ($post->is_pinned)
-                            <div
-                                class="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full border border-blue-200 shadow-sm">
-                                <x-icons.pin size="18" />
-                                <span class="text-xs font-medium">
-                                    Bu gönderi yöneticiler tarafından sabitlenmiştir.
-                                </span>
-                            </div>
-                        @endif
+                        <div class="mt-0.5 text-sm md:text-base md:mt-1.5 lg:mt-2 text-gray-600 font-light">
+                            {{ $post->created_at->locale('tr')->diffForHumans() }} paylaşıldı</div>
                     </div>
                     <article x-data="highlightCode" wire:ignore style="word-break: break-word;"
                         class="prose prose-sm max-w-none sm:prose-sm md:prose-base lg:prose-lg ProseMirror [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_code]:break-words">
@@ -173,9 +208,9 @@
                         <x-icons.close size="18" />
                     </button>
                 @endcannot
-                <div class="flex items-center gap-4 px-4 pt-4 lg:px-6 lg:pt-6">
+                <div class="flex items-center gap-4">
                     @can('update', $post)
-                        <div class="flex-grow pb-0 flex items-center justify-between gap-2">
+                        <div class="flex-grow pb-0 flex items-center justify-between gap-2 pl-4 pt-4 lg:pl-6 lg:pt-6">
                             <button x-on:click="userPanel = !userPanel"
                                 class="lg:hidden bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
                                 <x-icons.close size="18" />
@@ -191,7 +226,7 @@
                         <div x-data="{
                             openMorePostButtons: false,
                             confirmDelete: false,
-                        }" class="flex-shrink-0" x-ref="moreButton">
+                        }" class="flex-shrink-0 pr-4 pt-4 lg:pr-6 lg:pt-6" x-ref="moreButton">
                             <button x-on:click="openMorePostButtons = true" type="button"
                                 class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
                                 <x-icons.dots size="18" />

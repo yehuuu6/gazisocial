@@ -15,7 +15,7 @@ class ContentWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Konular', Post::count())
+            Stat::make('Konular', Post::withoutGlobalScopes()->count())
                 ->icon('heroicon-o-document-text')
                 ->description('Toplam açılan konular')
                 ->color('sky')
@@ -46,7 +46,7 @@ class ContentWidget extends BaseWidget
         // Get data for the last 7 days
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
-            $count = Post::whereDate('created_at', $date)->count();
+            $count = Post::withoutGlobalScopes()->whereDate('created_at', $date)->count();
             $data[] = $count;
         }
 
