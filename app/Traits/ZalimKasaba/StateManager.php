@@ -52,26 +52,14 @@ trait StateManager
         // In seconds
         $timerValues = [
             GameState::PREPARATION->value => 15,
-            GameState::DAY->value => $currentDay === 0 ? 10 : 20,
-            GameState::VOTING->value => 15,
+            GameState::DAY->value => $currentDay === 0 ? 10 : 45,
+            GameState::VOTING->value => 30,
             GameState::DEFENSE->value => 20,
             GameState::JUDGMENT->value => 20,
             GameState::LAST_WORDS->value => 10,
-            GameState::NIGHT->value => 25,
+            GameState::NIGHT->value => 45,
             GameState::REVEAL->value => 10,
-            GameState::GAME_OVER->value => 30,
-        ];
-
-        $oldTimerValues = [
-            GameState::PREPARATION->value => 5,
-            GameState::DAY->value => $currentDay === 0 ? 5 : 30,
-            GameState::VOTING->value => 15,
-            GameState::DEFENSE->value => 5,
-            GameState::JUDGMENT->value => 10,
-            GameState::LAST_WORDS->value => 5,
-            GameState::NIGHT->value => 10,
-            GameState::REVEAL->value => 5,
-            GameState::GAME_OVER->value => 30,
+            GameState::GAME_OVER->value => 15,
         ];
 
         // If the next state is in the timerValues array, set the countdown_end
