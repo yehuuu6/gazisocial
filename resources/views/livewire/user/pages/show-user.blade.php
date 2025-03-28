@@ -182,11 +182,16 @@
                                 {{ mb_substr(strip_tags($post->html), 0, 200, 'UTF-8') }}...
                             </p>
                         </div>
-                        <div class="mt-3.5 flex items-center justify-between gap-5">
-                            <div class="flex items-center gap-3.5 text-gray-500">
+                        <div class="mt-3.5 flex items-end md:items-center justify-between gap-5">
+                            <div class="flex items-center gap-3.5 text-gray-500 flex-wrap">
                                 <div class="flex items-center gap-1 text-xs">
                                     <x-icons.calendar size="16" />
-                                    {{ $post->created_at->locale('tr')->translatedFormat('d F Y') }}
+                                    <span class="hidden md:inline-block">
+                                        {{ $post->created_at->locale('tr')->translatedFormat('d F, Y') }}
+                                    </span>
+                                    <span class="inline-block md:hidden">
+                                        {{ $post->created_at->locale('tr')->translatedFormat('d M, Y') }}
+                                    </span>
                                 </div>
                                 <div class="flex items-center gap-1 text-xs">
                                     <x-icons.comment size="16" />
@@ -197,7 +202,7 @@
                                     {{ $post->likes_count }} beğeni
                                 </div>
                             </div>
-                            <div class="flex items-center">
+                            <div class="flex items-center shrink-0">
                                 <x-link href="{{ $post->showRoute() }}" class="text-xs text-gray-800">
                                     Devamını oku
                                 </x-link>
@@ -224,14 +229,15 @@
                     <div class="rounded-md border border-gray-200 p-4" wire:key="comment-{{ $comment->id }}">
                         <div class="flex flex-col lg:gap-2">
                             <!-- Yorum Başlığı -->
-                            <div class="flex items-center justify-between gap-4">
+                            <div class="flex md:items-center justify-between gap-4">
                                 <div>
                                     <x-link href="{{ $comment->post->showRoute() }}"
                                         class="text-xs md:text-sm text-gray-800 font-medium">
                                         <span class="text-gray-600 text-xs md:text-sm font-normal">Şu konuya:</span>
                                         {{ Str::limit($comment->post->title, 50) }}
                                     </x-link>
-                                    <span class="text-gray-500 text-xs">•</span>
+                                    <span class="hidden md:block text-gray-500 text-xs">•</span>
+                                    <br class="md:hidden">
                                     <span class="text-xs text-gray-500">
                                         {{ $comment->created_at->locale('tr')->translatedFormat('d F Y H:i') }}
                                     </span>
@@ -263,8 +269,8 @@
                             </div>
 
                             <!-- Yorum Alt Bilgileri -->
-                            <div class="flex items-center justify-between mt-2">
-                                <div class="flex items-center gap-3.5 text-gray-500">
+                            <div class="flex items-end md:items-center justify-between mt-2">
+                                <div class="flex flex-wrap items-center gap-3.5 text-gray-500">
                                     <div class="flex items-center gap-1 text-xs">
                                         <x-icons.heart size="16" />
                                         {{ $comment->likes_count }} beğeni
@@ -274,15 +280,16 @@
                                         {{ $comment->getAllRepliesCount() }} yanıt
                                     </div>
                                 </div>
-                                <div>
+                                <div class="shrink-0">
                                     @if ($comment->commentable_type === 'comment')
                                         <x-link
                                             href="{{ $comment->commentable->showRoute(['reply' => $comment->id]) }}"
-                                            class="text-xs text-gray-800">
+                                            class="text-xs shrink-0 text-gray-800">
                                             Yanıta git
                                         </x-link>
                                     @else
-                                        <x-link href="{{ $comment->showRoute() }}" class="text-xs text-gray-800">
+                                        <x-link href="{{ $comment->showRoute() }}"
+                                            class="shrink-0 text-xs text-gray-800">
                                             Yoruma git
                                         </x-link>
                                     @endif
