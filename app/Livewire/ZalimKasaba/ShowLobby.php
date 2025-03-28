@@ -119,6 +119,12 @@ class ShowLobby extends Component
         ];
     }
 
+    public function leaveLobby()
+    {
+        $this->currentPlayer->update(['is_online' => false]);
+        return redirect()->route('games.zk.lobbies');
+    }
+
     public function handleVote($payload)
     {
         // Refresh players list
@@ -144,7 +150,7 @@ class ShowLobby extends Component
 
         if ($this->lobby->players->count() < $this->lobby->max_players) {
             Toaster::error('Oyuncu sayısı yetersiz. Oyuna başlamak için ' . $this->lobby->max_players . ' oyuncu gereklidir.');
-            return;
+            //return;
         }
 
         $this->randomizePlayerPlaces();

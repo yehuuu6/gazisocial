@@ -1,31 +1,28 @@
-<div :class="{
-    'h-[calc(100dvh-2rem)] lg:h-[calc(100dvh-16rem)]': !fullscreen,
-    'h-full': fullscreen
-}"
-    x-data="{
-        waitHostInterval: null,
-        closeTimerTimeout: null,
-        hostReturned() {
+<div x-init="fullscreen = true" x-data="{
+    waitHostInterval: null,
+    closeTimerTimeout: null,
+    hostReturned() {
+        clearInterval(this.waitHostInterval);
+        clearTimeout(this.closeTimerTimeout);
+        Toaster.success('Yönetici geri döndü.');
+    },
+    waitForHost() {
+        let count = 30;
+        Toaster.warning(`Yönetici oyundan ayrıldı. Bekleniyor... ${count}`);
+        this.waitHostInterval = setInterval(() => {
+            count = count - 5;
+            Toaster.info(`Yönetici bekleniyor ${count}...`);
+        }, 5000);
+        this.closeTimerTimeout = setTimeout(() => {
             clearInterval(this.waitHostInterval);
-            clearTimeout(this.closeTimerTimeout);
-            Toaster.success('Yönetici geri döndü.');
-        },
-        waitForHost() {
-            let count = 30;
-            Toaster.warning(`Yönetici oyundan ayrıldı. Bekleniyor... ${count}`);
-            this.waitHostInterval = setInterval(() => {
-                count = count - 5;
-                Toaster.info(`Yönetici bekleniyor ${count}...`);
-            }, 5000);
-            this.closeTimerTimeout = setTimeout(() => {
-                clearInterval(this.waitHostInterval);
-                Toaster.error('Yönetici gelmedi. Oda kapatılıyor.');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }, 30000);
-        },
-    }" x-on:host-left.window="waitForHost()" x-on:host-returned.window="hostReturned()">
+            Toaster.error('Yönetici gelmedi. Oda kapatılıyor.');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }, 30000);
+    },
+}" x-on:host-left.window="waitForHost()" class="h-full"
+    x-on:host-returned.window="hostReturned()">
     <div class="flex h-full rounded-xl shadow-sm border border-gray-200 overflow-hidden" x-data="{
         leftPanel: false,
         rightPanel: false,
@@ -34,6 +31,11 @@
             '-left-80': !leftPanel,
             'left-0': leftPanel,
         }" x-cloak
+            wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
+            $el.style.top = headerHeight + 'px';
+            if (window.innerWidth < 1024) {
+                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+            }"
             class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-50 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="bg-white p-4 border-b border-gray-200">
@@ -43,11 +45,6 @@
                             <x-icons.skull size="18" />
                             Mezarlık
                         </h1>
-                        <button type="button" x-on:click="leftPanel = false; rightPanel = false;"
-                            x-show="leftPanel && !fullscreen" x-cloak
-                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                            <x-icons.close size="20" />
-                        </button>
                     </div>
                     <ul class="mt-2 flex flex-col gap-2">
                         @forelse ($deadPlayers as $deadPlayer)
@@ -142,14 +139,11 @@
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
                         <x-icons.close size="20" />
                     </button>
-                    <x-ui.tooltip text="Tam Ekran" position="bottom">
-                        <button type="button"
-                            x-on:click="fullscreen = !fullscreen; Toaster.info('Tam ekran ' + (fullscreen ? 'moduna geçildi.' : 'modundan çıkıldı.'))"
-                            class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                            <x-icons.fullscreen x-show="!fullscreen" x-cloak size="20" />
-                            <x-icons.exit-fullscreen x-show="fullscreen" size="20" />
-                        </button>
-                    </x-ui.tooltip>
+                    <button wire:confirm="Oyundan ayrılmak istediğinize emin misiniz?"" type="button"
+                        wire:click="leaveLobby"
+                        class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
+                        <x-icons.logout size="20" />
+                    </button>
                     @if (
                         $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
                             $lobby->state !== App\Enums\ZalimKasaba\GameState::PREPARATION)
@@ -225,16 +219,16 @@
             '-right-80': !rightPanel,
             'right-0': rightPanel,
         }" x-cloak
+            wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
+            $el.style.top = headerHeight + 'px';
+            if (window.innerWidth < 1024) {
+                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+            }"
             class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-30 flex flex-col flex-shrink-0 bg-white border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">
                     <div
                         class="flex items-center justify-between bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded px-3 py-2 mb-3">
-                        <button type="button" x-on:click="rightPanel = false; leftPanel = false;"
-                            x-show="rightPanel && !fullscreen" x-cloak
-                            class="lg:hidden text-gray-200 hover:text-gray-50 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                            <x-icons.close size="20" />
-                        </button>
                         <h1
                             class="text-base md:text-lg flex items-center justify-center gap-2 font-semibold text-center">
                             <span class="text-2xl">{{ $this->currentPlayer->role->icon }}</span>
@@ -351,12 +345,12 @@
                                 $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY &&
                                     $currentPlayer->is_host &&
                                     $player->id !== $currentPlayer->id)
-                                <button type="button" wire:click="kickPlayer({{ $player->id }})"
+                                <button type="button" wire:click="kickPlayer({{ $player->id }})" x-on:click.stop
                                     class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-medium px-3 py-1 text-xs rounded-lg shadow-sm transition-all">
                                     KOV
                                 </button>
                             @elseif ($this->canBeVoted($player))
-                                <button type="button" wire:click="votePlayer({{ $player->id }})"
+                                <button type="button" wire:click="votePlayer({{ $player->id }})" x-on:click.stop
                                     class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium px-3 py-1 text-xs rounded-lg shadow-sm transition-all">
                                     @if ($this->hasVoted($player))
                                         İPTAL
@@ -365,7 +359,7 @@
                                     @endif
                                 </button>
                             @elseif ($this->canUseAbility($player))
-                                <button type="button" wire:click="selectTarget({{ $player->id }})"
+                                <button type="button" wire:click="selectTarget({{ $player->id }})" x-on:click.stop
                                     class="bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-medium px-3 py-1 text-xs rounded-lg shadow-sm transition-all">
                                     @if ($this->hasUsedAbility($player))
                                         İPTAL
