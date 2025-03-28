@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         $user1->assignRole([
             'gazi-social',
-            'ogrenci'
+            'gazili'
         ]);
 
         $user2 = User::create([
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
 
         $user3->assignRole([
             'moderator',
-            'ogrenci',
+            'gazili',
         ]);
 
         $user4 = User::create([
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user4->assignRole([
-            'ogrenci',
+            'gazili',
         ]);
 
         $user5 = User::create([
@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $user5->assignRole([
-            'ogrenci',
+            'gazili',
         ]);
 
         $users[] = $user1;

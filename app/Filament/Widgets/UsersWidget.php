@@ -21,7 +21,7 @@ class UsersWidget extends BaseWidget
                     $this->getUserRegistrationData()
                 ),
             Stat::make('Öğrenciler', User::whereHas('roles', function ($query) {
-                $query->where('slug', 'ogrenci');
+                $query->where('slug', 'gazili');
             })->count())
                 ->icon('heroicon-o-academic-cap')
                 ->description('Gazi Üniversitesi öğrencileri')
@@ -64,7 +64,7 @@ class UsersWidget extends BaseWidget
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $count = User::whereHas('roles', function ($query) {
-                $query->where('slug', 'ogrenci');
+                $query->where('slug', 'gazili');
             })->whereDate('created_at', $date)->count();
             $data[] = $count;
         }

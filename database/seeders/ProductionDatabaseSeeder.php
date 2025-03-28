@@ -18,7 +18,7 @@ class ProductionDatabaseSeeder extends Seeder
     {
         // Create Roles.
         $member = Role::create(['name' => 'Üye', 'color' => 'orange', 'level' => 0]);
-        $gazili = Role::create(['name' => 'Öğrenci', 'color' => 'green', 'level' => 0]);
+        $gazili = Role::create(['name' => 'Gazili', 'color' => 'green', 'level' => 0]);
         $moderator = Role::create(['name' => 'Moderatör', 'color' => 'red', 'level' => 1]);
         $admin = Role::create(['name' => 'Yönetici', 'color' => 'purple', 'level' => 2]);
         $gazisocial = Role::create(['name' => 'Gazi Social', 'color' => 'blue', 'level' => 3]);

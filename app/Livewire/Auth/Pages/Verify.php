@@ -38,7 +38,7 @@ class Verify extends Component
         if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
             // Check if user already has gazili role
             if (!$this->user->isStudent()) {
-                $this->user->assignRole(['ogrenci']);
+                $this->user->assignRole(['gazili']);
             }
         }
 

@@ -124,8 +124,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
 
     public function isStudent(): bool
     {
-        // Return true if the user has the role with the slug 'ogrenci'
-        return $this->hasRole('ogrenci');
+        // Return true if the user has the role with the slug 'gazili'
+        return $this->hasRole('gazili');
     }
 
     /**
