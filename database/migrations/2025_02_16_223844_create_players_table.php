@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('can_haunt')->default(false);
             $table->boolean('self_healed')->default(false);
             $table->boolean('is_cleaned')->default(false);
+            $table->boolean('is_hanged')->default(false);
             $table->boolean('is_alive')->default(true);
             $table->integer('death_night')->nullable();
             $table->text('last_will')->nullable();

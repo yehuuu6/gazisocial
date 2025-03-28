@@ -23,6 +23,8 @@ trait StateEnterEvents
             $this->sendSystemMessage("Gece ölenler: {$deadPlayersString}");
         }
 
+        $this->checkGameOver();
+
         $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
     }
 
@@ -96,5 +98,10 @@ trait StateEnterEvents
     {
         $this->assignRoles($this->lobby);
         $this->sendSystemMessage('Oyun başladı, herkesin rolü belirlendi.');
+    }
+
+    private function enterGameOver()
+    {
+        //
     }
 }

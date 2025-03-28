@@ -241,24 +241,21 @@
                                 @endif
                             </span>
                         </h1>
+                        <span class="text-sm font-bold px-2 py-0.5 rounded-full"
+                            :class="{
+                                'bg-red-50 text-red-600 border border-red-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
+                                    'Mafya 🌹',
+                                'bg-green-50 text-green-600 border border-green-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
+                                    'Kasaba 🏘️',
+                                'bg-purple-50 text-purple-600 border border-purple-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
+                                    'Kaos 🌀',
+                                'bg-yellow-50 text-yellow-600 border border-yellow-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
+                                    'Tarafsız 🕊️'
+                            }">
+                            {{ $this->currentPlayer->role->enum->getFaction() }}
+                        </span>
                     </div>
                     <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 shadow-sm">
-                        <p class="mb-2 flex items-center gap-2">
-                            <span class="font-medium text-gray-700 text-sm">Taraf:</span>
-                            <span class="text-sm font-bold px-2 py-0.5 rounded-full"
-                                :class="{
-                                    'bg-red-50 text-red-600 border border-red-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
-                                        'Mafya 🌹',
-                                    'bg-green-50 text-green-600 border border-green-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
-                                        'Kasaba 🏘️',
-                                    'bg-purple-50 text-purple-600 border border-purple-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
-                                        'Kaos 🌀',
-                                    'bg-yellow-50 text-yellow-600 border border-yellow-200': '{{ $this->currentPlayer->role->enum->getFaction() }}' ==
-                                        'Tarafsız 🕊️'
-                                }">
-                                {{ $this->currentPlayer->role->enum->getFaction() }}
-                            </span>
-                        </p>
                         <div class="my-1">
                             <span class="font-medium text-gray-700 text-sm">
                                 Amaç:

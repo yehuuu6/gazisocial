@@ -2,7 +2,10 @@
 
 namespace App\Traits\ZalimKasaba;
 
+use Illuminate\Support\Collection;
 use App\Enums\ZalimKasaba\GameState;
+use App\Enums\ZalimKasaba\PlayerRole;
+use App\Enums\ZalimKasaba\ChatMessageType;
 use App\Events\ZalimKasaba\GameStateUpdated;
 
 trait StateManager
@@ -49,12 +52,12 @@ trait StateManager
         // In seconds
         $timerValues = [
             GameState::PREPARATION->value => 15,
-            GameState::DAY->value => $currentDay === 0 ? 10 : 45,
-            GameState::VOTING->value => 30,
+            GameState::DAY->value => $currentDay === 0 ? 10 : 20,
+            GameState::VOTING->value => 15,
             GameState::DEFENSE->value => 20,
             GameState::JUDGMENT->value => 20,
             GameState::LAST_WORDS->value => 10,
-            GameState::NIGHT->value => 45,
+            GameState::NIGHT->value => 25,
             GameState::REVEAL->value => 10,
             GameState::GAME_OVER->value => 30,
         ];
@@ -80,6 +83,66 @@ trait StateManager
 
         // Broadcast the updated state to all users in the lobby.
         broadcast(new GameStateUpdated($this->lobby->id, $nextState));
+    }
+
+    public function checkGameOver(): void
+    {
+        $lobby = $this->lobby;
+
+        // Townies win condition
+        // If there are no alive mafia members, townies win
+        // Check PlayerRole::getMafiaRoles() array using where('role.enum')
+        $mafiaRoles = $lobby->players->filter(function ($player) {
+            return in_array($player->role->enum, PlayerRole::getMafiaRoles()) && $player->is_alive;
+        });
+
+        $townRoles = $lobby->players->filter(function ($player) {
+            return in_array($player->role->enum, PlayerRole::getTownRoles()) && $player->is_alive;
+        });
+
+        $winnerUsernameArray = $this->calculateConditionalWins($mafiaRoles, $townRoles);
+
+        if ($mafiaRoles->isEmpty() && !$townRoles->isEmpty()) {
+            // Merge the winnerUsernameArray with the townRoles
+            $winnerUsernameArray = array_merge($winnerUsernameArray, $townRoles->map(fn($player) => $player->user->username)->toArray());
+            $this->sendSystemMessage('Kasaba kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray), type: ChatMessageType::SUCCESS);
+            $this->nextState(GameState::GAME_OVER);
+            return;
+        }
+        if ($townRoles->isEmpty() && !$mafiaRoles->isEmpty()) {
+            // Merge the winnerUsernameArray with the mafiaRoles
+            $winnerUsernameArray = array_merge($winnerUsernameArray, $mafiaRoles->map(fn($player) => $player->user->username)->toArray());
+            $this->sendSystemMessage('Mafya kazandı! Kazananlar: ' . implode(', ', $winnerUsernameArray), type: ChatMessageType::SUCCESS);
+            $this->nextState(GameState::GAME_OVER);
+            return;
+        }
+    }
+
+    private function calculateConditionalWins(Collection $mafiaRoles, Collection $townRoles): array
+    {
+        $winnerUsernameArray = [];
+        // Jester win condition
+        $jesterPlayers = $this->lobby->players->where('role.enum', PlayerRole::JESTER)
+            ->where('is_alive', false)
+            ->where('can_haunt', true);
+
+        foreach ($jesterPlayers as $jesterPlayer) {
+            $winnerUsernameArray[] = $jesterPlayer->user->username;
+        }
+
+        // Witch win condition
+        $witchPlayer = $this->lobby->players->where('role.enum', PlayerRole::WITCH)->where('is_alive', true)->first();
+        if ($witchPlayer && $townRoles->isEmpty()) {
+            $winnerUsernameArray[] = $witchPlayer->user->username;
+        }
+
+        // Angel win condition
+        $angelPlayers = $this->lobby->players->where('role.enum', PlayerRole::ANGEL)->where('is_alive', true);
+        foreach ($angelPlayers as $angelPlayer) {
+            $winnerUsernameArray[] = $angelPlayer->user->username;
+        }
+
+        return $winnerUsernameArray;
     }
 
     /**
@@ -119,6 +182,7 @@ trait StateManager
             GameState::NIGHT => $this->enterNight(),
             GameState::REVEAL => $this->enterReveal(),
             GameState::PREPARATION => $this->enterPreparation(),
+            GameState::GAME_OVER => $this->enterGameOver(),
         };
     }
 }

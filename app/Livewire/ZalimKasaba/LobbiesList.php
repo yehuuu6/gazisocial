@@ -24,6 +24,6 @@ class LobbiesList extends Component
                 ->latest()
                 ->with(['host'])
                 ->simplePaginate(20),
-        ]);
+        ])->title('Zalim Kasaba Oyun Lobileri - Gazi Social');
     }
 }

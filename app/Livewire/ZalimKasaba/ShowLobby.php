@@ -196,6 +196,6 @@ class ShowLobby extends Component
         }
         $this->setJudgeModalState();
         $this->gameTitle = $this->setGameTitle($this->lobby);
-        return view('livewire.zalim-kasaba.show-lobby')->title($this->lobby->name . ' - Zalim Kasaba');
+        return view('livewire.zalim-kasaba.show-lobby')->title($this->lobby->name . ' - ZK | Gazi Social');
     }
 }

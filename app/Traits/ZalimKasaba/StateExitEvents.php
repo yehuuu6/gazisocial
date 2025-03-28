@@ -94,6 +94,8 @@ trait StateExitEvents
                 "{$username} kasaba tarafından idam edildi. Oyuncunun rolü: {$roleIcon} {$roleName}."
             );
 
+            $accused->update(['is_hanged' => false]);
+
             if ($accused->role->enum === PlayerRole::JESTER) {
                 $accused->update(['can_haunt' => true]);
                 $this->sendSystemMessage('Zibidi mezardan intikamını alacak! 🤡', type: ChatMessageType::WARNING);
@@ -101,6 +103,8 @@ trait StateExitEvents
         }
 
         $this->lobby->update(['accused_id' => null]);
+
+        $this->checkGameOver();
 
         $this->promoteJanitor();
     }
@@ -154,6 +158,10 @@ trait StateExitEvents
     private function exitGameOver()
     {
         if ($this->lobby->state !== GameState::GAME_OVER) return false;
+
+        // Return everyone to the guide page
+        return redirect(route('games.zk.guide'))
+            ->with('success', 'Oyun sona erdi. Başka bir oyuna katılabilirsiniz.');
     }
 
     // FUNCTIONS START

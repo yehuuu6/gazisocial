@@ -32,6 +32,7 @@ enum GameState: string
             self::LAST_WORDS => self::NIGHT,
             self::NIGHT => self::REVEAL,
             self::REVEAL => self::DAY,
+            self::GAME_OVER => self::LOBBY,
             default => self::GAME_OVER,
         };
     }
