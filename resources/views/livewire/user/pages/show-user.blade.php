@@ -9,7 +9,7 @@
     activeTab: '{{ $activeTab }}',
     navbarHeight: 0
 }" x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
-    @if ($user->isNewAccount())
+    @if ($user->isNewAccount() && !$user->canDoHighLevelAction())
         <div
             class="mb-4 shadow-sm flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-lime-50 to-green-100 px-6 py-4 select-none text-lime-700 rounded-xl">
             <div class="inline-flex items-center gap-3">
