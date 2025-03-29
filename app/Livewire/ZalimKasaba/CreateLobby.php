@@ -189,10 +189,10 @@ class CreateLobby extends Component
             return;
         }
 
-        //PRODUCTIONREMOVE
+
         if (count($this->selectedRoles) < 7) {
             Toaster::error('En az 7 rol seçmelisiniz.');
-            //return;
+            return;
         }
 
         if (count($this->selectedRoles) > 15) {
