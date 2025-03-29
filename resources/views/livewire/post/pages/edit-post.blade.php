@@ -5,7 +5,7 @@
     <form wire:submit="updatePost" class="rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex-grow">
             <div wire:ignore x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
-            $el.style.top = navbarHeight + 'px';"
+            $el.style.top = navbarHeight + 'px';" id="formHeader"
                 class="flex items-center justify-between gap-4 sticky z-[2] bg-white px-4 lg:px-6 rounded-t-xl py-2.5 lg:py-4 border-b border-gray-200">
                 <h1 class="text-base md:text-xl flex items-center gap-2 font-bold text-gray-800">
                     <div class="size-4 md:size-6 rounded-sm bg-gradient-to-t from-blue-500 to-blue-300 flex-shrink-0">
