@@ -32,8 +32,8 @@
                     </label>
                     <input maxlength="30"
                         class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="text" name="username" value="{{ old('username') }}" required
-                        wire:model="username">
+                        id="username" autocapitalize="off" type="text" name="username" value="{{ old('username') }}"
+                        required wire:model="username">
                 </div>
             </div>
             <div class="mb-4">
