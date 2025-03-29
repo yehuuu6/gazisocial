@@ -3,8 +3,13 @@
 }">
     <div x-data="editor(content)" class="rounded-md">
         <template x-if="isLoaded()">
-            <menu class="bg-white border border-gray-200 text-gray-800 flex flex-wrap divide-x rounded-t-md">
-                <x-ui.tooltip text="Başlık 1">
+            <menu x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
+            const formHeader = document.querySelector('#formHeader');
+            const formHeaderHeight = formHeader.offsetHeight;
+            $el.style.top = (navbarHeight + formHeaderHeight) + 'px';"
+                class ="bg-white border border-gray-200 text-gray-800 flex
+                flex-wrap divide-x rounded-t-md sticky z-[1]">
+                <x-ui.tooltip position="bottom" text="Başlık 1">
                     <button x-on:click="toggleHeading({ level: 2 })" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('heading', { level: 2 }, updatedAt),
@@ -14,7 +19,7 @@
                         <x-icons.heading-1 size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Başlık 2">
+                <x-ui.tooltip position="bottom" text="Başlık 2">
                     <button x-on:click="toggleHeading({ level: 3 })" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('heading', { level: 3 }, updatedAt),
@@ -24,7 +29,7 @@
                         <x-icons.heading-2 size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Başlık 3">
+                <x-ui.tooltip position="bottom" text="Başlık 3">
                     <button x-on:click="toggleHeading({ level: 4 })" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('heading', { level: 4 }, updatedAt),
@@ -34,7 +39,7 @@
                         <x-icons.heading-3 size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Kalın">
+                <x-ui.tooltip position="bottom" text="Kalın">
                     <button x-on:click="toggleBold()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('bold', updatedAt),
@@ -44,7 +49,7 @@
                         <x-icons.bold size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="İtalik">
+                <x-ui.tooltip position="bottom" text="İtalik">
                     <button x-on:click="toggleItalic()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('italic', updatedAt),
@@ -54,7 +59,7 @@
                         <x-icons.italic size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Altı Çizili">
+                <x-ui.tooltip position="bottom" text="Altı Çizili">
                     <button x-on:click="toggleUnderline()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('underline', updatedAt),
@@ -64,7 +69,7 @@
                         <x-icons.underline size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Üstü Çizili">
+                <x-ui.tooltip position="bottom" text="Üstü Çizili">
                     <button x-on:click="toggleStrike()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('strike', updatedAt),
@@ -74,7 +79,7 @@
                         <x-icons.strike size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Alıntı">
+                <x-ui.tooltip position="bottom" text="Alıntı">
                     <button x-on:click="toggleQuote()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('blockquote', updatedAt),
@@ -84,7 +89,7 @@
                         <x-icons.quote size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Madde İşaretli Liste">
+                <x-ui.tooltip position="bottom" text="Madde İşaretli Liste">
                     <button x-on:click="toggleBulletList()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('bulletList', updatedAt),
@@ -94,7 +99,7 @@
                         <x-icons.bullet-list size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Numaralandırılmış Liste">
+                <x-ui.tooltip position="bottom" text="Numaralandırılmış Liste">
                     <button x-on:click="toggleOrderedList()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('orderedList', updatedAt),
@@ -104,7 +109,7 @@
                         <x-icons.ordered-list size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Bağlantı Ekle">
+                <x-ui.tooltip position="bottom" text="Bağlantı Ekle">
                     <button x-on:click="promptUserForHref()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('link', updatedAt),
@@ -114,7 +119,7 @@
                         <x-icons.link size="20" />
                     </button>
                 </x-ui.tooltip>
-                <x-ui.tooltip text="Kod Bloğu Ekle">
+                <x-ui.tooltip position="bottom" text="Kod Bloğu Ekle">
                     <button x-on:click="toggleCodeBlock()" type="button"
                         :class="{
                             'bg-blue-500 text-white': isActive('codeBlock', updatedAt),
@@ -127,7 +132,7 @@
             </menu>
         </template>
 
-        <div x-ref="element"></div>
+        <div x-ref="element" class="mt-0.5"></div>
     </div>
 
 </div>
