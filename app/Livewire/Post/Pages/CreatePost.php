@@ -279,7 +279,7 @@ class CreatePost extends Component
         try {
             $this->validate([
                 'title' => 'bail|required|min:6|max:100',
-                'content' => 'bail|required|min:10|max:5000',
+                'content' => 'bail|required|min:10|max:10000',
                 'images' => 'array|max:3', // Maximum 3 images
             ], $messages);
 
