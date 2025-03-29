@@ -52,7 +52,7 @@
             </p>
             <div class="mt-3 space-y-4">
                 @forelse ($this->pinnedPosts as $post)
-                    <div class="bg-white rounded-lg border-l-4 border-blue-500 shadow-sm hover:bg-blue-50 transition-all duration-300 cursor-pointer overflow-hidden group"
+                    <div class="select-none bg-white rounded-lg border-l-4 border-blue-500 shadow-sm hover:bg-blue-50 transition-all duration-300 cursor-pointer overflow-hidden group"
                         x-on:click="Livewire.navigate('{{ $post->showRoute() }}')"
                         wire:key="pinned-post-{{ $post->id }}">
                         <div class="p-3 md:p-4">
