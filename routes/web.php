@@ -22,6 +22,7 @@ use App\Livewire\ZalimKasaba\LobbiesList;
 use App\Livewire\Auth\Pages\ResetPassword;
 use App\Livewire\Auth\Pages\ForgotPassword;
 use App\Livewire\Docs\AboutUs;
+use App\Livewire\Docs\NewAccountInfo;
 use App\Livewire\Post\Pages\ListPostsByTag;
 use App\Livewire\Games\Pages\GamesList;
 use App\Livewire\ZalimKasaba\ZKGuide;
@@ -56,6 +57,8 @@ Route::get('/privacy-policy', Privacy::class)->name('privacy');
 Route::get('/frequently-asked-questions', FAQ::class)->name('faq');
 
 Route::get('/about-us', AboutUs::class)->name('about');
+
+Route::get('/new-account', NewAccountInfo::class)->name('new-account');
 
 // DOC routes END
 

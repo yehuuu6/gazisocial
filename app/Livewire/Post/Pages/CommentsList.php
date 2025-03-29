@@ -97,6 +97,16 @@ class CommentsList extends Component
         return view('components.post.comment-list-placeholder');
     }
 
+    public function isDangerousComment(): bool
+    {
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+
+        return !$user->canPublishAPost();
+    }
+
     private function handleCommentCreation(?string $content = null, ?string $gifUrl = null)
     {
         if (!Auth::check()) {
@@ -141,6 +151,7 @@ class CommentsList extends Component
             'post_id' => $this->post->id,
             'parent_id' => null,
             'user_id' => Auth::id(),
+            'is_dangerous' => $this->isDangerousComment(),
             'commentable_id' => $this->post->id,
             'commentable_type' => $this->post->getMorphClass()
         ];

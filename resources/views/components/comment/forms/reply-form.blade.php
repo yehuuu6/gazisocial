@@ -1,8 +1,19 @@
 <div>
     <form wire:submit="addReply({{ $comment->id }})" x-data="{ message: '' }">
         <div class="rounded-3xl border border-gray-300 bg-white py-2.5 px-4 pr-0 my-3 overflow-hidden">
+            @auth
+                @if (!Auth::user()->canPublishAPost())
+                    <div class="flex items-center gap-2 mb-2 p-2 bg-amber-50 rounded-md w-fit">
+                        <x-icons.warning size="18" class="text-amber-600" />
+                        <div class="text-xs text-amber-600">
+                            Hesabınız yeni olduğu için yorumlarınız tehlikeli olarak işaretlenecektir.
+                        </div>
+                    </div>
+                @endif
+            @endauth
             <textarea x-model="message" spellcheck="false" class="resize-y text-xs md:text-sm text-gray-600 w-full outline-none pt-1"
-                wire:model="content" id="content" name="content" rows="2" maxlength="1000" x-trap="$wire.replyForm" required></textarea>
+                wire:model="content" id="content" name="content" rows="2" maxlength="1000" x-trap="$wire.replyForm"
+                required></textarea>
             <div class="flex items-center justify-between flex-wrap">
                 <div class="flex items-center gap-1 flex-wrap">
                     @auth

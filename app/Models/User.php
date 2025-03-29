@@ -117,6 +117,29 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         return $this->belongsToMany(Role::class, 'user_roles')->orderBy('level', 'desc');
     }
 
+    public function isNewAccount(): bool
+    {
+        // Check if the user account was created within 3 days
+        return $this->created_at->diffInDays(now()) <= 3;
+    }
+
+    public function canPublishAPost(): bool
+    {
+        if ($this->isStudent()) {
+            return true;
+        }
+
+        if ($this->canDoHighLevelAction()) {
+            return true;
+        }
+
+        if ($this->isNewAccount()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);

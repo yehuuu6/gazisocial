@@ -238,6 +238,16 @@ class CreatePost extends Component
         Toaster::success('Anket başarıyla güncellendi.');
     }
 
+    public function canPublishAPost(): bool
+    {
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+
+        return $user->canPublishAPost();
+    }
+
     public function createPost()
     {
         try {
@@ -306,7 +316,7 @@ class CreatePost extends Component
             ...$validated,
             'user_id' => Auth::id(),
             'is_anonim' => $this->is_anonim,
-            'is_published' => $user->can('publish', Post::class),
+            'is_published' => $this->canPublishAPost(),
         ]);
 
         // Store images

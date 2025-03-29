@@ -30,6 +30,22 @@
         else this.optionsCount--;
     },
 }">
+    @if (!$this->canPublishAPost() && !Auth::user()->is_banned)
+        <div
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
+            <div class="inline-flex items-center gap-3">
+                <x-icons.info size="18" class="flex-shrink-0" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Hesabınız yeni açıldığı için konularınız yönetici onayı bekleyecektir. Bu süre zarfında konularınızı
+                    sadece siz görebilirsiniz.
+                </span>
+            </div>
+            <x-link href="{{ route('new-account') }}" target="_blank"
+                class="mr-0 md:mr-4 text-xs lg:text-sm text-amber-700 font-medium">
+                Daha fazla bilgi <x-icons.double-right size="14" class="inline" />
+            </x-link>
+        </div>
+    @endif
     <form wire:submit="createPost" class="rounded-xl border border-gray-100 bg-white shadow-md">
         <div class="flex-grow">
             <div wire:ignore x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
@@ -217,9 +233,9 @@
                         </div>
                         <x-ui.dotted-grid />
                         @forelse ($this->polls as $poll)
-                            <div wire:key="poll-{{ $poll->id }}" wire:ignore.self x-ref="poll{{ $poll->id }}"
-                                x-data="pollCreator({{ $poll->is_draft ? 'true' : 'false' }})" x-on:mousedown="mouseDown(event)"
-                                data-poll="{{ $poll->id }}"
+                            <div wire:key="poll-{{ $poll->id }}" wire:ignore.self
+                                x-ref="poll{{ $poll->id }}" x-data="pollCreator({{ $poll->is_draft ? 'true' : 'false' }})"
+                                x-on:mousedown="mouseDown(event)" data-poll="{{ $poll->id }}"
                                 class="bg-white select-none shadow-lg transition-opacity duration-300 border-2 cursor-grab rounded-2xl px-4 py-3 w-56 absolute top-0 left-0"
                                 :class="{
                                     'animate-wiggle opacity-90 cursor-grabbing scale-105 rotate-2': isDragging,

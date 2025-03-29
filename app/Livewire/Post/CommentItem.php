@@ -189,6 +189,16 @@ class CommentItem extends Component
         broadcast(new NotificationReceived(receiver: $this->comment->user))->toOthers();
     }
 
+    public function isDangerousComment(): bool
+    {
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+
+        return !$user->canPublishAPost();
+    }
+
     private function handleReplyCreation(?string $content = null, ?string $gifUrl = null)
     {
         if (!Auth::check()) {
@@ -235,6 +245,7 @@ class CommentItem extends Component
             'post_id' => $this->post->id,
             'parent_id' => $parentId,
             'user_id' => Auth::id(),
+            'is_dangerous' => $this->isDangerousComment(),
             'commentable_id' => $this->comment->id,
             'commentable_type' => $this->comment->getMorphClass(),
             'depth' => $this->comment->depth + 1

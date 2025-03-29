@@ -5,10 +5,11 @@
     <div class="w-full max-w-md">
         <div class="bg-white border border-gray-200 p-6 mb-4 rounded-lg">
             <p class="text-gray-600 text-sm text-center">
-                Öğrenci rozetini almak için <strong class="text-gray-950">@gazi.edu.tr</strong> uzantılı bir e-posta
+                Anında onaylı hesap sahibi olmak ve "Gazili" rozetini almak için <strong
+                    class="text-gray-950">@gazi.edu.tr</strong> uzantılı bir e-posta
                 adresi
                 kullanılmalıdır.<br>
-                <a href="{{ route('faq') }}" class="text-blue-600 hover:underline">Daha fazla bilgi almak için
+                <a href="{{ route('new-account') }}" class="text-blue-600 hover:underline">Daha fazla bilgi almak için
                     tıklayın.</a>
             </p>
         </div>

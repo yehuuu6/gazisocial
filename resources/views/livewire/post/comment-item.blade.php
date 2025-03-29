@@ -6,6 +6,8 @@
         likeCount: $wire.likesCount,
         isLiked: $wire.isLiked,
         showMore: false,
+        isDangerous: {{ $comment->is_dangerous }},
+        showDangerousContent: {{ Auth::check() && Auth::id() == $comment->user_id ? 'true' : 'false' }},
         isMobile() {
             const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
             return regex.test(navigator.userAgent);
@@ -93,25 +95,62 @@
                 <div class="pl-8 md:pl-10 pr-1 pt-1">
                     <div x-data="{ showMore: false, isClamped: false }" class="flex flex-col gap-1"
                         x-on:click.outside="$wire.replyForm = false;">
-                        @if ($comment->content)
-                            <p class="text-xs md:text-sm pr-1 text-gray-700 whitespace-pre-line"
-                                style="word-break: break-word;" x-ref="commentContent"
-                                :class="{ 'line-clamp-6 lg:line-clamp-5': !showMore }">{{ $comment->content }}
-                            </p>
-                            <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
-                                <template x-if="isClamped">
-                                    <div class="w-full flex items-center">
-                                        <button x-on:click="showMore = !showMore" type="button"
-                                            x-text="showMore ? 'Daha az göster' : 'Devamını oku'"
-                                            class="text-gray-700 hover:underline text-xs md:text-sm mt-1 mr-2">
-                                            Devamını oku
-                                        </button>
-                                    </div>
-                                </template>
+                        @if ($comment->is_dangerous && (!Auth::check() || Auth::id() != $comment->user_id))
+                            <div x-cloak x-show="!showDangerousContent"
+                                class="bg-yellow-50 border border-yellow-200 rounded-md p-2 self-start">
+                                <div class="flex items-center gap-2">
+                                    <x-icons.warning size="20" class="text-amber-500" />
+                                    <p class="text-xs md:text-sm text-yellow-700">Bu yorum uygunsuz içerik
+                                        barındırabilir.</p>
+                                </div>
+                                <button x-on:click="showDangerousContent = true"
+                                    class="mt-2 text-xs md:text-sm px-3 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-700 rounded-md transition">
+                                    İçeriği göster
+                                </button>
                             </div>
                         @endif
+
+                        @if ($comment->content)
+                            @if ($comment->is_dangerous)
+                                <div x-cloak x-show="showDangerousContent">
+                                    <p class="text-xs md:text-sm pr-1 text-gray-700 whitespace-pre-line"
+                                        :class="{ 'line-clamp-6 lg:line-clamp-5': !showMore }"
+                                        style="word-break: break-word;" x-ref="commentContent">{{ $comment->content }}
+                                    </p>
+                                    <div x-init="$watch('showDangerousContent', value => { if (value) { isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight; } })">
+                                        <template x-if="isClamped">
+                                            <div class="w-full flex items-center">
+                                                <button x-on:click="showMore = !showMore" type="button"
+                                                    x-text="showMore ? 'Daha az göster' : 'Devamını oku'"
+                                                    class="text-gray-700 hover:underline text-xs md:text-sm mt-1 mr-2">
+                                                    Devamını oku
+                                                </button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            @else
+                                <p class="text-xs md:text-sm pr-1 text-gray-700 whitespace-pre-line"
+                                    :class="{ 'line-clamp-6 lg:line-clamp-5': !showMore }"
+                                    style="word-break: break-word;" x-ref="commentContent">{{ $comment->content }}
+                                </p>
+                                <div x-init="isClamped = $refs.commentContent.scrollHeight > $refs.commentContent.clientHeight;">
+                                    <template x-if="isClamped">
+                                        <div class="w-full flex items-center">
+                                            <button x-on:click="showMore = !showMore" type="button"
+                                                x-text="showMore ? 'Daha az göster' : 'Devamını oku'"
+                                                class="text-gray-700 hover:underline text-xs md:text-sm mt-1 mr-2">
+                                                Devamını oku
+                                            </button>
+                                        </div>
+                                    </template>
+                                </div>
+                            @endif
+                        @endif
+
                         @if ($comment->gif_url)
-                            <div class="relative h-32 group md:h-64 max-w-fit overflow-hidden pr-1">
+                            <div x-cloak x-show="!isDangerous || (isDangerous && showDangerousContent)"
+                                class="relative h-32 group md:h-64 max-w-fit overflow-hidden pr-1">
                                 <img src="{{ asset($comment->gif_url) }}" alt="GIF"
                                     class="object-cover w-full h-full">
                                 <img src="{{ asset('logos/giphy-bg.png') }}" alt="GIPHY"

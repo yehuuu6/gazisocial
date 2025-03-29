@@ -9,6 +9,21 @@
     activeTab: '{{ $activeTab }}',
     navbarHeight: 0
 }" x-on:scroll-to-top.window="window.scrollTo({ top: 0, behavior: 'smooth' })">
+    @if ($user->isNewAccount())
+        <div
+            class="mb-4 shadow-sm flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-lime-50 to-green-100 px-6 py-4 select-none text-lime-700 rounded-xl">
+            <div class="inline-flex items-center gap-3">
+                <x-icons.info size="18" class="flex-shrink-0" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Yeni hesap! Bu kullanıcı, Gazi Social'a yeni katıldı ve inceleme sürecinde.
+                </span>
+            </div>
+            <button type="button" disabled
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-transparent px-2 py-1 rounded font-medium">
+                holder
+            </button>
+        </div>
+    @endif
     <div class="bg-white rounded-xl shadow-md border border-gray-100">
         <!-- Kullanıcı Bilgileri Başlık - Yapışkan -->
         <div>

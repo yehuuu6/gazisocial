@@ -33,6 +33,10 @@
         @auth
             @if (Auth::user()->is_banned)
                 <x-ban-info />
+            @elseif (Auth::user()->email_verified_at == null)
+                <x-email-not-verified />
+            @elseif (!Auth::user()->canDoHighLevelAction() && !Auth::user()->isStudent() && Auth::user()->isNewAccount())
+                <x-new-account-warning />
             @endif
         @endauth
         {{ $slot }}

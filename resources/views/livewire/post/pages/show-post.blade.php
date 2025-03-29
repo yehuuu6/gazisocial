@@ -33,23 +33,23 @@
     x-on:comment-deleted.window="commentCount -= $event.detail.decreaseCount;">
     @if (!$post->is_published && !Auth::user()->canDoHighLevelAction())
         <div
-            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-amber-50 text-amber-700 rounded-md border border-amber-200">
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
             <div class="inline-flex items-center gap-3">
-                <x-icons.eye-off size="18" class="flex-shrink-0" />
+                <x-icons.warning size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yönetici onayı bekliyor. Şu anda sadece siz görebilirsiniz.
                 </span>
             </div>
             <button type="button" disabled
-                class="hidden md:flex text-xs lg:text-sm text-transparent bg-amber-50 px-2 py-1 rounded font-medium">
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-transparent px-2 py-1 rounded font-medium">
                 holder
             </button>
         </div>
     @elseif (!$post->is_published && Auth::user()->canDoHighLevelAction())
         <div
-            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-amber-50 text-amber-700 rounded-md border border-amber-200">
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
             <div class="inline-flex items-center gap-3">
-                <x-icons.eye-off size="18" class="flex-shrink-0" />
+                <x-icons.info size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yayınlanmak için onay bekliyor. Konuyu inceleyip uygunsa yayınlayabilirsiniz.
                 </span>
@@ -64,7 +64,7 @@
     @endif
     @if ($post->is_pinned)
         <div
-            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full p-3 bg-blue-50 text-blue-700 rounded-md border border-blue-200">
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-sky-50 to-blue-100 px-6 py-4 select-none text-blue-800 shadow-sm rounded-xl">
             <div class="inline-flex items-center gap-3">
                 <x-icons.pin size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
@@ -72,7 +72,7 @@
                 </span>
             </div>
             <button type="button" disabled
-                class="hidden md:flex text-xs lg:text-sm text-transparent bg-blue-50 px-2 py-1 rounded font-medium">
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-transparent px-2 py-1 rounded font-medium">
                 holder
             </button>
         </div>
