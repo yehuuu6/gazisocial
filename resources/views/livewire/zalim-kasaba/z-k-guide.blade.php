@@ -335,8 +335,8 @@
                                 </div>
                                 <h4 class="text-base font-bold text-gray-800 mb-1">Avcı</h4>
                                 <p class="text-gray-600 text-sm">
-                                    Silahındaki 3 mermiyi kullanarak istediğin birini vurabilirsin. Masum birini
-                                    vurursan sonraki gece intihar edersin.
+                                    Silahındaki 2 mermiyi kullanarak istediğin birini vurabilirsin. Masum birini
+                                    vurursan sonraki gece intihar edersin. Oyunun ilk gecesi silahını kullanamazsın.
                                 </p>
                             </div>
                         </div>

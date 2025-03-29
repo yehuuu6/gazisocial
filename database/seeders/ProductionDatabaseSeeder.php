@@ -195,7 +195,7 @@ class ProductionDatabaseSeeder extends Seeder
             'icon' => '🏹',
             'name' => 'Avcı',
             'enum' => 'hunter',
-            'ability_limit' => 3,
+            'ability_limit' => 2,
         ]);
 
         $witch = GameRole::create([

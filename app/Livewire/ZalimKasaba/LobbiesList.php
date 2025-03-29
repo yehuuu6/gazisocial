@@ -2,18 +2,33 @@
 
 namespace App\Livewire\ZalimKasaba;
 
-use App\Enums\ZalimKasaba\GameState;
 use Livewire\Component;
-use App\Models\ZalimKasaba\Lobby;
+use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use App\Models\ZalimKasaba\Lobby;
+use Livewire\Attributes\Computed;
 use Livewire\WithoutUrlPagination;
-use Livewire\WithPagination;
+use App\Enums\ZalimKasaba\GameState;
+use Illuminate\Support\Facades\Auth;
 
 #[Title('Zalim Kasaba Oyun Lobileri - Gazi Social')]
 class LobbiesList extends Component
 {
     use WithPagination, WithoutUrlPagination;
+
+    #[Computed]
+    public function myLobbies()
+    {
+        // Return the lobbies I'm in
+        return Lobby::whereHas('players', function ($query) {
+            $query->where('user_id', Auth::id());
+        })
+            ->latest()
+            ->with(['host'])
+            ->take(5)
+            ->get();
+    }
 
     #[Layout('layout.games')]
     public function render()

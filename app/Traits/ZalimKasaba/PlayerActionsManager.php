@@ -120,6 +120,7 @@ trait PlayerActionsManager
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
                 if ($this->currentPlayer->ability_uses === 0) return false;
                 if ($this->currentPlayer->guilt()->exists()) return false;
+                if ($this->lobby->day_count === 1) return false;
                 break;
             case PlayerRole::WITCH:
                 if ($targetPlayer->id === $this->currentPlayer->id) return false;
@@ -261,7 +262,9 @@ trait PlayerActionsManager
             } else {
                 if ($availableUses > 0) {
                     $msg = match ($player->role->enum) {
-                        PlayerRole::HUNTER => "Silahında {$availableUses} tane mermi var.",
+                        PlayerRole::HUNTER => $this->lobby->day_count === 1
+                            ? "Bu gece silahını hazırlamaya karar verdin."
+                            : "Silahında {$availableUses} tane mermi var.",
                         PlayerRole::WITCH => "Dolapta hazır {$availableUses} adet zehir var.",
                         PlayerRole::ANGEL => "{$availableUses} kere melek formuna dönüşebilirsin.",
                         PlayerRole::JANITOR => "Sadece {$availableUses} ceset temizlemeye yetecek kadar malzemen var.",

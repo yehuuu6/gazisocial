@@ -28,6 +28,10 @@ class HunterActionHandler implements ActionHandlerInterface
             return;
         }
 
+        if ($this->lobby->day_count === 1) {
+            return;
+        }
+
         $playerToKill = $action->target;
 
         if ($playerToKill->role->enum === PlayerRole::WITCH) {

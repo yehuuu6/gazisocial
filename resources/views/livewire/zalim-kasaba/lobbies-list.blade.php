@@ -25,6 +25,47 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            @if ($this->myLobbies->isNotEmpty())
+                <div class="bg-gradient-to-r from-green-500 to-lime-500 p-4">
+                    <h2 class="text-white font-bold text-lg flex items-center gap-2">
+                        <x-icons.game size="20" />
+                        Katıldığım Oyunlar
+                    </h2>
+                </div>
+                <div class="p-5">
+                    <div class="grid grid-cols-1 gap-4">
+                        @foreach ($this->myLobbies as $lobby)
+                            <a href="{{ route('games.zk.show', $lobby->uuid) }}" wire:key="{{ $lobby->id }}"
+                                class="bg-white rounded-lg p-4 flex items-center justify-between border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-purple-200 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="rounded-full size-12 flex items-center justify-center shadow-sm">
+                                        <img src="{{ asset($lobby->host->getAvatar()) }}" alt="{{ $lobby->host->name }}"
+                                            class="rounded-full size-12 object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="flex md:items-center md:gap-1 flex-col md:flex-row">
+                                            <span style="word-break: break-word;"
+                                                class="md:text-base lg:text-lg font-bold text-gray-800 capitalize">
+                                                {{ $lobby->name }}
+                                            </span>
+                                            <span class="text-xs text-gray-500 font-medium">
+                                                ({{ $lobby->players()->count() }} /
+                                                {{ $lobby->max_players }})
+                                            </span>
+                                        </div>
+                                        <span class="text-xs lg:text-sm text-gray-500 flex items-center gap-1 mt-1">
+                                            {{ $lobby->host->username }} tarafından oluşturuldu
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="text-purple-600 hover:text-purple-800">
+                                    <x-icons.arrow-right-alt size="20" />
+                                </span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4">
                 <h2 class="text-white font-bold text-lg flex items-center gap-2">
                     <x-icons.game size="20" />
@@ -37,16 +78,23 @@
                         <a href="{{ route('games.zk.show', $lobby->uuid) }}" wire:key="{{ $lobby->id }}"
                             class="bg-white rounded-lg p-4 flex items-center justify-between border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-purple-200 transition-all">
                             <div class="flex items-center gap-4">
-                                <div
-                                    class="bg-gradient-to-r flex-shrink-0 from-purple-500 to-purple-400 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-sm">
-                                    <x-icons.user size="24" />
+                                <div class="rounded-full size-12 flex items-center justify-center shadow-sm">
+                                    <img src="{{ asset($lobby->host->getAvatar()) }}" alt="{{ $lobby->host->name }}"
+                                        class="rounded-full size-12 object-cover">
                                 </div>
                                 <div>
-                                    <h2 class="text-lg font-bold text-gray-800 capitalize">{{ $lobby->name }}</h2>
-                                    <p class="text-sm text-gray-600 flex items-center gap-1">
-                                        <x-icons.user size="14" class="flex-shrink-0" />
-                                        {{ $lobby->host->name }} tarafından oluşturuldu
-                                    </p>
+                                    <div class="flex md:items-center md:gap-1 flex-col md:flex-row">
+                                        <span style="word-break: break-word;"
+                                            class="md:text-base lg:text-lg font-bold text-gray-800 capitalize">
+                                            {{ $lobby->name }}
+                                        </span>
+                                        <span class="text-xs text-gray-500 font-medium">
+                                            ({{ $lobby->players->count() }} / {{ $lobby->max_players }})
+                                        </span>
+                                    </div>
+                                    <span class="text-xs lg:text-sm text-gray-500 flex items-center gap-1 mt-1">
+                                        {{ $lobby->host->username }} tarafından oluşturuldu
+                                    </span>
                                 </div>
                             </div>
                             <span class="text-purple-600 hover:text-purple-800">

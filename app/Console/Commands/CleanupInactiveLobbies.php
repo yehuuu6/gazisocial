@@ -27,6 +27,10 @@ class CleanupInactiveLobbies extends Command
 
         $count = $inactiveLobbies->count();
 
+        if ($count === 0) {
+            return;
+        }
+
         foreach ($inactiveLobbies as $lobby) {
             $lobby->delete();
         }

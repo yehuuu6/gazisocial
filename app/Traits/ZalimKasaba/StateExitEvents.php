@@ -7,6 +7,8 @@ use App\Enums\ZalimKasaba\GameState;
 use App\Enums\ZalimKasaba\PlayerRole;
 use App\Enums\ZalimKasaba\FinalVoteType;
 use App\Enums\ZalimKasaba\ChatMessageType;
+use App\Events\GameEnded;
+use App\Jobs\DeleteLobby;
 use App\Services\Actions\ActionHandlerFactory;
 use App\Services\Actions\NightActionProcessor;
 
@@ -94,7 +96,7 @@ trait StateExitEvents
                 "{$username} kasaba tarafından idam edildi. Oyuncunun rolü: {$roleIcon} {$roleName}."
             );
 
-            $accused->update(['is_hanged' => false]);
+            $accused->update(['is_hanged' => true]);
 
             if ($accused->role->enum === PlayerRole::JESTER) {
                 $accused->update(['can_haunt' => true]);
@@ -158,6 +160,11 @@ trait StateExitEvents
     private function exitGameOver()
     {
         if ($this->lobby->state !== GameState::GAME_OVER) return false;
+
+        // Dispatch the DeleteLobby job
+        dispatch(new DeleteLobby($this->lobby->id));
+
+        broadcast(new GameEnded($this->lobby->id))->toOthers();
 
         // Return everyone to the guide page
         return redirect(route('games.zk.guide'))

@@ -197,7 +197,7 @@ class CreateLobby extends Component
 
         if (count($this->selectedRoles) > 15) {
             Toaster::error('En fazla 15 rol seçebilirsiniz.');
-            //return;
+            return;
         }
 
         // Only get the ids of the selected roles

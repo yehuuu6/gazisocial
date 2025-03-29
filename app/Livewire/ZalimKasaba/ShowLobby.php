@@ -46,6 +46,11 @@ class ShowLobby extends Component
             return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         }
 
+        // If the lobby is full, return the user to the lobby list
+        if ($lobby->players()->where('is_online', true)->where('user_id', '!=', Auth::id())->count() >= $lobby->max_players) {
+            return redirect()->route('games.zk.lobbies')->warning('Lobi dolu.');
+        }
+
         $this->gameTitle = $this->setGameTitle($lobby);
 
         $this->currentPlayer = $this->initializeCurrentPlayer();
@@ -113,16 +118,23 @@ class ShowLobby extends Component
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},.game.state.updated" => 'handleGameStateUpdated',
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},.game.player.kicked" => 'handleKick',
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},.game.player.voted" => 'handleVote',
+            "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},.game.ended" => 'handleGameOver',
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},here" => 'handleUsersHere',
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},joining" => 'handleUserJoined',
             "echo-presence:zalim-kasaba-lobby.{$this->lobby->id},leaving" => 'handleUserLeft',
         ];
     }
 
+    public function handleGameOver()
+    {
+        return redirect(route('games.zk.guide'))
+            ->with('success', 'Oyun sona erdi. Başka bir oyuna katılabilirsiniz.');
+    }
+
     public function leaveLobby()
     {
         $this->currentPlayer->update(['is_online' => false]);
-        return redirect()->route('games.zk.lobbies');
+        return redirect()->route('games.zk.lobbies')->info('Lobi terkedildi.');
     }
 
     public function handleVote($payload)
@@ -150,7 +162,7 @@ class ShowLobby extends Component
 
         if ($this->lobby->players->count() < $this->lobby->max_players) {
             Toaster::error('Oyuncu sayısı yetersiz. Oyuna başlamak için ' . $this->lobby->max_players . ' oyuncu gereklidir.');
-            //return;
+            return;
         }
 
         $this->randomizePlayerPlaces();

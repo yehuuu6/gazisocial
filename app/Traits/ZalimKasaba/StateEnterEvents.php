@@ -15,7 +15,10 @@ trait StateEnterEvents
         $this->lobby->actions()->delete();
 
         // Announce dead players
-        $deadPlayers = $this->lobby->players()->where('is_alive', false)->where('death_night', $this->lobby->day_count - 1)->get();
+        $deadPlayers = $this->lobby->players()
+            ->where('is_alive', false)
+            ->where('is_hanged', false)
+            ->where('death_night', $this->lobby->day_count - 1)->get();
         if ($deadPlayers->isNotEmpty()) {
             $deadPlayersString = $deadPlayers->map(function ($player) {
                 return $player->user->username;
