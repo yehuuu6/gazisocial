@@ -114,13 +114,18 @@ class ShowUser extends Component
 
         $query = $this->user->comments()->with(['user', 'commentable'])->withCount('likes');
 
-        /**
-         * @var User $authenticatedUser
-         */
-        $authenticatedUser = Auth::user();
+        // Check if this is the user's own profile
+        $isOwnProfile = $this->isOwnProfile();
 
-        // If not viewing own profile, filter out comments on unpublished posts
-        if (!$authenticatedUser->canDoHighLevelAction() && !$this->isOwnProfile()) {
+        // Check if current user has high-level permissions (if logged in)
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+        $hasHighLevelPermission = Auth::check() && $user->canDoHighLevelAction();
+
+        // Only filter comments if not own profile and not a high-level user
+        if (!$isOwnProfile && !$hasHighLevelPermission) {
             $query->whereHasMorph('commentable', [Post::class], function ($query) {
                 $query->whereNotNull('id')->where('is_published', true);
             });
