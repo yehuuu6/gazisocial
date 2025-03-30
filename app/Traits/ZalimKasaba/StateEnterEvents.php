@@ -2,8 +2,9 @@
 
 namespace App\Traits\ZalimKasaba;
 
-use App\Enums\ZalimKasaba\ChatMessageType;
+use App\Enums\ZalimKasaba\GameState;
 use App\Enums\ZalimKasaba\PlayerRole;
+use App\Enums\ZalimKasaba\ChatMessageType;
 
 trait StateEnterEvents
 {
@@ -24,11 +25,39 @@ trait StateEnterEvents
                 return $player->user->username;
             })->implode(', ');
             $this->sendSystemMessage("Gece ölenler: {$deadPlayersString}");
+
+            $this->lobby->update(['last_death_night' => $this->lobby->day_count - 1]);
         }
 
         $this->checkGameOver();
 
-        $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
+        // Draw the game if there are no deaths for 5 days straight
+        if ($this->lobby->day_count - $this->lobby->last_death_night >= 5) {
+            $players = $this->lobby->players;
+            $townPlayers = $players->filter(function ($player) {
+                return in_array($player->role->enum, PlayerRole::getTownRoles());
+            });
+            $aliveTownPlayers = $townPlayers->where('is_alive', true);
+            $neutralWinners = $this->calculateWinners($aliveTownPlayers);
+            // If there are winners in the winners array
+            if (count($neutralWinners) > 0) {
+                $this->sendSystemMessage('Oyun berabere bitti. Kazananlar: ' . implode(', ', $neutralWinners));
+            } else {
+                $this->sendSystemMessage('Oyun berabere bitti. Kimse kazanamadı.');
+            }
+            $this->nextState(GameState::GAME_OVER);
+            return;
+        }
+
+        // Check if there are no deaths for 4 days
+        if ($this->lobby->day_count - $this->lobby->last_death_night === 4) {
+            $this->sendSystemMessage('Yarına kadar kimse ölmezse, oyun berabere bitecek.', ChatMessageType::WARNING);
+            return;
+        }
+
+        if ($this->lobby->state !== GameState::GAME_OVER) {
+            $this->sendSystemMessage('Gün aydınlandı, kasaba uyanıyor.');
+        }
     }
 
     private function enterVoting()

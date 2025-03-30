@@ -108,6 +108,13 @@ trait StateManager
         // Calculate winners including special roles
         $winners = $this->calculateWinners($aliveTownPlayers);
 
+        // If there are no alive players, the game is over. Only the neutral or chaotic roles can win.
+        if ($aliveTownPlayers->isEmpty() && $aliveMafiaPlayers->isEmpty()) {
+            $this->sendSystemMessage('Oyun sona erdi. Kazananlar: ' . implode(', ', $winners), type: ChatMessageType::DEFAULT);
+            $this->nextState(GameState::GAME_OVER);
+            return;
+        }
+
         // Check win conditions
         if ($aliveMafiaPlayers->isEmpty() && !$aliveTownPlayers->isEmpty()) {
             // Town wins

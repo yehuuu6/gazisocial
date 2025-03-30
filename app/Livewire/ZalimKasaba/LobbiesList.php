@@ -21,7 +21,7 @@ class LobbiesList extends Component
     public function myLobbies()
     {
         // Return the lobbies I'm in
-        return Lobby::whereHas('players', function ($query) {
+        return Lobby::with(['players'])->whereHas('players', function ($query) {
             $query->where('user_id', Auth::id());
         })
             ->latest()
@@ -34,7 +34,7 @@ class LobbiesList extends Component
     public function render()
     {
         return view('livewire.zalim-kasaba.lobbies-list', [
-            'lobbies' => Lobby::where('is_listed', true)
+            'lobbies' => Lobby::with(['players'])->where('is_listed', true)
                 ->where('state', GameState::LOBBY)
                 ->latest()
                 ->with(['host'])
