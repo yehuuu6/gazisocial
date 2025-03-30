@@ -56,9 +56,11 @@
                     </div>
                     Yeni Konu
                 </h1>
-                <button type="button" wire:click="createPost"
+                <button type="button" wire:click="createPost" wire:loading.attr="disabled" wire:target="createPost"
+                    :disabled="$wire.didCreatePost"
                     class="px-3 py-1.5 text-xs lg:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
-                    Yayınla
+                    <span wire:loading.remove>Yayınla</span>
+                    <x-icons.spinner wire:loading wire:target="createPost" size="18" />
                 </button>
             </div>
             <div class="flex flex-col gap-5 md:gap-7 p-4 lg:p-6">

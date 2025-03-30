@@ -22,6 +22,7 @@ class EditPost extends Component
     public $content;
     public array $selectedTags = [];
     public bool $is_reported;
+    public bool $didEditPost = false;
 
     #[Computed(cache: true)]
     public function tags()
@@ -94,6 +95,8 @@ class EditPost extends Component
 
         // Sync tags
         $this->post->tags()->sync($this->selectedTags);
+
+        $this->didEditPost = true;
 
         return redirect($this->post->showRoute())->success('Konu başarıyla güncellendi.');
     }

@@ -17,9 +17,11 @@
                         class="px-3 py-1.5 text-xs lg:text-base md:px-4 md:py-2 rounded border border-gray-300 bg-white text-gray-700 font-semibold hover:bg-gray-50">
                         İptal
                     </a>
-                    <button type="button" wire:click="updatePost"
+                    <button type="button" wire:click="updatePost" wire:loading.attr="disabled" wire:target="updatePost"
+                        :disabled="$wire.didEditPost"
                         class="px-3 py-1.5 text-xs lg:text-base md:px-4 md:py-2 rounded bg-primary bg-opacity-90 hover:bg-opacity-100 text-white font-semibold">
-                        Güncelle
+                        <span wire:loading.remove>Güncelle</span>
+                        <x-icons.spinner wire:loading wire:target="updatePost" size="18" />
                     </button>
                 </div>
             </div>

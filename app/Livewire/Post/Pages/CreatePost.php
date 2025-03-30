@@ -35,6 +35,7 @@ class CreatePost extends Component
     public bool $is_pinned = false;
     public $images = [];
     public $newImage = null;
+    public bool $didCreatePost = false;
 
     public function updatedNewImage()
     {
@@ -334,6 +335,8 @@ class CreatePost extends Component
 
         // Attach poll models to the post
         $this->attachPolls($post);
+
+        $this->didCreatePost = true;
 
         return redirect($post->showRoute())->success('Konu başarıyla oluşturuldu.');
     }
