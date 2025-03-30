@@ -112,13 +112,16 @@ class ShowUser extends Component
             return collect();
         }
 
-        return $this->user->comments()
-            ->with([
-                'user',
-                'commentable'
-            ])->withCount('likes')
-            ->orderBy('created_at', 'desc')
-            ->simplePaginate(10);
+        $query = $this->user->comments()->with(['user', 'commentable'])->withCount('likes');
+        
+        // If not viewing own profile, filter out comments on unpublished posts
+        if (!$this->isOwnProfile()) {
+            $query->whereHasMorph('commentable', [Post::class], function ($query) {
+                $query->whereNotNull('id')->where('is_published', true);
+            });
+        }
+        
+        return $query->orderBy('created_at', 'desc')->simplePaginate(10);
     }
 
     public function render()

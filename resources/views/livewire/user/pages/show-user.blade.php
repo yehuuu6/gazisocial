@@ -246,10 +246,11 @@
                             <!-- Yorum Başlığı -->
                             <div class="flex md:items-center justify-between gap-4">
                                 <div>
-                                    <x-link href="{{ $comment->post->showRoute() }}"
+                                    <x-link
+                                        href="{{ $comment->post && $comment->post->exists ? $comment->post->showRoute() : '#' }}"
                                         class="text-xs md:text-sm text-gray-800 font-medium">
                                         <span class="text-gray-600 text-xs md:text-sm font-normal">Şu konuya:</span>
-                                        {{ Str::limit($comment->post->title, 50) }}
+                                        {{ $comment->post ? Str::limit($comment->post->title, 50) : 'Silinmiş konu' }}
                                     </x-link>
                                     <span class="hidden md:block text-gray-500 text-xs">•</span>
                                     <br class="md:hidden">
@@ -298,12 +299,13 @@
                                 <div class="shrink-0">
                                     @if ($comment->commentable_type === 'comment')
                                         <x-link
-                                            href="{{ $comment->commentable->showRoute(['reply' => $comment->id]) }}"
+                                            href="{{ $comment->commentable && method_exists($comment->commentable, 'showRoute') ? $comment->commentable->showRoute(['reply' => $comment->id]) : '#' }}"
                                             class="text-xs shrink-0 text-gray-800">
                                             Yanıta git
                                         </x-link>
                                     @else
-                                        <x-link href="{{ $comment->showRoute() }}"
+                                        <x-link
+                                            href="{{ method_exists($comment, 'showRoute') ? $comment->showRoute() : '#' }}"
                                             class="shrink-0 text-xs text-gray-800">
                                             Yoruma git
                                         </x-link>
