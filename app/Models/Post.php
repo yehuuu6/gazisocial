@@ -26,6 +26,19 @@ class Post extends Model
         'image_urls' => 'array',
     ];
 
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Keep only essential fields for search indexing
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => Str::limit($this->content, 500), // Limit body size
+            'created_at' => $this->created_at->timestamp,
+        ];
+    }
+
     protected static function booted()
     {
         // Delete polls from the database when a post is deleted
@@ -42,22 +55,22 @@ class Post extends Model
                 $builder->where('is_published', true);
                 return;
             }
-            
+
             /**
              * @var \App\Models\User $user
              */
             $user = Auth::user();
-            
+
             if ($user->canDoHighLevelAction()) {
                 // Users with high level permissions can see all posts
                 return;
             }
-            
+
             // Authors can see their own posts (both published and unpublished)
             // Others can only see published posts
             $builder->where(function ($query) use ($user) {
                 $query->where('is_published', true)
-                      ->orWhere('user_id', $user->id);
+                    ->orWhere('user_id', $user->id);
             });
         });
     }
