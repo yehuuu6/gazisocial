@@ -226,7 +226,7 @@ class CreateLobby extends Component
         $townRoleCount = $roleIds->filter(fn($id) => $townRoles->contains($id))->count();
         if ($townRoleCount < 2) {
             Toaster::error('En az 2 kasaba rolü seçmelisiniz.');
-            //return;
+            return;
         }
 
         $lobby = Lobby::create([

@@ -50,22 +50,20 @@ trait StateManager
 
         $this->lobby->update(['state' => $nextState]);
 
-        /**
-         * $timerValues = [
+        $timerValues = [
             GameState::PREPARATION->value => 15,
-            GameState::DAY->value => $currentDay === 0 ? 10 : 10,
-            GameState::VOTING->value => 10,
-            GameState::DEFENSE->value => 10,
-            GameState::JUDGMENT->value => 10,
+            GameState::DAY->value => $currentDay === 0 ? 10 : 45,
+            GameState::VOTING->value => 30,
+            GameState::DEFENSE->value => 20,
+            GameState::JUDGMENT->value => 20,
             GameState::LAST_WORDS->value => 10,
-            GameState::NIGHT->value => 10,
+            GameState::NIGHT->value => 45,
             GameState::REVEAL->value => 5,
-            GameState::GAME_OVER->value => 15,
+            GameState::GAME_OVER->value => 30,
         ];
-         */
 
         // In seconds
-        $timerValues = [
+        $testTimerValues = [
             GameState::PREPARATION->value => 15,
             GameState::DAY->value => $currentDay === 0 ? 10 : 10,
             GameState::VOTING->value => 10,

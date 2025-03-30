@@ -78,10 +78,11 @@ trait ChatManager
     {
         $statesAllowedToChat = [
             GameState::LOBBY,
+            GameState::PREPARATION,
             GameState::DAY,
             GameState::VOTING,
             GameState::JUDGMENT,
-            GameState::PREPARATION,
+            GameState::GAME_OVER,
         ];
 
         $gameState = $this->lobby->state;
@@ -141,10 +142,12 @@ trait ChatManager
     private function sendWhisper(Player $targetPlayer, string $msg)
     {
         if (!$this->currentPlayer->is_alive) {
+            Toaster::error('Ölü oyuncular fısıldayamaz.');
             return;
         }
 
         if (!$targetPlayer->is_alive) {
+            Toaster::error('Fısıldamak istediğiniz oyuncu hayatta değil.');
             return;
         }
 
@@ -154,6 +157,8 @@ trait ChatManager
             GameState::DEFENSE,
             GameState::JUDGMENT,
             GameState::LAST_WORDS,
+            GameState::REVEAL,
+            GameState::GAME_OVER
         ];
 
         if (!in_array($this->lobby->state, $validForWhispering)) {
