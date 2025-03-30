@@ -3,18 +3,18 @@
         Yeni Hesaplar Hakkında Bilgilendirme
     </h1>
     <div class="space-y-6">
-        <p class="text-gray-700 text-lg leading-relaxed">
+        <p class="text-gray-700 text-base lg:text-lg leading-relaxed">
             Gazi Social, topluluğumuzun huzurunu ve güvenliğini sağlamak amacıyla, yeni oluşturulan hesaplar için
             belirli kısıtlamalar uygulamaktadır. Bu önlemler, üyelerimizin zararlı ve spam içerik paylaşmalarını önlemek
             amacıyla uygulanmaktadır.
         </p>
 
-        <p class="text-gray-700 text-lg leading-relaxed">
+        <p class="text-gray-700 text-base lg:text-lg leading-relaxed">
             Kısıtlama uygulanan kullanıcıların açtığı konular, moderasyon ekibinin onayı olmadan yayına alınmayacak ve
             yine bu kullanıcıların yaptığı yorumlar diğer üyeler tarafından "tehlikeli içerik" olarak görünecektir.
         </p>
 
-        <p class="text-gray-700 text-lg leading-relaxed">
+        <p class="text-gray-700 text-base lg:text-lg leading-relaxed">
             Yukarıda belirtilen kısıtlamalar, <strong>üye olduktan 3 gün sonra otomatik olarak kaldırılacaktır</strong>.
             Bu süre boyunca
             ihlal gerçekleştirdiği tespit edilen hesaplar askıya alınacaktır. Kısıtlama kalktıktan sonra eskiden yapılan
@@ -23,18 +23,18 @@
             olacaktır.
         </p>
 
-        <p class="text-gray-700 text-lg leading-relaxed font-semibold">
+        <p class="text-gray-700 text-base lg:text-lg leading-relaxed font-semibold">
             Gazi Üniversitesi öğrencileri, bu kısıtlamalardan muaftır. Gazili öğrenciler, üniversitenin kendilerine
             sağladığı @gazi.edu.tr uzantılı e-posta adresleriyle üye olarak tam
             erişim haklarına ve "Gazili" rozetine anında sahip olabilirler.
         </p>
 
         <a href="https://epostatalep.gazi.edu.tr/login" target="_blank"
-            class="inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+            class="inline-block bg-blue-600 text-base lg:text-lg text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
             Edu mail adresinizi almak için tıklayın
         </a>
 
-        <div class="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-100">
+        <div class="mt-8 p-6 bg-gray-50 text-base lg:text-lg rounded-lg border border-gray-100">
             <p class="text-gray-800 font-semibold">
                 Hesap oluşturma sırasında yaşanan problemler ve diğer sorunlarınız için bizimle iletişime
                 geçebilirsiniz.
