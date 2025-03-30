@@ -113,14 +113,19 @@ class ShowUser extends Component
         }
 
         $query = $this->user->comments()->with(['user', 'commentable'])->withCount('likes');
-        
+
+        /**
+         * @var User $authenticatedUser
+         */
+        $authenticatedUser = Auth::user();
+
         // If not viewing own profile, filter out comments on unpublished posts
-        if (!$this->isOwnProfile()) {
+        if (!$authenticatedUser->canDoHighLevelAction() && !$this->isOwnProfile()) {
             $query->whereHasMorph('commentable', [Post::class], function ($query) {
                 $query->whereNotNull('id')->where('is_published', true);
             });
         }
-        
+
         return $query->orderBy('created_at', 'desc')->simplePaginate(10);
     }
 
