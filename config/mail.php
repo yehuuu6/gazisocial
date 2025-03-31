@@ -36,8 +36,8 @@ return [
     */
 
     'mailers' => [
-        'mailtrap' => [
-            'transport' => 'mailtrap'
+        'resend' => [
+            'transport' => 'resend'
         ],
         'smtp' => [
             'transport' => 'smtp',
