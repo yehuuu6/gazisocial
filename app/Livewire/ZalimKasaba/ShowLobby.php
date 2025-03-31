@@ -42,6 +42,10 @@ class ShowLobby extends Component
     {
         $this->lobby = $lobby;
 
+        if (Auth::user()->is_banned) {
+            return redirect()->route('games.zk.lobbies')->warning('Hesabınız askıya alındığı için oyuna katılamazsınız.');
+        }
+
         if ($lobby->status === LobbyStatus::WAITING_HOST && $lobby->host_id !== Auth::id()) {
             return redirect()->route('games.zk.lobbies')->warning('Oyun yöneticisi aktif değil.');
         }

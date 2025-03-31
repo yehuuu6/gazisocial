@@ -174,6 +174,10 @@ class CreateLobby extends Component
 
     public function createLobby()
     {
+        if (Auth::user()->is_banned) {
+            return redirect()->route('games.zk.lobbies')->warning('Hesabınız askıya alındığı için oyun oluşturamazsınız.');
+        }
+
         $messages = [
             'lobbyName.required' => 'Oda adı zorunludur.',
             'lobbyName.min' => 'Oda adı en az :min karakter olmalıdır.',
