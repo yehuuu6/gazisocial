@@ -33,9 +33,18 @@
         }" x-cloak
             wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
             $el.style.top = headerHeight + 'px';
-            if (window.innerWidth < 1024) {
-                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
-            }"
+            
+            function updateHeight() {
+                if (window.innerWidth < 1024) {
+                    $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+                } else {
+                    $el.style.height = '100%';
+                }
+            }
+            
+            updateHeight();
+            window.addEventListener('resize', updateHeight);
+            $cleanup(() => window.removeEventListener('resize', updateHeight));"
             class="fixed transform w-72 lg:w-80 h-full transition-all duration-300 top-0 lg:static z-50 flex flex-col flex-shrink-0 bg-white border-r border-gray-200">
             @if ($lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY)
                 <div class="bg-white p-4 border-b border-gray-200">
@@ -221,9 +230,18 @@
         }" x-cloak
             wire:ignore.self x-data="{ headerHeight: 0 }" x-init="headerHeight = $refs.gameHeader.offsetHeight;
             $el.style.top = headerHeight + 'px';
-            if (window.innerWidth < 1024) {
-                $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
-            }"
+            
+            function updateHeight() {
+                if (window.innerWidth < 1024) {
+                    $el.style.height = 'calc(100vh - ' + headerHeight + 'px)';
+                } else {
+                    $el.style.height = '100%';
+                }
+            }
+            
+            updateHeight();
+            window.addEventListener('resize', updateHeight);
+            $cleanup(() => window.removeEventListener('resize', updateHeight));"
             class="fixed transform h-full w-80 transition-all duration-300 lg:static top-0 z-30 flex flex-col flex-shrink-0 bg-white border-l border-gray-200">
             @if ($this->lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY && $this->currentPlayer->role)
                 <div class="overflow-y-auto border-b border-gray-200 bg-white p-4">

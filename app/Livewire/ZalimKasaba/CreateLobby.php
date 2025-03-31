@@ -217,14 +217,14 @@ class CreateLobby extends Component
         // Atleast one mafia role (either mafioso or godfather) must be selected
         $mafiaRoles = $this->gameRoles->filter(fn($role) => in_array($role->enum, PlayerRole::getMafiaRoles()))->pluck('id');
         $mafiaRoleCount = $roleIds->filter(fn($id) => $mafiaRoles->contains($id))->count();
-        if ($mafiaRoleCount < 1) {
+        if ($mafiaRoleCount < 1 && app()->environment('production')) {
             Toaster::error('En az bir mafya rolü seçmelisiniz.');
             return;
         }
         // Atleast 2 town roles must be selected
         $townRoles = $this->gameRoles->filter(fn($role) => in_array($role->enum, PlayerRole::getTownRoles()))->pluck('id');
         $townRoleCount = $roleIds->filter(fn($id) => $townRoles->contains($id))->count();
-        if ($townRoleCount < 2) {
+        if ($townRoleCount < 2 && app()->environment('production')) {
             Toaster::error('En az 2 kasaba rolü seçmelisiniz.');
             return;
         }

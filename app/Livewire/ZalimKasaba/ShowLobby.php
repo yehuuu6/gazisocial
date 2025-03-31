@@ -160,7 +160,7 @@ class ShowLobby extends Component
             return;
         }
 
-        if ($this->lobby->players->count() < $this->lobby->max_players) {
+        if ($this->lobby->players->count() < $this->lobby->max_players && app()->environment('production')) {
             Toaster::error('Oyuncu sayısı yetersiz. Oyuna başlamak için ' . $this->lobby->max_players . ' oyuncu gereklidir.');
             return;
         }
