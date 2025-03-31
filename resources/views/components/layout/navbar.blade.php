@@ -48,7 +48,7 @@
                                 <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
                                 <x-seperator />
                                 @if (Auth::user()->canDoHighLevelAction())
-                                    <a href="/dashboard"
+                                    <a href="/dashboard" target="_blank"
                                         class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
                                         <x-icons.admin size="20" />
                                         <span>Yönetim Paneli</span>
@@ -107,7 +107,7 @@
             </x-link>
             @auth
                 @if (Auth::user()->canDoHighLevelAction())
-                    <a href="/dashboard"
+                    <a href="/dashboard" target="_blank"
                         class="flex rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100 hover:no-underline">
                         Yönetim Paneli
                     </a>
