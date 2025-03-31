@@ -14,6 +14,7 @@
         "laravel/reverb": "^1.4.8",
         "livewire/livewire": "^3.6",
         "masmerise/livewire-toaster": "^2.7",
+        "resend/resend-laravel": "^0.17.0",
         "z3d0x/filament-logger": "^0.8.0"
     },
     "require-dev": {
