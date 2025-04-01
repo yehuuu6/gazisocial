@@ -88,7 +88,7 @@
                             Etiketler
                         </h4>
                         <p class="text-xs lg:text-sm text-gray-500">
-                            Konunuzun kategorilendirilmesi için en az 2, en fazla ise 4
+                            Konunuzun kategorilendirilmesi için en az 1, en fazla ise 4
                             etiket olacak şekilde seçim yapabilirsiniz.
                         </p>
                     </div>
