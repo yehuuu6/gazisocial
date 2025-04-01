@@ -200,7 +200,25 @@
                 'right-0': userPanel,
             }"
                 x-cloak wire:ignore.self x-data="{ navbarHeight: 0 }" x-init="navbarHeight = document.getElementById('navbar').offsetHeight;
-                $el.style.top = navbarHeight + 'px';"
+                $el.style.top = navbarHeight + 'px';
+                
+                function updateHeight() {
+                    if (window.innerWidth < 1024) {
+                        const windowHeight = window.innerHeight;
+                        const panelHeight = windowHeight - headerHeight;
+                        $el.style.height = panelHeight + 'px';
+                    } else {
+                        $el.style.height = '100%';
+                    }
+                }
+                
+                updateHeight();
+                window.addEventListener('resize', updateHeight);
+                window.addEventListener('orientationchange', updateHeight);"
+                x-on:destroy="
+                window.removeEventListener('resize', updateHeight);
+                window.removeEventListener('orientationchange', updateHeight);
+            "
                 class="fixed lg:sticky bg-white rounded-tr-xl z-20 top-0 h-full min-w-[285px] w-[285px] md:min-w-[300px] md:w-[300px] lg:min-w-[330px] lg:w-[330px] 2xl:min-w-[375px] 2xl:w-[375px] transform transition-all duration-300 border-l border-gray-200">
                 @cannot('update', $post)
                     <button x-on:click="userPanel = !userPanel"
