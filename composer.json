@@ -14,7 +14,6 @@
         "laravel/reverb": "^1.4.8",
         "livewire/livewire": "^3.6",
         "masmerise/livewire-toaster": "^2.7",
-        "resend/resend-laravel": "^0.17.0",
         "z3d0x/filament-logger": "^0.8.0"
     },
     "require-dev": {
@@ -59,10 +58,6 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#34d399,#f87171\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=reverb,default-queue,notifications-queue,scout-queue,vite"
-        ],
-        "expose": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#fff\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --tries=1\" \"npm run build\" \"expose share https://gazisocial.test\" --names=reverb,queue,vite,expose"
         ]
     },
     "extra": {
