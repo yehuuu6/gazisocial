@@ -107,16 +107,18 @@
                             <x-image-gallery :images="$post->image_urls" />
                         </div>
                     @endif
-                    <div class="mt-2 flex items-center flex-wrap gap-2">
-                        @foreach ($this->polls as $poll)
-                            <button wire:key="poll-button-{{ $poll->id }}" type="button"
-                                x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
-                                class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
-                                <x-icons.survey size="18" class="shrink-0" />
-                                {{ $poll->question }}
-                            </button>
-                        @endforeach
-                    </div>
+                    @if ($this->polls->isNotEmpty())
+                        <div class="mt-2 flex items-center flex-wrap gap-2">
+                            @foreach ($this->polls as $poll)
+                                <button wire:key="poll-button-{{ $poll->id }}" type="button"
+                                    x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
+                                    class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
+                                    <x-icons.survey size="18" class="shrink-0" />
+                                    {{ $poll->question }}
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="flex items-center justify-between mt-3">
                         <div class="flex items-center gap-3.5" x-data="{ isDisabled: false }">
                             <button x-on:click="toggleLike()" :disabled='isDisabled'
