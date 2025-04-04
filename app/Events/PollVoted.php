@@ -18,12 +18,12 @@ class PollVoted implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public readonly Post $post) {}
+    public function __construct(public readonly int $postId) {}
 
     public function broadcastOn(): array
     {
         return [
-            new Channel('polls.' . $this->post->id),
+            new Channel('polls.' . $this->postId),
         ];
     }
 

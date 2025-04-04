@@ -108,7 +108,7 @@ class ShowPollModal extends Component
         }
 
         // Broadcast the event
-        broadcast(new PollVOted($this->post))->toOthers();
+        broadcast(new PollVOted($this->post->id))->toOthers();
     }
 
     public function getPollPercentage(Poll $poll, PollOption $option)
