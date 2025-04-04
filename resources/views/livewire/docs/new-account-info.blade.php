@@ -1,7 +1,7 @@
 <div>
     <div
         class="mb-4 shadow-sm flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-lime-50 to-green-100 px-6 py-4 select-none text-lime-700 rounded-xl">
-        <div class="inline-flex items-center gap-3">
+        <div class="inline-flex gap-3">
             <x-icons.info size="20" class="flex-shrink-0" />
             <span class="text-xs lg:text-sm font-medium">
                 Gazi Üniversitesi öğrencileri, bu kısıtlamalardan muaftır. Gazili öğrenciler, üniversitenin
