@@ -251,6 +251,9 @@
                             </button>
                             <x-post.post-more-dropdown :$post />
                         </div>
+                    @else
+                        <div>
+                        </div>
                     @endcan
                 </div>
                 <div class="p-4 lg:p-6">
