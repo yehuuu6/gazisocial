@@ -27,4 +27,4 @@ Gazi Social is open-source software licensed under the [GNU General Public Licen
 
 ## 📧 Contact
 
-Have questions or feedback? Reach out to us at **contact@gazisocial.com**.
+Have questions or feedback? Reach out to us at **destek@gazisocial.com**.

@@ -69,7 +69,7 @@
             <x-slot name="text">
                 Hayır, Gazi Social'de reklam yapmak yasaktır. İçeriğinde reklam tespit edilen konular silinecek, bu
                 davranış devam ederse ilgili hesaplar askıya alınacaktır. Sponsorlu reklam vermek için <a
-                    href="mailto:contact@gazisocial.com" class="text-blue-600 underline">contact@gazisocial.com</a>
+                    href="mailto:destek@gazisocial.com" class="text-blue-600 underline">destek@gazisocial.com</a>
                 adresinden iletişime geçebilirsiniz.
             </x-slot>
         </x-ui.accordion>

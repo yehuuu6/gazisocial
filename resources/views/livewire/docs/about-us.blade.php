@@ -26,8 +26,8 @@
             <div class="mt-3 flex items-center">
                 <span class="font-semibold mr-2">İletişim:</span>
                 <a class="text-blue-500 hover:text-blue-700 transition-colors hover:underline"
-                    href="mailto:contact@gazisocial.com">
-                    contact@gazisocial.com
+                    href="mailto:destek@gazisocial.com">
+                    destek@gazisocial.com
                 </a>
             </div>
         </div>

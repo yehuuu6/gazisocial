@@ -14,9 +14,9 @@
                 Gazi Social'da gerçekleştirdiğiniz bir ihlal nedeniyle hesabınız geçici olarak askıya alındı. Daha fazla
                 bilgi almak ve itiraz için bizimle iletişime geçebilirsiniz.
             </p>
-            <a href="mailto:contact@gazisocial.com"
+            <a href="mailto:destek@gazisocial.com"
                 class="text-red-900 hover:underline text-xs flex items-center gap-0.5 mt-2 w-fit font-bold">
-                contact@gazisocial.com <x-icons.arrow-right-alt size="16" />
+                destek@gazisocial.com <x-icons.arrow-right-alt size="16" />
             </a>
         </div>
     </div>
