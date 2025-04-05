@@ -34,7 +34,7 @@
     @if (!$post->is_published && !Auth::user()->canDoHighLevelAction())
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
-            <div class="inline-flex items-center gap-3">
+            <div class="inline-flex gap-3">
                 <x-icons.warning size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yönetici onayı bekliyor. Şu anda sadece siz görebilirsiniz.
@@ -48,7 +48,7 @@
     @elseif (!$post->is_published && Auth::user()->canDoHighLevelAction())
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
-            <div class="inline-flex items-center gap-3">
+            <div class="inline-flex gap-3">
                 <x-icons.info size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yayınlanmak için onay bekliyor. Konuyu inceleyip uygunsa yayınlayabilirsiniz.
@@ -65,7 +65,7 @@
     @if ($post->is_pinned)
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-sky-50 to-blue-100 px-6 py-4 select-none text-blue-800 shadow-sm rounded-xl">
-            <div class="inline-flex items-center gap-3">
+            <div class="inline-flex gap-3">
                 <x-icons.pin size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yöneticiler tarafından sabitlenmiş. Önemli içeriğe sahip olabilir.

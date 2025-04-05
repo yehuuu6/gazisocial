@@ -33,7 +33,7 @@
     @if (!$this->canPublishAPost() && !Auth::user()->is_banned)
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
-            <div class="inline-flex items-center gap-3">
+            <div class="inline-flex gap-3">
                 <x-icons.info size="18" class="flex-shrink-0" />
                 <span class="text-xs lg:text-sm font-medium">
                     Hesabınız yeni açıldığı için konularınız yönetici onayı bekleyecektir. Bu süre zarfında konularınızı
