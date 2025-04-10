@@ -22,7 +22,8 @@
                 Gazi Social kimler tarafından geliştiriliyor?
             </x-slot>
             <x-slot name="text">
-                Gazi Üniversitesinde okuyan bir öğrenci tarafından Laravel (Livewire) frameworkü kullanılarak
+                <a href="https://github.com/yehuuu6" class="text-blue-400 hover:underline" target="_blank">Eren Aydın</a>
+                tarafından Laravel Livewire frameworkü kullanılarak
                 geliştirilmektedir.
             </x-slot>
         </x-ui.accordion>
@@ -32,7 +33,7 @@
             </x-slot>
             <x-slot name="text">
                 Hayır. Sitemiz resmi bir Gazi Üniversitesi projesi değildir. Gazi Üniversitesi ile herhangi bir
-                bağlantısı yoktur.
+                ilişkisi yoktur.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
@@ -48,18 +49,19 @@
                 Gazi Üniversitesi öğrencisi olduğumu nasıl kanıtlarım?
             </x-slot>
             <x-slot name="text">
-                Kayıt olurken üniversite tarafından size verilen <strong>@gazi.edu.tr</strong> mailinizi
-                kullanırsanız, forumda öğrenci rolünü otomatik olarak almış olursunuz.
+                Üniversite tarafından size verilen <strong>@gazi.edu.tr</strong> mailinizi
+                kullanırsanız, forumda "Gazili" rozetini otomatik olarak almış olursunuz ve kısıtlamalardan muaf
+                olursunuz.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
             <x-slot name="title">
-                Öğrenciyim ancak gazi.edu.tr mailim yok. Nasıl alabilirim?
+                Gaziliyim, ancak edu mailim yok. Nasıl alabilirim?
             </x-slot>
             <x-slot name="text">
-                Detaylı bilgi için <a class="text-blue-600 hover:underline"
-                    href="https://gazi.edu.tr/view/announcement/303951/e-posta-talep-sistemi" target="_blank">buraya</a>
-                tıklayabilirsiniz.
+                Edu mailinizi talep etmek için <a class="text-blue-600 hover:underline"
+                    href="https://gazi.edu.tr/view/announcement/303951/e-posta-talep-sistemi" target="_blank">bu
+                    sayfayı</a> ziyaret edebilirsiniz.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
@@ -68,9 +70,7 @@
             </x-slot>
             <x-slot name="text">
                 Hayır, Gazi Social'de reklam yapmak yasaktır. İçeriğinde reklam tespit edilen konular silinecek, bu
-                davranış devam ederse ilgili hesaplar askıya alınacaktır. Sponsorlu reklam vermek için <a
-                    href="mailto:destek@gazisocial.com" class="text-blue-600 underline">destek@gazisocial.com</a>
-                adresinden iletişime geçebilirsiniz.
+                davranış devam ederse ilgili hesaplar askıya alınacaktır.
             </x-slot>
         </x-ui.accordion>
         <x-ui.accordion>
@@ -80,11 +80,12 @@
             <x-slot name="text">
                 Gazi Social'da aşağıdaki davranışlar yasaktır:
                 <ul class="list-disc pl-6">
-                    <li>Anlaşmasız reklam yapmak</li>
+                    <li>Reklam yapmak</li>
                     <li>Spam - flood yapmak</li>
                     <li>Yanlış bilgi paylaşmak</li>
                     <li>Siteye varsa mevcut açıklardan yararlanarak zarar vermek (Sitede hata bulursanız bize
-                        iletebilirsiniz.)</li>
+                        iletebilirsiniz.)
+                    </li>
                     <li>Yasadışı örgütleri veya hayali ülkeleri yüceltmek</li>
                     <li>Yasadışı içerik paylaşmak</li>
                     <li>Kışkırtıcı içerik paylaşmak</li>

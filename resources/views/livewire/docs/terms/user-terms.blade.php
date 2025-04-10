@@ -3,18 +3,23 @@
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">1. Şartların Kabulü</h2>
-        <p class="text-gray-700">Gazi Social platformunu kullanarak bu şartları kabul etmiş olursunuz. Eğer bu
-            şartları kabul etmiyorsanız, platformu kullanmaktan kaçınmalısınız.</p>
+        <p class="text-gray-700">Gazi Social sitesini kullanarak bu şartları kabul etmiş olursunuz. Eğer bu
+            şartları kabul etmiyorsanız, siteyi kullanmaktan kaçınmalısınız.</p>
     </section>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">2. Uygunluk</h2>
-        <p class="text-gray-700 mb-2">Gazi Social yalnızca Gazi Üniversitesi öğrencileri veya aday öğrenciler için
-            tasarlanmıştır. Platformu
-            kullanabilmek için:</p>
+        <p class="text-gray-700 mb-2">
+            Gazi Social yalnızca Gazi Üniversitesi öğrencileri veya aday öğrenciler için
+            tasarlanmıştır. Forumu
+            kullanabilmek için:
+        </p>
         <ul class="list-disc list-inside text-gray-700">
-            <li>En az 18 yaşında olmalısınız.</li>
-            <li>Kayıt sırasında gerçek bilgilerinizi kullanmalısınız. Anonim paylaşım için zaten seçenek sunuyoruz.
+            <li>
+                En az 18 yaşında olmalısınız.
+            </li>
+            <li>
+                Kayıt sırasında gerçek bilgilerinizi kullanmalısınız. Anonim paylaşım için zaten seçenek sunuyoruz.
             </li>
         </ul>
     </section>
@@ -28,7 +33,8 @@
                 kopyalamayın.</li>
             <li><strong>Üniversite Kurallarına Uyun:</strong> Paylaşımlarınız üniversitenizin politikalarına uygun
                 olmalıdır.</li>
-            <li><strong>Yasalara Uyun:</strong> Platformda Türkiye Cumhuriyeti yasalarına aykırı içerikler
+            <li>
+                <strong>Yasalara Uyun:</strong> Sitede Türkiye Cumhuriyeti yasalarına aykırı içerikler
                 paylaşmayın.
             </li>
             <li><strong>Sorumluluğunuzu Bilin:</strong> Paylaşımlarınızın sorumluluğu size aittir. Gazi Social,
@@ -52,9 +58,11 @@
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">5. İçerik Hakları</h2>
         <ul class="list-disc list-inside text-gray-700">
-            <li>Paylaştığınız içeriklerin sahibi sizsiniz, ancak Gazi Social’a bu içerikleri platformda görüntüleme
-                ve dağıtma hakkı verirsiniz.</li>
-            <li>Şartları veya yasal yükümlülükleri ihlal eden içerikler platformdan kaldırılabilir.</li>
+            <li>
+                Paylaştığınız içeriklerin sahibi sizsiniz, ancak Gazi Social’a bu içerikleri forumda görüntüleme
+                ve dağıtma hakkı verirsiniz.
+            </li>
+            <li>Şartları veya yasal yükümlülükleri ihlal eden içerikler siteden kaldırılabilir.</li>
         </ul>
     </section>
 
@@ -78,7 +86,7 @@
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">8. Anonimlik</h2>
-        <p class="text-gray-700">Platform, anonim paylaşımlara izin verir. Ancak anonim paylaşımlar da yukarıdaki
+        <p class="text-gray-700">Forum, anonim paylaşımlara izin verir. Ancak anonim paylaşımlar da yukarıdaki
             kurallara tabidir ve gerektiğinde denetlenecektir. Anonimlik, sorumluluklarınızı ortadan kaldırmaz.
             Anonim
             içeriklerin kim tarafından paylaşıldığı, Gazi Social yöneticileri tarafından görülebilir.</p>
@@ -88,30 +96,31 @@
         <h2 class="text-xl font-semibold text-gray-800 mb-2">9. Anketler</h2>
         <ul class="list-disc list-inside text-gray-700">
             <li>Kullanıcılar anket oluşturabilir ve oylama yapabilir.</li>
-            <li>Anket sonuçları, gerçek zamanlı olarak platformda görüntülenebilir.</li>
+            <li>Anket sonuçları, gerçek zamanlı olarak sitede görüntülenebilir.</li>
             <li>Anketler, yasalara ve üniversite kurallarına aykırı içerikler içermemelidir.</li>
         </ul>
     </section>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">10. Üniversite Özel Kuralları</h2>
-        <p class="text-gray-700">Gazi Üniversitesi veya diğer üniversitelerin belirlediği kurallar bu platformda
+        <p class="text-gray-700">Gazi Üniversitesi veya diğer üniversitelerin belirlediği kurallar bu sitede
             geçerlidir. Üniversite yönetiminin talep etmesi durumunda, uygun içerikler veya kullanıcı bilgileri
-            paylaşılabilir.</p>
+            paylaşılabilir.
+        </p>
     </section>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">11. Sorumluluk Reddi ve Sınırlamalar</h2>
         <ul class="list-disc list-inside text-gray-700">
             <li>Kullanıcılar tarafından üretilen içeriklerden Gazi Social sorumlu tutulamaz.</li>
-            <li>Platform, "olduğu gibi" sunulmakta olup, kesintisiz veya hatasız kullanım garanti edilmez.</li>
+            <li>Forum, "olduğu gibi" sunulmakta olup, kesintisiz veya hatasız kullanım garanti edilmez.</li>
         </ul>
     </section>
 
     <section class="mb-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">12. Değişiklikler</h2>
         <p class="text-gray-700">Bu şartlar zaman zaman güncellenebilir. Önemli değişiklikler kullanıcılara
-            bildirilecektir. Platformu kullanmaya devam etmeniz, değişiklikleri kabul ettiğiniz anlamına gelir.</p>
+            bildirilecektir. Siteyi kullanmaya devam etmeniz, değişiklikleri kabul ettiğiniz anlamına gelir.</p>
     </section>
 
     <section>
