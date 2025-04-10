@@ -245,7 +245,7 @@
                         <div class="flex flex-col lg:gap-2">
                             <!-- Yorum Başlığı -->
                             <div class="flex md:items-center justify-between gap-4">
-                                <div>
+                                <div class="flex gap-1 items-center flex-wrap">
                                     <x-link
                                         href="{{ $comment->post && $comment->post->exists ? $comment->post->showRoute() : '#' }}"
                                         class="text-xs md:text-sm text-gray-800 font-medium">
