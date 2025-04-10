@@ -70,9 +70,9 @@
             <a href="https://github.com/yehuuu6" target="_blank" class="text-blue-200 hover:underline">@yehuuu6</a>
         </div>
         <div class="w-full font-medium text-gray-300 md:text-center text-sm">
-            <span>Copyright © Gazi Social <span x-data="{ date: '2025' }" x-init="date = new Date().getFullYear()" x-text="date"></span>
-                All rights
-                reserved.</span>
+            <span>
+                Copyright © Gazi Social {{ date('Y') }} All rights reserved.
+            </span>
         </div>
     </footer>
 </div>
