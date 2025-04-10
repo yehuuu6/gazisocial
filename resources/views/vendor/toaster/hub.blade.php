@@ -22,7 +22,7 @@
             class="relative group duration-300 transform transition ease-in-out max-w-sm md:max-w-md w-full pointer-events-auto"
             >
             <div
-                class="flex border border-gray-100 gap-0.5 bg-white px-6 py-4 rounded-md shadow-lg text-sm w-full {{ $alignment->is('bottom') ? 'mt-3' : 'mb-3' }}">
+                class="flex border border-gray-100 gap-0.5 items-center bg-white px-6 py-4 rounded-md shadow-lg text-sm w-full {{ $alignment->is('bottom') ? 'mt-3' : 'mb-3' }}">
                 <svg x-show="toast.type=='success'" class="shrink-0 size-6 md:size-8 mr-1.5 -ml-1 text-green-500"
                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
