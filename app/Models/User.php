@@ -34,6 +34,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
         'gender',
         'password',
         'last_activity',
+        'verification_code',
+        'verification_code_expires_at',
     ];
 
     protected $attributes = [
@@ -234,6 +236,46 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
             'email_verified_at' => 'datetime',
             'last_activity' => 'datetime',
             'password' => 'hashed',
+            'verification_code_expires_at' => 'datetime',
         ];
+    }
+
+    public function generateVerificationCode()
+    {
+        // Generate a 6-digit verification code
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        
+        // Set the verification code and expiration time (24 hours from now)
+        $this->verification_code = $code;
+        $this->verification_code_expires_at = now()->addHours(24);
+        $this->save();
+        
+        return $code;
+    }
+    
+    public function verifyCode($code)
+    {
+        // Check if the verification code matches and has not expired
+        if ($this->verification_code === $code && 
+            $this->verification_code_expires_at && 
+            $this->verification_code_expires_at->gt(now())) {
+            
+            // Mark email as verified
+            $this->email_verified_at = now();
+            $this->verification_code = null;
+            $this->verification_code_expires_at = null;
+            $this->save();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public function hasValidVerificationCode()
+    {
+        return $this->verification_code && 
+               $this->verification_code_expires_at && 
+               $this->verification_code_expires_at->gt(now());
     }
 }
