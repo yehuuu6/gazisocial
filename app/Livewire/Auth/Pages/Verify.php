@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Livewire\Attributes\Title;
 use Masmerise\Toaster\Toaster;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Auth;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -20,6 +21,15 @@ class Verify extends Component
 
     #[Layout('layout.auth')]
 
+    #[Validate('required|size:6|regex:/^[0-9]+$/', 
+        message: [
+            'required' => 'Doğrulama kodu gereklidir.',
+            'size' => 'Doğrulama kodu 6 haneli olmalıdır.',
+            'regex' => 'Doğrulama kodu sadece rakamlardan oluşmalıdır.'
+        ]
+    )]
+    public $verification_code = '';
+
     protected User $user;
 
     public function mount()
@@ -27,31 +37,34 @@ class Verify extends Component
         $this->returnHomeIfVerified();
     }
 
-    public function verifyUser(EmailVerificationRequest $request)
+    public function verifyCode()
     {
-        $request->fulfill();
-        /**
-         * @var User $user
-         */
+        $this->validate();
+
         $this->user = Auth::user();
-        // if user has @gazi.edu.tr email, assign gazili role
-        if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
-            // Check if user already has gazili role
-            if (!$this->user->isStudent()) {
-                $this->user->assignRole(['gazili']);
+
+        if ($this->user->verifyCode($this->verification_code)) {
+            // If user has @gazi.edu.tr email, assign gazili role
+            if (strpos($this->user->email, '@gazi.edu.tr') !== false) {
+                // Check if user already has gazili role
+                if (!$this->user->isStudent()) {
+                    $this->user->assignRole(['gazili']);
+                }
             }
+
+            // Update user's last activity
+            $this->user->heartbeat();
+
+            if ($this->user->isStudent()) {
+                $msg = "E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.";
+            } else {
+                $msg = "E-posta adresiniz doğrulandı.";
+            }
+
+            return redirect(route('home'))->success($msg);
         }
 
-        if ($this->user->isStudent()) {
-            $msg = "E-posta adresiniz doğrulandı. Artık bir fakülteye katılabilirsiniz.";
-        } else {
-            $msg = "E-posta adresiniz doğrulandı.";
-        }
-
-        // Update user's last activity
-        $this->user->heartbeat();
-
-        return redirect(route('home'))->success($msg);
+        Toaster::error('Geçersiz doğrulama kodu. Lütfen tekrar deneyin.');
     }
 
     public function sendVerifyMail(Request $request)

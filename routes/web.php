@@ -36,9 +36,6 @@ Route::middleware('guest')->group(function () {
 Route::delete('/logout', [Login::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::get('/email/verify', Verify::class)->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', [Verify::class, 'verifyUser'])
-    ->middleware(['auth', 'signed'])->name('verification.verify');
-
 Route::post('/email/verification-notification', [Verify::class, 'sendVerifyMail'])
     ->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
