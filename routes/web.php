@@ -26,6 +26,7 @@ use App\Livewire\Docs\NewAccountInfo;
 use App\Livewire\Post\Pages\ListPostsByTag;
 use App\Livewire\Games\Pages\GamesList;
 use App\Livewire\ZalimKasaba\ZKGuide;
+use App\Http\Controllers\SitemapController;
 
 // Auth routes START
 Route::middleware('guest')->group(function () {
@@ -116,3 +117,7 @@ Route::middleware('auth', 'verified')->group(function () {
 });
 
 // Zalim Kasaba routes END
+
+// SEO routes START
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+// SEO routes END
