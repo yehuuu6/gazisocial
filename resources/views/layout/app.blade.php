@@ -4,24 +4,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@yield('description', 'Gazi Üniversitesi öğrencileri için sosyalleşme platformu. Kampüs hayatınızı zenginleştirin, etkinlikleri keşfedin ve yeni arkadaşlar edinin.')">
+    <meta name="keywords" content="@yield('keywords', 'Gazi Üniversitesi, sosyal platform, öğrenci topluluğu, kampüs hayatı, Gazi Social, üniversite forumu, gazisocial, gazi social')">
+    <meta name="author" content="Gazi Social">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @yield('canonical')
     @livewireStyles
     @stack('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="Gazi Social">
-    <meta property="og:title" content="Gazi Social">
-    <meta property="og:description" content="Gazi Üniversitesi öğrencileri için sosyalleşme platformu.">
+    <meta property="og:title" content="@yield('title', $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social')">
+    <meta property="og:description" content="@yield('description', 'Gazi Üniversitesi öğrencileri için sosyalleşme platformu. Kampüs hayatınızı zenginleştirin ve arkadaşlar edinin.')">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="tr">
-    <meta property="og:url" content="https://gazisocial.com/">
-    <meta property="og:image" content="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" itemprop="image">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="@yield('image', asset('logos/GS_LOGO_DEFAULT.png'))" itemprop="image">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Sosyalleşmenin yeni adresi - Gazi Social">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Gazi Social">
-    <meta name="twitter:image" content="{{ asset('logos/GS_LOGO_DEFAULT.png') }}">
-    @yield('ogtags')
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social')">
+    <meta name="twitter:description" content="@yield('description', 'Gazi Üniversitesi öğrencileri için sosyalleşme platformu.')">
+    <meta name="twitter:image" content="@yield('image', asset('logos/GS_LOGO_DEFAULT.png'))">
+    <meta name="twitter:url" content="{{ url()->current() }}">
     <title>{{ $title ?? 'Sosyalleşmenin yeni adresi - Gazi Social' }}</title>
     <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 </head>

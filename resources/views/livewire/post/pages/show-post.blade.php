@@ -1,13 +1,15 @@
 @section('canonical')
     <link rel="canonical" href="{{ $post->showRoute() }}">
 @endsection
-@section('ogtags')
-    <meta property="og:title" content="{{ $post->title }} - Gazi Social">
-    <meta property="og:url" content="{{ $post->showRoute() }}">
-    <meta property="og:image" content="{{ $post->getFirstImageUrl() }}" itemprop="image">
-    <meta property="twitter:title" content="{{ $post->title }} - Gazi Social">
-    <meta property="twitter:image" content="{{ $post->getFirstImageUrl() }}">
-@endsection
+@php
+    $tags = $post->tags->pluck('name')->toArray();
+    $tags = implode(', ', $tags);
+    $tags .= ', Gazi Üniversitesi, Gazi Social, gazisocial';
+@endphp
+@section('keywords', $tags)
+@section('title', $post->title . ' - Gazi Social')
+@section('image', $post->getFirstImageUrl())
+@section('description', mb_substr(preg_replace('/\s+/', ' ', strip_tags($post->html)), 0, 160, 'UTF-8'))
 @push('scripts')
     @vite('resources/js/syntax-highlight.js')
 @endpush

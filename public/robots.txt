@@ -1,2 +1,10 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://gazisocial.com/sitemap.xml
+
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+Disallow: /forgot-password
+Disallow: /email/verify
