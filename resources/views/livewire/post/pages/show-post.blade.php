@@ -209,7 +209,7 @@
                 function updateHeight() {
                     if (window.innerWidth < 1024) {
                         const windowHeight = window.innerHeight;
-                        const panelHeight = windowHeight - headerHeight;
+                        const panelHeight = windowHeight - navbarHeight;
                         $el.style.height = panelHeight + 'px';
                     } else {
                         $el.style.height = '100%';
