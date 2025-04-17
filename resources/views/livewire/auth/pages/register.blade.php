@@ -16,7 +16,7 @@
         <form id="guarded-form" wire:submit="register"
             class="bg-slate-50 border border-slate-200 px-8 pt-6 pb-8 mb-4 rounded-lg">
             @csrf
-            <div class="mb-4 flex gap-4">
+            <div class="mb-4">
                 <div>
                     <label class="block text-gray-700 text-sm font-normal mb-2" for="name">
                         Ad Soyad
@@ -26,15 +26,15 @@
                         id="name" type="text" name="name" value="{{ old('name') }}" required
                         wire:model="name">
                 </div>
-                <div>
-                    <label for="username" class="block text-gray-700 text-sm font-normal mb-2">
-                        Kullanıcı Adı
-                    </label>
-                    <input maxlength="30"
-                        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" autocapitalize="off" type="text" name="username" value="{{ old('username') }}"
-                        required wire:model="username">
-                </div>
+            </div>
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-normal mb-2">
+                    Kullanıcı Adı
+                </label>
+                <input maxlength="30"
+                    class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="username" autocapitalize="off" type="text" name="username" value="{{ old('username') }}"
+                    required wire:model="username">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-normal mb-2" for="email">
