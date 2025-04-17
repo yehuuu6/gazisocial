@@ -57,6 +57,7 @@
         <x-toaster-hub />
     @endpersist
     @livewireScriptConfig
+    @stack('sscripts')
 </body>
 
 </html>

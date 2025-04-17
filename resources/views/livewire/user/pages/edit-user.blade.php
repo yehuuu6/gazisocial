@@ -103,36 +103,198 @@
                 <x-user.edit.title title="Profil Fotoğrafı"
                     description="Profilinizde görünen fotoğrafınızı güncelleyin" />
                 <x-seperator />
-                <div>
+                <div x-data="{
+                    cropper: null,
+                    croppedImage: null,
+                    cropperVisible: false,
+                    saving: false,
+                    initCropper() {
+                        if (this.cropper) {
+                            this.cropper.destroy();
+                        }
+                
+                        setTimeout(() => {
+                            const image = document.getElementById('cropper-image');
+                            if (image) {
+                                this.cropper = new Cropper(image, {
+                                    aspectRatio: 1,
+                                    viewMode: 1,
+                                    dragMode: 'none',
+                                    autoCropArea: 1,
+                                    minContainerWidth: 250,
+                                    minContainerHeight: 250,
+                                    minCropBoxWidth: 100,
+                                    minCropBoxHeight: 100,
+                                    cropBoxResizable: true,
+                                    responsive: true,
+                                    background: true,
+                                    modal: true,
+                                    movable: false,
+                                    zoomable: false,
+                                    rotatable: false,
+                                    scalable: false,
+                                    guides: true,
+                                    autoCrop: true,
+                                    dragCrop: false,
+                                    cropBoxMovable: true,
+                                    toggleDragModeOnDblclick: false,
+                                });
+                            }
+                        }, 100);
+                    },
+                    getCroppedData() {
+                        if (!this.cropper) {
+                            return;
+                        }
+                
+                        const canvas = this.cropper.getCroppedCanvas({
+                            width: 500,
+                            height: 500,
+                            imageSmoothingEnabled: true,
+                            imageSmoothingQuality: 'high',
+                        });
+                
+                        if (!canvas) {
+                            return;
+                        }
+                
+                        canvas.toBlob((blob) => {
+                            if (!blob) {
+                                return;
+                            }
+                
+                            // Check file size (convert to KB)
+                            const fileSize = Math.round(blob.size / 1024);
+                
+                            // Check if cropped file is still too large
+                            if (fileSize > {{ $maxFileSize }}) {
+                                $wire.call('handleFileError', `İşlenen dosya boyutu çok büyük (${fileSize} KB). Lütfen daha küçük bir görsel seçin.`);
+                                this.cropperVisible = false;
+                                return;
+                            }
+                
+                            // Create a new File object
+                            const file = new File([blob], 'cropped-avatar.png', { type: 'image/png' });
+                
+                            // Create a temporary URL for preview
+                            this.croppedImage = URL.createObjectURL(blob);
+                
+                            try {
+                                // Show loading state
+                                this.cropperVisible = false;
+                                
+                                // Use Livewire's upload method to handle the file
+                                $wire.upload('avatar', file, (uploadedFilename) => {
+                                    // File uploaded successfully, now save it
+                                    window.dispatchEvent(new CustomEvent('avatar-saving')); // Dispatch event for UI
+                                    $wire.saveAvatar().then(() => {
+                                        // Reset avatar property after successful save
+                                        this.croppedImage = null;
+                                        window.dispatchEvent(new CustomEvent('avatar-saved')); // Dispatch event for UI
+                                    });
+                                }, () => {
+                                    // Error uploading file
+                                    $wire.call('handleFileError', 'Resim yükleme işlemi başarısız oldu. Lütfen tekrar deneyin.');
+                                });
+                            } catch (error) {
+                                // Fallback for older browsers or if Livewire upload fails
+                                $wire.call('handleFileError', 'Resim yükleme işlemi başarısız oldu. Lütfen tekrar deneyin.');
+                                this.cropperVisible = false;
+                            }
+                        }, 'image/png', 0.9); // 0.9 quality for better compression
+                    }
+                }"
+                    @image-uploaded.window="
+                    if (!$wire.fileError) {
+                        cropperVisible = true;
+                        $nextTick(() => initCropper());
+                    }
+                "
+                @avatar-saving.window="saving = true"
+                @avatar-saved.window="saving = false">
                     <div class="flex gap-4 justify-between p-4">
                         <div class="shrink-0">
-                            @if ($avatar)
-                                <img src="{{ $avatar->temporaryUrl() }}"
-                                    class="mx-auto object-cover size-20 rounded-full bg-gray-100"
-                                    alt="Profil Fotoğrafı" />
-                            @else
-                                <img src="{{ $user->getAvatar() }}" x-on:updated-avatar="$wire.$refresh()"
-                                    class="mx-auto object-cover size-20 rounded-full bg-gray-100"
-                                    alt="Profil Fotoğrafı" />
-                            @endif
+                            <template x-if="!cropperVisible">
+                                <div>
+                                    <template x-if="croppedImage">
+                                        <img :src="croppedImage"
+                                            class="mx-auto object-cover size-20 rounded-full bg-gray-100"
+                                            alt="Profil Fotoğrafı" />
+                                    </template>
+                                    <template x-if="!croppedImage">
+                                        @if ($avatar)
+                                            <img src="{{ $avatar->temporaryUrl() }}"
+                                                class="mx-auto object-cover size-20 rounded-full bg-gray-100"
+                                                alt="Profil Fotoğrafı" />
+                                        @else
+                                            <img src="{{ $user->getAvatar() }}" x-on:updated-avatar="$wire.$refresh()"
+                                                class="mx-auto object-cover size-20 rounded-full bg-gray-100"
+                                                alt="Profil Fotoğrafı" />
+                                        @endif
+                                    </template>
+                                </div>
+                            </template>
                         </div>
-                        <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                            x-on:livewire-upload-finish="uploading = false"
+                        <div x-data="{
+                            uploading: false,
+                            progress: 0,
+                            handleFileSelect(event) {
+                                const file = event.target.files[0];
+                                if (!file) return;
+                        
+                                // Check file size (convert to KB)
+                                const fileSize = Math.round(file.size / 1024);
+                        
+                                // Check if file is larger than PHP's upload_max_filesize
+                                if (fileSize > {{ $maxFileSize }}) {
+                                    // Clear the file input
+                                    event.target.value = '';
+                        
+                                    // Show error message
+                                    $wire.call('handleFileError', 'Dosya boyutu çok büyük. Maksimum dosya boyutu: {{ $maxFileSize / 1024 }} MB');
+                        
+                                    return;
+                                }
+                        
+                                // If file size is acceptable, use Livewire's upload method
+                                const fileInput = event.target;
+                        
+                                // Create a new FormData instance
+                                const formData = new FormData();
+                                formData.append('avatar', file);
+                        
+                                // Manually upload using Livewire
+                                $wire.upload('avatar', file, (uploadedFilename) => {
+                                    // Success callback
+                                    this.uploading = false;
+                                    $dispatch('image-uploaded');
+                                }, () => {
+                                    // Error callback
+                                    this.uploading = false;
+                                    $wire.call('handleFileError', 'Dosya yüklenirken bir hata oluştu. Lütfen tekrar deneyin.');
+                                }, (progressEvent) => {
+                                    // Progress callback
+                                    this.uploading = true;
+                                    this.progress = progressEvent.detail.progress;
+                                });
+                            }
+                        }" x-on:livewire-upload-start="uploading = true"
+                            x-on:livewire-upload-finish="uploading = false; $dispatch('image-uploaded')"
                             x-on:livewire-upload-cancel="uploading = false"
                             x-on:livewire-upload-error="uploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
                             <div class="flex items-center gap-2">
-                                <label x-show="!uploading" for="profile-avatar" wire:loading.remove
+                                <label x-show="!uploading && !cropperVisible" for="profile-avatar" wire:loading.remove
                                     wire:target="photo, deleteAvatar"
                                     class="cursor-pointer w-full inline-flex self-start items-center justify-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <x-icons.camera size="16" />
                                     <span>Yükle</span>
                                 </label>
                                 <input type="file" id="profile-avatar" name="profile-avatar" accept="image/*"
-                                    class="hidden" wire:model="avatar" />
+                                    class="hidden" x-on:change="handleFileSelect($event)" />
                                 @if ($this->user->avatar)
-                                    <button x-show="!uploading" wire:click="deleteAvatar" wire:loading.remove
-                                        wire:target="photo, deleteAvatar"
+                                    <button x-show="!uploading && !cropperVisible" wire:click="deleteAvatar"
+                                        wire:loading.remove wire:target="photo, deleteAvatar"
                                         class="inline-flex w-full ml-2 self-start items-center justify-center gap-2 rounded border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50">
                                         <x-icons.trash size="16" />
                                         <span>Kaldır</span>
@@ -163,12 +325,38 @@
                             </div>
                             <div class="text-sm text-gray-500 mt-3">
                                 <p>Desteklenen formatlar: JPG, PNG, GIF</p>
-                                <p>Maksimum dosya boyutu: 2MB</p>
+                                <p>Maksimum dosya boyutu: {{ $maxFileSize / 1024 }} MB</p>
                             </div>
                         </div>
                     </div>
-                    <div class="p-4">
-                        @if ($avatar)
+
+                    <!-- Image Cropper -->
+                    <div x-cloak x-show="cropperVisible" class="p-4 border-t border-gray-100">
+                        <div class="mb-3">
+                            <h3 class="text-base font-medium text-gray-700">Fotoğrafı Düzenle</h3>
+                        </div>
+
+                        <div class="w-full overflow-hidden mb-4 bg-gray-100 rounded-lg border border-gray-200"
+                            style="max-height: 400px;">
+                            @if ($avatar)
+                                <img id="cropper-image" src="{{ $avatar->temporaryUrl() }}" class="max-w-full" />
+                            @endif
+                        </div>
+
+                        <div class="flex items-center justify-end gap-2">
+                            <button type="button" @click="cropperVisible = false"
+                                class="rounded bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300">
+                                İptal
+                            </button>
+                            <button type="button" @click="getCroppedData()"
+                                class="rounded bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-900">
+                                Kırp ve Kaydet
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4" x-show="!cropperVisible">
+                        @if ($avatar && !isset($croppedImage))
                             <button wire:click="saveAvatar" wire:loading.attr="disabled" wire:target="saveAvatar"
                                 class="mt-3 w-full rounded bg-primary px-6 py-2 text-center font-medium text-white hover:bg-blue-900">
                                 <span class="flex items-center justify-center" wire:loading.remove
@@ -180,6 +368,11 @@
                                     <x-icons.spinner size='24' color='white' />
                                 </span>
                             </button>
+                        @elseif(isset($croppedImage) || $avatar)
+                            <div class="flex items-center justify-center gap-2 text-primary" x-show="saving">
+                                <x-icons.spinner size="24" class="text-primary" />
+                                <span>Avatar kaydediliyor...</span>
+                            </div>
                         @else
                             <button type="button" disabled
                                 class="rounded bg-gray-200 w-full px-6 py-2 font-medium text-gray-500 cursor-not-allowed">
@@ -320,3 +513,24 @@
         </div>
     </div>
 </div>
+
+@push('sscripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+    <style>
+        /* Simplified custom styles for the cropper */
+        .cropper-view-box {
+            outline: 2px solid #3399ff !important;
+        }
+
+        .cropper-crop-box {
+            cursor: move;
+        }
+
+        /* Prevent cursor changes on the whole container */
+        .cropper-container {
+            cursor: default !important;
+        }
+    </style>
+@endpush
+

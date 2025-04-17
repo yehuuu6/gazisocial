@@ -25,6 +25,7 @@ class EditUser extends Component
     public $bio;
 
     public $avatar;
+    public $maxFileSize = 2048; // in KB (2MB)
 
     // Update Password
     public $current_password;
@@ -37,6 +38,47 @@ class EditUser extends Component
 
     // Delete Account
     public $deleteAccountConfirmation;
+
+    // File error handling
+    public $fileError = null;
+
+    protected function getListeners()
+    {
+        return [
+            'fileError' => 'handleFileError',
+        ];
+    }
+
+    public function handleFileError($error)
+    {
+        $this->fileError = $error;
+        Toaster::error($error);
+        $this->reset('avatar'); // Make sure to reset the avatar property to avoid issues
+    }
+
+    public function updatedAvatar()
+    {
+        $this->fileError = null;
+        
+        if (!$this->avatar) {
+            return;
+        }
+
+        $messages = [
+            'avatar.image' => 'Avatar resmi bir resim dosyası olmalıdır.',
+            'avatar.max' => 'Avatar resmi en fazla 2 MB olabilir.',
+            'avatar.mimes' => 'Avatar resmi sadece :values formatında olabilir.',
+        ];
+
+        try {
+            $this->validate([
+                'avatar' => 'image|max:2048|mimes:jpeg,png,jpg,webp',
+            ], $messages);
+        } catch (ValidationException $e) {
+            $this->handleFileError($e->getMessage());
+            return;
+        }
+    }
 
     public function mount(User $user)
     {
