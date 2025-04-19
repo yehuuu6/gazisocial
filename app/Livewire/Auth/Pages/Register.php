@@ -48,6 +48,7 @@ class Register extends Component
             'username.string' => 'Kullanıcı adı alanı metin tipinde olmalıdır.',
             'username.max' => 'Kullanıcı adı alanı en fazla :max karakter olabilir.',
             'username.unique' => 'Bu kullanıcı adı zaten alınmış.',
+            'username.regex' => 'Kullanıcı adı sadece harf ve rakamlardan oluşmalıdır.',
             'email.required' => 'Email alanı boş bırakılamaz.',
             'email.string' => 'Email alanı metin tipinde olmalıdır.',
             'email.email' => 'Geçerli bir email adresi giriniz.',
@@ -67,7 +68,7 @@ class Register extends Component
         try {
             $this->validate([
                 'name' => 'required|string|max:30',
-                'username' => 'required|string|max:16|unique:users',
+                'username' => 'required|string|max:16|unique:users|regex:/^[a-zA-Z0-9]+$/',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'accept_terms' => 'required|accepted',
