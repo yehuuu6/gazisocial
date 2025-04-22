@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
@@ -18,14 +15,8 @@ class SitemapController extends Controller
             ->limit(1000) // Limit to most popular 1000 posts
             ->get();
 
-        $users = User::where('is_banned', false)
-            ->latest()
-            ->limit(1000) // Limit to most recent 1000 users
-            ->get();
-
         return response()->view('sitemap.index', [
-            'posts' => $posts,
-            'users' => $users,
+            'posts' => $posts
         ])->header('Content-Type', 'text/xml');
     }
 }
