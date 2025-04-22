@@ -59,7 +59,7 @@
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#34d399,#f87171\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=reverb,default-queue,notifications-queue,scout-queue,vite"
         ],
-        "dev-linux": [
+        "dev-ln": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#7c65ff,#93c5fd,#65ffaf,#c4b5fd,#34d399,#f87171\" \"php artisan serve\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=server,reverb,default-queue,notifications-queue,scout-queue,vite"
         ]
