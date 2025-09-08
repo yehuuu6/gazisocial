@@ -33,6 +33,6 @@
         </div>
     </div>
     <div class="w-36 md:w-48 mt-5">
-        <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="logo" class="size-full object-cover">
+        <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="logo" class="size-full object-cover">
     </div>
 </div>

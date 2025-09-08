@@ -1,6 +1,6 @@
 <div class="flex items-center flex-col pt-10 p-6">
     <a href="/" class="h-20 mb-6 hover:opacity-90">
-        <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
+        <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social" class="object-contain h-full w-full">
     </a>
     <div class="bg-slate-50 border border-slate-200 px-8 pt-6 pb-8 mb-4 rounded-lg max-w-md w-full">
         <form wire:submit="resetPassword">

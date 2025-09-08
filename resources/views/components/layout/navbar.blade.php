@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between mx-[3%] xl:mx-[6%] 2xl:mx-[12%]">
             <x-link href="/" class="group flex items-center gap-1.5 hover:no-underline hover:opacity-90 md:gap-2.5">
                 <div class="h-12">
-                    <img src="{{ asset('\logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social Logo"
+                    <img src="{{ asset('logos/GS_LOGO_DEFAULT.png') }}" alt="Gazi Social Logo"
                         class="object-contain h-full">
                 </div>
             </x-link>

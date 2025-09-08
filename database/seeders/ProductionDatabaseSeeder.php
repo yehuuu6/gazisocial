@@ -36,7 +36,7 @@ class ProductionDatabaseSeeder extends Seeder
         $tags->push(Tag::create(['name' => 'Ulaşım', 'color' => 'teal']));
         $tags->push(Tag::create(['name' => 'Kampüs', 'color' => 'cyan']));
         $tags->push(Tag::create(['name' => 'İş İlanı', 'color' => 'sky']));
-        $tags->push(Tag::create(['name' => 'Dev Center', 'color' => 'blue']));
+        $tags->push(Tag::create(['name' => 'Yarışma', 'color' => 'blue']));
         $tags->push(Tag::create(['name' => 'Spor', 'color' => 'indigo']));
         $tags->push(Tag::create(['name' => 'Yurt', 'color' => 'violet']));
         $tags->push(Tag::create(['name' => 'Yazılım', 'color' => 'purple']));

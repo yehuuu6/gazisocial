@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
             <div class="mb-4 md:mb-0">
                 <div class="w-36 md:w-48 mb-3.5">
-                    <img src="{{ asset('\logos/GS_LOGO_BLUE_WHITE.png') }}" alt="logo" class="size-full object-cover">
+                    <img src="{{ asset('logos/GS_LOGO_BLUE_WHITE.png') }}" alt="logo" class="size-full object-cover">
                 </div>
                 <p class="text-gray-100 text-lg md:text-xl italic font-medium font-satisfy">
                     Gazili olmak ayrıcalıktır
