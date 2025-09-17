@@ -28,12 +28,12 @@
             <x-ui.tooltip text="Sohbet Geçmişi" position="left">
                 <button type="button" x-on:click="$wire.chatHistoryModal = true"
                     class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg p-2 text-white transition-all shadow-sm">
-                    <x-icons.time size="20" />
+                    <x-tabler-clock class="size-5" />
                 </button>
             </x-ui.tooltip>
             <button type="button" x-on:click="sendMessage()"
                 class="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-lg p-2 text-white transition-all shadow-sm">
-                <x-icons.send-msg size="20" />
+                <x-tabler-send class="size-5" />
             </button>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <h2 class="text-white font-bold text-lg">Sohbet Geçmişi</h2>
                 <button type="button" class="text-white hover:text-gray-200"
                     x-on:click="$wire.chatHistoryModal = false">
-                    <x-icons.close size="20" />
+                    <x-tabler-x class="size-5" />
                 </button>
             </div>
             <x-zalim-kasaba.chat-history :$currentPlayer :$oldMessages :$selectedDayCount :$lobby />

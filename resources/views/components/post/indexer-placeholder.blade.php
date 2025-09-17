@@ -6,14 +6,14 @@
                 <th class="p-4 text-center font-normal" width="10%">
                     <span class="hidden md:inline-block">YANITLAR</span>
                     <span class="md:hidden flex items-center justify-center">
-                        <x-icons.comment size="14" />
+                        <x-tabler-message-circle class="size-3.5" />
                     </span>
                 </th>
                 <th class="hidden p-4 text-center font-normal md:table-cell" width="10%">BEĞENİLER</th>
                 <th class="p-4 text-center font-normal" width="20%">
                     <span class="hidden md:inline-block">OLUŞTURULDU</span>
                     <span class="md:hidden flex items-center justify-center">
-                        <x-icons.time size="14" />
+                        <x-tabler-clock class="size-3.5" />
                     </span>
                 </th>
             </tr>

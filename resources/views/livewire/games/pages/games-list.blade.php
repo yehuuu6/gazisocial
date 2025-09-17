@@ -28,7 +28,7 @@
                 </div>
                 <a href="{{ route('games.zk.guide') }}"
                     class="flex items-center gap-0.5 px-4 mb-4 text-sm font-medium text-primary hover:underline">
-                    Detaylar <x-icons.arrow-right-alt size="16" class="inline-block" />
+                    Detaylar <x-tabler-chevron-right class="inline-block size-4" />
                 </a>
             </div>
             <div class="rounded-lg shadow-sm overflow-hidden border border-gray-200">
@@ -56,7 +56,7 @@
                 </div>
                 <a href="/games/cb/guide"
                     class="flex items-center gap-0.5 px-4 mb-4 text-sm font-medium text-primary hover:underline">
-                    Detaylar <x-icons.arrow-right-alt size="16" class="inline-block" />
+                    Detaylar <x-tabler-chevron-right class="inline-block size-4" />
                 </a>
             </div>
         </div>

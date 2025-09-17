@@ -34,7 +34,7 @@
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
             <div class="inline-flex gap-3">
-                <x-icons.info size="18" class="flex-shrink-0" />
+                <x-tabler-info-circle class="flex-shrink-0 size-4" />
                 <span class="text-xs lg:text-sm font-medium">
                     Hesabınız yeni açıldığı için konularınız yönetici onayı bekleyecektir. Bu süre zarfında konularınızı
                     sadece siz görebilirsiniz.
@@ -42,7 +42,7 @@
             </div>
             <x-link href="{{ route('new-account') }}" target="_blank"
                 class="mr-0 md:mr-4 text-xs lg:text-sm text-amber-700 font-medium">
-                Daha fazla bilgi <x-icons.double-right size="14" class="inline" />
+                Daha fazla bilgi <x-tabler-chevrons-right class="inline size-3.5" />
             </x-link>
         </div>
     @endif
@@ -168,7 +168,7 @@
                                         class="w-32 h-32 object-cover rounded-lg border-2 border-gray-200">
                                     <button type="button" wire:click="removeImage({{ $index }})"
                                         class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
-                                        <x-icons.close size="14" />
+                                        <x-tabler-x class="size-3.5" />
                                     </button>
                                 </div>
                             @endif
@@ -178,7 +178,7 @@
                                 class="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors">
                                 <input type="file" wire:model="newImage" class="hidden" accept="image/*">
                                 <div class="text-gray-500 flex flex-col items-center gap-2">
-                                    <x-icons.image size="24" />
+                                    <x-tabler-photo class="size-6" />
                                     <span class="text-xs">Görsel Ekle</span>
                                 </div>
                             </label>
@@ -255,12 +255,12 @@
                                         <button type="button" x-on:click.stop x-on:touchstart.stop x-on:mousedown.stop
                                             wire:click="editPoll({{ $poll->id }})"
                                             class="text-gray-400 hover:text-blue-500 hover:bg-blue-50 p-1.5 rounded-lg transition-colors">
-                                            <x-icons.edit size="14" />
+                                            <x-tabler-edit class="size-3.5" />
                                         </button>
                                         <button type="button" x-on:click.stop x-on:touchstart.stop x-on:mousedown.stop
                                             wire:click="deletePoll({{ $poll->id }})"
                                             class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors">
-                                            <x-icons.trash size="14" />
+                                            <x-tabler-trash class="size-3.5" />
                                         </button>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@
                                 <div x-on:click="$wire.showCreatePollModal = true"
                                     class="flex flex-col hover:border-teal-300 hover:bg-teal-50 transition duration-300 cursor-pointer justify-center items-center gap-2 p-6 bg-white rounded-md border-2 border-dashed border-gray-400">
                                     <div class="flex items-center gap-2">
-                                        <x-icons.survey size="26" />
+                                        <x-tabler-chart-bar class="size-6" /><!-- TODO: verify size for 26px -->
                                         <span>
                                             Taslak bulunamadı.
                                         </span>

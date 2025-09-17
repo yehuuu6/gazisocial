@@ -182,7 +182,7 @@
                             try {
                                 // Show loading state
                                 this.cropperVisible = false;
-                                
+                
                                 // Use Livewire's upload method to handle the file
                                 $wire.upload('avatar', file, (uploadedFilename) => {
                                     // File uploaded successfully, now save it
@@ -210,8 +210,7 @@
                         $nextTick(() => initCropper());
                     }
                 "
-                @avatar-saving.window="saving = true"
-                @avatar-saved.window="saving = false">
+                    @avatar-saving.window="saving = true" @avatar-saved.window="saving = false">
                     <div class="flex gap-4 justify-between p-4">
                         <div class="shrink-0">
                             <template x-if="!cropperVisible">
@@ -287,7 +286,7 @@
                                 <label x-show="!uploading && !cropperVisible" for="profile-avatar" wire:loading.remove
                                     wire:target="photo, deleteAvatar"
                                     class="cursor-pointer w-full inline-flex self-start items-center justify-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <x-icons.camera size="16" />
+                                    <x-tabler-camera class="size-4" />
                                     <span>Yükle</span>
                                 </label>
                                 <input type="file" id="profile-avatar" name="profile-avatar" accept="image/*"
@@ -296,7 +295,7 @@
                                     <button x-show="!uploading && !cropperVisible" wire:click="deleteAvatar"
                                         wire:loading.remove wire:target="photo, deleteAvatar"
                                         class="inline-flex w-full ml-2 self-start items-center justify-center gap-2 rounded border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-50">
-                                        <x-icons.trash size="16" />
+                                        <x-tabler-trash class="size-4" />
                                         <span>Kaldır</span>
                                     </button>
                                 @endif
@@ -464,7 +463,7 @@
             class="rounded-xl overflow-hidden shadow-lg bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full h-fit transform transition-all duration-300">
             <div class="bg-gradient-to-r from-red-500 to-red-600 text-white">
                 <h3 class="px-6 py-4 text-lg font-semibold text-white flex items-center gap-2">
-                    <x-icons.trash size="24" />
+                    <x-tabler-trash class="size-6" />
                     Hesap Silme Onayı
                 </h3>
             </div>
@@ -501,7 +500,7 @@
                     class="rounded bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 transition-colors duration-200"
                     wire:loading.attr="disabled" wire:target="deleteAccount">
                     <span wire:loading.remove wire:target="deleteAccount" class="flex items-center gap-1">
-                        <x-icons.trash size="16" />
+                        <x-tabler-trash class="size-4" />
                         Hesabımı Sil
                     </span>
                     <span wire:loading.flex wire:target="deleteAccount" class="flex items-center gap-1">
@@ -533,4 +532,3 @@
         }
     </style>
 @endpush
-

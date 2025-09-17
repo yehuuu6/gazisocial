@@ -14,12 +14,12 @@
         <div class="flex items-center justify-between gap-3 mb-6 flex-col md:flex-row">
             <a href="{{ route('games.zk.guide') }}"
                 class="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
-                <x-icons.arrow-left-alt size="18" />
+                <x-tabler-arrow-left class="size-5" />
                 Rehbere Dön
             </a>
             <a href="{{ route('games.zk.create') }}"
                 class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-5 py-2.5 rounded-lg font-medium shadow-sm transition-all flex items-center gap-2">
-                <x-icons.show size="18" />
+                <x-tabler-eye class="size-5" />
                 Yeni Oyun Oluştur
             </a>
         </div>
@@ -28,7 +28,7 @@
             @if ($this->myLobbies->isNotEmpty())
                 <div class="bg-gradient-to-r from-green-500 to-lime-500 p-4">
                     <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                        <x-icons.game size="20" />
+                        <x-tabler-device-gamepad-2 class="size-5" />
                         Katıldığım Oyunlar
                     </h2>
                 </div>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <span class="text-purple-600 hover:text-purple-800">
-                                    <x-icons.arrow-right-alt size="20" />
+                                    <x-tabler-arrow-right class="size-5" />
                                 </span>
                             </a>
                         @endforeach
@@ -68,7 +68,7 @@
             @endif
             <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4">
                 <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                    <x-icons.game size="20" />
+                    <x-tabler-device-gamepad-2 class="size-5" />
                     Mevcut Lobiler
                 </h2>
             </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <span class="text-purple-600 hover:text-purple-800">
-                                <x-icons.arrow-right-alt size="20" />
+                                <x-tabler-arrow-right class="size-5" />
                             </span>
                         </a>
                     @empty

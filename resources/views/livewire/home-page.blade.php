@@ -30,7 +30,7 @@
         <section class="px-6 md:px-16 lg:px-24 border-b border-gray-200">
             <div class="py-5 flex-col 2xl:flex-row flex items-center justify-between">
                 <div class="flex items-center gap-2 text-gray-800 flex-grow flex-shrink-0">
-                    <x-icons.trending size="20" />
+                    <x-tabler-trending-up class="size-5" />
                     <h3 class="text-sm lg:text-base font-semibold">
                         Popüler Etiketler
                     </h3>
@@ -58,7 +58,7 @@
                         <div class="p-3 md:p-4">
                             <div class="flex justify-between flex-col md:flex-row md:items-center">
                                 <div class="flex items-center gap-2">
-                                    <x-icons.pin class="text-blue-500 shrink-0" size="18" />
+                                    <x-tabler-pin class="text-blue-500 shrink-0 size-6" />
                                     <h4 style="word-break: break-word;"
                                         class="text-sm line-clamp-1 md:text-base font-semibold text-gray-800 group-hover:text-blue-700 transition-colors duration-300">
                                         {{ $post->title }}
@@ -104,7 +104,7 @@
                 @empty
                     <div class="bg-white rounded-lg shadow-sm border-l-4 border-blue-200 px-4 py-5 text-center">
                         <div class="flex justify-center mb-3">
-                            <x-icons.pin class="text-blue-300" size="20" />
+                            <x-tabler-pin class="text-blue-300 size-5" />
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800 mb-2">Sabitlenmiş Konu Bulunamadı</h4>
                         <p class="text-xs text-gray-600 max-w-md mx-auto">Şu anda sabitlenmiş bir konu
@@ -112,7 +112,7 @@
                         <div class="mt-3">
                             <x-link href="{{ route('posts.index') }}"
                                 class="inline-flex items-center gap-1 text-blue-500 text-xs font-medium">
-                                <x-icons.arrow-right-alt size="14" />
+                                <x-tabler-chevron-right class="size-3.5" />
                                 En Yeni Konuları Gör
                             </x-link>
                         </div>
@@ -125,7 +125,7 @@
                 <div
                     class="flex w-full xl:w-1/3 items-center px-7 py-5 gap-3.5 bg-white border border-gray-200 rounded-lg">
                     <div class="rounded bg-red-100 p-3">
-                        <x-icons.school size="40" class="text-red-500" />
+                        <x-tabler-school class="text-red-500 size-10" />
                     </div>
                     <div>
                         <h2 class="text-base md:text-lg font-semibold text-gray-700">
@@ -139,7 +139,7 @@
                 <div
                     class="flex w-full xl:w-1/3 items-center px-7 py-5 gap-3.5 bg-white border border-gray-200 rounded-lg">
                     <div class="rounded bg-green-100 p-3">
-                        <x-icons.game size="40" class="text-green-500" />
+                        <x-tabler-device-gamepad class="text-green-500 size-10" />
                     </div>
                     <div>
                         <h2 class="text-base md:text-lg font-semibold text-gray-700">
@@ -153,7 +153,7 @@
                 <div
                     class="flex w-full xl:w-1/3 items-center px-7 py-5 gap-3.5 bg-white border border-gray-200 rounded-lg">
                     <div class="rounded bg-blue-100 p-3">
-                        <x-icons.options size="40" class="text-blue-500" />
+                        <x-tabler-settings class="text-blue-500 size-10" />
                     </div>
                     <div>
                         <h2 class="text-base md:text-lg font-semibold text-gray-700">
@@ -169,7 +169,7 @@
         <section class="py-9 px-6 md:py-12 md:px-16 lg:py-16 lg:px-24">
             <div class="flex flex-col items-center justify-center text-center">
                 <div class="p-3 md:p-4 lg:p-5 bg-blue-500 rounded-full mb-5">
-                    <x-icons.game size="40" class="text-white" />
+                    <x-tabler-device-gamepad class="text-white size-10" />
                 </div>
                 <h3 class="text-xl md:text-3xl font-semibold text-blue-900">Oyun Merkezi</h3>
                 <p class="mt-2 md:mt-1.5 lg:mt-3 text-gray-600 text-sm md:text-lg font-normal w-full md:w-3/4">
@@ -178,7 +178,7 @@
                 <x-link href="{{ route('games.index') }}"
                     class="text-blue-500 flex items-center justify-center gap-1 text-base md:text-lg font-medium mt-4">
                     Oyunları Keşfet
-                    <x-icons.double-right size="20" />
+                    <x-tabler-chevrons-right class="size-5" />
                 </x-link>
             </div>
             <div class="mt-6 md:mt-12 text-center">

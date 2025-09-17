@@ -6,7 +6,7 @@
         <!-- Başlık -->
         <div class="bg-gradient-to-r from-gray-700 to-gray-600 p-4">
             <h2 wire:text='title' class="text-white font-bold text-lg flex items-center gap-2">
-                <x-icons.notebook-pen size="20" />
+                <x-tabler-notebook class="size-5" />
             </h2>
         </div>
 
@@ -29,7 +29,7 @@
             <div class="flex justify-end mt-4">
                 <button x-on:click="$wire.$parent.showPlayerLastWill = false; $wire.call('unLoadLastWill')"
                     class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-all flex items-center gap-2">
-                    <x-icons.check size="20" />
+                    <x-tabler-check class="size-5" />
                     Tamam
                 </button>
             </div>
@@ -38,7 +38,7 @@
         <!-- Kapatma butonu -->
         <button x-on:click="$wire.$parent.showPlayerLastWill = false; $wire.call('unLoadLastWill')"
             class="absolute top-3 right-3 text-white hover:text-gray-200 transition-all">
-            <x-icons.close size="20" />
+            <x-tabler-x class="size-5" />
         </button>
     </div>
 </div>

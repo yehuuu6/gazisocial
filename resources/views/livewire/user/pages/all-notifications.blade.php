@@ -3,20 +3,20 @@
     <div class="mb-6 flex md:items-center md:justify-between flex-col md:flex-row gap-3">
         <h1 class="text-xl font-medium text-gray-800 flex items-center gap-2">
             <span class="inline-block p-1.5 bg-blue-50 rounded text-blue-600">
-                <x-icons.notification size="20" />
+                <x-tabler-bell class="size-5" />
             </span>
             Bildirimlerim
         </h1>
         <div class="flex items-center gap-2">
             <button wire:click="markAllAsRead"
                 class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
-                <x-icons.check-check size="16" />
+                <x-tabler-check class="size-4" />
                 <span>Okundu İşaretle</span>
             </button>
             <button wire:click="deleteAllNotifications"
                 wire:confirm="Tüm bildirimleri silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
                 class="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1.5">
-                <x-icons.trash size="16" />
+                <x-tabler-trash class="size-4" />
                 <span>Tümünü Sil</span>
             </button>
         </div>
@@ -61,14 +61,14 @@
                         <button wire:click="deleteNotification({{ $notification->id }})"
                             wire:confirm="Bu bildirimi silmek istediğinize emin misiniz?"
                             class="text-xs text-gray-600 hover:text-red-600 flex items-center gap-1">
-                            <x-icons.trash size="14" />
+                            <x-tabler-trash class="size-3.5" />
                             <span>Sil</span>
                         </button>
 
                         @if (isset($notification->data['action_url']))
                             <button wire:click="markAsRead({{ $notification->id }})"
                                 class="text-xs text-gray-600 hover:text-blue-600 flex items-center gap-1">
-                                <x-icons.eye size="14" />
+                                <x-tabler-eye class="size-3.5" />
                                 <span>Görüntüle</span>
                             </button>
                         @endif
@@ -76,7 +76,7 @@
                         @if (!$notification->read)
                             <button wire:click="markAsRead({{ $notification->id }}, false)"
                                 class="text-xs text-gray-600 hover:text-blue-600 flex items-center gap-1">
-                                <x-icons.check size="14" />
+                                <x-tabler-check class="size-3.5" />
                                 <span>Okundu İşaretle</span>
                             </button>
                         @endif
@@ -88,7 +88,7 @@
         <!-- Empty State -->
         <div class="bg-white rounded p-8 text-center shadow-sm">
             <div class="inline-flex items-center justify-center w-12 h-12 bg-gray-50 rounded-full mb-4">
-                <x-icons.notification size="24" class="text-gray-400" />
+                <x-tabler-bell class="text-gray-400 size-6" />
             </div>
             <h3 class="text-base font-medium text-gray-800 mb-1">Bildiriminiz bulunmuyor</h3>
             <p class="text-sm text-gray-500 max-w-sm mx-auto">

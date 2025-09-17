@@ -5,7 +5,7 @@
         <div class="bg-gradient-to-r from-teal-500 to-teal-400 text-white">
             <h1 class="text-lg font-semibold p-4 flex items-center gap-2 flex-wrap break-all justify-between">
                 <div class="flex items-center gap-2">
-                    <x-icons.survey size="24" />
+                    <x-tabler-chart-bar class="size-6" />
                     Ankete Katıl
                 </div>
                 <div class="text-white font-bold text-sm flex items-center gap-1 bg-red-600 px-2 py-0.5 rounded-full">
@@ -20,7 +20,7 @@
                     {{ $poll->question }}
                 </h5>
                 <p class="text-teal-500 text-xs font-medium flex items-center gap-1.5">
-                    <x-icons.votes size="18" />
+                    <x-tabler-chart-pie class="size-4" />
                     Toplam {{ $poll->votes_count }} oy kullanıldı
                 </p>
                 <div class="flex flex-col gap-3">

@@ -99,7 +99,7 @@
                             <div x-cloak x-show="!showDangerousContent"
                                 class="bg-yellow-50 border border-yellow-200 rounded-md p-2 self-start">
                                 <div class="flex items-center gap-2">
-                                    <x-icons.warning size="20" class="text-amber-500" />
+                                    <x-tabler-alert-triangle class="size-5 text-amber-500" />
                                     <p class="text-xs md:text-sm text-yellow-700">Bu yorum uygunsuz içerik
                                         barındırabilir.</p>
                                 </div>
@@ -162,13 +162,13 @@
                                 <div class="absolute -left-[33px] md:-left-[41px] z-10">
                                     <x-ui.tooltip text="Yanıtları gizle/göster" position="right" delay="1000">
                                         <button
-                                            class="active:bg-gray-300 px-2 grid place-items-center bg-white rounded-full text-gray-700"
+                                            class="active:bg-gray-300 px-2 grid place-items-center bg-white rounded-full text-gray-600"
                                             x-on:click="toggleRepliesVisibility()">
                                             <div x-cloak x-show="!showReplies">
-                                                <x-icons.show size="18" />
+                                                <x-tabler-circle-plus class="size-5" />
                                             </div>
                                             <div x-cloak x-show="showReplies">
-                                                <x-icons.hide size="18" />
+                                                <x-tabler-circle-minus class="size-5" />
                                             </div>
                                         </button>
                                     </x-ui.tooltip>
@@ -177,10 +177,10 @@
                             <x-comment.comment-button x-on:click="toggleLike()">
                                 <div :class="{ 'text-pink-400': isLiked }">
                                     <template x-if="isLiked">
-                                        <x-icons.heart-off size="20" />
+                                        <x-tabler-heart-filled class="size-5 mb-0.5" />
                                     </template>
                                     <template x-if="!isLiked">
-                                        <x-icons.heart size="20" />
+                                        <x-tabler-heart class="size-5 mb-0.5" />
                                     </template>
                                 </div>
                                 <span class="ml-0.5 text-xs font-bold" x-text="likeCount"
@@ -189,7 +189,7 @@
                                 </span>
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="$wire.replyForm = !$wire.replyForm">
-                                <x-icons.comment size="20" />
+                                <x-tabler-message-circle class="size-5 mb-0.5" />
                                 <span class="text-xs font-bold text-gray-800 md:hidden">
                                     {{ $comment->replies_count }}
                                 </span>
@@ -199,7 +199,7 @@
                             </x-comment.comment-button>
                             <x-comment.comment-button x-on:click="openShareDropdown = !openShareDropdown"
                                 x-ref="shareButton">
-                                <x-icons.send size="20" />
+                                <x-tabler-send class="size-5 mb-0.5" />
                                 <span class="hidden text-xs font-bold text-gray-800 md:inline-block">
                                     Paylaş
                                 </span>
@@ -208,7 +208,7 @@
                             @auth
                                 <x-comment.comment-button x-on:click="openMoreCommentButtons = !openMoreCommentButtons;"
                                     x-ref="moreButton">
-                                    <x-icons.dots size="20" />
+                                    <x-tabler-dots class="size-5" />
                                 </x-comment.comment-button>
                                 <x-comment.comment-more-dropdown :$comment />
                             @endauth

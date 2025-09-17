@@ -21,7 +21,7 @@
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-4">
                 <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                    <x-icons.edit size="20" />
+                    <x-tabler-edit class="size-5" />
                     Oyun Bilgileri
                 </h2>
             </div>
@@ -63,7 +63,7 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4">
                     <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                        <x-icons.user size="20" />
+                        <x-tabler-users class="size-5" />
                         Roller
                         <span class="text-sm font-normal text-white/80">
                             (Özel roller sadece bir defa seçilebilir)
@@ -155,7 +155,7 @@
                                             <span class="font-medium" x-text="role.name"></span>
                                         </div>
                                         <span class="text-red-500 hover:text-red-700">
-                                            <x-icons.close size="18" />
+                                            <x-tabler-x class="size-5" />
                                         </span>
                                     </button>
                                 </template>
@@ -168,18 +168,18 @@
             <div class="flex items-center gap-6 justify-between mt-4 flex-col-reverse md:flex-row">
                 <a href="{{ route('games.zk.guide') }}"
                     class="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
-                    <x-icons.arrow-left-alt size="18" />
+                    <x-tabler-arrow-left class="size-5" />
                     Rehbere Dön
                 </a>
                 <div class="flex items-center lg:justify-end gap-4">
                     <a href="{{ route('games.zk.lobbies') }}"
                         class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-6 py-3 rounded font-medium shadow-sm transition-all flex items-center gap-2">
-                        <x-icons.arrow-right-alt size="20" />
+                        <x-tabler-arrow-right class="size-5" />
                         Lobileri Gör
                     </a>
                     <button type="submit"
                         class="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-3 rounded font-medium shadow-sm transition-all flex items-center gap-2">
-                        <x-icons.check size="20" />
+                        <x-tabler-check class="size-5" />
                         Lobiyi Kur
                     </button>
                 </div>

@@ -9,11 +9,11 @@
                 <div class="flex items-center gap-4 flex-wrap justify-center">
                     <a href="{{ route('games.zk.create') }}"
                         class="text-white px-5 py-2.5 bg-gradient-to-r from-red-500 to-red-600 rounded-md font-medium shadow-sm hover:shadow-md transition-all">
-                        <x-icons.show size="20" class="inline-block mr-1" /> Oyun Oluştur
+                        <x-tabler-eye class="size-5 inline-block mr-1" /> Oyun Oluştur
                     </a>
                     <a href="{{ route('games.zk.lobbies') }}"
                         class="border border-gray-300 px-5 py-2.5 text-gray-700 rounded-md font-medium bg-white hover:bg-gray-50 transition-all">
-                        Aktif Oyunlar <x-icons.arrow-right-alt size="20" class="inline-block" />
+                        Aktif Oyunlar <x-tabler-arrow-right class="size-5 inline-block" />
                     </a>
                 </div>
             </div>
@@ -24,11 +24,11 @@
                 <div @click="open = !open" class="bg-gradient-to-r from-blue-500 to-blue-400 p-4 cursor-pointer">
                     <h2 class="text-white font-bold text-lg flex items-center justify-between">
                         <span class="flex items-center gap-2">
-                            <x-icons.info size="24" />
+                            <x-tabler-info-circle class="size-6" />
                             Genel Bakış
                         </span>
-                        <x-icons.arrow-down size="20" x-cloak x-show="!open" />
-                        <x-icons.arrow-up size="20" x-cloak x-show="open" />
+                        <x-tabler-chevron-down class="size-5" x-cloak x-show="!open" />
+                        <x-tabler-chevron-up class="size-5" x-cloak x-show="open" />
                     </h2>
                 </div>
                 <div x-show="open" x-collapse class="p-5">
@@ -73,11 +73,11 @@
                 <div @click="open = !open" class="bg-gradient-to-r from-amber-500 to-amber-400 p-4 cursor-pointer">
                     <h2 class="text-white font-bold text-lg flex items-center justify-between">
                         <span class="flex items-center gap-2">
-                            <x-icons.time size="24" />
+                            <x-tabler-clock class="size-6" />
                             Oyun Aşamaları
                         </span>
-                        <x-icons.arrow-down size="20" x-cloak x-show="!open" />
-                        <x-icons.arrow-up size="20" x-cloak x-show="open" />
+                        <x-tabler-chevron-down class="size-5" x-cloak x-show="!open" />
+                        <x-tabler-chevron-up class="size-5" x-cloak x-show="open" />
                     </h2>
                 </div>
                 <div x-show="open" x-collapse>
@@ -217,7 +217,7 @@
             }" class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                 <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4">
                     <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                        <x-icons.user size="24" />
+                        <x-tabler-users class="size-6" />
                         Roller
                     </h2>
                 </div>

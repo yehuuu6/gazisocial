@@ -1,7 +1,7 @@
 <div x-data="{ searchOpen: false }">
     <button x-on:click="searchOpen = !searchOpen" x-ref="searchButton" type="button"
-        class="rounded-md p-3 hover:bg-gray-100">
-        <x-icons.search size="25" class="text-primary" />
+        class="rounded-md p-2 hover:bg-gray-100">
+        <x-tabler-search class="text-primary size-8" />
     </button>
     <div x-cloak x-show="searchOpen" x-transition.origin.top.center x-anchor.offset.5.bottom-center="$refs.searchButton"
         class="z-10">
@@ -15,7 +15,7 @@
                 <button type="button" class="rounded p-2 pr-0 opacity-70 hover:opacity-100"
                     x-on:click="Livewire.navigate('{{ route('search') }}'); searchOpen = false;">
                     <x-ui.tooltip text="Gelişmiş Arama" delay="500" position="left">
-                        <x-icons.advanced size="24" class="text-primary" />
+                        <x-tabler-adjustments class="text-primary size-6" />
                     </x-ui.tooltip>
                 </button>
             </div>
@@ -50,7 +50,7 @@
                     @if (strlen($search) > 2)
                         <div
                             class="flex items-center mt-2 gap-3 bg-white py-2 px-3.5 md:py-3 md:px-5 rounded text-gray-500 text-sm md:text-base">
-                            <x-icons.sad size="20" />
+                            <x-tabler-mood-sad class="size-5" />
                             <span>Sonuç bulunamadı.</span>
                         </div>
                     @endif

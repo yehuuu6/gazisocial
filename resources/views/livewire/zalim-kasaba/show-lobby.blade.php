@@ -57,7 +57,7 @@
                     <div
                         class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded px-3 py-2 mb-3 items-center flex justify-between">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
-                            <x-icons.skull size="18" />
+                            <x-tabler-skull class="size-5" />
                             Mezarlık
                         </h1>
                     </div>
@@ -96,7 +96,7 @@
                 <div class="bg-white flex flex-col h-full p-4">
                     <div class="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded px-3 py-2 mb-3">
                         <h1 class="text-base md:text-lg font-semibold flex items-center gap-2">
-                            <x-icons.badge size="18" />
+                            <x-tabler-badge class="size-5" />
                             Rol Listesi
                         </h1>
                     </div>
@@ -147,17 +147,17 @@
                     <button x-show="!leftPanel" type="button" x-on:click="leftPanel = true; rightPanel = false;"
                         x-cloak
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.arrow-right-alt size="20" />
+                        <x-tabler-arrow-right class="size-5" />
                     </button>
                     <button type="button" x-on:click="leftPanel = false; rightPanel = false;" x-show="leftPanel"
                         x-cloak
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.close size="20" />
+                        <x-tabler-x class="size-5" />
                     </button>
                     <button wire:confirm="Oyundan ayrılmak istediğinize emin misiniz?"" type="button"
                         wire:click="leaveLobby"
                         class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.logout size="20" />
+                        <x-tabler-logout class="size-5" />
                     </button>
                     @if (
                         $lobby->state !== App\Enums\ZalimKasaba\GameState::LOBBY &&
@@ -165,7 +165,7 @@
                         <x-ui.tooltip text="Vasiyetim" position="bottom">
                             <button type="button" x-on:click="$wire.showLastWill = true;"
                                 class="bg-purple-50 hover:bg-purple-100 text-purple-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm transition-all">
-                                <x-icons.notebook-pen size="20" />
+                                <x-tabler-notebook class="size-5" />
                             </button>
                         </x-ui.tooltip>
                     @endif
@@ -181,8 +181,8 @@
                         <x-ui.tooltip :text="$lobby->is_listed ? 'Lobiyi Gizle' : 'Lobiyi Göster'" position="bottom">
                             <button type="button" wire:click="toggleListing" x-on:click="isListed = !isListed"
                                 class="bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                                <x-icons.eye x-show="isListed" x-cloak size="20" />
-                                <x-icons.eye-off x-show="!isListed" x-cloak size="20" />
+                                <x-tabler-eye class="size-5" x-show="isListed" x-cloak />
+                                <x-tabler-eye-off class="size-5" x-show="!isListed" x-cloak />
                             </button>
                         </x-ui.tooltip>
                     @endif
@@ -193,13 +193,13 @@
                             <span
                                 class="size-5 flex items-center justify-center">{{ $currentPlayer->role->icon }}</span>
                         @else
-                            <x-icons.arrow-left-alt size="20" />
+                            <x-tabler-arrow-left class="size-5" />
                         @endif
                     </button>
                     <button type="button" x-on:click="rightPanel = false; leftPanel = false;" x-show="rightPanel"
                         x-cloak
                         class="lg:hidden bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center p-1 md:p-2 rounded-lg shadow-sm">
-                        <x-icons.close size="20" />
+                        <x-tabler-x class="size-5" />
                     </button>
                 </div>
             </div>
@@ -308,7 +308,7 @@
                     <div class="bg-gradient-to-r from-green-600 to-green-500 text-white rounded px-3 py-2 mb-3 w-full">
                         <h1 class="text-base md:text-lg font-semibold flex items-center justify-between gap-2">
                             <span class="flex items-center gap-2">
-                                <x-icons.user size="18" />
+                                <x-tabler-user class="size-5" />
                                 @if ($lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                                     Oyuncular
                                 @else
@@ -406,7 +406,7 @@
                 @if ($currentPlayer->is_host && $lobby->state === App\Enums\ZalimKasaba\GameState::LOBBY)
                     <button wire:click="startGame" type="button"
                         class="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white rounded px-3 py-2 font-bold text-lg mt-4 shadow-sm transition-all flex items-center justify-center gap-2">
-                        <x-icons.arrow-right-alt size="20" />
+                        <x-tabler-arrow-right class="size-5" />
                         Oyunu Başlat
                     </button>
                 @endif

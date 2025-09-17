@@ -36,8 +36,8 @@
     @if (!$post->is_published && !Auth::user()->canDoHighLevelAction())
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
-            <div class="inline-flex gap-3">
-                <x-icons.warning size="18" class="flex-shrink-0" />
+            <div class="inline-flex gap-2">
+                <x-tabler-alert-triangle class="flex-shrink-0 size-5" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yönetici onayı bekliyor. Şu anda sadece siz görebilirsiniz.
                 </span>
@@ -50,8 +50,8 @@
     @elseif (!$post->is_published && Auth::user()->canDoHighLevelAction())
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-amber-50 to-yellow-100 px-6 py-4 select-none text-amber-700 shadow-sm rounded-xl">
-            <div class="inline-flex gap-3">
-                <x-icons.info size="18" class="flex-shrink-0" />
+            <div class="inline-flex gap-2">
+                <x-tabler-info-circle class="flex-shrink-0 size-5" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yayınlanmak için onay bekliyor. Konuyu inceleyip uygunsa yayınlayabilirsiniz.
                 </span>
@@ -64,11 +64,26 @@
             @endcan
         </div>
     @endif
+    @if ($post->is_reported && Auth::user()->canDoHighLevelAction())
+        <div
+            class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-rose-50 to-red-100 px-6 py-4 select-none text-red-800 shadow-sm rounded-xl">
+            <div class="inline-flex gap-2">
+                <x-tabler-alert-hexagon class="flex-shrink-0 size-5" />
+                <span class="text-xs lg:text-sm font-medium">
+                    Bu konu kullanıcılar tarafından bildirildi. Konuyu inceleyip gerekli aksiyonu alabilirsiniz.
+                </span>
+            </div>
+            <button type="button" disabled
+                class="hidden md:flex text-xs lg:text-sm text-transparent bg-transparent px-2 py-1 rounded font-medium">
+                holder
+            </button>
+        </div>
+    @endif
     @if ($post->is_pinned)
         <div
             class="mb-4 flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-sky-50 to-blue-100 px-6 py-4 select-none text-blue-800 shadow-sm rounded-xl">
-            <div class="inline-flex gap-3">
-                <x-icons.pin size="18" class="flex-shrink-0" />
+            <div class="inline-flex gap-2">
+                <x-tabler-pin class="flex-shrink-0 size-5" />
                 <span class="text-xs lg:text-sm font-medium">
                     Bu konu yöneticiler tarafından sabitlenmiş. Önemli içeriğe sahip olabilir.
                 </span>
@@ -114,8 +129,8 @@
                             @foreach ($this->polls as $poll)
                                 <button wire:key="poll-button-{{ $poll->id }}" type="button"
                                     x-on:click="$dispatch('load-poll-data', { pollId: {{ $poll->id }} }); $wire.showPollModal = true;"
-                                    class="text-xs text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
-                                    <x-icons.survey size="18" class="shrink-0" />
+                                    class="text-sm text-left text-teal-500 flex items-center gap-2 hover:bg-teal-50 transition duration-300 font-medium py-1 px-2 border border-teal-300 rounded-full">
+                                    <x-tabler-chart-bar class="shrink-0 size-5" />
                                     {{ $poll->question }}
                                 </button>
                             @endforeach
@@ -130,10 +145,10 @@
                                     class="relative group-hover:text-pink-400 flex items-center justify-center group-focus:transform group-focus:scale-105">
                                     <div class="group-active:scale-125 transition-transform duration-150">
                                         <template x-if="isLiked">
-                                            <x-icons.heart-off size="24" />
+                                            <x-tabler-heart-f class="size-6" />
                                         </template>
                                         <template x-if="!isLiked">
-                                            <x-icons.heart size="24" />
+                                            <x-tabler-heart class="size-6" />
                                         </template>
                                     </div>
                                     <div
@@ -153,7 +168,7 @@
                              })"
                                 class="flex items-center gap-1 text-gray-700 group pr-2">
                                 <div class="relative group-hover:text-blue-400 flex items-center justify-center">
-                                    <x-icons.comment size="22" />
+                                    <x-tabler-message-circle class="size-5" /><!-- TODO: verify size for 22px -->
                                     <div
                                         class="rounded-full hidden group-hover:inline-block absolute size-9 bg-blue-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                     </div>
@@ -164,7 +179,7 @@
                             <button class="flex items-center gap-1 text-gray-700 group pr-2"
                                 x-on:click="$wire.showShareModal = true">
                                 <div class="relative group-hover:text-green-400 flex items-center justify-center">
-                                    <x-icons.share size="20" />
+                                    <x-tabler-share class="size-5" />
                                     <div
                                         class="rounded-full hidden group-hover:inline-block absolute size-9 bg-green-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                     </div>
@@ -177,7 +192,7 @@
                         @can('report', $post)
                             <button class="flex items-center gap-1 text-gray-700 group" wire:click="reportPost()">
                                 <div class="relative group-hover:text-red-400 flex items-center justify-center">
-                                    <x-icons.report size="20" />
+                                    <x-tabler-flag class="size-5" />
                                     <div
                                         class="rounded-full hidden group-hover:inline-block absolute size-9 bg-red-300 opacity-20 inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                     </div>
@@ -227,7 +242,7 @@
                 @cannot('update', $post)
                     <button x-on:click="userPanel = !userPanel"
                         class="lg:hidden absolute top-2 right-2 bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
-                        <x-icons.close size="18" />
+                        <x-tabler-x class="size-4" />
                     </button>
                 @endcannot
                 <div class="flex items-center gap-4">
@@ -235,11 +250,11 @@
                         <div class="flex-grow pb-0 flex items-center justify-between gap-2 pl-4 pt-4 lg:pl-6 lg:pt-6">
                             <button x-on:click="userPanel = !userPanel"
                                 class="lg:hidden bg-gray-100 rounded-md p-1.5 text-gray-700 hover:bg-gray-200">
-                                <x-icons.close size="18" />
+                                <x-tabler-x class="size-4" />
                             </button>
                             <x-link href="{{ route('posts.edit', $post) }}"
                                 class="flex items-center hover:no-underline justify-center gap-1.5 px-3 py-1.5 text-xs lg:text-sm bg-gray-100 hover:bg-gray-200 w-full rounded-md text-gray-700 font-medium">
-                                <x-icons.edit size="14" />
+                                <x-tabler-edit class="size-5" />
                                 Düzenle
                             </x-link>
                         </div>
@@ -251,7 +266,7 @@
                         }" class="flex-shrink-0 pr-4 pt-4 lg:pr-6 lg:pt-6" x-ref="moreButton">
                             <button x-on:click="openMorePostButtons = true" type="button"
                                 class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
-                                <x-icons.dots size="18" />
+                                <x-tabler-dots-vertical class="size-5" />
                             </button>
                             <x-post.post-more-dropdown :$post />
                         </div>
@@ -267,7 +282,7 @@
                             <div class="size-10 shrink-0 rounded-full overflow-hidden">
                                 @if ($this->isAnonim)
                                     <div class="size-10 bg-gray-300 grid place-items-center">
-                                        <x-icons.user size="24" class="text-gray-500" />
+                                        <x-tabler-user class="text-gray-500 size-6" />
                                     </div>
                                 @else
                                     <img class="object-cover" src="{{ asset($post->user->getAvatar()) }}"
@@ -293,18 +308,18 @@
                         <div class="mt-2 space-y-1.5">
                             @if ($post->user->faculty)
                                 <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                                    <x-icons.graduate size="18" />
+                                    <x-tabler-school class="size-4" />
                                     <span class="text-xs text-gray-700">{{ $post->user->faculty->name }}</span>
                                 </div>
                             @endif
                             <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                                <x-icons.cake size="18" />
+                                <x-tabler-cake class="size-4" />
                                 <span
                                     class="text-xs text-gray-700">{{ $post->user->created_at->locale('tr')->diffForHumans() }}
                                     Gazi Social'a katıldı</span>
                             </div>
                             <div class="flex items-center gap-1.5 text-gray-500 font-light">
-                                <x-icons.activity size="18" />
+                                <x-tabler-activity class="size-4" />
                                 <span class="text-xs text-gray-700">
                                     Son aktivite {{ $post->user->last_activity->locale('tr')->diffForHumans() }}
                                 </span>
@@ -316,7 +331,7 @@
                             <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-md">
                                 <div class="flex items-center justify-between gap-2 mb-2">
                                     <h5 class="text-xs font-medium text-amber-600 flex items-center gap-0.5">
-                                        <x-icons.mask size="18" />
+                                        <x-tabler-help-hexagon-f class="size-4" />
                                         Gönderi Sahibi
                                     </h5>
                                     <x-link href="{{ route('users.show', $post->user) }}"

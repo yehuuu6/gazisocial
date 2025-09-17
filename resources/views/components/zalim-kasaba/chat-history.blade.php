@@ -6,7 +6,7 @@
     }" class="flex px-4 items-center justify-between">
         <button type="button" x-ref="historyDaySelector" x-on:click="historyDropdown = !historyDropdown"
             class="text-gray-800 justify-center rounded mt-4 flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 text-sm font-medium">
-            {{ $selectedDayCount }}. Gün <x-icons.arrow-down size="20" />
+            {{ $selectedDayCount }}. Gün <x-tabler-chevron-down class="size-5" />
         </button>
         <div class="max-h-40 overflow-y-auto bg-white border border-gray-300 rounded shadow-md" x-show="historyDropdown"
             x-anchor.bottom-center.offset.5="$refs.historyDaySelector" x-cloak

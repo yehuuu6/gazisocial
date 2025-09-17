@@ -9,7 +9,7 @@
         <div
             class="mb-4 shadow-sm flex flex-col md:flex-row gap-1 md:gap-2 items-end md:items-center justify-between w-full bg-gradient-to-bl from-lime-50 to-green-100 px-6 py-4 select-none text-lime-700 rounded-xl">
             <div class="inline-flex gap-3">
-                <x-icons.info size="18" class="flex-shrink-0" />
+                <x-tabler-info-circle class="flex-shrink-0 size-4" />
                 <span class="text-xs lg:text-sm font-medium">
                     Yeni hesap! Bu kullanıcı, Gazi Social'a yeni katıldı ve inceleme sürecinde.
                 </span>
@@ -62,7 +62,7 @@
                                 @if (Auth::user()->id === $user->id)
                                     <a href="{{ route('users.edit', $user->username) }}"
                                         class="hidden lg:flex items-center justify-center border border-gray-200 gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 rounded text-gray-800 font-medium w-fit">
-                                        <x-icons.edit size="14" />
+                                        <x-tabler-edit class="size-3.5" />
                                         Profili Düzenle
                                     </a>
                                 @endif
@@ -71,7 +71,7 @@
 
                         <div class="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
                             <div class="flex items-center gap-1">
-                                <x-icons.document size="16" />
+                                <x-tabler-file-text class="size-4" />
                                 <span class="font-medium text-gray-800">
                                     @if ($this->isOwnProfile())
                                         {{ $user->posts->count() }}
@@ -82,14 +82,14 @@
                                 </span>
                             </div>
                             <div class="flex items-center gap-1">
-                                <x-icons.comment size="16" />
+                                <x-tabler-message-circle class="size-4" />
                                 <span class="font-medium text-gray-800">
                                     {{ $user->comments->count() }} yorum
                                 </span>
                             </div>
                             @if ($user->faculty)
                                 <div class="flex items-center gap-1">
-                                    <x-icons.graduate size="16" />
+                                    <x-tabler-school class="size-4" />
                                     <span class="font-medium text-gray-800">
                                         {{ $user->faculty->name }}
                                     </span>
@@ -105,7 +105,7 @@
                             @if (Auth::user()->id === $user->id)
                                 <a href="{{ route('users.edit', $user->username) }}"
                                     class="mt-5 flex lg:hidden items-center justify-center border border-gray-200 gap-1.5 px-4 py-2 text-xs hover:bg-gray-50 rounded text-gray-800 font-medium w-fit">
-                                    <x-icons.edit size="14" />
+                                    <x-tabler-edit class="size-3.5" />
                                     Profili Düzenle
                                 </a>
                             @endif
@@ -135,13 +135,13 @@
                         id="search-in-profile">
                     @if ($search)
                         <button wire:click="clearSearch" class="text-gray-500 hover:text-gray-700">
-                            <x-icons.close size="16" />
+                            <x-tabler-x class="size-4" />
                         </button>
                     @endif
                     <button wire:click="runSearch" wire:loading.attr="disabled"
                         class="text-primary hover:text-blue-700">
                         <span wire:loading.remove wire:target="runSearch">
-                            <x-icons.search size="16" />
+                            <x-tabler-search class="size-4" />
                         </span>
                         <span wire:loading.flex wire:target="runSearch">
                             <x-icons.spinner size="16" />
@@ -163,7 +163,7 @@
                                     @if ($post->isAnonim())
                                         <div class="font-normal">
                                             <span class="text-amber-500">
-                                                <x-icons.mask size="24" />
+                                                <x-tabler-help-hexagon-f class="size-6" />
                                             </span>
                                         </div>
                                     @endif
@@ -176,7 +176,7 @@
                                     }" class="flex-shrink-0" x-ref="moreButton">
                                         <button x-on:click="openMorePostButtons = true" type="button"
                                             class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
-                                            <x-icons.dots size="18" />
+                                            <x-tabler-dots class="size-5" />
                                         </button>
                                         <x-post.post-more-dropdown :$post />
                                     </div>
@@ -196,7 +196,7 @@
                         <div class="mt-3.5 flex items-end md:items-center justify-between gap-5">
                             <div class="flex items-center gap-3.5 text-gray-500 flex-wrap">
                                 <div class="flex items-center gap-1 text-xs">
-                                    <x-icons.calendar size="16" />
+                                    <x-tabler-calendar class="size-4 mb-0.5" />
                                     <span class="hidden md:inline-block">
                                         {{ $post->created_at->locale('tr')->translatedFormat('d F, Y') }}
                                     </span>
@@ -205,11 +205,11 @@
                                     </span>
                                 </div>
                                 <div class="flex items-center gap-1 text-xs">
-                                    <x-icons.comment size="16" />
+                                    <x-tabler-message-circle class="size-4 mb-0.5" />
                                     {{ $post->getCommentsCount() }} yorum
                                 </div>
                                 <div class="flex items-center gap-1 text-xs">
-                                    <x-icons.heart size="16" />
+                                    <x-tabler-heart class="size-4 mb-0.5" />
                                     {{ $post->likes_count }} beğeni
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                     <div x-data="{ openMoreCommentButtons: false, confirmDelete: false }" x-ref="moreCommentButton">
                                         <button x-on:click="openMoreCommentButtons = true" type="button"
                                             class="p-1 rounded-full hover:bg-gray-100 text-gray-800">
-                                            <x-icons.dots size="18" />
+                                            <x-tabler-dots class="size-5" />
                                         </button>
                                         <x-comment.comment-more-dropdown-profile :$comment />
                                     </div>
@@ -284,11 +284,11 @@
                             <div class="flex items-end md:items-center justify-between mt-2">
                                 <div class="flex flex-wrap items-center gap-3.5 text-gray-500">
                                     <div class="flex items-center gap-1 text-xs">
-                                        <x-icons.heart size="16" />
+                                        <x-tabler-heart class="size-4 mb-0.5" />
                                         {{ $comment->likes_count }} beğeni
                                     </div>
                                     <div class="flex items-center gap-1 text-xs">
-                                        <x-icons.comment size="16" />
+                                        <x-tabler-message-circle class="size-4 mb-0.5" />
                                         {{ $comment->getAllRepliesCount() }} yanıt
                                     </div>
                                 </div>

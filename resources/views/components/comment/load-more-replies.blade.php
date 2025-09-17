@@ -6,8 +6,8 @@
         <button wire:click='loadMoreReplies({{ $moreRepliesCount }})' wire:target="loadMoreReplies"
             wire:loading.attr="disabled" type="button" class="text-xs text-gray-700 hover:underline">
             <div class="flex items-center gap-2" wire:target="loadMoreReplies" wire:loading.remove>
-                <x-tabler-direction-sign class="size-5" />
-                <span>{{ $moreRepliesCount }} cevap daha</span>
+                <x-tabler-circle-arrow-right class="size-5" />
+                <span class="mt-0.5">{{ $moreRepliesCount }} cevap daha</span>
             </div>
             <div wire:loading wire:target="loadMoreReplies" class="ml-10">
                 <x-icons.spinner size="18" />

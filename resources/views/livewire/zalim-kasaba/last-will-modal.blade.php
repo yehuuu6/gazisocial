@@ -5,7 +5,7 @@
         <!-- Başlık -->
         <div class="bg-gradient-to-r from-purple-600 to-purple-500 p-4">
             <h2 class="text-white font-bold text-lg flex items-center gap-2">
-                <x-icons.notebook-pen size="20" />
+                <x-tabler-notebook class="size-5" />
                 Vasiyetname
             </h2>
         </div>
@@ -28,13 +28,13 @@
                     <x-ui.tooltip text="Sohbete Gönder" position="left">
                         <button x-on:click="$wire.$parent.showLastWill = false; $wire.call('sendLastWillToChat')"
                             class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 rounded-lg p-2 text-white transition-all shadow-sm flex items-center">
-                            <x-icons.chat-bubble size="20" />
+                            <x-tabler-message-circle class="size-5" />
                         </button>
                     </x-ui.tooltip>
                     <x-ui.tooltip text="Kaydet ve Kapat" position="left">
                         <button x-on:click="$wire.$parent.showLastWill = false; $wire.call('saveLastWill')"
                             class="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-lg p-2 text-white transition-all shadow-sm flex items-center">
-                            <x-icons.check size="20" />
+                            <x-tabler-check class="size-5" />
                         </button>
                     </x-ui.tooltip>
                 </div>
@@ -44,7 +44,7 @@
         <!-- Kapatma butonu -->
         <button x-on:click="$wire.$parent.showLastWill = false; $wire.call('saveLastWill')"
             class="absolute top-3 right-3 text-white hover:text-gray-200 transition-all">
-            <x-icons.close size="20" />
+            <x-tabler-x class="size-5" />
         </button>
     </div>
 </div>

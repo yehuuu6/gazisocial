@@ -4,7 +4,7 @@
         class="rounded-xl shadow-lg bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full h-fit">
         <div class="bg-gradient-to-r from-primary to-blue-400 text-white rounded-t-xl">
             <h3 class="px-6 py-4 text-lg font-semibold text-white flex items-center gap-2">
-                <x-icons.user-plus size="24" />
+                <x-tabler-user-plus class="size-6" />
                 Gazi Social'a Katıl
             </h3>
         </div>
@@ -26,7 +26,7 @@
             <div class="flex flex-col items-center gap-4">
                 <a href="{{ route('register') }}"
                     class="rounded-md w-2/3 flex items-center justify-center gap-2 bg-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-950 transition-all duration-200">
-                    <x-icons.user-plus size="18" />
+                    <x-tabler-user-plus class="size-4" />
                     Kayıt Ol
                 </a>
                 <div class="flex items-center gap-3 my-1">
@@ -36,7 +36,7 @@
                 </div>
                 <a href="{{ route('login') }}"
                     class="rounded-md w-2/3 flex items-center gap-2 justify-center border border-primary px-4 py-2.5 text-sm font-medium text-primary hover:bg-primary hover:bg-opacity-5 transition-colors duration-200">
-                    <x-icons.user size="18" />
+                    <x-tabler-user class="size-4" />
                     Giriş Yap
                 </a>
             </div>

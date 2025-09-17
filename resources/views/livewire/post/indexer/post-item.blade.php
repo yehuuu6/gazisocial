@@ -5,7 +5,7 @@
             @if ($post->isAnonim())
                 <div class="hidden md:flex w-10 h-9 shadow rounded-full overflow-hidden">
                     <div class="w-full h-full bg-gray-300 grid place-items-center">
-                        <x-icons.user size="24" class="text-gray-500" />
+                        <x-tabler-user class="text-gray-500 size-6" />
                     </div>
                 </div>
             @else
@@ -19,14 +19,14 @@
                     @if (!$post->is_published)
                         <div class="hidden md:inline-block">
                             <x-ui.tooltip text="Yayınlanmamış">
-                                <x-icons.warning size="20" class="text-amber-500 inline-block items-center" />
+                                <x-tabler-alert-triangle class="text-amber-500 inline-block items-center size-5" />
                             </x-ui.tooltip>
                         </div>
                     @endif
                     @if ($post->is_pinned && $show_pins)
                         <div class="hidden md:inline-block">
                             <x-ui.tooltip text="Sabitlenmiş">
-                                <x-icons.pin size="20" class="text-blue-500 inline-block items-center" />
+                                <x-tabler-pin class="text-blue-500 inline-block items-center size-5" />
                             </x-ui.tooltip>
                         </div>
                     @endif
@@ -49,11 +49,11 @@
                     @endif
                     <span class="text-xs font-light text-gray-600"> tarafından</span>
                     @if (!$post->is_published)
-                        <x-icons.warning size="18"
-                            class="text-amber-500 ml-1 md:hidden inline-block items-center" />
+                        <x-tabler-alert-triangle
+                            class="text-amber-500 ml-1 md:hidden inline-block items-center size-4" />
                     @endif
                     @if ($post->is_pinned && $show_pins)
-                        <x-icons.pin size="18" class="text-blue-500 ml-1 md:hidden inline-block items-center" />
+                        <x-tabler-pin class="text-blue-500 ml-1 md:hidden inline-block items-center size-4" />
                     @endif
                 </div>
             </div>

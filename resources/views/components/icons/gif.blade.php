@@ -1,5 +1,0 @@
-<svg {{ $attributes }} width="{{ $size }}" height="{{ $size }}" xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor" viewBox="0 -960 960 960">
-    <path
-        d="M160-280q-33 0-56.5-23.5T80-360v-240q0-33 23.5-56.5T160-680h160q33 0 56.5 23.5T400-600H160v240h160v-80h-80v-80h160v160q0 33-23.5 56.5T320-280zm320 0v-400h80v400zm160 0v-400h280v80H720v80h160v80H720v160z" />
-</svg>

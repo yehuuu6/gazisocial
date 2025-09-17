@@ -12,7 +12,7 @@
             </span>
         </div>
         <div :class="{ 'animate-wiggle': hasUnreadNotifications }">
-            <x-icons.notification size="33" />
+            <x-tabler-bell class="size-8" />
         </div>
     </button>
     <div x-anchor.offset.5.bottom-end="$refs.notificationMenu" x-transition.origin.top.right x-cloak
@@ -24,7 +24,7 @@
                     x-on:click="hasUnreadNotifications = false; notificationsDropdown = false; $dispatch('notification-all-read')"
                     wire:click="markAllAsRead"
                     class="p-2 text-gray-800 text-xs flex items-center gap-1 md:gap-1.5 font-medium rounded-md hover:bg-gray-100">
-                    <x-icons.check-check size="18" class="text-blue-600" />
+                    <x-tabler-check class="text-blue-600 size-4" />
                     Okundu işaretle
                 </button>
             </div>
@@ -45,11 +45,11 @@
                         }"
                             class="p-1.5 md:p-2 rounded-full">
                             @if ($notification->type == 'post_comment')
-                                <x-icons.new-comment size="18" />
+                                <x-tabler-message class="size-4" />
                             @elseif ($notification->type == 'comment_reply')
-                                <x-icons.new-reply size="18" />
+                                <x-tabler-message-reply class="size-4" />
                             @else
-                                <x-icons.notification size="18" />
+                                <x-tabler-bell class="size-4" />
                             @endif
                         </div>
                         <div class="w-full">
@@ -70,7 +70,7 @@
                 @empty
                     <div
                         class="flex items-center text-gray-500 justify-center gap-1.5 md:gap-2 px-1.5 py-3 md:px-3 md:py-5">
-                        <x-icons.sad size="18" />
+                        <x-tabler-mood-sad class="size-4" />
                         <span class="font-light text-xs md:text-sm">Hiç bildirim yok</span>
                     </div>
                 @endforelse
@@ -78,7 +78,7 @@
             <x-seperator />
             <x-link href="{{ route('notifications.index') }}"
                 class="flex items-center justify-center gap-1.5 md:gap-2 w-full px-1.5 py-3 md:px-3 md:py-5 hover:bg-gray-100 hover:no-underline">
-                <x-icons.notification size="18" class="text-blue-600" />
+                <x-tabler-bell class="text-blue-600 size-4" />
                 <span class="font-medium text-xs md:text-sm text-gray-700">
                     Tüm bildirimler
                 </span>

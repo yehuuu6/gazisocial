@@ -4,15 +4,15 @@
     @can('delete', $post)
         <template x-if="!confirmDelete">
             <button x-on:click="confirmDelete = true"
-                class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-xs font-bold text-gray-800 hover:bg-gray-100 hover:no-underline">
-                <x-icons.trash size="18" />
+                class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-sm font-bold text-gray-800 hover:bg-gray-100 hover:no-underline">
+                <x-tabler-trash class="size-5" />
                 <span>Sil</span>
             </button>
         </template>
         <template x-if="confirmDelete">
             <button wire:click="deletePost({{ $post->id }})" x-on:click="openMorePostButtons = false ;"
-                class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-xs font-bold text-red-600 hover:bg-gray-100 hover:no-underline">
-                <x-icons.trash size="18" />
+                class="flex w-full items-center px-2.5 py-2 gap-2.5 md:px-4 md:py-3 text-sm font-bold text-red-600 hover:bg-gray-100 hover:no-underline">
+                <x-tabler-trash class="size-5" />
                 <span>Onayla</span>
             </button>
         </template>
