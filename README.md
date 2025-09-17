@@ -3,6 +3,12 @@
   <img src="public/logos/GS_LOGO_WHITE.png#gh-dark-mode-only" alt="Gazi Social Logo (Dark Mode)" width="300">
 </p>
 
+## 🖼️ Gallery
+
+![post screenshot](public/showcase/post.png)
+
+![comments screenshot](public/showcase/comments.png)
+
 ## 📖 Introduction
 
 Gazi Social is a modern, interactive forum platform designed for Gazi University students to connect, share thoughts, and engage in discussions. Built with **TALL stack**, Gazi Social delivers a feature-rich and seamless user experience.
