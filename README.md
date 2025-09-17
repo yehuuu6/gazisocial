@@ -22,9 +22,9 @@ Gazi Social is a modern, interactive forum platform designed for Gazi University
 -   ⚡ **Real-time Updates**: Instant feedback on polls and activity counts.
 -   🔍 **Advanced Sorting and Filtering**: Find the most popular or recent posts effortlessly.
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack (TALL Stack)
 
--   **Backend**: PHP (Laravel 11)
+-   **Backend**: PHP (Laravel 12)
 -   **Frontend**: Livewire 3, Alpine.js, Tailwind CSS
 
 ## 🛡️ License
