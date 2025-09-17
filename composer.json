@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.4",
         "algolia/scout-extended": "^3.2",
+        "blade-ui-kit/blade-icons": "^1.8",
         "danharrin/livewire-rate-limiting": "^2.1",
         "filament/filament": "^3.3",
         "guzzlehttp/guzzle": "^7.9.2",
@@ -14,6 +15,7 @@
         "laravel/reverb": "^1.4.8",
         "livewire/livewire": "^3.6",
         "masmerise/livewire-toaster": "^2.7",
+        "secondnetwork/blade-tabler-icons": "^3.34",
         "z3d0x/filament-logger": "^0.8.0"
     },
     "require-dev": {
@@ -56,10 +58,6 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74,#34d399,#f87171\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=reverb,default-queue,notifications-queue,scout-queue,vite"
-        ],
-        "dev-linux": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#7c65ff,#93c5fd,#65ffaf,#c4b5fd,#34d399,#f87171\" \"php artisan serve\" \"php artisan reverb:start --debug\" \"php artisan queue:listen --queue=default --tries=1\" \"php artisan queue:listen --queue=notifications --tries=1\" \"php artisan queue:listen --queue=scout --tries=1\" \"npm run dev\" --names=server,reverb,default-queue,notifications-queue,scout-queue,vite"
         ]

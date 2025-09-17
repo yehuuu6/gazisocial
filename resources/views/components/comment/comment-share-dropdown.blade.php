@@ -9,7 +9,7 @@
                 openShareDropdown = false;
             "
         class="inline-flex w-full items-center gap-2.5 px-2.5 py-2 md:px-4 md:py-3 text-xs font-bold text-gray-800 hover:bg-gray-100 hover:no-underline">
-        <x-icons.copy size="18" class="shrink-0" />
+        <x-tabler-link class="size-5 shrink-0" />
         <span x-text="copyFeedback" class="text-left whitespace-nowrap"></span>
     </button>
     @if ($commentable == 'comment')
@@ -20,13 +20,13 @@
                 openShareDropdown = false;
             "
             class="inline-flex w-full items-center gap-2.5 px-2.5 py-2 md:px-4 md:py-3 text-xs font-bold text-gray-800 hover:bg-gray-100 hover:no-underline">
-            <x-icons.copy size="18" class="shrink-0" />
+            <x-tabler-link class="size-5 shrink-0" />
             <span x-text="copyFeedback" class="text-left whitespace-nowrap"></span>
         </button>
     @endif
     <x-link href="{{ $comment_url }}"
         class="inline-flex w-full items-center gap-2.5 px-2.5 py-2 md:px-4 md:py-3 text-xs font-bold text-gray-800 hover:bg-gray-100 hover:no-underline">
-        <x-icons.fork-right size="18" />
+        <x-tabler-route-alt-right class="size-5 shrink-0" />
         <span>Yoruma git</span>
     </x-link>
 </div>

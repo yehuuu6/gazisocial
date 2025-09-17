@@ -4,7 +4,7 @@
     </div>
     <div class="ml-10">
         <x-link href="{{ $url }}" class="flex items-center gap-2 text-xs text-gray-700 hover:underline">
-            <x-icons.continue size="18" />
+            <x-tabler-direction-sign class="size-5" />
             <span>{{ $moreRepliesCount }} cevap daha</span>
         </x-link>
     </div>

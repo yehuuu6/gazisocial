@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $users = User::factory(10)->create();
 
         // Create a user with custom attributes
-        $user1 = User::create([
+        $user = User::create([
             'name' => 'Eren Aydın',
             'username' => 'yehuuu6',
             'gender' => 'erkek',
@@ -30,68 +30,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $user1->assignRole([
+        $user->assignRole([
             'gazi-social',
             'gazili'
         ]);
 
-        $user2 = User::create([
-            'name' => 'Ahmet Kandaz',
-            'username' => 'KaNEX',
-            'gender' => 'Erkek',
-            'email' => 'kanex@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
-
-        $user2->assignRole([
-            'yonetici'
-        ]);
-
-        $user3 = User::create([
-            'name' => 'Melek Güleç',
-            'username' => 'melekisnothere',
-            'email' => 'melek.gulec@gazi.edu.tr',
-            'gender' => 'kadın',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
-
-        $user3->assignRole([
-            'moderator',
-            'gazili',
-        ]);
-
-        $user4 = User::create([
-            'name' => 'Kaan Efe Karadaş',
-            'username' => 'PsGl',
-            'email' => 'kaan@gazi.edu.tr',
-            'gender' => 'erkek',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
-
-        $user4->assignRole([
-            'gazili',
-        ]);
-
-        $user5 = User::create([
-            'name' => 'Gürsel Şanlı',
-            'username' => 'bayGlorious',
-            'email' => 'gursel@gazi.edu.tr',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-        ]);
-
-        $user5->assignRole([
-            'gazili',
-        ]);
-
-        $users[] = $user1;
-        $users[] = $user2;
-        $users[] = $user3;
-        $users[] = $user4;
-        $users[] = $user5;
+        $users[] = $user;
 
         $tags = Tag::all();
 

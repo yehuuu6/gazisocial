@@ -4,7 +4,7 @@
             @auth
                 @if (!Auth::user()->canPublishAPost())
                     <div class="flex items-center gap-2 mb-2 p-2 bg-amber-50 rounded-md w-fit">
-                        <x-icons.warning size="18" class="text-amber-600" />
+                        <x-tabler-alert-triangle class="text-amber-600 size-5 shrink-0" />
                         <div class="text-xs text-amber-600">
                             Hesabınız yeni olduğu için yorumlarınız tehlikeli olarak işaretlenecektir.
                         </div>
@@ -12,14 +12,13 @@
                 @endif
             @endauth
             <textarea x-model="message" spellcheck="false" class="resize-y text-xs md:text-sm text-gray-600 w-full outline-none pt-1"
-                wire:model="content" id="content" name="content" rows="2" maxlength="1000" x-trap="$wire.replyForm"
-                required></textarea>
+                wire:model="content" id="content" name="content" rows="2" maxlength="1000" x-trap="$wire.replyForm" required></textarea>
             <div class="flex items-center justify-between flex-wrap">
                 <div class="flex items-center gap-1 flex-wrap">
                     @auth
                         <button x-on:click="gifSelector = !gifSelector" x-ref="gifOpener"
                             class="text-gray-600 p-2 hover:bg-gray-100 rounded-full" type="button">
-                            <x-icons.gif size="20" />
+                            <x-tabler-gif class="size-5" />
                         </button>
                         <div x-cloak x-show="gifSelector" x-anchor.bottom-start="$refs.gifOpener"
                             x-on:click.outside="gifSelector = false"

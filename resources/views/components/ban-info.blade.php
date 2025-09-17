@@ -1,6 +1,6 @@
 <div class="shadow-sm bg-gradient-to-bl from-pink-50 to-red-100 rounded-xl px-8 py-6 mb-6 select-none relative">
     <div class="absolute right-20 top-6 text-red-800/50 hidden lg:block">
-        <x-icons.warning size="120" />
+        <x-tabler-alert-triangle class="size-32" />
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -15,8 +15,8 @@
                 bilgi almak ve itiraz için bizimle iletişime geçebilirsiniz.
             </p>
             <a href="mailto:destek@gazisocial.com"
-                class="text-red-900 hover:underline text-xs flex items-center gap-0.5 mt-2 w-fit font-bold">
-                destek@gazisocial.com <x-icons.arrow-right-alt size="16" />
+                class="inline-flex items-center gap-1 mt-2 text-xs text-red-900 font-semibold hover:underline">
+                destek@gazisocial.com <x-tabler-arrow-right class="size-3.5 mb-0.5" />
             </a>
         </div>
     </div>

@@ -10,9 +10,9 @@
                     <x-icons.spinner size="18" class="text-gray-700" />
                     <span class="font-normal">Yükleniyor</span>
                 </div>
-                <x-icons.arrow-down size="18" wire:loading.remove wire:target="setSortMethod" x-cloak
+                <x-tabler-chevron-down class="size-5" wire:loading.remove wire:target="setSortMethod" x-cloak
                     x-show="!sortDropdown" />
-                <x-icons.arrow-up size="18" wire:loading.remove wire:target="setSortMethod" x-cloak
+                <x-tabler-chevron-up class="size-5" wire:loading.remove wire:target="setSortMethod" x-cloak
                     x-show="sortDropdown" />
             </button>
         </x-ui.tooltip>
@@ -22,21 +22,21 @@
         class="bg-white shadow-lg text-xs md:text-sm text-gray-800 font-medium rounded-lg z-10 border-t border-gray-100 max-v-[50vh] overflow-y-auto w-[150px]">
         <button wire:click="setSortMethod('popularity')" type="button" x-on:click="selectedSort = 'popularity'"
             class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-4 md:py-3 hover:bg-gray-100">
-            <x-icons.heart-off size="20" class="text-pink-400" />
+            <x-tabler-heart-f class="text-pink-400 size-6" />
             <span>
                 Popüler
             </span>
         </button>
         <button wire:click="setSortMethod('newest')" type="button" x-on:click="selectedSort = 'newest'"
             class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-4 md:py-3 hover:bg-gray-100">
-            <x-icons.hot size="20" class="text-orange-400" />
+            <x-tabler-flame-f class="text-yellow-400 size-6" />
             <span>
                 Yeni
             </span>
         </button>
         <button wire:click="setSortMethod('oldest')" type="button" x-on:click="selectedSort = 'oldest'"
             class="flex items-center gap-5 md:gap-3 px-3.5 py-2.5 size-full md:px-4 md:py-3 hover:bg-gray-100">
-            <x-icons.hourglass size="20" class="text-primary" />
+            <x-tabler-hourglass-f class="text-blue-400 size-6" />
             <span>
                 Eski
             </span>

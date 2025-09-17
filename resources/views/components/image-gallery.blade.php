@@ -44,7 +44,7 @@
 
             <!-- Close Button -->
             <button x-on:click="showGallery = false" class="absolute top-4 right-4 text-white hover:text-gray-300 z-50">
-                <x-icons.close size="24" />
+                <x-tabler-x class="size-6" />
             </button>
 
             <!-- Image Counter -->
@@ -60,12 +60,12 @@
             <!-- Navigation Buttons -->
             <button x-show="images.length > 1" x-on:click="prev"
                 class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity">
-                <x-icons.arrow-left-alt size="24" />
+                <x-tabler-arrow-left class="size-6" />
             </button>
 
             <button x-show="images.length > 1" x-on:click="next"
                 class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-opacity">
-                <x-icons.arrow-right-alt size="24" />
+                <x-tabler-arrow-right class="size-6" />
             </button>
 
             <!-- Thumbnails -->

@@ -4,8 +4,8 @@
             <button x-on:click="tagsDropdown = !tagsDropdown" id="tags-button"
                 class="flex items-center gap-1 md:gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium capitalize shadow">
                 <span x-text="displayText"></span>
-                <x-icons.arrow-down size="20" x-show="!tagsDropdown" />
-                <x-icons.arrow-up size="20" x-cloak x-show="tagsDropdown" />
+                <x-tabler-chevron-down class="size-5" x-show="!tagsDropdown" />
+                <x-tabler-chevron-up class="size-5" x-cloak x-show="tagsDropdown" />
             </button>
         </x-ui.tooltip>
     </div>

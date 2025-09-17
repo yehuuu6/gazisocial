@@ -24,7 +24,7 @@ return [
 
     'recaptcha' => [
         'key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
-        'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+        'secret' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
     ],
 
     'ses' => [

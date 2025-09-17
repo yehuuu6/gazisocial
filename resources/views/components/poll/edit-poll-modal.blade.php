@@ -18,7 +18,7 @@
         class="rounded-xl overflow-hidden shadow-lg bg-white relative max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full h-fit transform transition-all duration-300">
         <div class="bg-gradient-to-r from-teal-500 to-teal-400 text-white">
             <h3 class="px-6 py-4 text-lg font-semibold text-white flex items-center gap-2">
-                <x-icons.survey size="24" />
+                <x-tabler-file-analytics class="size-6" />
                 Anketi Düzenle
             </h3>
         </div>
@@ -35,13 +35,13 @@
                     </div>
                     <div class="flex items-center justify-between gap-5 mb-3">
                         <h4 class="font-medium text-gray-700 flex items-center gap-1.5">
-                            <x-icons.bullet-list size="18" />
+                            <x-tabler-list class="size-5" />
                             Seçenekler
                         </h4>
                         <div class="flex items-center gap-2">
                             <button type="button" wire:click="$set('optionsCount', Math.min(optionsCount + 1, 10))"
                                 class="text-teal-500 text-sm font-medium hover:text-teal-600 transition-colors duration-200 flex items-center gap-1">
-                                <x-icons.show size="16" />
+                                <x-tabler-plus class="size-4" />
                                 Ekle
                             </button>
                         </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <button type="button" wire:click="deleteOption({{ $i }})"
                                         class="shrink-0 text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">
-                                        <x-icons.trash size="16" />
+                                        <x-tabler-trash class="size-4" />
                                     </button>
                                 </li>
                             @endfor

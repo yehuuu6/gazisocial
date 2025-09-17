@@ -12,8 +12,8 @@ displayText = timeSpanValues['{{ request('time') }}'] ?? 'Tüm Zamanlar';">
             <button type="button" x-on:click="timeSelectorDropdown = !timeSelectorDropdown"
                 class="pr-2 flex items-center gap-2 text-base md:text-lg text-gray-800 font-semibold">
                 <span class="font-semibold" x-text="displayText">Tüm Zamanlar</span>
-                <x-icons.arrow-down size="20" x-show="!timeSelectorDropdown" />
-                <x-icons.arrow-up size="20" x-cloak x-show="timeSelectorDropdown" />
+                <x-tabler-chevron-down class="size-5" x-show="!timeSelectorDropdown" />
+                <x-tabler-chevron-up class="size-5" x-cloak x-show="timeSelectorDropdown" />
             </button>
         </x-ui.tooltip>
     </div>

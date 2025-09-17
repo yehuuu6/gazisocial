@@ -19,7 +19,7 @@
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             <div class="text-gray-800 flex-shrink-0">
-                <x-icons.cookie size="20" />
+                <x-tabler-cookie class="size-6" />
             </div>
             <p class="text-xs md:text-sm text-gray-700 mt-1">
                 Size daha iyi bir deneyim sunmak için çerezleri kullanıyoruz.

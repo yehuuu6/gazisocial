@@ -39,34 +39,34 @@
                                     <span class="text-xs font-light text-gray-500">{{ '@' . Auth::user()->username }}</span>
                                 </div>
                                 <div class="ml-0.5">
-                                    <x-icons.arrow-up-down size="20" />
+                                    <x-tabler-selector class="size-5 text-gray-600" />
                                 </div>
                             </div>
                             <div class="flex w-[225px] max-w-lg flex-col gap-1 rounded-md border border-gray-200 bg-white text-sm text-gray-800 shadow-lg"
                                 x-anchor.offset.5.bottom-end="$refs.userMenu" x-cloak x-show="userDropdown"
                                 x-on:click.outside="userDropdown = false" x-transition.scale.origin.top.right>
-                                <h3 class="px-3 py-2 font-semibold">Hesabım</h3>
+                                <h3 class="px-3 pt-2 pb-0.5 font-semibold">Hesabım</h3>
                                 <x-seperator />
                                 @if (Auth::user()->canDoHighLevelAction())
                                     <a href="/dashboard" target="_blank"
                                         class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                        <x-icons.admin size="20" />
+                                        <x-tabler-dual-screen class="size-5" />
                                         <span>Yönetim Paneli</span>
                                     </a>
                                 @endif
                                 <x-link href="{{ route('users.show', Auth::user()->username) }}"
                                     class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.user size="20" />
+                                    <x-tabler-user class="size-5" />
                                     <span>Profili Gör</span>
                                 </x-link>
                                 <x-link href="{{ route('notifications.index') }}"
                                     class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.notification size="20" />
+                                    <x-tabler-bell class="size-5" />
                                     <span>Bildirimler</span>
                                 </x-link>
                                 <x-link href="{{ route('users.edit', Auth::user()->username) }}"
                                     class="mx-1 flex items-center gap-3 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                    <x-icons.cog size="20" />
+                                    <x-tabler-settings class="size-5" />
                                     <span>Ayarlar</span>
                                 </x-link>
                                 <x-seperator />
@@ -74,8 +74,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="mx-1 flex-1 mb-1 flex items-center gap-3.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
-                                        <x-icons.logout size="16" class="text-black ml-0.5" />
+                                        class="mx-1 flex-1 mb-1 flex items-center gap-2.5 rounded px-3 py-2 hover:bg-gray-100 hover:no-underline">
+                                        <x-tabler-logout class="text-black size-5 ml-0.5" />
                                         <span>Çıkış Yap</span>
                                     </button>
                                 </form>
@@ -85,8 +85,8 @@
                 </div>
                 <button x-on:click="navbarDropdown = !navbarDropdown"
                     class="flex items-center rounded-md p-1 hover:bg-gray-100 text-primary md:hidden" title="Menüyü Aç">
-                    <x-icons.close size="36" x-cloak x-show="navbarDropdown" />
-                    <x-icons.menu size="36" x-cloak x-show="!navbarDropdown" />
+                    <x-tabler-x x-cloak x-show="navbarDropdown" class="size-9" />
+                    <x-tabler-menu-2 x-cloak x-show="!navbarDropdown" class="size-9" />
                 </button>
             </div>
         </div>
@@ -143,7 +143,7 @@
                     <button type="submit"
                         class="flex w-full items-center justify-between gap-1 rounded px-6 py-4 text-sm font-medium text-primary hover:bg-gray-100">
                         <span>Çıkış Yap</span>
-                        <x-icons.logout size="20" class="mr-1" />
+                        <x-tabler-logout class="size-5 mr-0.5" />
                     </button>
                 </form>
             @endauth

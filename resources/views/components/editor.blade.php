@@ -16,7 +16,7 @@
                             'hover:bg-gray-200': !isActive('heading', { level: 2 }, updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.heading-1 size="20" />
+                        <x-tabler-h-1 class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Başlık 2">
@@ -26,7 +26,7 @@
                             'hover:bg-gray-200': !isActive('heading', { level: 3 }, updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.heading-2 size="20" />
+                        <x-tabler-h-2 class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Başlık 3">
@@ -36,7 +36,7 @@
                             'hover:bg-gray-200': !isActive('heading', { level: 4 }, updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.heading-3 size="20" />
+                        <x-tabler-h-3 class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Kalın">
@@ -46,7 +46,7 @@
                             'hover:bg-gray-200': !isActive('bold', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.bold size="20" />
+                        <x-tabler-bold class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="İtalik">
@@ -56,7 +56,7 @@
                             'hover:bg-gray-200': !isActive('italic', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.italic size="20" />
+                        <x-tabler-italic class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Altı Çizili">
@@ -66,7 +66,7 @@
                             'hover:bg-gray-200': !isActive('underline', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.underline size="20" />
+                        <x-tabler-underline class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Üstü Çizili">
@@ -76,7 +76,7 @@
                             'hover:bg-gray-200': !isActive('strike', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.strike size="20" />
+                        <x-tabler-strikethrough class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Alıntı">
@@ -86,7 +86,7 @@
                             'hover:bg-gray-200': !isActive('blockquote', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.quote size="20" />
+                        <x-tabler-quote class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Madde İşaretli Liste">
@@ -96,7 +96,7 @@
                             'hover:bg-gray-200': !isActive('bulletList', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.bullet-list size="20" />
+                        <x-tabler-list class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Numaralandırılmış Liste">
@@ -106,7 +106,7 @@
                             'hover:bg-gray-200': !isActive('orderedList', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.ordered-list size="20" />
+                        <x-tabler-list-numbers class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Bağlantı Ekle">
@@ -116,7 +116,7 @@
                             'hover:bg-gray-200': !isActive('link', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.link size="20" />
+                        <x-tabler-link class="size-5" />
                     </button>
                 </x-ui.tooltip>
                 <x-ui.tooltip position="bottom" text="Kod Bloğu Ekle">
@@ -126,7 +126,7 @@
                             'hover:bg-gray-200': !isActive('codeBlock', updatedAt)
                         }"
                         class="p-3 flex item-center justify-center">
-                        <x-icons.code size="20" />
+                        <x-tabler-code class="size-5" />
                     </button>
                 </x-ui.tooltip>
             </menu>

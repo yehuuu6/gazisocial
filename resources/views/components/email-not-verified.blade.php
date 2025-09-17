@@ -1,6 +1,6 @@
 <div class="shadow-sm bg-gradient-to-bl from-sky-50 to-blue-100 rounded-xl px-8 py-6 mb-6 select-none relative">
     <div class="absolute right-20 top-6 text-blue-800/50 hidden lg:block">
-        <x-icons.mail size="120" />
+        <x-tabler-mail class="size-32" />
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -15,8 +15,8 @@
                 bulamadıysanız, aşağıdaki düğmeyi kullanarak yeni bir doğrulama e-postası gönderebilirsiniz.
             </p>
             <x-link href="{{ route('verification.notice') }}"
-                class="text-indigo-900 text-xs flex items-center gap-0.5 mt-2 w-fit font-bold">
-                Hesabımı doğrula <x-icons.arrow-right-alt size="16" />
+                class="inline-flex items-center gap-1 mt-2 text-xs text-indigo-900 font-semibold hover:underline">
+                Hesabımı doğrula <x-tabler-arrow-right class="size-3.5 mb-0.5" />
             </x-link>
         </div>
     </div>

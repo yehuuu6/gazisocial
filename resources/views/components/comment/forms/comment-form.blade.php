@@ -4,7 +4,7 @@
             @auth
                 @if (!Auth::user()->canPublishAPost())
                     <div class="flex items-center gap-2 mb-2 p-2 bg-amber-50 rounded-md w-fit">
-                        <x-icons.warning size="18" class="text-amber-600" />
+                        <x-tabler-alert-triangle class="text-amber-600 size-5 shrink-0" />
                         <div class="text-xs text-amber-600">
                             Hesabınız yeni olduğu için yorumlarınız tehlikeli olarak işaretlenecektir.
                         </div>
@@ -19,7 +19,7 @@
                     @auth
                         <button x-on:click="gifSelector = !gifSelector" x-ref="gifOpener"
                             class="text-gray-600 p-2 hover:bg-gray-100 rounded-full" type="button">
-                            <x-icons.gif size="20" />
+                            <x-tabler-gif class="size-5" />
                         </button>
                         <div x-cloak x-show="gifSelector" x-anchor.bottom-start="$refs.gifOpener"
                             x-on:click.outside="gifSelector = false"
