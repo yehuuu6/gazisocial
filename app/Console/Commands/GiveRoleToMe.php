@@ -30,6 +30,13 @@ class GiveRoleToMe extends Command
         $user = User::where('email', 'eren.aydin@gazi.edu.tr')->first();
         $role = Role::where('slug', 'gazi-social')->first();
 
+        // If the user already has the role, do nothing
+        if ($user && $role && $user->roles->contains($role->id))
+        {
+            $this->warn('User already has the role.');
+            return;
+        }
+
         if ($user && $role) {
             $user->roles()->attach($role);
             $this->info('Role assigned successfully.');
