@@ -3,6 +3,8 @@
   <img src="public/logos/GS_LOGO_WHITE.png#gh-dark-mode-only" alt="Gazi Social Logo (Dark Mode)" width="300">
 </p>
 
+> Due to low user count, the project has been canceled and the website will no longer remain active.
+
 ## 🖼️ Gallery
 
 ![post screenshot](public/showcase/post.png)
